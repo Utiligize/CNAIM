@@ -7,7 +7,7 @@ consequences of failure and monetary risk associated with electricity
 distribution companies' assets such as transformers and cables. Results are
 visualized in an easy-to-understand risk matrix.
 
-![risk matrix]https://raw.githubusercontent.com/Utiligize/CNAIM/master/man/figures/risk_matrix.png?raw=true
+![risk matrix](man/figures/risk_matrix.png?raw=true "Risk matrix visualization")
 
 Open source implementation by [Utiligize](https://www.utiligize.com/) inspired by the framework specified by the Distribution Network Operators and the regulator (Ofgem) in Great Britain. The specification document is available [here.](https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf)
 
