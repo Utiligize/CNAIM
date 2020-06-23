@@ -29,4 +29,4 @@ Please report any issues on GitHub or send an email to contact@utiligize.com
 
 ## License
 This package is made available under the MIT license
-See the [LICENSE](https://github.com/Utiligize/CNAIM/LICENSE) file for more details.
+See the [LICENSE](LICENSE) file for more details.
