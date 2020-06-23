@@ -1,0 +1,17 @@
+citHeader("To cite the package 'CNAIM' in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Common Network Asset Indices Methodology",
+  author   = personList(as.person("Emil Mahler Larsen"),
+                        as.person("Kalle Thorbjørn Hansen"),
+                        as.person("Peter Mahler Larsen")),
+  journal  = "NONE",
+  year     = "2020",
+  volume   = "",
+  number   = "",
+  pages    = "",
+  url      = "https://www.cnaim.io/",
+  textVersion = paste("Utiligize ApS (2020). Common Network Asset Indices Methodology (CNAIM) for R."
+  )
+)
