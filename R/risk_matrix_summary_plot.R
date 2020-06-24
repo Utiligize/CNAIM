@@ -5,10 +5,6 @@
 #' @param x_intervals An array of x spacing in percent (sum to 100)
 #' @param y_intervals An array of y spacing in percent (sum to 100)
 #' @export
-#' @examples
-#' # Financial consequences of failure for a 6.6/11 kV transformer
-#' risk_data_matrix <- risk_matrix_structure(5,4,NA)
-#' risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
 
 risk_matrix_summary_plot <- function(risk_data_matrix,
                                 x_intervals = rep(20,5),

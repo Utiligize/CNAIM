@@ -21,8 +21,3 @@ risk_matrix_summary_plot(
 This function makes a D3 visualization of monetary risk with
 non-linear x and y intervals.
 }
-\examples{
-# Financial consequences of failure for a 6.6/11 kV transformer
-risk_data_matrix <- risk_matrix_structure(5,4,NA)
-risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
-}
