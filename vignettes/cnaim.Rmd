@@ -1,0 +1,25 @@
+---
+title: "cnaim"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{cnaim}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Introduction
+
+The green transition will require significant investment in utility infrastructure. Many countries have restrictive income caps or fixed tariffs that do not allow for investment to support the electrification of transport, heating and agricultural processes. Incentive-based revenue caps are the answer, and will likely be adopted in many countries over the next decade. This package allows regulators, data scientists and researchers to calculate and understand:
+
+1) Asset lifetimes
+2) Economic consequences of asset failures, both minor and major
+3) Monetary risk
+4) Probability of failure parameter estimates based on fault statistics
