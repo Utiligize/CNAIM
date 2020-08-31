@@ -1,4 +1,5 @@
 ![example workflow name](https://github.com/Utiligize/CNAIM/workflows/R-CMD-check/badge.svg)
+![License](https://img.shields.io/badge/license-MIT%20License-blue.svg)
 
 # CNAIM ([cnaim.io](https://www.cnaim.io/))
 Common Network Asset Indices Methodology (CNAIM) package for the R language.
