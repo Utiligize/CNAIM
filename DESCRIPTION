@@ -13,6 +13,7 @@ Authors@R: c(
             email = "peter@utiligize.com",
             role = c("ctb"))
     )
+Maintainer: Emil Larsen <emil@utiligize.com>
 Description: Implementation of the CNAIM standard in R. Contains a series of
     algorithms which determine the probability of failure, consequences of
     failure and monetary risk associated with electricity distribution
@@ -36,7 +37,7 @@ Imports:
     stringr,
     testthat,
     tibble
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown

@@ -1,6 +1,7 @@
 library(testthat)
 library(CNAIM)
 
+context("consequences of a failure of a transformer")
 
 test_that("cof_transformer_11kv", {
   # TODO: verify correctness
