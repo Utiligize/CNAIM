@@ -50,6 +50,9 @@ n_cof_excl_ehv_132kv_tf <- function(asset_type_ncf,
                                     no_customers,
                                     kva_per_customer = "Default") {
 
+  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
+  # due to NSE notes in R CMD check
+
   # Get category ------------------------------------------------------------
   asset_type_ncf <- "6.6/11kV Transformer (GM)"
 

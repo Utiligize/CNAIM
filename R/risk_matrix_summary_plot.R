@@ -15,7 +15,7 @@ risk_matrix_summary_plot <- function(risk_data_matrix,
   if (is.null(risk_data_matrix$mouse_over_text) &
       max(risk_data_matrix$x) == 5 &
       max(risk_data_matrix$y) == 4){
-    risk_data_matrix$mouse_over_text <- CNAIM:::example_risk_matrix$mouse_over_text
+    risk_data_matrix$mouse_over_text <- example_risk_matrix$mouse_over_text
   }
 
   # Non-linear bins -------

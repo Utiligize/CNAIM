@@ -29,6 +29,9 @@
 f_cof_transformer_11kv <- function(kva = "Default",
                                    type = "Default") {
 
+  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
+  # due to NSE notes in R CMD check
+
   # Get category ------------------------------------------------------------
   asset_type <- "6.6/11kV Transformer (GM)"
 

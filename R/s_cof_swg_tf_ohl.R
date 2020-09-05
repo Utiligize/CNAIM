@@ -57,6 +57,9 @@ s_cof_swg_tf_ohl <- function(type_risk = "Default",
                             location_risk = "Default",
                             asset_type_scf) {
 
+  `Asset Register Category` = NULL
+  # due to NSE notes in R CMD check
+
   # Get category ------------------------------------------------------------
   reference_costs_of_failure_tf <-
     dplyr::filter(gb_ref$reference_costs_of_failure,

@@ -12,6 +12,10 @@
 #' @export
 #'
 risk_calculation <- function(matrix_dimensions,id,pof,cof,asset_type){
+
+  `Asset Register Category` = `Total - (GBP)` = NULL
+  # due to NSE notes in R CMD check
+
   reference_cof <- gb_ref$reference_costs_of_failure %>%
     dplyr::filter(`Asset Register Category` == asset_type) %>%
     dplyr::select(`Total - (GBP)`) %>%

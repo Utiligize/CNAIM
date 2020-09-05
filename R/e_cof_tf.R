@@ -34,8 +34,11 @@
 
 e_cof_tf <- function(asset_type_tf, rated_capacity = "Default",
                      prox_water = "Default", bunded = "Default") {
-  # Get category ------------------------------------------------------------
 
+  `Asset Register Category` = `Health Index Asset Category` = `Lower` = NULL
+  # due to NSE notes in R CMD check
+
+  # Get category ------------------------------------------------------------
 
   asset_category <- gb_ref$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == asset_type_tf) %>%
