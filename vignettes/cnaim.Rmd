@@ -3,7 +3,7 @@ title: "CNAIM"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{cnaim}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -214,16 +214,7 @@ adj_mat_1  = matrix_adjusted_circles(matrix_structure,
                                      dot_radius = 4)
 ```
 
-```{r echo=FALSE} 
-r2d3(
-  data = adj_mat_1,
-  script = system.file("extdata/matrix_upper_level_circles.js" , package = 'CNAIM'),
-  dependencies = system.file("extdata/matrix_d3script_circles_aa.js", package = 'CNAIM') ,
-  container = 'div' 
-)
-```
-<DIV id="d3-chart1">
-</DIV>
+<img src="images/individual_asset_risk.svg" height="600" width="800" />
 
 ##### Asset class risk
 Given a population of assets within the same asset class, we can visualize how monetary risk is distributed with the following example:
@@ -246,16 +237,8 @@ y_intervals = y_intervals/sum(y_intervals)
 y_intervals = round(y_intervals,2)
 adj_mat_2 = CNAIM::matrix_adjusted_intervals(risk_data_matrix,x_intervals,y_intervals) 
 ```
-```{r echo=FALSE} 
-r2d3( 
-  data = toJSON(adj_mat_2), 
-  script = system.file("extdata/matrix_upper_level_nonlinear.js", package = 'CNAIM'),
-  dependencies = system.file("extdata/matrix_d3script_chart_2.js", package = 'CNAIM'),
-  container = "div"
-)
-```
-<DIV id="d3-chart2">
-</DIV>
+
+<img src="images/asset_class_risk.svg" height="600" width="800"/>
 
 ##### Non-linear bins
 Sometimes it is desirable to create the matrix with non-linear intervals, since each interval represents a bin of CoF and PoF, bins which typically increase in size as the CoF and health scores increase. The inputs `x_intervals` and `y_intervals` should match the x and y dimensions of the risk matrix data frame, but can contain any values, since these are internally normalised to 1.
@@ -280,16 +263,8 @@ y_intervals = y_intervals/sum(y_intervals)
 y_intervals = round(y_intervals,2)
 adj_mat_3 = matrix_adjusted_intervals(risk_data_matrix,x_intervals, y_intervals) 
 ```
-<DIV id="d3-chart3">
-```{r echo=FALSE} 
-r2d3( 
-  data = toJSON(adj_mat_3), 
-  script = system.file("extdata/matrix_upper_level_nonlinear_bins.js", package = 'CNAIM'),
-  dependencies = system.file("extdata/matrix_d3script_chart_3.js", package = 'CNAIM'),
-  container = "div"
-)
-```
-</DIV>
+
+<img src="images/non_linear_bins.svg" height="600" width="800"/>
 
 ##### Matrices with different dimensions
 Although the CNAIM standard specifies a rigid 5x4 matrix, it might be desirable to implement different size risk matrices. The CNAIM R package offers this flexibility. For example, to make a 4x4 matrix:
@@ -312,41 +287,6 @@ y_intervals = y_intervals/sum(y_intervals)
 y_intervals = round(y_intervals,2)
 adj_mat_4 = matrix_adjusted_intervals(risk_data_matrix,x_intervals, y_intervals) 
 ```
-<DIV id="d3-chart4">
-```{r echo=FALSE} 
-r2d3( 
-  data = toJSON(adj_mat_4), 
-  script = system.file("extdata/matrix_upper_level_nonlinear_different_dimensions.js", package = 'CNAIM'),
-  dependencies = system.file("extdata/matrix_d3script_chart_4.js", package = 'CNAIM'),
-  container = "div"
-)
-```
-</DIV>
 
-<DIV id="d3-chart5">
+<img src="images/different_dimensions.svg" height="600" width="800"/>
 
-```{r eval=T, message=FALSE, warning=FALSE, include=F}
-risk_data_matrix = read.csv(system.file("extdata/matrix_data_new_values.csv", package = "CNAIM"), stringsAsFactors = F)
-#random points
-point_x = sample(1:100, 10)
-point_y = sample(1:100, 10)
-dots_vector = data.frame(id = 1:length(point_x), point_x , point_y)
-dot_radius = 3
-# x_intervals = sample(20:100,5) #random numbers
-x_intervals = 50*c(0.01,0.01,0.01,0.02,0.03)
-x_intervals = x_intervals/sum(x_intervals)
-x_intervals = round(x_intervals,2)
-y_intervals = 50*c(0.75,0.75,1,1.5)
-# y_intervals = sample(20:100,4) #random numbers
-y_intervals = y_intervals/sum(y_intervals)
-y_intervals = round(y_intervals,2)
-combined_matrix = matrix_combined(risk_data_matrix, dots_vector,
-                                dot_radius, x_intervals, y_intervals)
-r2d3(
-  data = combined_matrix,
-  script = system.file("extdata/matrix_upper_combined.js", package = 'CNAIM'),
-  dependencies = system.file("extdata/matrix_d3script_combined.js", package = 'CNAIM'),
-  container = "div"
-)
-```
-</DIV>
