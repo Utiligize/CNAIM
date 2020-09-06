@@ -12,3 +12,5 @@ scripts/*
 ^packrat/
 ^\.Rprofile$
 ^NEWS\.md$
+^javascript$
+^data-raw$
