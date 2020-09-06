@@ -200,20 +200,6 @@ risk_matrix_points_plot(matrix_structure,
                         dot_radius = 4)
 ```
 
-```{r real-calculation, message=FALSE, warning=FALSE, include=FALSE}
-# Generate an empty 5x4 matrix
-matrix_structure <- risk_matrix_structure(5,4,NA)
-# Monetary risk for one asset
-risk_coordinates <- risk_calculation(matrix_dimensions = matrix_structure,
-                                     id = "Transformer1",
-                                     pof = 0.08,
-                                     cof = 18232,
-                                     asset_type = "6.6/11kV Transformer (GM)")
-adj_mat_1  = matrix_adjusted_circles(matrix_structure,
-                                     risk_coordinates,
-                                     dot_radius = 4)
-```
-
 <img src="images/individual_asset_risk.svg" height="600" width="800" />
 
 ##### Asset class risk
@@ -223,19 +209,6 @@ Given a population of assets within the same asset class, we can visualize how m
 risk_data_matrix <- risk_matrix_structure(5,4,NA)
 risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
 risk_matrix_summary_plot(risk_data_matrix)
-```
-
-```{r real-calculation-2, message=FALSE, warning=FALSE, include=FALSE}
-# Non-linear bins -------
-risk_data_matrix <- CNAIM:::example_risk_matrix
-risk_data_matrix$value <- sample(1:30,size=nrow(risk_data_matrix),replace = T)
-x_intervals = rep(20,5)
-x_intervals = x_intervals/sum(x_intervals) 
-x_intervals = round(x_intervals,2) 
-y_intervals = rep(25,4)
-y_intervals = y_intervals/sum(y_intervals)
-y_intervals = round(y_intervals,2)
-adj_mat_2 = CNAIM::matrix_adjusted_intervals(risk_data_matrix,x_intervals,y_intervals) 
 ```
 
 <img src="images/asset_class_risk.svg" height="600" width="800"/>
@@ -251,19 +224,6 @@ risk_matrix_summary_plot(risk_data_matrix,
                          y_intervals = c(0.75,0.75,1,1.5))
 ```
 
-```{r real-calculation-3, message=FALSE, warning=FALSE, include=FALSE}
-# Non-linear bins -------
-risk_data_matrix <- readRDS(system.file("extdata/risk_data_matrix.rds", package = "CNAIM"))
-risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
-x_intervals = c(0.1,0.1,0.1,0.2,0.3)
-x_intervals = x_intervals/sum(x_intervals) 
-x_intervals = round(x_intervals,2) 
-y_intervals = c(0.75,0.75,1,1.5)
-y_intervals = y_intervals/sum(y_intervals) 
-y_intervals = round(y_intervals,2)
-adj_mat_3 = matrix_adjusted_intervals(risk_data_matrix,x_intervals, y_intervals) 
-```
-
 <img src="images/non_linear_bins.svg" height="600" width="800"/>
 
 ##### Matrices with different dimensions
@@ -273,19 +233,6 @@ Although the CNAIM standard specifies a rigid 5x4 matrix, it might be desirable 
 risk_data_matrix <- risk_matrix_structure(5,4,NA)
 risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
 risk_matrix_summary_plot(risk_data_matrix)
-```
-
-```{r real-calculation-4, message=FALSE, warning=FALSE, include=FALSE}
-# Non-linear bins -------
-risk_data_matrix <- CNAIM::risk_matrix_structure(4,4,NA)
-risk_data_matrix$value <- sample(1:30,size=nrow(risk_data_matrix),replace = T)
-x_intervals = rep(25,4)
-x_intervals = x_intervals/sum(x_intervals) 
-x_intervals = round(x_intervals,2) 
-y_intervals = rep(25,4)
-y_intervals = y_intervals/sum(y_intervals)
-y_intervals = round(y_intervals,2)
-adj_mat_4 = matrix_adjusted_intervals(risk_data_matrix,x_intervals, y_intervals) 
 ```
 
 <img src="images/different_dimensions.svg" height="600" width="800"/>
