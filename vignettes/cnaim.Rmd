@@ -1,0 +1,239 @@
+---
+title: "CNAIM"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{cnaim}
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+# Introduction
+
+The green transition will require significant investment in utility infrastructure. Many countries have restrictive income caps or fixed tariffs that do not allow for investment to support the electrification of transport, heating and agricultural processes. Incentive-based revenue caps are the answer, and will likely be adopted in many countries over the next decade. This package allows regulators, data scientists and researchers to calculate and understand:
+
+1) Asset lifetimes
+2) Economic consequences of asset failures, both minor and major
+3) Monetary risk
+4) Probability of failure parameter estimates based on fault statistics
+
+## Probability of failure
+
+In CNAIM, the probability of failure (PoF) is modelled as the first three terms of a Taylor Series expansion of an exponential function.
+
+$\begin{align*} PoF =& K \cdot e^{(C \cdot H)} \\=& K \cdot \sum_{n=1}^\infty \frac{(C \cdot H)^n}{n!} \\\approx& K \cdot \left[1 + (C \cdot H) + \frac{(C \cdot H)^2}{2!} + \frac{(C \cdot H)^3}{3!}\right] \end{align*}$
+
+where \
+$K$ scales the PoF to a failure rate that matches observed fault statistics \
+$C$ describes the shape of the PoF curve \
+$H$ is the health score based on observed and measured explanatory variables
+
+The definition of a functional failure can be divided into three classes of 
+failure modes:
+
+* *Incipient - minor failure* 
+* *Degraded - significant failure* 
+* *Catastrophic - total failure* 
+
+```{r echo=F, message=F, class.source='highlight',comment=""}
+library(CNAIM)
+```
+##### Example for a 6.6/11 kV transformer
+Assuming a transformer:
+
+- *has a utilization of 55%*
+- *is placed indoors*
+- *is sited at an altitude of 75m*
+- *has 20km to the coast*
+- *is sited in an area with a corrosion category index of 2*
+- *is 25 years old*
+- *has a low partial discharge*
+- *has an oil acidity of 0.1mgKOH/g*
+- *has a normal temperature reading*
+- *is in good observed condition*
+- *has a default reliability factor of 1*
+
+Then we can call the function as follows:
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+pof <- pof_transformer_11kv(utilisation_pct = 55,
+                            placement = "Indoor",
+                            altitude_m = 75,
+                            distance_from_coast_km = 20,
+                            corrosion_category_index = 2,
+                            age = 25,
+                            partial_discharge = "Low",
+                            oil_acidity = 0.1,
+                            temperature_reading = "Normal",
+                            observed_condition = "Good",
+                            reliability_factor = "Default")
+sprintf("The probability of failure is %.2f%% per year", 100*pof) 
+```
+
+The only mandetory input variable is age; the rest have defaults, so you can call the function like:
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+pof <- pof_transformer_11kv(age = 55)
+sprintf("The probability of failure is %.2f%% per year", 100*pof) 
+```
+
+## Consequences of failure
+
+The CNAIM methodology's second key element is the consequence of a failure. When combined with probability of failure, the consequences of failure can be used to derive the monetary network risk. Consequence of failure calculations are based on the same failure modes as probability of failure.
+
+The consequences of failure can be divided into four: 
+
+* *Financial consequences of failure*
+* *Safety consequences of failure*
+* *Environmental consequences of failure*
+* *Network performance consequences of failure*
+
+The sub-consequences have an associated asset specific reference cost of failure based on the British DNOs' experience and other objective sources. All reference costs are currently in 2012/2013 prices. The reference cost of failure for all sub-categories are scaled with respect to the specific conditions and locations of the individual asset.
+
+*Financial consequences of failure* considers cost associated with replacement and repairs that returns the asset to its initial condition before the incident. 
+
+*Safety consequences of failure* considers the likelihood and the cost that a failure could be hazardous to a person or a worker including the likelihood that the failure could be fatal. The safety implications is taken from Electricity Safety, Quality and Continuity Regulations (ESQCR). 
+
+*Environmental consequences of failure* considers the cost of a potential oil spill and mitigation of the extremely potent greenhouse gas, sulfur hexafluoride.   
+
+*Network performance consequences of failure* considers the cost a failure imposes to the customers served by the by the asset and the number of interrupting minutes. 
+
+##### Example for a 6.6/11kV transformer 
+Assuming a transformer:
+
+* *has a rated capacity of 750 kVA* 
+* *has confined access i.e. assessed to be of a "Type B"*
+* *is exhibiting a low risk to the public*
+* *is exposed to a medium risk of trespassers*
+* *is located 95 meters from a stream*
+* *is serving 750 customers*
+* *has an average demand of 1 kVA per customer*
+
+```{r echo=FALSE, message=F}
+library(CNAIM)
+library(r2d3)
+library(jsonlite)
+library(dplyr)
+library(widgetframe)
+library(r2d3)
+```
+
+###### Financial consequences of failure
+The financial reference cost of failure for a 6.6/11kV transformer is £7,739, which is scaled by the rated capacity measured in kVA and the accessibility. The financial consequences of failure are found using:
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+financial_cof <- f_cof_transformer_11kv(kva = 750, type = "Type B")
+sprintf("The financial consequences of failure is GBP %.f", round(financial_cof))
+```
+
+###### Safety consequences of failure
+The safety reference cost of failure for a 6.6/11kV transformer is £4,262, which is scaled by the location and the risk the transformer represents to the public. The function below is able to calculate the safety consequences of failure for switchgears, transformers and overhead lines:
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+safety_cof <- s_cof_swg_tf_ohl(type_risk = "Low", 
+                               location_risk = "Medium", 
+                               asset_type_scf = "6.6/11kV Transformer (GM)")
+sprintf("The safety consequences of failure is GBP %.f", round(safety_cof))
+```
+
+###### Environmetal consequences of failure
+The environmental reference cost of failure for a 6.6/11kV transformer is £3,171. The environmental consequences of failure calculation considers proximity to water courses, the asset's rated capacity, and if the transformer is bunded or not. This function can calculate environmental consequences of failure for all types of transformers specified in CNAIM methodology:
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+environmental_cof <- e_cof_tf(asset_type_tf = "6.6/11kV Transformer (GM)",
+                              rated_capacity = 750,
+                              prox_water = 95,
+                              bunded = "Yes")
+sprintf("The environmental consequences of failure is GBP %.f", round(environmental_cof)) 
+```
+
+###### Network performance consequences of failure
+The reference network performance cost of failure for a 6.6/11kV transformer is £4,862. This cost is scaled according to the number of customers connected to the transformer and kVA per customer. This function can calculate network consequences of 
+failure for all assets with the exception EHV and 132kV asset:
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+network_cof <- n_cof_excl_ehv_132kv_tf(asset_type_ncf = "6.6/11kV Transformer (GM)",
+                                       no_customers = 750,
+                                       kva_per_customer = 1)
+sprintf("The network performance consequences of failure is GBP %.f", round(network_cof)) 
+```
+
+###### Consequences of failure
+The overall consequences of failure in our example can found using:
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+cof_transformer <- cof(financial_cof, safety_cof, environmental_cof, network_cof)
+sprintf("The consequences of failure is GBP %.f", cof_transformer) 
+```
+
+The function adds the sub-consequences together to a total consequence of a failure. For the 6.6/11kV transformer described in this example, it is now possible to derive the monetary risk.
+
+A quick way to find the consequences of failure for the 6.6/11kV transformer in this example is: 
+```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
+cof_short_cut <- cof_transformer_11kv(kva = 750, type = "Type B",
+                                      type_risk = "Low", location_risk = "Medium",
+                                      prox_water =  95, bunded = "Yes",
+                                      no_customers =  750, kva_per_customer = 1)
+all.equal(cof_transformer, cof_short_cut)
+```
+
+
+## Monetary risk
+
+```{r}
+source('fns_monetary_risk.R')
+```
+
+
+Once probability of failure and consequences of failure have been calculated for each asset, monetary risk is calculated as:
+
+$Risk = PoF \cdot CoF$
+
+Risk matrices for each asset class, along with cost-benefit analyses of interventions (reinvestment and maintenance) are submitted to the regulator, allowing utility and regulator to reach concensus on the right balance of cost and reliability.
+
+##### Individual asset risk
+Given an asset with a probability of failure = 0.08\% per year and consequences of failure equal to £18,232, we can visualize and analyize which risk class this asset has with the following functions:
+```{r fake-calculation, echo=TRUE, message=FALSE, warning=FALSE, eval=F, class.source='highlight',comment=""}
+# Generate an empty 5x4 matrix
+matrix_structure <- risk_matrix_structure(5,4,NA)
+# Monetary risk for one asset
+risk_coordinates <- risk_calculation(matrix_dimensions = matrix_structure,
+                                     id = "Transformer1",
+                                     pof = 0.08,
+                                     cof = 18232,
+                                     asset_type = "6.6/11kV Transformer (GM)")
+risk_matrix_points_plot(matrix_structure,
+                        dots_vector = risk_coordinates,
+                        dot_radius = 4)
+```
+
+<img src="images/individual_asset_risk.svg" height="600" width="800" />
+
+##### Asset class risk
+Given a population of assets within the same asset class, we can visualize how monetary risk is distributed with the following example:
+```{r fake-calculation-2, echo=TRUE, message=FALSE, warning=FALSE, eval=F, class.source='highlight',comment=""}
+# Generate an empty 5x4 matrix
+risk_data_matrix <- risk_matrix_structure(5,4,NA)
+risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
+risk_matrix_summary_plot(risk_data_matrix)
+```
+
+<img src="images/asset_class_risk.svg" height="600" width="800"/>
+
+##### Non-linear bins
+Sometimes it is desirable to create the matrix with non-linear intervals, since each interval represents a bin of CoF and PoF, bins which typically increase in size as the CoF and health scores increase. The inputs `x_intervals` and `y_intervals` should match the x and y dimensions of the risk matrix data frame, but can contain any values, since these are internally normalised to 1.
+```{r fake-calculation-3, echo=TRUE, message=FALSE, warning=FALSE, eval=F, class.source='highlight',comment=""}
+# Generate an empty 5x4 matrix
+risk_data_matrix <- risk_matrix_structure(5,4,NA)
+risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
+risk_matrix_summary_plot(risk_data_matrix,
+                         x_intervals = c(0.1,0.1,0.1,0.2,0.3),
+                         y_intervals = c(0.75,0.75,1,1.5))
+```
+
+<img src="images/non_linear_bins.svg" height="600" width="800"/>
+
+##### Matrices with different dimensions
+Although the CNAIM standard specifies a rigid 5x4 matrix, it might be desirable to implement different size risk matrices. The CNAIM R package offers this flexibility. For example, to make a 4x4 matrix:
+```{r fake-calculation-4, echo=TRUE, message=FALSE, warning=FALSE, eval=F, class.source='highlight',comment=""}
+# Generate an empty 4x4 matrix
+risk_data_matrix <- risk_matrix_structure(5,4,NA)
+risk_data_matrix$value <- sample(1:30,size=nrow(matrix_structure),replace = T)
+risk_matrix_summary_plot(risk_data_matrix)
+```
+
+<img src="images/different_dimensions.svg" height="600" width="800"/>
+

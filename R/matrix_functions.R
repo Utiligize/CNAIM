@@ -1,4 +1,5 @@
 #' @importFrom magrittr %>%
+#' @importFrom dplyr mutate ungroup rename row_number full_join left_join
 #' @title Adjust circles for matrix visualization
 #' @description This function manipulates the data structure before inputting
 #' into javascript D3 risk matrix visualization
@@ -7,6 +8,9 @@
 #' @param dot_radius Radius of the dots.
 #' @export
 matrix_adjusted_circles = function(risk_data_matrix, dots_vector, dot_radius){
+
+  name = value = x = y = point_x = point_y = NULL
+  # due to NSE notes in R CMD check
 
   risk_data_matrix <- risk_data_matrix %>%
     ungroup() %>%
@@ -37,6 +41,9 @@ matrix_adjusted_circles = function(risk_data_matrix, dots_vector, dot_radius){
 #' @param y_intervals An array of y spacing in percent (sum to 100)
 #' @export
 matrix_adjusted_intervals = function(risk_data_matrix, x_intervals, y_intervals){
+
+  name = value = NULL
+  # due to NSE notes in R CMD check
 
   risk_data_matrix <- risk_data_matrix %>%
     ungroup() %>%

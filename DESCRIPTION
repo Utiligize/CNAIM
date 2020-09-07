@@ -2,17 +2,20 @@ Package: CNAIM
 Type: Package
 Title: Common Network Asset Indices Methodology (CNAIM)
 Version: 1.0.0
-Authors@R: c(
-    person("Kalle", "Hansen",
-           email = "kalle@utiligize.com",
-           role = c("aut", "cre")),
-    person("Emil", "Larsen",
-           email = "emil@utiligize.com",
-           role = c("ctb")),
-    person("Peter", "Larsen",
-            email = "peter@utiligize.com",
-            role = c("ctb"))
-    )
+Authors@R: 
+    c(person(given = "Kalle",
+             family = "Hansen",
+             role = c("aut", "cre"),
+             email = "mohsinvindhani@gmail.com"),
+      person(given = "Emil",
+             family = "Larsen",
+             role = "ctb",
+             email = "emil@utiligize.com"),
+      person(given = "Peter",
+             family = "Larsen",
+             role = "ctb",
+             email = "peter@utiligize.com"))
+Maintainer: Emil Larsen <emil@utiligize.com>
 Description: Implementation of the CNAIM standard in R. Contains a series of
     algorithms which determine the probability of failure, consequences of
     failure and monetary risk associated with electricity distribution
@@ -35,5 +38,10 @@ Imports:
     readxl,
     stringr,
     testthat,
-    tibble
-RoxygenNote: 7.1.0
+    tibble,
+    widgetframe
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
