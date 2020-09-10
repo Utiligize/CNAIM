@@ -3,7 +3,7 @@ title: "CNAIM"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{cnaim}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
