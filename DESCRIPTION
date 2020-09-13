@@ -5,15 +5,15 @@ Version: 1.0.0
 Authors@R: 
     c(person(given = "Emil",
              family = "Larsen",
-             role = c("aut", "ctb"),
+             role = c("aut", "cre"),
              email = "emil@utiligize.com"),
       person(given = "Kalle",
              family = "Hansen",
-             role = c("aut", "cre"),
-             email = "mohsinvindhani@gmail.com"),
+             role = c("aut"),
+             email = "kalle@utiligize.com"),
       person(given = "Peter",
              family = "Larsen",
-             role = "ctb",
+             role = c("aut"),
              email = "peter@utiligize.com"))
 Maintainer: Emil Larsen <emil@utiligize.com>
 Description: Implementation of the CNAIM standard in R. Contains a series of
