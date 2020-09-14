@@ -12,8 +12,11 @@ Health & Criticality - Version 1.1, 2017:
 beta_2(current_health_score, age)
 }
 \arguments{
-\item{expected_life_years}{Numeric. The output returned by the
-function \code{\link{expected_life}}().}
+\item{current_health_score}{Numeric. The output returned by the
+function \code{\link{current_health}}().}
+
+\item{age}{Numeric. The current age in years
+of the 10-kV transformer.}
 }
 \value{
 Numeric. Forecast ageing rate for an electric network asset.
