@@ -14,7 +14,7 @@
 
 beta_2 <- function(current_health_score, age) {
   # the Health Score of a new asset
-  h_new = 0.5
+  h_new <- 0.5
 
   return(log(current_health_score / h_new) / age)
 }
