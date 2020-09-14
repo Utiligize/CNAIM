@@ -293,27 +293,6 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
        (((c * current_health_score)^3) / factorial(3)))
 
   # Future probability of failure -------------------------------------------
-
-  # Initial ageing rate -----------------------------------------------------------------
-  H_new <- 0.5
-  H_expected_life <- 5.5
-  b1 <- log(H_expected_life/H_new)/expected_life_years
-
-  # Future health score cap
-  health_score_cap <- 15
-
-  initial_health_score <- H_new*exp(b1*age)
-  if (reliability_factor == 'Default'){
-    reliability_factor <- 1
-  } else {
-    reliability_factor <- as.numeric(reliability_factor)
-  }
-
-  current_health_score <- initial_health_score*health_score_factor*reliability_factor
-
-  if (current_health_score > health_score_cap) current_health_score <- health_score_cap
-  if (current_health_score < health_score_collar) current_health_score <- health_score_collar
-
   b2 <- log(current_health_score/H_new)/age
 
   if (b2 > 2*b1){
