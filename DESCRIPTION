@@ -45,3 +45,4 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+License: AGPL-3

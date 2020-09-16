@@ -14,3 +14,4 @@ scripts/*
 ^NEWS\.md$
 ^javascript$
 ^data-raw$
+^CRAN-RELEASE$
