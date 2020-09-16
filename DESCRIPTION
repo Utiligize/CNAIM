@@ -23,7 +23,7 @@ Description: Implementation of the CNAIM standard in R. Contains a series of
     in an easy-to-understand risk matrix.
 URL: https://www.cnaim.io/
 BugReports: https://github.com/Utiligize/CNAIM/issues
-License: MIT + file LICENSE
+License: AGPL-3
 Encoding: UTF-8
 LazyData: TRUE
 Depends:
@@ -45,4 +45,3 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-License: AGPL-3
