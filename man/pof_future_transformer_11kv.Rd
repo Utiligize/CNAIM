@@ -57,7 +57,7 @@ A setting of \code{"Default"} will set the corrosion category factor
 to 1 independent of \code{asset_type}.}
 
 \item{age}{Numeric. The current age in years
-of the 10-kV transformer.}
+of the 6.6/11 kV transformer.}
 
 \item{partial_discharge}{String. Indicating the
 level of partial discharge. Options for \code{partial_discharge}:

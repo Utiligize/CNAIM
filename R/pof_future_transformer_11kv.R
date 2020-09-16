@@ -326,9 +326,9 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
       H <- future_health_Score
     }
 
-    health_score_limit <- 4
-    if (H < health_score_limit){
-      H <- health_score_limit
+    future_health_score_limit <- 15
+    if (H > future_health_score_limit){
+      H <- future_health_score_limit
     }
 
     pof_year[[paste(t)]] <- k * (1 + (c * H) +

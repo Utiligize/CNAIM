@@ -16,7 +16,7 @@ beta_2(current_health_score, age)
 function \code{\link{current_health}}().}
 
 \item{age}{Numeric. The current age in years
-of the 10-kV transformer.}
+of the 6.6/11 kV transformer.}
 }
 \value{
 Numeric. Forecast ageing rate for an electric network asset.

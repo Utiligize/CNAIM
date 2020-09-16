@@ -11,7 +11,7 @@
 #' @inheritParams location_factor
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years
-#' of the 10-kV transformer.
+#' of the 6.6/11 kV transformer.
 #' @param partial_discharge String. Indicating the
 #' level of partial discharge. Options for \code{partial_discharge}:
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
@@ -313,7 +313,7 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
                    health_score_modifier$health_score_collar,
                    reliability_factor)
 
-  # Probability of failure for the 6.6/11 kV transformer today ------------------
+  # Probability of failure for the 6.6/11 kV transformer today -----------------
   probability_of_failure <- k *
     (1 + (c * current_health_score) +
        (((c * current_health_score)^2) / factorial(2)) +
