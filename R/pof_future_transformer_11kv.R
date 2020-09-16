@@ -16,6 +16,24 @@
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
+#' @examples
+#' # Future probability of a 6.6/11 kV transformer
+#' future_pof_transformer <- pof_future_transformer_11kv(utilisation_pct = "Default",
+#'placement = "Default",
+#'altitude_m = "Default",
+#'distance_from_coast_km = "Default",
+#'corrosion_category_index = "Default",
+#'age = 20,
+#'partial_discharge = "Default",
+#'oil_acidity = "Default",
+#'temperature_reading = "Default",
+#'observed_condition = "Default",
+#'reliability_factor = "Default",
+#'simulation_end_year = 100)
+# # Plot
+#'plot(future_pof_transformer$PoF * 100,
+#'type = "line", ylab = "%", xlab = "years",
+#'main = "PoF")
 
 pof_future_transformer_11kv <- function(utilisation_pct = "Default",
                                         placement = "Default",
