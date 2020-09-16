@@ -41,6 +41,22 @@
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
+#' @examples
+#' # Future probability of failure for 66kV UG Cable (Non Pressurised)
+#' pof_10kV_pex <-
+#' pof_future_cables_20_10_04kv(hv_lv_cable_type = "10-20kV cable, PEX",
+#'sub_division = "Aluminium sheath - Aluminium conductor",
+#'utilisation_pct = "Default",
+#'operating_voltage_pct = "Default",
+#'sheath_test = "Default",
+#'partial_discharge = "Default",
+#'fault_hist = "Default",
+#'age = 15,
+#'simulation_end_year = 100)
+#' # Plot
+#'plot(pof_10kV_pex$PoF * 100,
+#'type = "line", ylab = "%", xlab = "years",
+#'main = "PoF per kilometre - 10-20kV cable, PEX")
 
 pof_future_cables_20_10_04kv <-
   function(hv_lv_cable_type = "10-20kV cable, PEX",
