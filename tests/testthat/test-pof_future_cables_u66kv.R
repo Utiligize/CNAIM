@@ -7,7 +7,6 @@ cable_types = c("33kV UG Cable (Gas)",
                 "33kV UG Cable (Oil)",
                 "66kV UG Cable (Oil)")
 
-# cable_types = "66kV UG Cable (Non Pressurised)"
 sub_divisions = c("Aluminium sheath - Aluminium conductor",
                   "Aluminium sheath - Copper conductor",
                   "Lead sheath - Aluminium conductor",

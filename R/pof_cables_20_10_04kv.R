@@ -39,6 +39,21 @@
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
+#' @examples
+#' # Current annual probability of failure for 10-20kV cable, APB, 50 years old
+#'pof_cables_10kV_APB <-
+#'pof_cables_20_10_04kv(hv_lv_cable_type = "10-20kV cable, APB",
+#'sub_division = "Lead sheath - Copper conductor",
+#'utilisation_pct = 80,
+#'operating_voltage_pct = 60,
+#'sheath_test = "Default",
+#'partial_discharge = "Default",
+#'fault_hist = "Default",
+#'age = 50) * 100
+#'
+#'paste0(sprintf("Probability of failure %.4f", pof_cables_10kV_APB),
+#'" percent per annum")
+
 
 pof_cables_20_10_04kv <-
   function(hv_lv_cable_type = "10-20kV cable, PEX",

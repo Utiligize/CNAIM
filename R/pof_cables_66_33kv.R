@@ -45,7 +45,22 @@
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
-
+#' @examples
+#' # Current annual probability of failure for
+#' # "66kV UG Cable (Non Pressurised)", 50 years old
+#'pof_cables_66kV_non <-
+#'pof_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
+#'sub_division = "Lead sheath - Copper conductor",
+#'utilisation_pct = 80,
+#'operating_voltage_pct = 60,
+#'sheath_test = "Default",
+#'partial_discharge = "Default",
+#'fault_hist = "Default",
+#'leakage = "Default",
+#'age = 50) * 100
+#'
+#'paste0(sprintf("Probability of failure %.4f", pof_cables_66kV_non),
+#'" percent per annum")
 pof_cables_66_33kv <-
   function(cable_type = "33kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",
