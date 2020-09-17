@@ -32,6 +32,7 @@
 #' The calculated fault rate for the cable in the period per kilometer.
 #' A setting of \code{"No historic faults recorded"}
 #' indicates no fault. See page 141, table 170 in CNAIM (2017).
+#' @inheritParams current_health
 #' @param age  Numeric. The current age in years of the cable.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
@@ -51,6 +52,7 @@
 #'sheath_test = "Default",
 #'partial_discharge = "Default",
 #'fault_hist = "Default",
+#'reliability_factor = "Default",
 #'age = 15,
 #'simulation_end_year = 100)
 #' # Plot
@@ -66,6 +68,7 @@ pof_future_cables_20_10_04kv <-
            sheath_test = "Default",
            partial_discharge = "Default",
            fault_hist = "Default",
+           reliability_factor = "Default",
            age,
            simulation_end_year = 100) {
 

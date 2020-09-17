@@ -14,7 +14,7 @@
 
 beta_1 <- function(expected_life_years) {
   # the Health Score of a new asset
-  h_new = 0.5
+  h_new <- 0.5
   # the Health Score of the asset when it reaches its Expected Life
   h_expected_life <- 5.5
   return(log(h_expected_life / h_new) / expected_life_years)

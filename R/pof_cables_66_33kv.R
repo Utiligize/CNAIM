@@ -38,6 +38,7 @@
 #' \code{leakage = c("No (or very low) historic leakage recorded",
 #' "Low/ moderate", "High", "Very High", "Default")}.
 #' See page 142, table 171 (oil) and 172 (gas) in CNAIM (2017).
+#' @inheritParams current_health
 #' @param age  Numeric. The current age in years of the cable.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometre for 20/10/0.4kV cables.
@@ -57,6 +58,7 @@
 #'partial_discharge = "Default",
 #'fault_hist = "Default",
 #'leakage = "Default",
+#'reliability_factor = "Default",
 #'age = 50) * 100
 #'
 #'paste0(sprintf("Probability of failure %.4f", pof_cables_66kV_non),
@@ -70,6 +72,7 @@ pof_cables_66_33kv <-
            partial_discharge = "Default",
            fault_hist = "Default",
            leakage = "Default",
+           reliability_factor = "Default",
            age) {
 
     `Asset Register Category` = `Health Index Asset Category` =

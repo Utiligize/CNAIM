@@ -38,6 +38,7 @@
 #' \code{leakage = c("No (or very low) historic leakage recorded",
 #' "Low/ moderate", "High", "Very High", "Default")}.
 #' See page 142, table 171 (oil) and 172 (gas) in CNAIM (2017).
+#' @inheritParams current_health
 #' @param age  Numeric. The current age in years of the cable.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
@@ -58,6 +59,7 @@
 #'partial_discharge = "Default",
 #'fault_hist = "Default",
 #'leakage = "Default",
+#'reliability_factor = "Default",
 #'age = 1,
 #'simulation_end_year = 100)
 #' # Plot
@@ -75,6 +77,7 @@ pof_future_cables_66_33kv <-
            partial_discharge = "Default",
            fault_hist = "Default",
            leakage = "Default",
+           reliability_factor = "Default",
            age,
            simulation_end_year = 100) {
 

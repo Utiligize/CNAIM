@@ -32,7 +32,8 @@
 #' The calculated fault rate for the cable in the period per kilometer.
 #' A setting of \code{"No historic faults recorded"}
 #' indicates no fault. See page 141, table 170 in CNAIM (2017).
-#' @param age  Numeric. The current age in years of the cable.
+#' @inheritParams current_health
+#' @param age Numeric. The current age in years of the cable.
 #' @return Numeric. Current probability of failure
 #' per annum for 20/10/0.4kV cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -49,6 +50,7 @@
 #'sheath_test = "Default",
 #'partial_discharge = "Default",
 #'fault_hist = "Default",
+#'reliability_factor = "Default",
 #'age = 50) * 100
 #'
 #'paste0(sprintf("Probability of failure %.4f", pof_cables_10kV_APB),
@@ -63,6 +65,7 @@ pof_cables_20_10_04kv <-
            sheath_test = "Default",
            partial_discharge = "Default",
            fault_hist = "Default",
+           reliability_factor = "Default",
            age) {
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -77,7 +80,6 @@ pof_cables_20_10_04kv <-
     }
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
-
     asset_category <- gb_ref$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` == pseudo_cable_type) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()

@@ -312,7 +312,7 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
 
   # Future probability of failure -------------------------------------------
   # the Health Score of a new asset
-  H_new = 0.5
+  H_new <- 0.5
   # the Health Score of the asset when it reaches its Expected Life
 
   b2 <- beta_2(current_health_score, age)

@@ -18,6 +18,7 @@ pof_future_cables_66_33kv(
   partial_discharge = "Default",
   fault_hist = "Default",
   leakage = "Default",
+  reliability_factor = "Default",
   age,
   simulation_end_year = 100
 )
@@ -65,6 +66,11 @@ indicates no fault. See page 141, table 170 in CNAIM (2017).}
 "Low/ moderate", "High", "Very High", "Default")}.
 See page 142, table 171 (oil) and 172 (gas) in CNAIM (2017).}
 
+\item{reliability_factor}{Numeric. \code{reliability_factor}
+shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
+ sets the \code{reliability_factor} to 1.
+See section 6.14 on page 69 in CNAIM (2017).}
+
 \item{age}{Numeric. The current age in years of the cable.}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
@@ -94,6 +100,7 @@ sheath_test = "Default",
 partial_discharge = "Default",
 fault_hist = "Default",
 leakage = "Default",
+reliability_factor = "Default",
 age = 1,
 simulation_end_year = 100)
 # Plot

@@ -17,6 +17,7 @@ pof_cables_20_10_04kv(
   sheath_test = "Default",
   partial_discharge = "Default",
   fault_hist = "Default",
+  reliability_factor = "Default",
   age
 )
 }
@@ -56,6 +57,11 @@ The calculated fault rate for the cable in the period per kilometer.
 A setting of \code{"No historic faults recorded"}
 indicates no fault. See page 141, table 170 in CNAIM (2017).}
 
+\item{reliability_factor}{Numeric. \code{reliability_factor}
+shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
+ sets the \code{reliability_factor} to 1.
+See section 6.14 on page 69 in CNAIM (2017).}
+
 \item{age}{Numeric. The current age in years of the cable.}
 }
 \value{
@@ -81,6 +87,7 @@ operating_voltage_pct = 60,
 sheath_test = "Default",
 partial_discharge = "Default",
 fault_hist = "Default",
+reliability_factor = "Default",
 age = 50) * 100
 
 paste0(sprintf("Probability of failure \%.4f", pof_cables_10kV_APB),
