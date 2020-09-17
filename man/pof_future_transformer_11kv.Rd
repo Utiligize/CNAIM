@@ -98,3 +98,21 @@ exponential function. For more information about the
 probability of failure function see section 6
 on page 30 in CNAIM (2017).
 }
+\examples{
+# Future probability of a 6.6/11 kV transformer
+future_pof_transformer <- pof_future_transformer_11kv(utilisation_pct = "Default",
+placement = "Default",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 20,
+partial_discharge = "Default",
+oil_acidity = "Default",
+temperature_reading = "Default",
+observed_condition = "Default",
+reliability_factor = "Default",
+simulation_end_year = 100)
+plot(future_pof_transformer$PoF * 100,
+type = "line", ylab = "\%", xlab = "years",
+main = "PoF")
+}

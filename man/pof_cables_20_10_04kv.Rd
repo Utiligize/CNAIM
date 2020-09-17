@@ -71,3 +71,18 @@ exponential function. For more information about the
 probability of failure function see section 6
 on page 30 in CNAIM (2017). ###################
 }
+\examples{
+# Current annual probability of failure for 10-20kV cable, APB, 50 years old
+pof_cables_10kV_APB <-
+pof_cables_20_10_04kv(hv_lv_cable_type = "10-20kV cable, APB",
+sub_division = "Lead sheath - Copper conductor",
+utilisation_pct = 80,
+operating_voltage_pct = 60,
+sheath_test = "Default",
+partial_discharge = "Default",
+fault_hist = "Default",
+age = 50) * 100
+
+paste0(sprintf("Probability of failure \%.4f", pof_cables_10kV_APB),
+" percent per annum")
+}

@@ -75,3 +75,20 @@ exponential function. For more information about the
 probability of failure function see section 6
 on page 30 in CNAIM (2017). ###################
 }
+\examples{
+# Future probability of failure for 66kV UG Cable (Non Pressurised)
+pof_10kV_pex <-
+pof_future_cables_20_10_04kv(hv_lv_cable_type = "10-20kV cable, PEX",
+sub_division = "Aluminium sheath - Aluminium conductor",
+utilisation_pct = "Default",
+operating_voltage_pct = "Default",
+sheath_test = "Default",
+partial_discharge = "Default",
+fault_hist = "Default",
+age = 15,
+simulation_end_year = 100)
+# Plot
+plot(pof_10kV_pex$PoF * 100,
+type = "line", ylab = "\%", xlab = "years",
+main = "PoF per kilometre - 10-20kV cable, PEX")
+}
