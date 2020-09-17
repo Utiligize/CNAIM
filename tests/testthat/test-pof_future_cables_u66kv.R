@@ -25,7 +25,7 @@ age = 1:10
 
 simulation_end_year = 100
 
-liste_cabler <- list()
+cable_list <- list()
 
 for (c in cable_types) {
   for (s in sub_division) {
@@ -45,7 +45,7 @@ for (c in cable_types) {
                                              simulation_end_year = 100)
 
 
-            liste_cabler[[paste0(c,s,st,pd,l,a)]] <- res
+            cable_list[[paste0(c,s,st,pd,l,a)]] <- res
           }
         }
       }

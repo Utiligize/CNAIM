@@ -91,9 +91,9 @@ pof_cables_66_33kv <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-    # Normal expected life for 6.6/11 kV transformer -------------------------
+    # Normal expected life  -------------------------
     normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` == cable_66_33kV_type &
+      dplyr::filter(`Asset Register  Category` == cable_type &
                       `Sub-division` == sub_division) %>%
       dplyr::pull()
 

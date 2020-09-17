@@ -74,8 +74,11 @@ pof_future_cables_20_10_04kv <-
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
 
-    pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
-
+    if (hv_lv_cable_type ==  "10-20kV cable, PEX" ||
+        hv_lv_cable_type ==  "10-20kV cable, APB" ||
+        hv_lv_cable_type ==  "0.4kV cable") {
+      pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
+    }
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
 
@@ -91,9 +94,9 @@ pof_future_cables_20_10_04kv <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-    # Normal expected life for 6.6/11 kV transformer ---------------------------
+    # Normal expected life  ---------------------------
     normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` == cable_66_33kV_type &
+      dplyr::filter(`Asset Register  Category` == pseudo_cable_type &
                       `Sub-division` == sub_division) %>%
       dplyr::pull()
 
@@ -289,7 +292,7 @@ pof_future_cables_20_10_04kv <-
     # Future probability of failure -------------------------------------------
 
     # the Health Score of a new asset
-    H_new = 0.5
+    H_new <- 0.5
 
     # the Health Score of the asset when it reaches its Expected Life
     b2 <- beta_2(current_health_score, age)
