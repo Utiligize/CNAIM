@@ -34,7 +34,8 @@
 #' The calculated fault rate for the cable in the period per kilometer.
 #' A setting of \code{"No historic faults recorded"}
 #' indicates no fault. See page 141, table 170 in CNAIM (2017).
-#' @param leakage String. Only applied for oil and gas cables. Options:
+#' @param leakage String. Only applied for oil and gas pressurised cables.
+#' Options:
 #' \code{leakage = c("No (or very low) historic leakage recorded",
 #' "Low/ moderate", "High", "Very High", "Default")}.
 #' See page 142, table 171 (oil) and 172 (gas) in CNAIM (2017).
@@ -340,7 +341,7 @@ pof_cables_66_33kv <-
                      health_score_modifier$health_score_factor,
                      health_score_modifier$health_score_cap,
                      health_score_modifier$health_score_collar,
-                     reliability_factor)
+                     reliability_factor = reliability_factor)
 
     # Probability of failure for the 6.6/11 kV transformer today ---------------
     probability_of_failure <- k *

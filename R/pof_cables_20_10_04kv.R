@@ -56,7 +56,6 @@
 #'paste0(sprintf("Probability of failure %.4f", pof_cables_10kV_APB),
 #'" percent per annum")
 
-
 pof_cables_20_10_04kv <-
   function(hv_lv_cable_type = "10-20kV cable, PEX",
            sub_division = "Aluminium sheath - Aluminium conductor",
@@ -99,7 +98,6 @@ pof_cables_20_10_04kv <-
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    asset_category == "EHV UG Cable (Non Pressurised)"
     type_k_c <- gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
       grepl("Non Pressurised",
             gb_ref$pof_curve_parameters$`Functional Failure Category`,
@@ -275,11 +273,11 @@ pof_cables_20_10_04kv <-
 
     # Current health score ----------------------------------------------------
     current_health_score <-
-      current_health(initial_health_score,
-                     health_score_modifier$health_score_factor,
-                     health_score_modifier$health_score_cap,
-                     health_score_modifier$health_score_collar,
-                     reliability_factor)
+      current_health(initial_health_score = initial_health_score,
+                     health_score_factor=  health_score_modifier$health_score_factor,
+                     health_score_cap = health_score_modifier$health_score_cap,
+                     health_score_collar = health_score_modifier$health_score_collar,
+                     reliability_factor = reliability_factor)
 
     # Probability of failure for the 6.6/11 kV transformer today ---------------
     probability_of_failure <- k *

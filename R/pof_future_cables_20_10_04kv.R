@@ -104,7 +104,6 @@ pof_future_cables_20_10_04kv <-
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    asset_category == "EHV UG Cable (Non Pressurised)"
     type_k_c <- gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
       grepl("Non Pressurised",
             gb_ref$pof_curve_parameters$`Functional Failure Category`,
@@ -284,7 +283,7 @@ pof_future_cables_20_10_04kv <-
                      health_score_modifier$health_score_factor,
                      health_score_modifier$health_score_cap,
                      health_score_modifier$health_score_collar,
-                     reliability_factor)
+                     reliability_factor = reliability_factor)
 
     # Probability of failure for the 6.6/11 kV transformer today ------------------
     probability_of_failure <- k *

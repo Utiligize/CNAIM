@@ -302,7 +302,7 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
                    health_score_modifier$health_score_factor,
                    health_score_modifier$health_score_cap,
                    health_score_modifier$health_score_collar,
-                   reliability_factor)
+                   reliability_factor = reliability_factor)
 
   # Probability of failure for the 6.6/11 kV transformer today ------------------
   probability_of_failure <- k *

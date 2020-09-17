@@ -54,11 +54,11 @@ current_health <- function(initial_health_score,
 
   # Eq. 5
   current_health_score <- (initial_health_score * health_score_factor *
-                           reliability_factor)
+                             reliability_factor)
 
   # Eq. 6
   if (current_health_score > health_score_cap) {
-  current_health_score <- health_score_cap
+    current_health_score <- health_score_cap
   }
 
   # Eq. 7
@@ -69,7 +69,8 @@ current_health <- function(initial_health_score,
     current_health_score <- pmax(health_score_collar,reliability_collar)
   }
 
-
-
+  # See page 23 and the example on page 185
+  if (current_health_score > 10) current_health_score <- 10
+  if (current_health_score < 0.5) current_health_score <- 0.5
   return(current_health_score)
 }
