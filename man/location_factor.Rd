@@ -48,6 +48,7 @@ to 1 independent of \code{asset_type}.}
 
 \item{asset_type}{String.
 A sting that refers to the specific asset category.
+For LV UGB and non-submarine cables a location factor of 1 is assigned.
 See See page 15, table 1 in CNAIM (2017).
 Options:
 \code{asset_type = c("LV Poles", "LV Circuit Breaker",

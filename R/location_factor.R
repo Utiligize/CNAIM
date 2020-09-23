@@ -28,6 +28,7 @@
 #' to 1 independent of \code{asset_type}.
 #' @param asset_type String.
 #' A sting that refers to the specific asset category.
+#' For LV UGB and non-submarine cables a location factor of 1 is assigned.
 #' See See page 15, table 1 in CNAIM (2017).
 #' Options:
 #' \code{asset_type = c("LV Poles", "LV Circuit Breaker",
@@ -80,6 +81,19 @@ location_factor <- function(placement = "Default",
                             asset_type = "6.6/11kV Transformer (GM)") {
 
 
+if (asset_type == "LV UGB" || asset_type == "33kV UG Cable (Non Pressurised)" ||
+    asset_type == "33kV UG Cable (Oil)" ||
+    asset_type == "33kV UG Cable (Gas)" ||
+    asset_type == "66kV UG Cable (Non Pressurised)" ||
+    asset_type == "66kV UG Cable (Oil)" ||
+    asset_type == "66kV UG Cable (Gas)" ||
+    asset_type == "132kV UG Cable (Non Pressurised)" ||
+    asset_type == "132kV UG Cable (Oil)" ||
+    asset_type == "132kV UG Cable (Gas)"  ){
+
+  location_factor_asset <- 1
+
+} else {
   # Find generic term -------------------------------------------------------
   asset_category <- gb_ref$categorisation_of_assets$
     `Health Index Asset Category`[which(gb_ref$
@@ -93,10 +107,12 @@ location_factor <- function(placement = "Default",
                                `Health Index Asset Category` ==
                                asset_category)]
 
-  if (generic_term_1 == "Overhead Line" || generic_term_1 == "Cable") {
+  if (generic_term_1 == "Overhead Line" ||
+      asset_category == "Submarine Cables") {
     stop(paste0("Asset type not implemented: ", asset_type))
   }
-  # Altitude ----------------------------------------------------------------
+
+   # Altitude ----------------------------------------------------------------
   altitude_factor_asset_df <- dplyr::select(gb_ref$altitude_factor_lut,
                                             c("Lower", "Upper",
                                               generic_term_1))
@@ -221,6 +237,10 @@ location_factor <- function(placement = "Default",
       (initial_location_factor - min_initial_location_factor) +
       min_initial_location_factor
   }
+
+}
+
+
 
   return(location_factor_asset)
 }
