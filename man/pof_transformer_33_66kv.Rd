@@ -216,6 +216,9 @@ A setting of \code{"Default"} will result in the best possible result.}
 \item{ethylene_pre}{Numeric. Previous results.
 A setting of \code{"Default"} will result in the best possible result.}
 
+\item{ethane_pre}{Numeric. Previous results.
+A setting of \code{"Default"} will result in the best possible result.}
+
 \item{acetylene_pre}{Numeric. Previous results.
 A setting of \code{"Default"} will result in the best possible result.}
 

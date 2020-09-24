@@ -24,7 +24,7 @@
 #' A setting of \code{"Default"} will result in the best possible result.
 #' @param ethylene_pre Numeric. Previous results.
 #' A setting of \code{"Default"} will result in the best possible result.
-#' @param ethane_preNumeric. Previous results.
+#' @param ethane_pre Numeric. Previous results.
 #' A setting of \code{"Default"} will result in the best possible result.
 #' @param acetylene_pre Numeric. Previous results.
 #' A setting of \code{"Default"} will result in the best possible result.
