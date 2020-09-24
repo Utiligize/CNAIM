@@ -362,6 +362,5 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
 
   }
 
-
   return(pof_future)
 }

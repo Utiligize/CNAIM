@@ -384,6 +384,5 @@ pof_future_cables_66_33kv <-
 
     }
 
-
     return(pof_future)
   }
