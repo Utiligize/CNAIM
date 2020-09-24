@@ -19,6 +19,6 @@ test_that("pof_future_transformer_11kv", {
                                      reliability_factor = "Default",
                                      simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$years == 50)], 0.001345902)
+  expect_equal(res$PoF[which(res$year == 50)], 0.0013459025)
 
 })

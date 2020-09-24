@@ -18,6 +18,6 @@ res <- pof_future_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
                                  age = 10,
                                  simulation_end_year = 100)
 
-expect_equal(res$PoF[which(res$years == 50)], 0.006732092)
+expect_equal(res$PoF[which(res$year == 50)], 0.006732092)
 
 })

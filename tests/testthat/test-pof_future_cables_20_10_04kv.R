@@ -17,7 +17,7 @@ test_that("pof_future_cables_20_10_04kv", {
                                    age = 30,
                                    simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$years == 65)], 0.029754193)
+  expect_equal(res$PoF[which(res$year == 65)], 0.029754193)
 
 })
 
