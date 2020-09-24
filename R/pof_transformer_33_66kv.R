@@ -134,7 +134,7 @@
 #'reliability_factor = "Default")
 
 pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
-                                    year_of_manufacture = 1980,
+                                    year_of_manufacture,
                                     utilisation_pct = "Default",
                                     no_taps = "Default",
                                     placement = "Default",

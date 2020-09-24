@@ -11,7 +11,7 @@ Health & Criticality - Version 1.1, 2017:
 \usage{
 pof_transformer_33_66kv(
   transformer_type = "66kV Transformer (GM)",
-  year_of_manufacture = 1980,
+  year_of_manufacture,
   utilisation_pct = "Default",
   no_taps = "Default",
   placement = "Default",
