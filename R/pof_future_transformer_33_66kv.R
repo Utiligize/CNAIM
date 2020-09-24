@@ -1,99 +1,22 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 33/10kV and 66/10kV Transformers
-#' @description This function calculates the current
+#' @title Future Probability of Failure for 33/10kV and 66/10kV Transformers
+#' @description This function calculates the future
 #' annual probability of failure for 33/10kV and 66/10kV transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
-#' @param transformer_type String. A sting that refers to the specific
-#' asset category. See See page 15, table 1 in CNAIM (2017).
-#' Options:
-#' \code{transformer_type = c("33kV Transformer (GM)", "66kV Transformer (GM)")}
-#' @param year_of_manufacture Numeric. Normal expected life depends on the
-#' year for manufacture, see page 103 table 20 in CNAIM (2017).
-#' @inheritParams duty_factor_transformer_33_66kv
-#' @inheritParams location_factor
-#' @inheritParams current_health
-#' @param age_tf Numeric. The current age in years
-#' of the transformer.
-#' @param age_tc Numeric. The current age in years
-#' of the tapchanger
-#' @param partial_discharge_tf String. Indicating the
-#' level of partial discharge in the transformer.
-#' Options:
-#' \code{partial_discharge_tf = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 139, table 162 in CNAIM (2017).
-#' @param partial_discharge_tc String. Indicating the
-#' level of partial discharge in the tapchanger
-#' Options:
-#' \code{partial_discharge_tc = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 140, table 164 in CNAIM (2017).
-#' @param temperature_reading String. Indicating the criticality.
-#' Options:
-#' \code{temperature_reading = c("Normal", "Moderately High",
-#' "Very High", "Default")}. See page 139, table 163 in CNAIM (2017).
-#' @param main_tank String. Indicating the observed condition of the
-#' main tank. Options:
-#' \code{main_tank = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 120, table 74
-#' in CNAIM (2017).
-#' @param coolers_radiator String. Indicating the observed condition of the
-#' coolers/radiators. Options:
-#' \code{coolers_radiator = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 120, table 75
-#' in CNAIM (2017).
-#' @param bushings String. Indicating the observed condition of the
-#' bushings. Options:
-#' \code{bushings = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 120, table 76
-#' in CNAIM (2017).
-#' @param kiosk String. Indicating the observed condition of the
-#' kiosk. Options:
-#' \code{kiosk = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 77
-#' in CNAIM (2017).
-#' @param cable_boxes String. Indicating the observed condition of the
-#' cable boxes. Options:
-#' \code{cable_boxes = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 78
-#' in CNAIM (2017).
-#' @param external_tap String. Indicating the observed external condition of the
-#'  tapchanger. Options:
-#' \code{external_tap = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 79
-#' in CNAIM (2017).
-#' @param internal_tap String. Indicating the observed internal condition of the
-#'  tapchanger. Options:
-#' \code{external_tap = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 80
-#' in CNAIM (2017).
-#' @param mechnism_cond String. Indicating the observed condition of the
-#'  drive mechnism. Options:
-#' \code{mechnism_cond = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 81
-#' in CNAIM (2017).
-#' @param diverter_contacts String. Indicating the observed condition of the
-#' selector and diverter contacts. Options:
-#' \code{diverter_contacts = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 122, table 82
-#' in CNAIM (2017).
-#' @param diverter_braids String. Indicating the observed condition of the
-#' selector and diverter braids. Options:
-#' \code{diverter_braids = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 122, table 83
-#' in CNAIM (2017)
-#' @inheritParams oil_test_modifier
-#' @inheritParams dga_test_modifier
-#' @inheritParams ffa_test_modifier
+#' @inheritParams pof_transformer_33_66kv
+#' @param simulation_end_year Numeric. The last year of simulating probability
+#' of failure. Default is 100.
 #' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' # Current probability of failure for a 66/10kV transformer
+#' # Future probability of failure for a 66/10kV transformer
 #' pof_future_transformer_33_66kv(transformer_type = "66kV Transformer (GM)",
 #'year_of_manufacture = 1980,
 #'utilisation_pct = "Default",
@@ -131,46 +54,48 @@
 #'ethane_pre = "Default",
 #'acetylene_pre = "Default",
 #'furfuraldehyde = "Default",
-#'reliability_factor = "Default")
+#'reliability_factor = "Default",
+#'simulation_end_year = 100)
 
-pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
-                                    year_of_manufacture = 1980,
-                                    utilisation_pct = "Default",
-                                    no_taps = "Default",
-                                    placement = "Default",
-                                    altitude_m = "Default",
-                                    distance_from_coast_km = "Default",
-                                    corrosion_category_index = "Default",
-                                    age_tf,
-                                    age_tc,
-                                    partial_discharge_tf = "Default",
-                                    partial_discharge_tc = "Default",
-                                    temperature_reading = "Default",
-                                    main_tank = "Default",
-                                    coolers_radiator = "Default",
-                                    bushings = "Default",
-                                    kiosk = "Default",
-                                    cable_boxes = "Default",
-                                    external_tap = "Default",
-                                    internal_tap = "Default",
-                                    mechnism_cond = "Default",
-                                    diverter_contacts = "Default",
-                                    diverter_braids = "Default",
-                                    moisture = "Default",
-                                    acidity = "Default",
-                                    bd_strength = "Default",
-                                    hydrogen = "Default",
-                                    methane = "Default",
-                                    ethylene = "Default",
-                                    ethane = "Default",
-                                    acetylene = "Default",
-                                    hydrogen_pre = "Default",
-                                    methane_pre = "Default",
-                                    ethylene_pre = "Default",
-                                    ethane_pre = "Default",
-                                    acetylene_pre = "Default",
-                                    furfuraldehyde = "Default",
-                                    reliability_factor = "Default") {
+pof_future_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
+                                           year_of_manufacture = 1980,
+                                           utilisation_pct = "Default",
+                                           no_taps = "Default",
+                                           placement = "Default",
+                                           altitude_m = "Default",
+                                           distance_from_coast_km = "Default",
+                                           corrosion_category_index = "Default",
+                                           age_tf,
+                                           age_tc,
+                                           partial_discharge_tf = "Default",
+                                           partial_discharge_tc = "Default",
+                                           temperature_reading = "Default",
+                                           main_tank = "Default",
+                                           coolers_radiator = "Default",
+                                           bushings = "Default",
+                                           kiosk = "Default",
+                                           cable_boxes = "Default",
+                                           external_tap = "Default",
+                                           internal_tap = "Default",
+                                           mechnism_cond = "Default",
+                                           diverter_contacts = "Default",
+                                           diverter_braids = "Default",
+                                           moisture = "Default",
+                                           acidity = "Default",
+                                           bd_strength = "Default",
+                                           hydrogen = "Default",
+                                           methane = "Default",
+                                           ethylene = "Default",
+                                           ethane = "Default",
+                                           acetylene = "Default",
+                                           hydrogen_pre = "Default",
+                                           methane_pre = "Default",
+                                           ethylene_pre = "Default",
+                                           ethane_pre = "Default",
+                                           acetylene_pre = "Default",
+                                           furfuraldehyde = "Default",
+                                           reliability_factor = "Default",
+                                           simulation_end_year = 100) {
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -886,5 +811,92 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
        (((c * current_health_score)^2) / factorial(2)) +
        (((c * current_health_score)^3) / factorial(3)))
 
-  return(probability_of_failure)
+  # Future probability of failure -------------------------------------------
+  # the Health Score of a new asset
+  H_new <- 0.5
+  # the Health Score of the asset when it reaches its Expected Life
+
+  # Transformer
+  current_health_score_tf <-
+    current_health(initial_health_score_tf,
+                   health_score_modifier_tf$health_score_factor_tf,
+                   health_score_modifier_tf$health_score_cap_tf,
+                   health_score_modifier_tf$health_score_collar,
+                   reliability_factor = reliability_factor)
+
+  # Tapchanger
+  current_health_score_tc <-
+    current_health(initial_health_score_tf,
+                   health_score_modifier_tc$health_score_factor_tc,
+                   health_score_modifier_tc$health_score_cap_tc,
+                   health_score_modifier_tc$health_score_collar_tc,
+                   reliability_factor = reliability_factor)
+
+
+  b2_tf <- beta_2(current_health_score_tf, age = age_tf)
+  b2_tc <- beta_2(current_health_score_tc, age = age_tc)
+
+  # Transformer
+  if (b2_tf > 2*b1_tf){
+    b2_tf <- b1_tf
+  } else if (current_health_score_tf == 0.5){
+    b2_tf <- b1_tf
+  }
+
+  if (current_health_score_tf < 2) {
+    ageing_reduction_factor_tf <- 1
+  } else if (current_health_score_tf <= 5.5) {
+    ageing_reduction_factor_tf <- ((current_health_score_tf - 2)/7) + 1
+  } else {
+    ageing_reduction_factor_tf <- 1.5
+  }
+
+  # Tapchanger
+  if (b2_tc > 2*b1_tc){
+    b2_tc <- b1_tc
+  } else if (current_health_score_tc == 0.5){
+    b2_tc <- b1_tc
+  }
+
+  if (current_health_score_tc < 2) {
+    ageing_reduction_factor_tc <- 1
+  } else if (current_health_score_tc <= 5.5) {
+    ageing_reduction_factor_tc <- ((current_health_score_tc - 2)/7) + 1
+  } else {
+    ageing_reduction_factor_tc <- 1.5
+  }
+
+
+  # Dynamic bit -------------------------------------------------------------
+  pof_year <- list()
+  year <- seq(from=0,to=simulation_end_year,by=1)
+
+   for (y in 1:length(year)){
+    t <- year[y]
+
+      future_health_Score_tf <- current_health_score_tf*exp((b2_tf/ageing_reduction_factor_tf) * t)
+      future_health_Score_tc <- current_health_score_tc*exp((b2_tc/ageing_reduction_factor_tc) * t)
+      H <- max(future_health_Score_tf, future_health_Score_tc)
+
+    future_health_score_limit <- 15
+    if (H > future_health_score_limit){
+      H <- future_health_score_limit
+    }
+
+    pof_year[[paste(y)]] <- k * (1 + (c * H) +
+                                   (((c * H)^2) / factorial(2)) +
+                                   (((c * H)^3) / factorial(3)))
+  }
+
+  pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+  pof_future$age <- NA
+  pof_future$age[1] <- age_tf
+
+    for(i in 2:nrow(pof_future)) {
+
+  pof_future$age[i] <- age_tf + i -1
+
+    }
+
+  return(pof_future)
 }

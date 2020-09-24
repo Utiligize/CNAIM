@@ -313,30 +313,38 @@ pof_future_cables_20_10_04kv <-
       ageing_reduction_factor <- 1.5
     }
 
-    # Dynamic bit -------------------------------------------------------------
+    # Dynamic part
     pof_year <- list()
-    years <- seq(from=age,to=simulation_end_year,by=1)
-    for (y in 1:length(years)){
-      t <- years[y]
+    year <- seq(from=0,to=simulation_end_year,by=1)
 
-      if (t == 1){
-        H <- current_health_score
-      } else {
-        future_health_Score <-
-          current_health_score*exp((b2/ageing_reduction_factor) * t)
-        H <- future_health_Score
-      }
+    for (y in 1:length(year)){
+      t <- year[y]
+
+      future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
+
+      H <- future_health_Score
 
       future_health_score_limit <- 15
       if (H > future_health_score_limit){
         H <- future_health_score_limit
       }
 
-      pof_year[[paste(t)]] <- k * (1 + (c * H) +
+      pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))
     }
 
-    return(data.frame(years=years, PoF=as.numeric(unlist(pof_year))))
+    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future$age <- NA
+    pof_future$age[1] <- age
+
+    for(i in 2:nrow(pof_future)) {
+
+      pof_future$age[i] <- age + i -1
+
+    }
+
+
+    return(pof_future)
   }
 
