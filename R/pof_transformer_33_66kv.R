@@ -94,7 +94,7 @@
 #' @export
 #' @examples
 #' # Current probability of failure for a 66/10kV transformer
-#' pof_future_transformer_33_66kv(transformer_type = "66kV Transformer (GM)",
+#' pof_transformer_33_66kv(transformer_type = "66kV Transformer (GM)",
 #'year_of_manufacture = 1980,
 #'utilisation_pct = "Default",
 #'no_taps = "Default",

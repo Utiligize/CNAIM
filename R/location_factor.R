@@ -107,10 +107,18 @@ if (asset_type == "LV UGB" || asset_type == "33kV UG Cable (Non Pressurised)" ||
                                `Health Index Asset Category` ==
                                asset_category)]
 
-  if (generic_term_1 == "Overhead Line" ||
-      asset_category == "Submarine Cables") {
+  if (asset_category == "EHV OHL Conductor (Tower Lines)" ||
+      asset_category == "132kV OHL Conductor (Tower Lines)") {
+
+    generic_term_1 <- "Towers (Conductor)"
+  }
+
+  if (asset_category == "Submarine Cables" ||
+      asset_category == "Overhead Line") {
     stop(paste0("Asset type not implemented: ", asset_type))
   }
+
+
 
    # Altitude ----------------------------------------------------------------
   altitude_factor_asset_df <- dplyr::select(gb_ref$altitude_factor_lut,

@@ -134,7 +134,7 @@ pof_cables_66_33kv <-
     duty_factor_cable <-
       duty_factor_cables_u66kv(utilisation_pct,
                                operating_voltage_pct,
-                               voltage_level = "EHV") # Husk her ***
+                               voltage_level = "EHV")
 
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cable,
