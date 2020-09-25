@@ -20,7 +20,7 @@ test_that("pof_future_ohl_cond_132_66_33kv", {
                                   reliability_factor = "Default",
                                   simulation_end_year = 100)
 
-  expect_equal(res, 0.004837129)
+  expect_equal(res$PoF[6], 0.006334176)
 
 })
 
