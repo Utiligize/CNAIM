@@ -13,6 +13,9 @@ matrix_adjusted_circles(risk_data_matrix, dots_vector, dot_radius)
 
 \item{dot_radius}{Radius of the dots.}
 }
+\value{
+Long format matrix data. circles for D3 matrix visualization adjusted
+}
 \description{
 This function manipulates the data structure before inputting
 into javascript D3 risk matrix visualization

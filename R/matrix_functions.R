@@ -6,6 +6,7 @@
 #' @param risk_data_matrix  Long format matrix data.
 #' @param dots_vector Coordinates of the dots.
 #' @param dot_radius Radius of the dots.
+#' @return Long format matrix data. circles for D3 matrix visualization adjusted
 #' @export
 matrix_adjusted_circles = function(risk_data_matrix, dots_vector, dot_radius){
 
@@ -39,6 +40,7 @@ matrix_adjusted_circles = function(risk_data_matrix, dots_vector, dot_radius){
 #' @param risk_data_matrix  Long format matrix data.
 #' @param x_intervals An array of x spacing in percent (sum to 100)
 #' @param y_intervals An array of y spacing in percent (sum to 100)
+#' @return Long format matrix data. intervals for matrix D3 visualization adjusted
 #' @export
 matrix_adjusted_intervals = function(risk_data_matrix, x_intervals, y_intervals){
 

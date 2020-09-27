@@ -13,6 +13,9 @@ matrix_adjusted_intervals(risk_data_matrix, x_intervals, y_intervals)
 
 \item{y_intervals}{An array of y spacing in percent (sum to 100)}
 }
+\value{
+Long format matrix data. intervals for matrix D3 visualization adjusted
+}
 \description{
 This function manipulates the data structure before inputting
 into javascript D3 risk matrix visualization

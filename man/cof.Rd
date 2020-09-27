@@ -27,8 +27,3 @@ Numeric. Consequences of failure.
 This function calculates consequences of failure
 (cf.section 7, page 71, CNAIM, 2017).
 }
-\examples{
-# Consequences of failure
-# cof(financial_cof, safety_cof, environmental_cof, network_cof)
-
-}

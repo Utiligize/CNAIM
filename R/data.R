@@ -20,5 +20,5 @@
 #'   \item{transformer_id}{Id of transformer that died}
 #'   \item{dead}{Monte carlo result showing if the transformer has died (TRUE)}
 #' }
-#' @source \url{http://www.cnaim.io/}
+#' @source \url{https://www.cnaim.io/}
 "transformer_11kv_faults"
