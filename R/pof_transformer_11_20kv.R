@@ -1,52 +1,66 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for a 6.6/11 kV Transformer
-#' @description This function calculates the future
-#' annual probability of failure for a 6.6/11 kV transformer.
+#' @title Current Probability of Failure for 6.6/11kV and 20kV Transformers
+#' @description This function calculates the current
+#' annual probability of failure for 6.6/11kV and 20kV transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
-#' @inheritParams pof_transformer_11kv
-#' @param simulation_end_year Numeric. The last year of simulating probability
-#'  of failure. Default is 100.
-#' @return Numeric array. Future probability of failure
-#' per annum for a 6.6/11 kV transformer.
+#' @param hv_transformer_type String. Refers to the high voltage transformer
+#' type the calculation is done for. Options: \code{hv_transformer_type =
+#' c("6.6/11kV Transformer (GM)", "20kV Transformer (GM)")}. The default setting
+#' is \code{hv_transformer_type = 6.6/11kV Transformer (GM)}.
+#' @inheritParams duty_factor_transformer_11_20kv
+#' @inheritParams location_factor
+#' @inheritParams current_health
+#' @param age  Numeric. The current age in years.
+#' @param partial_discharge String. Indicating the
+#' level of partial discharge. Options for \code{partial_discharge}:
+#' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
+#'  "High (Confirmed)", "Default")}. See page 138, table 159 in CNAIM (2017).
+#' @param oil_acidity Numeric. Measured in mg KOH/g.
+#' See page 138, table 160 in CNAIM (2017).
+#' @param temperature_reading String. Indicating the criticality.
+#' Options for \code{temperature_reading}:
+#' \code{temperature_reading = c("Normal", "Moderately High",
+#' "Very High", "Default")}. See page 139, table 161 in CNAIM (2017).
+#' @param observed_condition String. Indicating the observed condition of the
+#'  transformer. Options for \code{observed_condition}:
+#' \code{observed_condition = c("As New", "Good", "Slight Deterioration",
+#'  "Poor", "Very Poor", "Default")}. See page 120, table 73 in CNAIM (2017).
+#' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' # Future probability of a 6.6/11 kV transformer
-#' future_pof_transformer <- pof_future_transformer_11kv(utilisation_pct = "Default",
+#' # Current probability of failure for a 6.6/11 kV transformer
+#' pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
+#' utilisation_pct = "Default",
 #'placement = "Default",
 #'altitude_m = "Default",
 #'distance_from_coast_km = "Default",
 #'corrosion_category_index = "Default",
-#'age = 20,
+#'age = 10,
 #'partial_discharge = "Default",
 #'oil_acidity = "Default",
 #'temperature_reading = "Default",
 #'observed_condition = "Default",
-#'reliability_factor = "Default",
-#'simulation_end_year = 100)
-# # Plot
-#'plot(future_pof_transformer$PoF * 100,
-#'type = "line", ylab = "%", xlab = "years",
-#'main = "PoF")
+#'reliability_factor = "Default")
 
-pof_future_transformer_11kv <- function(utilisation_pct = "Default",
-                                        placement = "Default",
-                                        altitude_m = "Default",
-                                        distance_from_coast_km = "Default",
-                                        corrosion_category_index = "Default",
-                                        age,
-                                        partial_discharge = "Default",
-                                        oil_acidity = "Default",
-                                        temperature_reading = "Default",
-                                        observed_condition = "Default",
-                                        reliability_factor = "Default",
-                                        simulation_end_year = 100) {
+pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
+                                    utilisation_pct = "Default",
+                                    placement = "Default",
+                                    altitude_m = "Default",
+                                    distance_from_coast_km = "Default",
+                                    corrosion_category_index = "Default",
+                                    age,
+                                    partial_discharge = "Default",
+                                    oil_acidity = "Default",
+                                    temperature_reading = "Default",
+                                    observed_condition = "Default",
+                                    reliability_factor = "Default") {
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -54,7 +68,7 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
   # due to NSE notes in R CMD check
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
-  asset_type <- "6.6/11kV Transformer (GM)"
+  asset_type <- hv_transformer_type
 
   asset_category <- gb_ref$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == asset_type) %>%
@@ -81,11 +95,10 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
 
   c <- gb_ref$pof_curve_parameters %>%
     dplyr::filter(`Functional Failure Category` ==
-                    asset_category) %>% dplyr::select(`C-Value`) %>%
-    dplyr::pull()
+                    asset_category) %>% dplyr::select(`C-Value`) %>% dplyr::pull()
 
   # Duty factor -------------------------------------------------------------
-  duty_factor_tf_11kv <- duty_factor_transformer_11kv(utilisation_pct)
+  duty_factor_tf_11kv <- duty_factor_transformer_11_20kv(utilisation_pct)
 
   # Location factor ----------------------------------------------------
   location_factor_transformer <- location_factor(placement,
@@ -94,7 +107,7 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
                                                  corrosion_category_index,
                                                  asset_type)
 
-  # Expected life for 6.6/11 kV transformer ------------------------------
+  # Expected life for6.6/11 kV transformer ------------------------------
   expected_life_years <- expected_life(normal_expected_life,
                                        duty_factor_tf_11kv,
                                        location_factor_transformer)
@@ -304,63 +317,11 @@ pof_future_transformer_11kv <- function(utilisation_pct = "Default",
                    health_score_modifier$health_score_collar,
                    reliability_factor = reliability_factor)
 
-  # Probability of failure for the 6.6/11 kV transformer today ------------------
+  # Probability of failure for the 6.6/11kV and 20kV transformer today -----------------
   probability_of_failure <- k *
     (1 + (c * current_health_score) +
        (((c * current_health_score)^2) / factorial(2)) +
        (((c * current_health_score)^3) / factorial(3)))
 
-  # Future probability of failure -------------------------------------------
-  # the Health Score of a new asset
-  H_new <- 0.5
-  # the Health Score of the asset when it reaches its Expected Life
-
-  b2 <- beta_2(current_health_score, age)
-
-  if (b2 > 2*b1){
-    b2 <- b1
-  } else if (current_health_score == 0.5){
-    b2 <- b1
-  }
-
-  if (current_health_score < 2) {
-    ageing_reduction_factor <- 1
-  } else if (current_health_score <= 5.5) {
-    ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
-  } else {
-    ageing_reduction_factor <- 1.5
-  }
-
-  # Dynamic part
-  pof_year <- list()
-  year <- seq(from=0,to=simulation_end_year,by=1)
-
-  for (y in 1:length(year)){
-    t <- year[y]
-
-    future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
-
-    H <- future_health_Score
-
-    future_health_score_limit <- 15
-    if (H > future_health_score_limit){
-      H <- future_health_score_limit
-    }
-
-    pof_year[[paste(y)]] <- k * (1 + (c * H) +
-                                   (((c * H)^2) / factorial(2)) +
-                                   (((c * H)^3) / factorial(3)))
-  }
-
-  pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
-  pof_future$age <- NA
-  pof_future$age[1] <- age
-
-  for(i in 2:nrow(pof_future)) {
-
-    pof_future$age[i] <- age + i -1
-
-  }
-
-  return(pof_future)
+  return(probability_of_failure)
 }

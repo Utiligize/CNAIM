@@ -3,7 +3,7 @@
 #' electric network asset. See section 6.1.8 on page 34 in CNAIM (2017).
 #' @param current_health_score Numeric. The output returned by the
 #' function \code{\link{current_health}}().
-#' @inheritParams pof_future_transformer_11kv
+#' @param age Numeric. Age of the asset.
 #' @return Numeric. Forecast ageing rate for an electric network asset.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:

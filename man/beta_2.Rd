@@ -15,8 +15,7 @@ beta_2(current_health_score, age)
 \item{current_health_score}{Numeric. The output returned by the
 function \code{\link{current_health}}().}
 
-\item{age}{Numeric. The current age in years
-of the 6.6/11 kV transformer.}
+\item{age}{Numeric. Age of the asset.}
 }
 \value{
 Numeric. Forecast ageing rate for an electric network asset.

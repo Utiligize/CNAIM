@@ -1,21 +1,21 @@
-#' @title Duty Factor for a 6.6/11 kV Transformer
-#' @description This function calculates the duty factor for a 6.6/11 kV transformer
-#' depending on the maximum percentage utilisation under normal operating
-#' conditions.
+#' @title Duty Factor for 6.6/11kV and 20kV Transformers
+#' @description This function calculates the duty factor for 6.6/11kV and 20kV
+#' transformers depending on the maximum percentage utilisation under normal
+#' operating conditions.
 #' The duty factor is used in the deriviation of the expected life of an asset.
 #' See e.g. \code{\link{expected_life}}(). For more general information about
 #' the derivation of the duty factor see section 6.6 on page 47 in CNAIM (2017)
 #' @param utilisation_pct Numeric. The max percentage of utilisation
-#' under normal operating conditions for a 6.6/11 kV transformer.
-#' @return Numeric. Duty factor for a 6.6/11 kV transformer.
+#' under normal operating conditions.
+#' @return Numeric. Duty factor for 6.6/11kV or 20kV transformer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' duty_factor_transformer_11kv(utilisation_pct = 95)
+#' duty_factor_transformer_11_20kv(utilisation_pct = 95)
 
-duty_factor_transformer_11kv <- function(utilisation_pct = "Default") {
+duty_factor_transformer_11_20kv <- function(utilisation_pct = "Default") {
 
   duty_factor_table <- gb_ref$duty_factor_lut_distrib_tf
 
