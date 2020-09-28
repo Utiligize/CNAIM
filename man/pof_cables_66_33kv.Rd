@@ -10,7 +10,7 @@ Health & Criticality - Version 1.1, 2017:
 }
 \usage{
 pof_cables_66_33kv(
-  cable_type = "33kV UG Cable (Gas)",
+  cable_type = "66kV UG Cable (Gas)",
   sub_division = "Aluminium sheath - Aluminium conductor",
   utilisation_pct = "Default",
   operating_voltage_pct = "Default",
@@ -30,7 +30,8 @@ Options:
 \code{cable_type = c("33kV UG Cable (Gas)", "66kV UG Cable (Gas)",
 "33kV UG Cable (Non Pressurised)", "66kV UG Cable (Non Pressurised)",
 "33kV UG Cable (Oil)", "66kV UG Cable (Oil)")
-}}
+}. The default setting is
+\code{cable_type = "66kV UG Cable (Gas)"}.}
 
 \item{sub_division}{String. Refers to material the sheath and conductor is
 made of. Options:
@@ -42,8 +43,8 @@ made of. Options:
 \item{utilisation_pct}{Numeric. The max percentage of utilisation
 under normal operating conditions.}
 
-\item{operating_voltage_pct}{Numeric. The percentage of operating/design
-voltage.}
+\item{operating_voltage_pct}{Numeric. The ratio in percent of
+operating/design voltage.}
 
 \item{sheath_test}{String. Only applied for non pressurised cables.
 Indicating the state of the sheath. Options:
@@ -79,12 +80,12 @@ per annum per kilometre for 20/10/0.4kV cables.
 }
 \description{
 This function calculates the current
-annual probability of failure per kilometre for a 33-66kV cables.
+annual probability of failure per kilometer for a 33-66kV cables.
 The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017). ###################
+on page 30 in CNAIM (2017).
 }
 \examples{
 # Current annual probability of failure for

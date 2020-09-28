@@ -3,7 +3,7 @@
 #' transformers depending on the maximum percentage utilisation under normal
 #' operating conditions.
 #' The duty factor is used in the deriviation of the expected life of an asset.
-#' See e.g. \code{\link{expected_life}}(). For more general information about
+#' See e.g. \code{\link{expected_life}()}. For more general information about
 #' the derivation of the duty factor see section 6.6 on page 47 in CNAIM (2017)
 #' @param utilisation_pct Numeric. The max percentage of utilisation
 #' under normal operating conditions.

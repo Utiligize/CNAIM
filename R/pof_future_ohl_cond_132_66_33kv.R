@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Future Probability of Failure for 33-132kV OHL Conductors
 #' @description This function calculates the future
-#' annual probability of failure per kilometre 3-132kV OHL conductors.
+#' annual probability of failure per kilometer 3-132kV OHL conductors.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the

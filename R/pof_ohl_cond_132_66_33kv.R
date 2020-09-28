@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Current Probability of Failure for 33-132kV OHL Conductors
 #' @description This function calculates the current
-#' annual probability of failure per kilometre 3-132kV OHL conductors.
+#' annual probability of failure per kilometer 3-132kV OHL conductors.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
@@ -23,18 +23,22 @@
 #' "Cad Cu",
 #' "Cu",
 #' "Other")
-#'}
+#'}. See page 103, table 20 in CNAIM (2017).
 #' @inheritParams location_factor
 #' @param age  Numeric. The current age in years of the conductor.
 #' @param conductor_samp String. Conductor sampling. Options:
-#' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}
+#' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
+#' See page 146-147, table 192 and 194 in CNAIM (2017).
 #' @param corr_mon_survey String. Corrosion monitoring survey. Options:
-#' \code{corr_mon_survey = c("Low","Medium/Normal","High","Default")}
+#' \code{corr_mon_survey = c("Low","Medium/Normal","High","Default")}.
+#' See page 146-147, table 193 and 195 in CNAIM (2017).
 #' @param visual_cond String. Visual condition. Options:
 #' \code{visual_cond = c("As New","Normal Wear","Some Deterioration",
-#' "Substantial Deterioration", "Default")}
+#' "Substantial Deterioration", "Default")}.
+#' See page 131-132, table 127 and 129 in CNAIM (2017).
 #' @param midspan_joints Integer. Number of midspan joints on the conductor.
 #' A span includes all conductors in that span.
+#' See page 131-132, table 128 and 130 in CNAIM (2017).
 #' @inheritParams current_health
 #' @return Numeric. Current probability of failure
 #' per annum per kilometre for 20/10/0.4kV cables.

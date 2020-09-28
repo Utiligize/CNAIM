@@ -9,9 +9,9 @@
 #'  expected to normally last. I.e. technical life time.
 #'  See page 103, table 20 in CNAIM (2017).
 #' @param duty_factor Numeric. E.g. the output returned by the function
-#'  \code{\link{duty_factor_transformer_11kv}}().
+#'  \code{\link{duty_factor_transformer_11_20kv}()}.
 #' @param location_factor Numeric. The output returned by the function
-#'  \code{\link{location_factor}}().
+#'  \code{\link{location_factor}()}.
 #' @return Numeric. Expected life.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:

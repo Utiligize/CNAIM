@@ -1,49 +1,55 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 20/10/0.4kV cables
-#' @description This function calculates the future
-#' annual probability of failure per kilometer for a 20/10/0.4kV cable.
+#' @title Future Probability of Failure for Submarine Cables
+#' @description This function calculates the Future
+#' annual probability of failure per kilometer for submarine cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
-#' @inheritParams pof_cables_20_10_04kv
+#' @inheritParams pof_submarine_cables
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric array. Future probability of failure
-#' per annum for 33-66kV cables.
+#' @return Numeric. Current probability of failure
+#' per annum per kilometre.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' # Future probability of failure for 66kV UG Cable (Non Pressurised)
-#' pof_10kV_pex <-
-#' pof_future_cables_20_10_04kv(hv_lv_cable_type = "10-20kV cable, PEX",
-#'sub_division = "Aluminium sheath - Aluminium conductor",
-#'utilisation_pct = "Default",
-#'operating_voltage_pct = "Default",
-#'sheath_test = "Default",
-#'partial_discharge = "Default",
-#'fault_hist = "Default",
-#'reliability_factor = "Default",
-#'age = 15,
-#'simulation_end_year = 100)
-#' # Plot
-#'plot(pof_10kV_pex$PoF * 100,
-#'type = "line", ylab = "%", xlab = "years",
-#'main = "PoF per kilometre - 10-20kV cable, PEX")
+#' # Current annual probability of failure for 1 km EHV Sub Cable
+#' pof_future_submarine_cables(
+#'  sub_cable_type = "EHV Sub Cable",
+#'  utilisation_pct = "Default",
+#'  operating_voltage_pct = "Default",
+#'  topography = "Default",
+#'  sitution = "Default",
+#'  wind_wave = "Default",
+#'  intensity = "Default",
+#'  landlocked = "no",
+#'  sheath_test = "Default",
+#'  partial_discharge = "Default",
+#'  fault_hist = "Default",
+#'  condition_armour = "Default",
+#'  age = 10,
+#'  reliability_factor = "Default",
+#'  simulation_end_year = 100)
 
-pof_future_cables_20_10_04kv <-
-  function(hv_lv_cable_type = "10-20kV cable, PEX",
-           sub_division = "Aluminium sheath - Aluminium conductor",
+pof_future_submarine_cables <-
+  function(sub_cable_type = "EHV Sub Cable",
            utilisation_pct = "Default",
            operating_voltage_pct = "Default",
+           topography = "Default",
+           sitution = "Default",
+           wind_wave = "Default",
+           intensity = "Default",
+           landlocked = "no",
            sheath_test = "Default",
            partial_discharge = "Default",
            fault_hist = "Default",
-           reliability_factor = "Default",
+           condition_armour = "Default",
            age,
+           reliability_factor = "Default",
            simulation_end_year = 100) {
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -51,16 +57,10 @@ pof_future_cables_20_10_04kv <-
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
 
-    if (hv_lv_cable_type ==  "10-20kV cable, PEX" ||
-        hv_lv_cable_type ==  "10-20kV cable, APB" ||
-        hv_lv_cable_type ==  "0.4kV cable") {
-      pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
-    }
-
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
 
     asset_category <- gb_ref$categorisation_of_assets %>%
-      dplyr::filter(`Asset Register Category` == pseudo_cable_type) %>%
+      dplyr::filter(`Asset Register Category` == sub_cable_type) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
     generic_term_1 <- gb_ref$generic_terms_for_assets %>%
@@ -71,40 +71,49 @@ pof_future_cables_20_10_04kv <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-    # Normal expected life  ---------------------------
+    # Normal expected life  -------------------------
     normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` == pseudo_cable_type &
-                      `Sub-division` == sub_division) %>%
+      dplyr::filter(`Asset Register  Category` == sub_cable_type)  %>%
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    type_k_c <- gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
-      grepl("Non Pressurised",
-            gb_ref$pof_curve_parameters$`Functional Failure Category`,
-            fixed = TRUE) == TRUE
-    )]
-
     k <- gb_ref$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull() / 100
+                      asset_category) %>% dplyr::select(`K-Value (%)`) %>%
+      dplyr::pull()/100
 
     c <- gb_ref$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`C-Value`) %>%
+                      asset_category) %>% dplyr::select(`C-Value`) %>%
       dplyr::pull()
 
     # Duty factor -------------------------------------------------------------
+    if (sub_cable_type == "EHV Sub Cable" || sub_cable_type ==
+        "132kV Sub Cable") {
+      sub_marine_col_level <- "EHV"
+    } else {
+      sub_marine_col_level <- "LV & HV"
+    }
 
-    duty_factor_cable <-
-      duty_factor_cables(utilisation_pct,
-                         operating_voltage_pct,
-                         voltage_level = "LV & HV")
+    duty_factor_sub <-
+      duty_factor_cables(
+        utilisation_pct,
+        operating_voltage_pct,
+        voltage_level = sub_marine_col_level)
+
+
+    # Location factor ---------------------------------------------------------
+    lf_submarine <- location_factor_sub(topography,
+                                        sitution,
+                                        wind_wave,
+                                        intensity,
+                                        landlocked)
+
 
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cable,
-                                         duty_factor_cable,
-                                         location_factor = 1)
+                                         duty_factor_sub,
+                                         location_factor = lf_submarine)
 
     # b1 (Initial Ageing Rate) ------------------------------------------------
     b1 <- beta_1(expected_life_years)
@@ -122,22 +131,13 @@ pof_future_cables_20_10_04kv <-
     # and Table 200 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
-    asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")
-    asset_category_mmi <- stringr::str_squish(asset_category_mmi)
-
     mcm_mmi_cal_df <-
       gb_ref$measured_cond_modifier_mmi_cal
-
-    mmi_type <- mcm_mmi_cal_df$`Asset Category`[which(
-      grepl(asset_category_mmi,
-            mcm_mmi_cal_df$`Asset Category`,
-            fixed = TRUE) == TRUE
-    )]
 
 
     mcm_mmi_cal_df <-
       mcm_mmi_cal_df[which(
-        mcm_mmi_cal_df$`Asset Category` == asset_category_mmi), ]
+        mcm_mmi_cal_df$`Asset Category` == "Submarine Cable"), ]
 
     factor_divider_1 <-
       as.numeric(
@@ -157,52 +157,59 @@ pof_future_cables_20_10_04kv <-
 
 
     # Sheath test -------------------------------------------------------------
-    mci_ehv_cbl_non_pr_sheath_test <-
-      gb_ref$mci_ehv_cbl_non_pr_sheath_test %>% dplyr::filter(
+    mci_submarine_cbl_sheath_test <-
+      gb_ref$mci_submarine_cbl_sheath_test %>% dplyr::filter(
         `Condition Criteria: Sheath Test Result` == sheath_test
       )
 
-    ci_factor_sheath <- mci_ehv_cbl_non_pr_sheath_test$`Condition Input Factor`
-    ci_cap_sheath <- mci_ehv_cbl_non_pr_sheath_test$`Condition Input Cap`
-    ci_collar_sheath <- mci_ehv_cbl_non_pr_sheath_test$`Condition Input Collar`
+    ci_factor_sheath <-
+      mci_submarine_cbl_sheath_test$`Condition Input Factor`
+    ci_cap_sheath <-
+      mci_submarine_cbl_sheath_test$`Condition Input Cap`
+    ci_collar_sheath <-
+      mci_submarine_cbl_sheath_test$`Condition Input Collar`
 
-
-    mci_ehv_cbl_non_pr_prtl_disch <-
-      gb_ref$mci_ehv_cbl_non_pr_prtl_disch %>% dplyr::filter(
+    # Partial discharge-------------------------------------------------------
+    mci_submarine_cable_prtl_disc <-
+      gb_ref$mci_submarine_cable_prtl_disc %>%
+      dplyr::filter(
         `Condition Criteria: Partial Discharge Test Result` == partial_discharge
       )
 
+    ci_factor_partial <-
+      mci_submarine_cable_prtl_disc$`Condition Input Factor`
+    ci_cap_partial <- mci_submarine_cable_prtl_disc$`Condition Input Cap`
+    ci_collar_partial <-
+      mci_submarine_cable_prtl_disc$`Condition Input Collar`
 
-    ci_factor_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Factor`
-    ci_cap_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Cap`
-    ci_collar_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Collar`
 
-    mci_ehv_cbl_non_pr_fault_hist <-
-      gb_ref$mci_ehv_cbl_non_pr_fault_hist
+    # Fault -------------------------------------------------------
+    mci_submarine_cable_fault_hist <-
+      gb_ref$mci_submarine_cable_fault_hist
 
     for (n in 2:4) {
       if (fault_hist == 'Default' || fault_hist ==
           'No historic faults recorded') {
-        no_row <- which(mci_ehv_cbl_non_pr_fault_hist$Upper == fault_hist)
+        no_row <- which(mci_submarine_cable_fault_hist$Upper == fault_hist)
 
         ci_factor_fault <-
-          mci_ehv_cbl_non_pr_fault_hist$`Condition Input Factor`[no_row]
+          mci_submarine_cable_fault_hist$`Condition Input Factor`[no_row]
         ci_cap_fault <-
-          mci_ehv_cbl_non_pr_fault_hist$`Condition Input Cap`[no_row]
+          mci_submarine_cable_fault_hist$`Condition Input Cap`[no_row]
         ci_collar_fault <-
-          mci_ehv_cbl_non_pr_fault_hist$`Condition Input Collar`[no_row]
+          mci_submarine_cable_fault_hist$`Condition Input Collar`[no_row]
         break
-      } else if (fault_hist >= as.numeric(
-        mci_ehv_cbl_non_pr_fault_hist$Lower[n]) &
-        fault_hist <
-        as.numeric(mci_ehv_cbl_non_pr_fault_hist$Upper[n])) {
+      } else if (fault_hist >=
+                 as.numeric(mci_submarine_cable_fault_hist$Lower[n]) &
+                 fault_hist <
+                 as.numeric(mci_submarine_cable_fault_hist$Upper[n])) {
 
         ci_factor_fault <-
-          mci_ehv_cbl_non_pr_fault_hist$`Condition Input Factor`[n]
+          mci_submarine_cable_fault_hist$`Condition Input Factor`[n]
         ci_cap_fault <-
-          mci_ehv_cbl_non_pr_fault_hist$`Condition Input Cap`[n]
+          mci_submarine_cable_fault_hist$`Condition Input Cap`[n]
         ci_collar_fault <-
-          mci_ehv_cbl_non_pr_fault_hist$`Condition Input Collar`[n]
+          mci_submarine_cable_fault_hist$`Condition Input Collar`[n]
 
         break
       }
@@ -224,7 +231,7 @@ pof_future_cables_20_10_04kv <-
               ci_cap_fault)
     measured_condition_cap <- min(caps)
 
-    # Measured condition collar -----------------------------------------------
+    # Measured condition collar ----------------------------------------------
     collars <- c(ci_collar_sheath,
                  ci_collar_partial,
                  ci_collar_fault)
@@ -237,14 +244,67 @@ pof_future_cables_20_10_04kv <-
                                               measured_condition_collar)
 
 
+
+    # Observed conditions -----------------------------------------------------
+
+    oci_mmi_cal_df <-
+      gb_ref$observed_cond_modifier_mmi_cal %>%
+      dplyr::filter(`Asset Category` == "Submarine Cable")
+
+    factor_divider_1_oi <-
+      as.numeric(oci_mmi_cal_df$`Parameters for Combination Using MMI Technique - Factor Divider 1`)
+
+    factor_divider_2_oi <-
+      as.numeric(oci_mmi_cal_df$`Parameters for Combination Using MMI Technique - Factor Divider 2`)
+
+    max_no_combined_factors_oi <-
+      as.numeric(oci_mmi_cal_df$`Parameters for Combination Using MMI Technique - Max. No. of Combined Factors`)
+
+
+
+    # External conditions of armour
+
+    oci_submrn_cable_ext_cond_armr <-
+      gb_ref$oci_submrn_cable_ext_cond_armr %>%
+      dplyr::filter(
+        `Condition Criteria` == condition_armour
+      )
+
+    oi_factor <-
+      oci_submrn_cable_ext_cond_armr$`Condition Input Factor`
+    oi_cap <- oci_submrn_cable_ext_cond_armr$`Condition Input Cap`
+    oi_collar <-
+      oci_submrn_cable_ext_cond_armr$`Condition Input Collar`
+
+
+    observed_condition_factor <- mmi(oi_factor,
+                                     factor_divider_1_oi,
+                                     factor_divider_2_oi,
+                                     max_no_combined_factors_oi)
+
+
+    observed_condition_cap <- oi_cap
+    observed_condition_collar <- oi_collar
+
+    observed_condition_modifier <- data.frame(observed_condition_factor,
+                                              observed_condition_cap,
+                                              observed_condition_collar)
+
     # Health score factor ---------------------------------------------------
-    health_score_factor <- measured_condition_modifier$measured_condition_factor
+    health_score_factor <- health_score_excl_ehv_132kv_tf(
+      observed_condition_modifier$observed_condition_factor,
+      measured_condition_modifier$measured_condition_factor)
+
 
     # Health score cap --------------------------------------------------------
-    health_score_cap <- measured_condition_modifier$measured_condition_cap
+    health_score_cap <-
+      min(observed_condition_modifier$observed_condition_cap,
+          measured_condition_modifier$measured_condition_cap)
 
     # Health score collar -----------------------------------------------------
-    health_score_collar <- measured_condition_modifier$measured_condition_collar
+    health_score_collar <-
+      min(observed_condition_modifier$observed_condition_collar,
+          measured_condition_modifier$measured_condition_collar)
 
     # Health score modifier ---------------------------------------------------
     health_score_modifier <- data.frame(health_score_factor,
@@ -259,7 +319,7 @@ pof_future_cables_20_10_04kv <-
                      health_score_modifier$health_score_collar,
                      reliability_factor = reliability_factor)
 
-    # Probability of failure for the 6.6/11 kV transformer today ------------------
+    # Probability of failure for the 6.6/11 kV transformer today ---------------
     probability_of_failure <- k *
       (1 + (c * current_health_score) +
          (((c * current_health_score)^2) / factorial(2)) +
@@ -318,7 +378,5 @@ pof_future_cables_20_10_04kv <-
 
     }
 
-
     return(pof_future)
   }
-

@@ -1,7 +1,11 @@
-#' @title Location Factor
+#' @title Location Factor (Excl.Submarine Cables)
 #' @description This function calculates the location factor for
 #' an electric network asset based in the specific location of the asset.
-#' See section 6.4 on page 4 in CNAIM (2017).
+#' See section 6.4 on page 42 in CNAIM (2017). For calculating the location
+#' factor for submarine cables please see the function
+#' \code{\link{location_factor_sub}()}. Note the location factor for all other
+#' cables are always equal to 1 hence the function will return a location
+#' factor of 1 for other cables than submarine cables.
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' A setting of \code{"Outdoor"} means the asset is
 #' located in an outside environment,
@@ -35,7 +39,7 @@
 #' "LV Pillar (ID)", "LV Pillar (OD at Substation)",
 #' "LV Pillar (OD not at a Substation)", "LV Board (WM)",
 #' "LV UGB", "LV Board (X-type Network) (WM)", "6.6/11kV Poles",
-#'  "20kV Poles", "HV Sub Cable", "6.6/11kV CB (GM) Primary",
+#'  "20kV Poles", "6.6/11kV CB (GM) Primary",
 #'"6.6/11kV CB (GM) Secondary", "6.6/11kV Switch (GM)", "6.6/11kV RMU",
 #' "6.6/11kV X-type RMU", "20kV CB (GM) Primary", "20kV CB (GM) Secondary",
 #'  "20kV Switch (GM)", "20kV RMU", "6.6/11kV Transformer (GM)",
@@ -44,7 +48,7 @@
 #'"66kV OHL (Tower Line) Conductor", "66kV Tower", "66kV Fittings",
 #'"33kV UG Cable (Non Pressurised)", "33kV UG Cable (Oil)",
 #'"33kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
-#'"66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "EHV Sub Cable",
+#'"66kV UG Cable (Oil)", "66kV UG Cable (Gas)",
 #'"33kV CB (Air Insulated Busbars)(ID) (GM)",
 #'"33kV CB (Air Insulated Busbars)(OD) (GM)",
 #'"33kV CB (Gas Insulated Busbars)(ID) (GM)",
@@ -55,7 +59,7 @@
 #'"66kV CB (Gas Insulated Busbars)(OD) (GM)", "33kV Transformer (GM)",
 #' "66kV Transformer (GM)", "132kV OHL (Tower Line) Conductor",
 #'"132kV Tower", "132kV Fittings", "132kV UG Cable (Non Pressurised)",
-#' "132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV Sub Cable",
+#' "132kV UG Cable (Oil)", "132kV UG Cable (Gas)",
 #' "132kV CB (Air Insulated Busbars)(ID) (GM)",
 #'"132kV CB (Air Insulated Busbars)(OD) (GM)",
 #'"132kV CB (Gas Insulated Busbars)(ID) (GM)",
@@ -73,7 +77,6 @@
 #'corrosion_category_index = "Default",
 #'asset_type = "6.6/11kV Transformer (GM)")
 
-
 location_factor <- function(placement = "Default",
                             altitude_m = "Default",
                             distance_from_coast_km = "Default",
@@ -81,7 +84,8 @@ location_factor <- function(placement = "Default",
                             asset_type = "6.6/11kV Transformer (GM)") {
 
 
-if (asset_type == "LV UGB" || asset_type == "33kV UG Cable (Non Pressurised)" ||
+if (asset_type == "LV UGB" ||
+    asset_type == "33kV UG Cable (Non Pressurised)" ||
     asset_type == "33kV UG Cable (Oil)" ||
     asset_type == "33kV UG Cable (Gas)" ||
     asset_type == "66kV UG Cable (Non Pressurised)" ||
@@ -109,12 +113,10 @@ if (asset_type == "LV UGB" || asset_type == "33kV UG Cable (Non Pressurised)" ||
 
   if (asset_category == "EHV OHL Conductor (Tower Lines)" ||
       asset_category == "132kV OHL Conductor (Tower Lines)") {
-
     generic_term_1 <- "Towers (Conductor)"
   }
 
-  if (asset_category == "Submarine Cables" ||
-      asset_category == "Overhead Line") {
+  if (asset_category == "Overhead Line") {
     stop(paste0("Asset type not implemented: ", asset_type))
   }
 

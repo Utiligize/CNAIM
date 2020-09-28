@@ -26,8 +26,8 @@ pof_cables_20_10_04kv(
 A sting that refers to the specific asset category.
 Options:
 \code{hv_lv_cable_type = c("10-20kV cable, PEX","10-20kV cable, APB",
-"0.4kV cable")
-}}
+"0.4kV cable")}. The default setting is
+\code{hv_lv_cable_type = "10-20kV cable, PEX"}.}
 
 \item{sub_division}{String. Refers to material the sheath and conductor is
 made of. Options:
@@ -39,8 +39,8 @@ made of. Options:
 \item{utilisation_pct}{Numeric. The max percentage of utilisation
 under normal operating conditions.}
 
-\item{operating_voltage_pct}{Numeric. The percentage of operating/design
-voltage.}
+\item{operating_voltage_pct}{Numeric. The ratio in percent of
+operating/design voltage.}
 
 \item{sheath_test}{String. Only applied for non pressurised cables.
 Indicating the state of the sheath. Options:
@@ -70,12 +70,12 @@ per annum for 20/10/0.4kV cables.
 }
 \description{
 This function calculates the current
-annual probability of failure per kilometre for a 20/10/0.4kV cable.
+annual probability of failure per kilometer for a 20/10/0.4kV cable.
 The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017). ###################
+on page 30 in CNAIM (2017).
 }
 \examples{
 # Current annual probability of failure for 10-20kV cable, APB, 50 years old

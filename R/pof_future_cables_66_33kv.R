@@ -1,18 +1,13 @@
 #' @importFrom magrittr %>%
 #' @title Future Probability of Failure for 33-66kV cables
 #' @description This function calculates the future
-#' annual probability of failure per kilometre for a 33-66kV cables.
+#' annual probability of failure per kilometer for a 33-66kV cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
 #' @inheritParams pof_cables_66_33kv
-#' @inheritParams duty_factor_cables_u66kv
-#' @param sheath_test String. Only applied for non pressurised cables.
-#' Indicating the state of the sheath. Options:
-#' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 141, table 168 in CNAIM (2017).
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
@@ -108,9 +103,9 @@ pof_future_cables_66_33kv <-
     # Duty factor -------------------------------------------------------------
 
     duty_factor_cable <-
-      duty_factor_cables_u66kv(utilisation_pct,
-                               operating_voltage_pct,
-                               voltage_level = "EHV")
+      duty_factor_cables(utilisation_pct,
+                         operating_voltage_pct,
+                         voltage_level = "EHV")
 
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cable,
@@ -181,7 +176,7 @@ pof_future_cables_66_33kv <-
         gb_ref$mci_ehv_cbl_non_pr_prtl_disch %>% dplyr::filter(
           `Condition Criteria: Partial Discharge Test Result` == partial_discharge
         )
-
+      # partial discharge ------------------------------------------------------
 
       ci_factor_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Factor`
       ci_cap_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Cap`
@@ -189,6 +184,8 @@ pof_future_cables_66_33kv <-
 
       mci_ehv_cbl_non_pr_fault_hist <-
         gb_ref$mci_ehv_cbl_non_pr_fault_hist
+
+      # Fault -------------------------------------------------------------
 
       for (n in 2:4) {
         if (fault_hist == 'Default' || fault_hist == 'No historic faults recorded') {
@@ -198,8 +195,8 @@ pof_future_cables_66_33kv <-
           ci_cap_fault <- mci_ehv_cbl_non_pr_fault_hist$`Condition Input Cap`[no_row]
           ci_collar_fault <- mci_ehv_cbl_non_pr_fault_hist$`Condition Input Collar`[no_row]
           break
-        } else if (fault_hist > as.numeric(mci_ehv_cbl_non_pr_fault_hist$Lower[n]) &
-                   fault_hist <=
+        } else if (fault_hist >= as.numeric(mci_ehv_cbl_non_pr_fault_hist$Lower[n]) &
+                   fault_hist <
                    as.numeric(mci_ehv_cbl_non_pr_fault_hist$Upper[n])) {
 
           ci_factor_fault <- mci_ehv_cbl_non_pr_fault_hist$`Condition Input Factor`[n]

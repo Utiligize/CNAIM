@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Current Probability of Failure for 33-66kV cables
 #' @description This function calculates the current
-#' annual probability of failure per kilometre for a 33-66kV cables.
+#' annual probability of failure per kilometer for a 33-66kV cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
@@ -22,7 +22,7 @@
 #' "Aluminium sheath - Copper conductor",
 #' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")
 #'}
-#' @inheritParams duty_factor_cables_u66kv
+#' @inheritParams duty_factor_cables
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
@@ -133,9 +133,9 @@ pof_cables_66_33kv <-
     # Duty factor -------------------------------------------------------------
 
     duty_factor_cable <-
-      duty_factor_cables_u66kv(utilisation_pct,
-                               operating_voltage_pct,
-                               voltage_level = "EHV")
+      duty_factor_cables(utilisation_pct,
+                         operating_voltage_pct,
+                         voltage_level = "EHV")
 
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cable,
@@ -215,6 +215,8 @@ pof_cables_66_33kv <-
           `Condition Criteria: Partial Discharge Test Result` == partial_discharge
         )
 
+      # Partial discharge-------------------------------------------------------
+
 
       ci_factor_partial <-
         mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Factor`
@@ -224,6 +226,9 @@ pof_cables_66_33kv <-
 
       mci_ehv_cbl_non_pr_fault_hist <-
         gb_ref$mci_ehv_cbl_non_pr_fault_hist
+
+
+      # Fault -------------------------------------------------------
 
       for (n in 2:4) {
         if (fault_hist == 'Default' || fault_hist ==
@@ -237,9 +242,9 @@ pof_cables_66_33kv <-
           ci_collar_fault <-
             mci_ehv_cbl_non_pr_fault_hist$`Condition Input Collar`[no_row]
           break
-        } else if (fault_hist >
+        } else if (fault_hist >=
                    as.numeric(mci_ehv_cbl_non_pr_fault_hist$Lower[n]) &
-                   fault_hist <=
+                   fault_hist <
                    as.numeric(mci_ehv_cbl_non_pr_fault_hist$Upper[n])) {
 
           ci_factor_fault <-

@@ -1,31 +1,31 @@
-#' @title Duty Factor for all cables under 66kV
-#' @description This function calculates the duty factor for under
-#' cables under 66kV depending on the maximum
+#' @title Duty Factor for all cables (incl. submarine cables).
+#' @description This function calculates the duty factor for under all types of
+#' cables depending on the maximum
 #' percentage utilisation under normal operating conditions.
 #' The duty factor is used in the deriviation of the expected life of an asset.
-#' See e.g. \code{\link{expected_life}}(). For more general information about
+#' See e.g. \code{\link{expected_life}()}. For more general information about
 #' the derivation of the duty factor see section 6.6 on page 47 in CNAIM (2017)
 #' @param utilisation_pct Numeric. The max percentage of utilisation
 #' under normal operating conditions.
-#' @param operating_voltage_pct Numeric. The percentage of operating/design
-#' voltage.
+#' @param operating_voltage_pct Numeric. The ratio in percent of
+#' operating/design voltage.
 #' @param voltage_level String. Specify the voltage level. Options:
 #' \code{voltage_level = c("EHV", "LV & HV")}.
-#' Choose \code{"EHV"} for 33-66kV cables and \code{"LV & HV"} for cables under
-#' 33kV.
-#' @return Numeric. Duty factor for cables under 66kV.
+#' Choose \code{"EHV"} for cables \code{>= 33kV}  and \code{"LV & HV"}
+#' for cables \code{< 33kV} .
+#' @return Numeric. Duty factor for cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' duty_factor_cables_u66kv(utilisation_pct = "Default",
+#' duty_factor_cables(utilisation_pct = "Default",
 #' operating_voltage_pct = "Default",
 #' voltage_level = "EHV")
 
-duty_factor_cables_u66kv <- function(utilisation_pct = "Default",
-                                     operating_voltage_pct = "Default",
-                                     voltage_level = "EHV") {
+duty_factor_cables <- function(utilisation_pct = "Default",
+                               operating_voltage_pct = "Default",
+                               voltage_level = "EHV") {
 
   if (voltage_level == "EHV") {
     duty_factor_table1 <- gb_ref$duty_factor_lut_cables_df1 %>% dplyr::select(

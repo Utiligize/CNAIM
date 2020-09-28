@@ -2,7 +2,7 @@
 % Please edit documentation in R/location_factor.R
 \name{location_factor}
 \alias{location_factor}
-\title{Location Factor}
+\title{Location Factor (Excl.Submarine Cables)}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 1.1, 2017:
@@ -55,7 +55,7 @@ Options:
 "LV Pillar (ID)", "LV Pillar (OD at Substation)",
 "LV Pillar (OD not at a Substation)", "LV Board (WM)",
 "LV UGB", "LV Board (X-type Network) (WM)", "6.6/11kV Poles",
- "20kV Poles", "HV Sub Cable", "6.6/11kV CB (GM) Primary",
+ "20kV Poles", "6.6/11kV CB (GM) Primary",
 "6.6/11kV CB (GM) Secondary", "6.6/11kV Switch (GM)", "6.6/11kV RMU",
 "6.6/11kV X-type RMU", "20kV CB (GM) Primary", "20kV CB (GM) Secondary",
  "20kV Switch (GM)", "20kV RMU", "6.6/11kV Transformer (GM)",
@@ -64,7 +64,7 @@ Options:
 "66kV OHL (Tower Line) Conductor", "66kV Tower", "66kV Fittings",
 "33kV UG Cable (Non Pressurised)", "33kV UG Cable (Oil)",
 "33kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
-"66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "EHV Sub Cable",
+"66kV UG Cable (Oil)", "66kV UG Cable (Gas)",
 "33kV CB (Air Insulated Busbars)(ID) (GM)",
 "33kV CB (Air Insulated Busbars)(OD) (GM)",
 "33kV CB (Gas Insulated Busbars)(ID) (GM)",
@@ -75,7 +75,7 @@ Options:
 "66kV CB (Gas Insulated Busbars)(OD) (GM)", "33kV Transformer (GM)",
 "66kV Transformer (GM)", "132kV OHL (Tower Line) Conductor",
 "132kV Tower", "132kV Fittings", "132kV UG Cable (Non Pressurised)",
-"132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV Sub Cable",
+"132kV UG Cable (Oil)", "132kV UG Cable (Gas)",
 "132kV CB (Air Insulated Busbars)(ID) (GM)",
 "132kV CB (Air Insulated Busbars)(OD) (GM)",
 "132kV CB (Gas Insulated Busbars)(ID) (GM)",
@@ -88,7 +88,11 @@ Numeric. Location factor
 \description{
 This function calculates the location factor for
 an electric network asset based in the specific location of the asset.
-See section 6.4 on page 4 in CNAIM (2017).
+See section 6.4 on page 42 in CNAIM (2017). For calculating the location
+factor for submarine cables please see the function
+\code{\link{location_factor_sub}()}. Note the location factor for all other
+cables are always equal to 1 hence the function will return a location
+factor of 1 for other cables than submarine cables.
 }
 \examples{
  # Location factor for a 6.6/11 kV Transformer with default values

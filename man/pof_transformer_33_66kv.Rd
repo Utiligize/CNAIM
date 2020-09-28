@@ -54,7 +54,9 @@ pof_transformer_33_66kv(
 \item{transformer_type}{String. A sting that refers to the specific
 asset category. See See page 15, table 1 in CNAIM (2017).
 Options:
-\code{transformer_type = c("33kV Transformer (GM)", "66kV Transformer (GM)")}}
+\code{transformer_type =
+c("33kV Transformer (GM)", "66kV Transformer (GM)")}. The default setting is
+\code{transformer_type = "66kV Transformer (GM)"}}
 
 \item{year_of_manufacture}{Numeric. Normal expected life depends on the
 year for manufacture, see page 103 table 20 in CNAIM (2017).}

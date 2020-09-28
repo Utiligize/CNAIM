@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Current Probability of Failure for 20/10/0.4kV cables
 #' @description This function calculates the current
-#' annual probability of failure per kilometre for a 20/10/0.4kV cable.
+#' annual probability of failure per kilometer for a 20/10/0.4kV cable.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
@@ -19,7 +19,7 @@
 #' "Aluminium sheath - Copper conductor",
 #' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")
 #'}
-#' @inheritParams duty_factor_cables_u66kv
+#' @inheritParams duty_factor_cables
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
@@ -75,7 +75,7 @@ pof_cables_20_10_04kv <-
     if (hv_lv_cable_type ==  "10-20kV cable, PEX" ||
         hv_lv_cable_type ==  "10-20kV cable, APB" ||
         hv_lv_cable_type ==  "0.4kV cable") {
-    pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
+      pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
     }
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
@@ -117,9 +117,9 @@ pof_cables_20_10_04kv <-
     # Duty factor -------------------------------------------------------------
 
     duty_factor_cable <-
-      duty_factor_cables_u66kv(utilisation_pct,
-                               operating_voltage_pct,
-                               voltage_level = "LV & HV")
+      duty_factor_cables(utilisation_pct,
+                         operating_voltage_pct,
+                         voltage_level = "LV & HV")
 
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cable,
@@ -186,6 +186,7 @@ pof_cables_20_10_04kv <-
     ci_cap_sheath <- mci_ehv_cbl_non_pr_sheath_test$`Condition Input Cap`
     ci_collar_sheath <- mci_ehv_cbl_non_pr_sheath_test$`Condition Input Collar`
 
+    # Partial discharge-------------------------------------------------------
 
     mci_ehv_cbl_non_pr_prtl_disch <-
       gb_ref$mci_ehv_cbl_non_pr_prtl_disch %>% dplyr::filter(
@@ -196,6 +197,9 @@ pof_cables_20_10_04kv <-
     ci_factor_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Factor`
     ci_cap_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Cap`
     ci_collar_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Collar`
+
+
+    # Fault -------------------------------------------------------
 
     mci_ehv_cbl_non_pr_fault_hist <-
       gb_ref$mci_ehv_cbl_non_pr_fault_hist
@@ -212,9 +216,9 @@ pof_cables_20_10_04kv <-
         ci_collar_fault <-
           mci_ehv_cbl_non_pr_fault_hist$`Condition Input Collar`[no_row]
         break
-      } else if (fault_hist >
+      } else if (fault_hist >=
                  as.numeric(mci_ehv_cbl_non_pr_fault_hist$Lower[n]) &
-                 fault_hist <=
+                 fault_hist <
                  as.numeric(mci_ehv_cbl_non_pr_fault_hist$Upper[n])) {
 
         ci_factor_fault <-
