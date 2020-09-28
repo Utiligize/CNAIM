@@ -6,7 +6,7 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017). ###################
+#' on page 30 in CNAIM (2017).
 #' @param cable_type String.
 #' A sting that refers to the specific asset category.
 #' See See page 15, table 1 in CNAIM (2017).
@@ -14,7 +14,8 @@
 #' \code{cable_type = c("33kV UG Cable (Gas)", "66kV UG Cable (Gas)",
 #' "33kV UG Cable (Non Pressurised)", "66kV UG Cable (Non Pressurised)",
 #' "33kV UG Cable (Oil)", "66kV UG Cable (Oil)")
-#'}
+#'}. The default setting is
+#' \code{cable_type = "66kV UG Cable (Gas)"}.
 #' @param sub_division String. Refers to material the sheath and conductor is
 #' made of. Options:
 #' \code{sub_division = c("Aluminium sheath - Aluminium conductor",
@@ -65,7 +66,7 @@
 #'paste0(sprintf("Probability of failure %.4f", pof_cables_66kV_non),
 #'" percent per annum")
 pof_cables_66_33kv <-
-  function(cable_type = "33kV UG Cable (Gas)",
+  function(cable_type = "66kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",
            utilisation_pct = "Default",
            operating_voltage_pct = "Default",

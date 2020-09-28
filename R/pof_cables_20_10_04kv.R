@@ -6,13 +6,13 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017). ###################
+#' on page 30 in CNAIM (2017).
 #' @param hv_lv_cable_type String.
 #' A sting that refers to the specific asset category.
 #' Options:
 #' \code{hv_lv_cable_type = c("10-20kV cable, PEX","10-20kV cable, APB",
-#' "0.4kV cable")
-#'}
+#' "0.4kV cable")}. The default setting is
+#' \code{hv_lv_cable_type = "10-20kV cable, PEX"}.
 #' @param sub_division String. Refers to material the sheath and conductor is
 #' made of. Options:
 #' \code{sub_division = c("Aluminium sheath - Aluminium conductor",

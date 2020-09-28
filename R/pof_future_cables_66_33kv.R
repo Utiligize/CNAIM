@@ -6,40 +6,13 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017). ###################
-#' @param cable_type String.
-#' A sting that refers to the specific asset category.
-#' See See page 15, table 1 in CNAIM (2017).
-#' Options:
-#' \code{cable_type = c("33kV UG Cable (Gas)", "66kV UG Cable (Gas)",
-#' "33kV UG Cable (Non Pressurised)", "66kV UG Cable (Non Pressurised)",
-#' "33kV UG Cable (Oil)", "66kV UG Cable (Oil)")
-#'}
-#' @param sub_division String. Refers to material the sheath and conductor is
-#' made of. Options:
-#' \code{sub_division = c("Aluminium sheath - Aluminium conductor",
-#' "Aluminium sheath - Copper conductor",
-#' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")
-#'}
+#' on page 30 in CNAIM (2017).
+#' @inheritParams pof_cables_66_33kv
 #' @inheritParams duty_factor_cables_u66kv
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
 #' "Default")}. See page 141, table 168 in CNAIM (2017).
-#' @param partial_discharge String. Only applied for non pressurised cables.
-#' Indicating the level of partial discharge. Options:
-#' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 141, table 169 in CNAIM (2017).
-#' @param fault_hist Numeric. Only applied for non pressurised cables.
-#' The calculated fault rate for the cable in the period per kilometer.
-#' A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 141, table 170 in CNAIM (2017).
-#' @param leakage String. Only applied for oil and gas pressurised cables. Options:
-#' \code{leakage = c("No (or very low) historic leakage recorded",
-#' "Low/ moderate", "High", "Very High", "Default")}.
-#' See page 142, table 171 (oil) and 172 (gas) in CNAIM (2017).
-#' @inheritParams current_health
-#' @param age  Numeric. The current age in years of the cable.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
@@ -69,7 +42,7 @@
 
 
 pof_future_cables_66_33kv <-
-  function(cable_type = "33kV UG Cable (Gas)",
+  function(cable_type = "66kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",
            utilisation_pct = "Default",
            operating_voltage_pct = "Default",

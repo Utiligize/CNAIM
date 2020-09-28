@@ -7,33 +7,8 @@
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017). ###################
-#' @param hv_lv_cable_type String.
-#' A sting that refers to the specific asset category.
-#' Options:
-#' \code{hv_lv_cable_type = c("10-20kV cable, PEX","10-20kV cable, APB",
-#' "0.4kV cable")
-#'}
-#' @param sub_division String. Refers to material the sheath and conductor is
-#' made of. Options:
-#' \code{sub_division = c("Aluminium sheath - Aluminium conductor",
-#' "Aluminium sheath - Copper conductor",
-#' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")
-#'}
+#' @inheritParams pof_cables_20_10_04kv
 #' @inheritParams duty_factor_cables_u66kv
-#' @param sheath_test String. Only applied for non pressurised cables.
-#' Indicating the state of the sheath. Options:
-#' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 141, table 168 in CNAIM (2017).
-#' @param partial_discharge String. Only applied for non pressurised cables.
-#' Indicating the level of partial discharge. Options:
-#' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 141, table 169 in CNAIM (2017).
-#' @param fault_hist Numeric. Only applied for non pressurised cables.
-#' The calculated fault rate for the cable in the period per kilometer.
-#' A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 141, table 170 in CNAIM (2017).
-#' @inheritParams current_health
-#' @param age  Numeric. The current age in years of the cable.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure

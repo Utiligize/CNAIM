@@ -12,7 +12,9 @@
 #' See See page 15, table 1 in CNAIM (2017).
 #' Options:
 #' \code{ohl_conductor = c("33kV OHL (Tower Line) Conductor",
-#' "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}
+#' "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.
+#' The default setting is
+#' \code{ohl_conductor = "66kV OHL (Tower Line) Conductor"}.
 #' @param sub_division String. Refers to material the conductor is
 #' made of. Options:
 #' \code{sub_division = c("ACSR - greased",
