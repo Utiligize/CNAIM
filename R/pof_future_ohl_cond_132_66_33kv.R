@@ -11,7 +11,7 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric. Current probability of failure
-#' per annum per kilometre for 20/10/0.4kV cables.
+#' per annum per kilometer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
@@ -242,12 +242,6 @@ pof_future_ohl_cond_132_66_33kv <-
 
     # Observed conditions -----------------------------------------------------
 
-    if (asset_category == "EHV OHL Conductor (Tower Lines)") {
-      asset_category_mmi <- "EHV Tower Line Conductor"
-    }
-    if (asset_category == "132kV OHL Conductor (Tower Lines)") {
-      asset_category_mmi <- "132kV Tower Line Conductor"
-    }
 
     oci_mmi_cal_df <-
       gb_ref$observed_cond_modifier_mmi_cal
@@ -402,7 +396,7 @@ pof_future_ohl_cond_132_66_33kv <-
                      health_score_modifier$health_score_collar,
                      reliability_factor = reliability_factor)
 
-    # Probability of failure for the 6.6/11 kV transformer today ---------------
+    # Probability of failure ---------------------------------------------------
     probability_of_failure <- k *
       (1 + (c * current_health_score) +
          (((c * current_health_score)^2) / factorial(2)) +
@@ -437,7 +431,8 @@ pof_future_ohl_cond_132_66_33kv <-
     for (y in 1:length(year)){
       t <- year[y]
 
-      future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
+      future_health_Score <-
+        current_health_score*exp((b2/ageing_reduction_factor) * t)
 
       H <- future_health_Score
 

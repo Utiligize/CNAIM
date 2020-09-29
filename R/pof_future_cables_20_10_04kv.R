@@ -259,7 +259,7 @@ pof_future_cables_20_10_04kv <-
                      health_score_modifier$health_score_collar,
                      reliability_factor = reliability_factor)
 
-    # Probability of failure for the 6.6/11 kV transformer today ------------------
+    # Probability of failure ---------------------------------------------------
     probability_of_failure <- k *
       (1 + (c * current_health_score) +
          (((c * current_health_score)^2) / factorial(2)) +
@@ -294,7 +294,8 @@ pof_future_cables_20_10_04kv <-
     for (y in 1:length(year)){
       t <- year[y]
 
-      future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
+      future_health_Score <-
+        current_health_score*exp((b2/ageing_reduction_factor) * t)
 
       H <- future_health_Score
 

@@ -277,13 +277,14 @@ pof_cables_20_10_04kv <-
 
     # Current health score ----------------------------------------------------
     current_health_score <-
-      current_health(initial_health_score = initial_health_score,
-                     health_score_factor=  health_score_modifier$health_score_factor,
-                     health_score_cap = health_score_modifier$health_score_cap,
-                     health_score_collar = health_score_modifier$health_score_collar,
-                     reliability_factor = reliability_factor)
+      current_health(
+        initial_health_score = initial_health_score,
+        health_score_factor=  health_score_modifier$health_score_factor,
+        health_score_cap = health_score_modifier$health_score_cap,
+        health_score_collar = health_score_modifier$health_score_collar,
+        reliability_factor = reliability_factor)
 
-    # Probability of failure for the 6.6/11 kV transformer today ---------------
+    # Probability of failure ---------------------------------------------------
     probability_of_failure <- k *
       (1 + (c * current_health_score) +
          (((c * current_health_score)^2) / factorial(2)) +
