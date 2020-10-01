@@ -48,7 +48,9 @@ pof_future_cables_20_10_04kv <-
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` =
+      `Sub-division` = `Condition Criteria: Sheath Test Result` =
+      `Condition Criteria: Partial Discharge Test Result` = NULL
     # due to NSE notes in R CMD check
 
     if (hv_lv_cable_type ==  "10-20kV cable, PEX" ||

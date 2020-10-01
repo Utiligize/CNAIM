@@ -48,6 +48,7 @@ location_factor_sub <- function(topography = "Default",
                                 intensity = "Default",
                                 landlocked = "no") {
 
+  Topography = Situation = Rating = Intensity = NULL
   # Typography
   submarin_cable_topog_factor <- gb_ref$submarin_cable_topog_factor %>%
     dplyr::filter(Topography == topography)

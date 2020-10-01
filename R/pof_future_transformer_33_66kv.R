@@ -99,7 +99,8 @@ pof_future_transformer_33_66kv <- function(transformer_type = "66kV Transformer 
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-    `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+    `K-Value (%)` = `C-Value` = `Asset Register  Category` =
+    `Asset Category` = `Sub-division` = NULL
   # due to NSE notes in R CMD check
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
