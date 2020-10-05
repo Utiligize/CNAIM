@@ -27,6 +27,7 @@ duty_factor_cables <- function(utilisation_pct = "Default",
                                operating_voltage_pct = "Default",
                                voltage_level = "EHV") {
 
+  `Duty Factor (LV & HV)` = `Duty Factor (EHV & 132kV)` = NULL
   if (voltage_level == "EHV") {
     duty_factor_table1 <- gb_ref$duty_factor_lut_cables_df1 %>% dplyr::select(
       !`Duty Factor (LV & HV)`)
