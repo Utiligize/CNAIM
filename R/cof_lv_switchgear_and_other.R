@@ -153,11 +153,11 @@ environmental_cof_lv_switchgear_and_other <- function(lv_asset_category){
   # Reference financial cost of failure -------------------------------------
   ecost <- reference_costs_of_failure_tf$`Environmental - (GBP)`
 
-  type_financial_factor <- 1
+  type_environmental_factor <- 1
   size_environmental_factor <- 1
   location_environmental_factor <- 1
 
-  environmental_consequences_factor <- (type_environmetal_factor *
+  environmental_consequences_factor <- (type_environmental_factor *
                                           size_environmental_factor *
                                           location_environmental_factor)
 
