@@ -31,6 +31,8 @@
 #' @param midspan_joints Integer. Number of midspan joints on the conductor.
 #' A span includes all conductors in that span.
 #' See page 131-132, table 128 and 130 in CNAIM (2017).
+#' @param reliability_factor Reliabilty factor
+#' @param simulation_end_year The year till which simulation has to be run
 #' @inheritParams current_health
 #' simulation_end_year = 100
 #' @return Numeric. Current probability of failure
@@ -75,7 +77,11 @@ pof_future_ohl_cond_04_10kv <-
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` =
+      `Sub-division` = `Condition Criteria: Conductor Sampling Result` =
+      `Condition Criteria: Corrosion Monitoring Survey Result` =
+      `Condition Criteria: Observed Condition` =
+      `Condition Criteria: No. of Midspan Joints` = NULL
     # due to NSE notes in R CMD check
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --

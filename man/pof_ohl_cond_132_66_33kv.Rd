@@ -98,7 +98,7 @@ See section 6.14 on page 69 in CNAIM (2017).}
 }
 \value{
 Numeric. Current probability of failure
-per annum per kilometre for 20/10/0.4kV cables.
+per annum per kilometer.
 }
 \description{
 This function calculates the current

@@ -72,7 +72,11 @@ pof_ohl_cond_04_10kv <-
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` =
+      `Sub-division` = `Condition Criteria: Conductor Sampling Result` =
+      `Condition Criteria: Corrosion Monitoring Survey Result` =
+      `Condition Criteria: Observed Condition` =
+      `Condition Criteria: No. of Midspan Joints` = NULL
     # due to NSE notes in R CMD check
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --

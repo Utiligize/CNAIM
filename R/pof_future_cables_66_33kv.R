@@ -51,7 +51,10 @@ pof_future_cables_66_33kv <-
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
+      `Condition Criteria: Sheath Test Result` =
+      `Condition Criteria: Partial Discharge Test Result` =
+      `Condition Criteria: Leakage Rate` = NULL
     # due to NSE notes in R CMD check
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
