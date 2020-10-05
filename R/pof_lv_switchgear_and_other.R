@@ -15,8 +15,20 @@
 #' "10kV OHL (Tower Line) Conductor")}.
 #' The default setting is
 #' \code{ohl_conductor = "10kV OHL (Tower Line) Conductor"}.
-#' @inheritParams duty_factor_cables
-#' @inheritParams location_factor
+#' @param lv_asset_category String The type of LV asset category
+#' @param placement String. Specify if the asset is located outdoor or indoor.
+#' #' @param altitude_m Numeric. Specify the altitude location for
+#' the asset measured in meters from sea level.\code{altitude_m}
+#' is used to derive the altitude factor. See page 107,
+#' table 23 in CNAIM (2017). A setting of \code{"Default"}
+#' will set the altitude factor to 1 independent of \code{asset_type}.
+#' @param distance_from_coast_km Numeric. Specify the distance from the
+#' coast measured in kilometers. \code{distance_from_coast_km} is used
+#' to derive the distance from coast factor See page 106,
+#' table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+#'  distance from coast factor to 1 independent of \code{asset_type}.
+#' @param corrosion_category_index Integer.
+#' Specify the corrosion index category, 1-5.
 #' @param age  Numeric. The current age in years of the conductor.
 #' @param measured_condition_inputs Named list observed_conditions_input
 #' @param observed_condition_inputs Named list observed_conditions_input
@@ -44,7 +56,6 @@
 
 pof_lv_switchgear_and_other <-
   function(lv_asset_category = "LV Circuit Breaker",
-           utilisation_pct = "Default",
            placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",

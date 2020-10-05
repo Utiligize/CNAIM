@@ -11,7 +11,6 @@ Health & Criticality - Version 1.1, 2017:
 \usage{
 pof_lv_switchgear_and_other(
   lv_asset_category = "LV Circuit Breaker",
-  utilisation_pct = "Default",
   placement = "Default",
   altitude_m = "Default",
   distance_from_coast_km = "Default",
@@ -23,28 +22,10 @@ pof_lv_switchgear_and_other(
 )
 }
 \arguments{
-\item{lv_asset_category}{String.
-A sting that refers to the specific asset category.
-See See page 15, table 1 in CNAIM (2017).
-Options:
-\code{ohl_conductor = c("0.4kV OHL (Tower Line) Conductor",
-"10kV OHL (Tower Line) Conductor")}.
-The default setting is
-\code{ohl_conductor = "10kV OHL (Tower Line) Conductor"}.}
-
-\item{utilisation_pct}{Numeric. The max percentage of utilisation
-under normal operating conditions.}
+\item{lv_asset_category}{String The type of LV asset category}
 
 \item{placement}{String. Specify if the asset is located outdoor or indoor.
-A setting of \code{"Outdoor"} means the asset is
-located in an outside environment,
-and a setting of \code{"Indoor"} means the asset is located in an
- indoor environment. A setting of \code{"Default"} will result
-  in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 107-108,
-  table 25A in CNAIM (2017) for default environments.}
-
-\item{altitude_m}{Numeric. Specify the altitude location for
+#' @param altitude_m Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
 is used to derive the altitude factor. See page 107,
 table 23 in CNAIM (2017). A setting of \code{"Default"}
@@ -57,11 +38,7 @@ table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
-Specify the corrosion index category, 1-5.
-\code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 107, table 24 in CNAIM (2017).
-A setting of \code{"Default"} will set the corrosion category factor
-to 1 independent of \code{asset_type}.}
+Specify the corrosion index category, 1-5.}
 
 \item{age}{Numeric. The current age in years of the conductor.}
 
