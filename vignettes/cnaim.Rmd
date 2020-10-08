@@ -2,40 +2,40 @@
 title: "CNAIM"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{cnaim}
+%\VignetteIndexEntry{cnaim}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
----
-
-
-# Introduction
-
-The green transition will require significant investment in utility infrastructure. Many countries have restrictive income caps or fixed tariffs that do not allow for investment to support the electrification of transport, heating and agricultural processes. Incentive-based revenue caps are the answer, and will likely be adopted in many countries over the next decade. This package allows regulators, data scientists and researchers to calculate and understand:
-
-1) Asset lifetimes
-2) Economic consequences of asset failures, both minor and major
-3) Monetary risk
-4) Probability of failure parameter estimates based on fault statistics
-
-## Probability of failure
-
-In CNAIM, the probability of failure (PoF) is modelled as the first three terms of a Taylor Series expansion of an exponential function.
-
-$\begin{align*} PoF =& K \cdot e^{(C \cdot H)} \\=& K \cdot \sum_{n=1}^\infty \frac{(C \cdot H)^n}{n!} \\\approx& K \cdot \left[1 + (C \cdot H) + \frac{(C \cdot H)^2}{2!} + \frac{(C \cdot H)^3}{3!}\right] \end{align*}$
-
-where \
-$K$ scales the PoF to a failure rate that matches observed fault statistics \
-$C$ describes the shape of the PoF curve \
-$H$ is the health score based on observed and measured explanatory variables
-
-The definition of a functional failure can be divided into three classes of 
-failure modes:
-
-* *Incipient - minor failure* 
-* *Degraded - significant failure* 
-* *Catastrophic - total failure* 
-
-```{r echo=F, message=F, class.source='highlight',comment=""}
+  ---
+  
+  
+  # Introduction
+  
+  The green transition will require significant investment in utility infrastructure. Many countries have restrictive income caps or fixed tariffs that do not allow for investment to support the electrification of transport, heating and agricultural processes. Incentive-based revenue caps are the answer, and will likely be adopted in many countries over the next decade. This package allows regulators, data scientists and researchers to calculate and understand:
+  
+  1) Asset lifetimes
+  2) Economic consequences of asset failures, both minor and major
+  3) Monetary risk
+  4) Probability of failure parameter estimates based on fault statistics
+  
+  ## Probability of failure
+  
+  In CNAIM, the probability of failure (PoF) is modelled as the first three terms of a Taylor Series expansion of an exponential function.
+  
+  $\begin{align*} PoF =& K \cdot e^{(C \cdot H)} \\=& K \cdot \sum_{n=1}^\infty \frac{(C \cdot H)^n}{n!} \\\approx& K \cdot \left[1 + (C \cdot H) + \frac{(C \cdot H)^2}{2!} + \frac{(C \cdot H)^3}{3!}\right] \end{align*}$
+  
+  where \
+  $K$ scales the PoF to a failure rate that matches observed fault statistics \
+  $C$ describes the shape of the PoF curve \
+  $H$ is the health score based on observed and measured explanatory variables
+  
+  The definition of a functional failure can be divided into three classes of 
+  failure modes:
+  
+  * *Incipient - minor failure* 
+  * *Degraded - significant failure* 
+  * *Catastrophic - total failure* 
+  
+  ```{r echo=F, message=F, class.source='highlight',comment=""}
 library(CNAIM)
 ```
 ##### Example for a 6.6/11 kV transformer
@@ -55,23 +55,25 @@ Assuming a transformer:
 
 Then we can call the function as follows:
 ```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
-pof <- pof_transformer_11kv(utilisation_pct = 55,
-                            placement = "Indoor",
-                            altitude_m = 75,
-                            distance_from_coast_km = 20,
-                            corrosion_category_index = 2,
-                            age = 25,
-                            partial_discharge = "Low",
-                            oil_acidity = 0.1,
-                            temperature_reading = "Normal",
-                            observed_condition = "Good",
-                            reliability_factor = "Default")
+pof <- pof_transformer_11_20kv(
+  hv_transformer_type = "6.6/11kV Transformer (GM)",
+  utilisation_pct = 55,
+  placement = "Indoor",
+  altitude_m = 75,
+  distance_from_coast_km = 20,
+  corrosion_category_index = 2,
+  age = 25,
+  partial_discharge = "Low",
+  oil_acidity = 0.1,
+  temperature_reading = "Normal",
+  observed_condition = "Good",
+  reliability_factor = "Default")
 sprintf("The probability of failure is %.2f%% per year", 100*pof) 
 ```
 
 The only mandetory input variable is age; the rest have defaults, so you can call the function like:
 ```{r echo=TRUE, message=FALSE, warning=FALSE, class.source='highlight',comment=""}
-pof <- pof_transformer_11kv(age = 55)
+pof <- pof_transformer_11_20kv(age = 55)
 sprintf("The probability of failure is %.2f%% per year", 100*pof) 
 ```
 

@@ -1,17 +1,20 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for a 6.6/11 kV Transformer
+#' @title Current Probability of Failure for 6.6/11kV and 20kV Transformers
 #' @description This function calculates the current
-#' annual probability of failure for a 6.6/11 kV transformer.
+#' annual probability of failure for 6.6/11kV and 20kV transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
-#' @inheritParams duty_factor_transformer_11kv
+#' @param hv_transformer_type String. Refers to the high voltage transformer
+#' type the calculation is done for. Options: \code{hv_transformer_type =
+#' c("6.6/11kV Transformer (GM)", "20kV Transformer (GM)")}. The default setting
+#' is \code{hv_transformer_type = 6.6/11kV Transformer (GM)}.
+#' @inheritParams duty_factor_transformer_11_20kv
 #' @inheritParams location_factor
 #' @inheritParams current_health
-#' @param age  Numeric. The current age in years
-#' of the 10-kV transformer.
+#' @param age  Numeric. The current age in years.
 #' @param partial_discharge String. Indicating the
 #' level of partial discharge. Options for \code{partial_discharge}:
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
@@ -23,18 +26,18 @@
 #' \code{temperature_reading = c("Normal", "Moderately High",
 #' "Very High", "Default")}. See page 139, table 161 in CNAIM (2017).
 #' @param observed_condition String. Indicating the observed condition of the
-#' 10-kV transformer. Options for \code{observed_condition}:
+#'  transformer. Options for \code{observed_condition}:
 #' \code{observed_condition = c("As New", "Good", "Slight Deterioration",
 #'  "Poor", "Very Poor", "Default")}. See page 120, table 73 in CNAIM (2017).
-#' @return Numeric. Current probability of failure
-#' per annum for a 6.6/11 kV transformer.
+#' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
 #' # Current probability of failure for a 6.6/11 kV transformer
-#' pof_transformer_11kv(utilisation_pct = "Default",
+#' pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
+#' utilisation_pct = "Default",
 #'placement = "Default",
 #'altitude_m = "Default",
 #'distance_from_coast_km = "Default",
@@ -46,17 +49,18 @@
 #'observed_condition = "Default",
 #'reliability_factor = "Default")
 
-pof_transformer_11kv <- function(utilisation_pct = "Default",
-                                 placement = "Default",
-                                 altitude_m = "Default",
-                                 distance_from_coast_km = "Default",
-                                 corrosion_category_index = "Default",
-                                 age,
-                                 partial_discharge = "Default",
-                                 oil_acidity = "Default",
-                                 temperature_reading = "Default",
-                                 observed_condition = "Default",
-                                 reliability_factor = "Default") {
+pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
+                                    utilisation_pct = "Default",
+                                    placement = "Default",
+                                    altitude_m = "Default",
+                                    distance_from_coast_km = "Default",
+                                    corrosion_category_index = "Default",
+                                    age,
+                                    partial_discharge = "Default",
+                                    oil_acidity = "Default",
+                                    temperature_reading = "Default",
+                                    observed_condition = "Default",
+                                    reliability_factor = "Default") {
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -64,7 +68,7 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
   # due to NSE notes in R CMD check
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
-  asset_type <- "6.6/11kV Transformer (GM)"
+  asset_type <- hv_transformer_type
 
   asset_category <- gb_ref$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == asset_type) %>%
@@ -86,15 +90,15 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
   # Constants C and K for PoF function --------------------------------------
   k <- gb_ref$pof_curve_parameters %>%
     dplyr::filter(`Functional Failure Category` ==
-             asset_category) %>% dplyr::select(`K-Value (%)`) %>%
+                    asset_category) %>% dplyr::select(`K-Value (%)`) %>%
     dplyr::pull()/100
 
   c <- gb_ref$pof_curve_parameters %>%
     dplyr::filter(`Functional Failure Category` ==
-             asset_category) %>% dplyr::select(`C-Value`) %>% dplyr::pull()
+                    asset_category) %>% dplyr::select(`C-Value`) %>% dplyr::pull()
 
   # Duty factor -------------------------------------------------------------
-  duty_factor_tf_11kv <- duty_factor_transformer_11kv(utilisation_pct)
+  duty_factor_tf_11kv <- duty_factor_transformer_11_20kv(utilisation_pct)
 
   # Location factor ----------------------------------------------------
   location_factor_transformer <- location_factor(placement,
@@ -132,15 +136,15 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
 
   factor_divider_1 <-
     as.numeric(mcm_mmi_cal_df$
-          `Parameters for Combination Using MMI Technique - Factor Divider 1`)
+                 `Parameters for Combination Using MMI Technique - Factor Divider 1`)
 
   factor_divider_2 <-
     as.numeric(mcm_mmi_cal_df$
-          `Parameters for Combination Using MMI Technique - Factor Divider 2`)
+                 `Parameters for Combination Using MMI Technique - Factor Divider 2`)
 
   max_no_combined_factors <-
     as.numeric(mcm_mmi_cal_df$
-`Parameters for Combination Using MMI Technique - Max. No. of Combined Factors`
+                 `Parameters for Combination Using MMI Technique - Max. No. of Combined Factors`
     )
 
   # Partial discharge -------------------------------------------------------
@@ -208,13 +212,13 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
 
   # measured condition factor -----------------------------------------------
   factors <- c(ci_factor_partial_discharge,
-                ci_factor_oil_acidity,
-                ci_factor_temp_reading)
+               ci_factor_oil_acidity,
+               ci_factor_temp_reading)
 
   measured_condition_factor <- mmi(factors,
-                                    factor_divider_1,
-                                    factor_divider_2,
-                                    max_no_combined_factors)
+                                   factor_divider_1,
+                                   factor_divider_2,
+                                   max_no_combined_factors)
 
   # Measured condition cap --------------------------------------------------
   caps <- c(ci_cap_partial_discharge,
@@ -242,15 +246,15 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
 
   factor_divider_1 <-
     as.numeric(oci_mmi_cal_df$
-`Parameters for Combination Using MMI Technique - Factor Divider 1`)
+                 `Parameters for Combination Using MMI Technique - Factor Divider 1`)
 
   factor_divider_2 <-
     as.numeric(oci_mmi_cal_df$
-`Parameters for Combination Using MMI Technique - Factor Divider 2`)
+                 `Parameters for Combination Using MMI Technique - Factor Divider 2`)
 
   max_no_combined_factors <-
     as.numeric(oci_mmi_cal_df$
-`Parameters for Combination Using MMI Technique - Max. No. of Combined Factors`
+                 `Parameters for Combination Using MMI Technique - Max. No. of Combined Factors`
     )
 
   oci_hv_tf_tf_ext_cond_df <-
@@ -291,7 +295,7 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
   # Health score factor ---------------------------------------------------
   health_score_factor <-
     health_score_excl_ehv_132kv_tf(observed_condition_factor,
-                                    measured_condition_factor)
+                                   measured_condition_factor)
 
   # Health score cap --------------------------------------------------------
   health_score_cap <- min(observed_condition_cap, measured_condition_cap)
@@ -311,9 +315,9 @@ pof_transformer_11kv <- function(utilisation_pct = "Default",
                    health_score_modifier$health_score_factor,
                    health_score_modifier$health_score_cap,
                    health_score_modifier$health_score_collar,
-                   reliability_factor)
+                   reliability_factor = reliability_factor)
 
-  # Probability of failure for the 6.6/11 kV transformer today ------------------
+  # Probability of failure for the 6.6/11kV and 20kV transformer today -----------------
   probability_of_failure <- k *
     (1 + (c * current_health_score) +
        (((c * current_health_score)^2) / factorial(2)) +

@@ -13,7 +13,7 @@ initial_health(b1, age)
 }
 \arguments{
 \item{b1}{Numeric. The output returned by the function
-\code{\link{beta_1}}().}
+\code{\link{beta_1}()}.}
 
 \item{age}{Numeric. The crurrent age of the asset.}
 }

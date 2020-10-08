@@ -2,7 +2,7 @@
 #' @description Calculating the initial health score for a given asset.
 #' See section 6.1.6 on page 32 in CNAIM (2017).
 #' @param b1 Numeric. The output returned by the function
-#' \code{\link{beta_1}}().
+#' \code{\link{beta_1}()}.
 #' @param age Numeric. The crurrent age of the asset.
 #' @return Numeric. Initial health for an electric network asset.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
