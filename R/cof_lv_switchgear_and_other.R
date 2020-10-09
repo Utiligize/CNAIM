@@ -18,7 +18,8 @@
 financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
                                                   type_financial_factor_criteria,
                                                   access_factor_criteria){
-  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
+  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
+    `Type Financial Factor Criteria` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == lv_asset_category) %>%
@@ -112,6 +113,8 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
   if (location_risk == "Medium") location_risk <- "Medium (Default)"
   if (type_risk == "Default") type_risk <- "Medium"
 
+  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
+
   row_no <- which(safety_conseq_factor_sg_tf_oh$
                     `Safety Consequence Factor - Switchgear, Transformers & Overhead Lines...2` ==
                     location_risk)
@@ -138,7 +141,7 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' environmental_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)", location_risk = "Default", type_risk = "Default")
+#' environmental_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)")
 environmental_cof_lv_switchgear_and_other <- function(lv_asset_category){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
@@ -184,7 +187,7 @@ environmental_cof_lv_switchgear_and_other <- function(lv_asset_category){
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' network_cof_lv_switchgear_and_other(asset_type_ncf = "LV Board (WM)",
+#' network_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
 #' no_customers = 750, kva_per_customer = 51)
 network_cof_lv_switchgear_and_other <- function(lv_asset_category,
                                                 no_customers,

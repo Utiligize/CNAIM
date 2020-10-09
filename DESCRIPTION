@@ -29,6 +29,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.5.0)
 Imports:
+    plyr,
     dplyr,
     htmltools,
     htmlwidgets (>= 1.2),

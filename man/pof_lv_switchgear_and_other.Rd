@@ -24,8 +24,9 @@ pof_lv_switchgear_and_other(
 \arguments{
 \item{lv_asset_category}{String The type of LV asset category}
 
-\item{placement}{String. Specify if the asset is located outdoor or indoor.
-#' @param altitude_m Numeric. Specify the altitude location for
+\item{placement}{String. Specify if the asset is located outdoor or indoor.}
+
+\item{altitude_m}{Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
 is used to derive the altitude factor. See page 107,
 table 23 in CNAIM (2017). A setting of \code{"Default"}

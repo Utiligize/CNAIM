@@ -21,5 +21,5 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 }
 \examples{
-environmental_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)", location_risk = "Default", type_risk = "Default")
+environmental_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)")
 }
