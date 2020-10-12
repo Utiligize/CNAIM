@@ -35,6 +35,6 @@ all asset categories exclusive the assets EHV and 132kV transformers.
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-network_cof_lv_switchgear_and_other(asset_type_ncf = "LV Board (WM)",
+network_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
 no_customers = 750, kva_per_customer = 51)
 }

@@ -1,21 +1,13 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 0.4-10kV OHL Conductors
+#' @title Current Probability of Failure for HV Switchgear Distribution
 #' @description This function calculates the current
-#' annual probability of failure per kilometer 0.4-10kV OHL conductors.
+#' annual probability of failure per kilometer HV Switchgear Distribution
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
-#' @param lv_asset_category String.
-#' A sting that refers to the specific asset category.
-#' See See page 15, table 1 in CNAIM (2017).
-#' Options:
-#' \code{ohl_conductor = c("0.4kV OHL (Tower Line) Conductor",
-#' "10kV OHL (Tower Line) Conductor")}.
-#' The default setting is
-#' \code{ohl_conductor = "10kV OHL (Tower Line) Conductor"}.
-#' @param lv_asset_category String The type of LV asset category
+#' @param hv_asset_category String The type of LV asset category
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
@@ -42,19 +34,28 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' # Current annual probability of failure for 10kV OHL (Tower Line) Conductor
-#'pof_lv_switchgear_and_other(
-#'lv_asset_category = "LV Circuit Breaker",
+#' # Current annual probability of failure for HV Swicthgear distribution
+#'pof_hv_switchgear_distribution(
+#'hv_asset_category = "6.6/11kV CB (GM) Secondary",
 #'placement = "Default",
 #'altitude_m = "Default",
 #'distance_from_coast_km = "Default",
 #'corrosion_category_index = "Default",
 #'age = 10,
-#'observed_condition_inputs =list("external_condition" = list("Condition Criteria: Observed Condition" = "Default")),
-#'measured_condition_inputs = list("operational_adequacy" = list("Condition Criteria: Operational Adequacy" = "Default")),
+#'observed_condition_inputs =list("external_condition" = list("Condition Criteria: Observed Condition" = "Default"),
+#'"oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
+#'"thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
+#'"internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
+#'"indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
+#'measured_condition_inputs = list("partial_discharge" = list("Condition Criteria: Partial Discharge Test Results" = "Default"),
+#'"ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
+#'"oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
+#'"temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
+#'"trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
 #'reliability_factor = "Default")
-pof_lv_switchgear_and_other <-
-  function(lv_asset_category = "LV Circuit Breaker",
+
+pof_hv_switchgear_distribution <-
+  function(hv_asset_category = "6.6/11kV CB (GM) Secondary",
            placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
@@ -71,7 +72,7 @@ pof_lv_switchgear_and_other <-
 
     asset_category <- gb_ref$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
-                      lv_asset_category) %>%
+                      hv_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
     generic_term_1 <- gb_ref$generic_terms_for_assets %>%
@@ -85,18 +86,21 @@ pof_lv_switchgear_and_other <-
     # Normal expected life  -------------------------
     normal_expected_life_cond <- gb_ref$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` ==
-                      lv_asset_category) %>%
+                      hv_asset_category) %>%
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
 
+    # POF function asset category. This is bit different from other tables
+    kc_hv_asset_category <- "HV Switchgear (GM) - Distribution (GM)"
+
     k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` %in% lv_asset_category) %>%
+      dplyr::filter(`Functional Failure Category` %in% kc_hv_asset_category) %>%
       dplyr::select(`K-Value (%)`) %>%
       dplyr::pull()/100
 
     c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` %in% lv_asset_category) %>%
+      dplyr::filter(`Functional Failure Category` %in% kc_hv_asset_category) %>%
       dplyr::select(`C-Value`) %>%
       dplyr::pull()
 
@@ -109,7 +113,7 @@ pof_lv_switchgear_and_other <-
                                             altitude_m,
                                             distance_from_coast_km,
                                             corrosion_category_index,
-                                            asset_type = lv_asset_category)
+                                            asset_type = hv_asset_category)
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cond,
                                          duty_factor_cond,
@@ -121,26 +125,30 @@ pof_lv_switchgear_and_other <-
     # Initial health score ----------------------------------------------------
     initial_health_score <- initial_health(b1, age)
 
-    asset_category_mmi <- get_mmi_lv_switchgear_asset_category(lv_asset_category)
-
     # Measured conditions
-    mci_table_names <- get_gb_ref_measured_conditions_table_names_lv_switchgear(asset_category_mmi)
+    mci_table_names <- list("partial_discharge" = "mci_hv_swg_distr_prtl_dischrg",
+                            "ductor_test" = "mci_hv_swg_distr_ductor_test",
+                            "oil_test" = "mci_hv_swg_distr_oil_test",
+                            "temp_reading" = "mci_hv_swg_distr_temp_reading",
+                            "trip_test" = "mci_hv_swg_distr_trip_test")
 
     measured_condition_modifier <-
-      get_measured_conditions_modifier_lv_switchgear(asset_category_mmi,
-                                                    mci_table_names,
-                                                    measured_condition_inputs)
+      get_measured_conditions_modifier_hv_switchgear(asset_category,
+                                                     mci_table_names,
+                                                     measured_condition_inputs)
 
     # Observed conditions -----------------------------------------------------
 
-    oci_table_names <- get_gb_ref_observed_conditions_table_names_lv_switchgear(asset_category_mmi)
+    oci_table_names <- list("external_condition" = "oci_hv_swg_dist_swg_ext_cond",
+                            "oil_gas" = "oci_hv_swg_dist_oil_lek_gas_pr",
+                            "thermo_assment" = "oci_hv_swg_dist_thermo_assment",
+                            "internal_condition" = "oci_hv_swg_dist_swg_int_cond",
+                            "indoor_env" = "oci_hv_swg_dist_indoor_environ")
 
     observed_condition_modifier <-
-      get_observed_conditions_modifier_lv_switchgear(asset_category_mmi,
+      get_observed_conditions_modifier_hv_switchgear(asset_category,
                                                      oci_table_names,
                                                      observed_condition_inputs)
-
-
 
     # Health score factor ---------------------------------------------------
     health_score_factor <-
@@ -179,46 +187,7 @@ pof_lv_switchgear_and_other <-
   }
 
 
-get_mmi_lv_switchgear_asset_category <- function(asset_category){
-  if(grepl("LV Board", asset_category, fixed = T))
-    return("LV Board (WM)")
-  if(grepl("LV Pillar", asset_category, fixed = T))
-    return("LV Pillars")
-  if(grepl("LV Circuit Breaker", asset_category, fixed = T))
-    return("LV Circuit Breaker")
-}
-
-
-get_gb_ref_measured_conditions_table_names_lv_switchgear <- function(asset_category_mmi){
-  if(asset_category_mmi == "LV Board (WM)")
-    return(list("operational_adequacy" = "mci_lv_board_wm_opsal_adequacy",
-                "security" = "mci_lv_board_wm_security"))
-  if(asset_category_mmi == "LV Pillars")
-    return(list("operational_adequacy" = "mci_lv_pillar_opsal_adequacy"))
-  if(asset_category_mmi == "LV Circuit Breaker")
-    return(list("operational_adequacy" ="mci_lv_cb_opsal_adequacy"))
-}
-
-
-get_gb_ref_observed_conditions_table_names_lv_switchgear <- function(asset_category_mmi){
-  if(asset_category_mmi == "LV Board (WM)")
-    return(list("switchgear_external_condition" = "oci_lv_board_swg_ext_cond",
-                "compound_leak" = "oci_lv_board_wm_compound_leak",
-                "switchgear_internal_condition_and_operation" = "oci_lv_board_wm_swg_int_cond"))
-  if(asset_category_mmi == "LV Pillars")
-    return(list("compound_leak" = "oci_lv_pillar_compound_leak",
-                "switchgear_external_condition" = "oci_lv_pillar_swg_ext_cond",
-                "switchgear_internal_condition_and_operation" = "oci_lv_pillar_swg_int_cond_op",
-                "insulation_condition" = "oci_lv_pillar_insulation_cond",
-                "signs_heating" = "oci_lv_pillar_signs_heating",
-                "phase_barrier" = "oci_lv_pillar_phase_barrier"
-                ))
-  if(asset_category_mmi == "LV Circuit Breaker")
-    return(list("external_condition" ="oci_lv_circuit_breakr_ext_cond"))
-}
-
-
-get_measured_conditions_modifier_lv_switchgear <- function(asset_category_mmi, table_names, measured_condition_inputs){
+get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names, measured_condition_inputs){
   mcm_mmi_cal_df <-
     gb_ref$measured_cond_modifier_mmi_cal
 
@@ -277,7 +246,7 @@ get_measured_conditions_modifier_lv_switchgear <- function(asset_category_mmi, t
 }
 
 
-get_observed_conditions_modifier_lv_switchgear <- function(asset_category_mmi, table_names, observed_condition_inputs){
+get_observed_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names, observed_condition_inputs){
   oci_mmi_cal_df <-
     gb_ref$observed_cond_modifier_mmi_cal
 
