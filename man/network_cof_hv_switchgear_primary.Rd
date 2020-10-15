@@ -16,7 +16,7 @@ network_cof_hv_switchgear_primary(
 )
 }
 \arguments{
-\item{hv_asset_category}{String The type of LV asset category}
+\item{hv_asset_category}{String The type of HV asset category}
 
 \item{no_customers}{Numeric. The numner of customers
 fed by an individual asset.}
@@ -35,6 +35,6 @@ all asset categories exclusive the assets EHV and 132kV transformers.
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-network_cof_hv_switchgear_primary(hv_asset_category = "LV Board (WM)",
+network_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Secondary",
 no_customers = 750, kva_per_customer = 51)
 }

@@ -12,16 +12,16 @@ Health & Criticality - Version 1.1, 2017:
 safety_cof_hv_switchgear_primary(hv_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{hv_asset_category}{String The type of LV asset category}
+\item{hv_asset_category}{String The type of HV asset category}
 
-\item{location_risk}{String Type Financial factor criteria for LV switchgear
+\item{location_risk}{String Type Financial factor criteria for HV switchgear
 (cf. section D1.2.1, page 162, CNAIM, 2017).}
 
-\item{type_risk}{String. Asses Financial factor criteria for LV switchgear
+\item{type_risk}{String. Asses Financial factor criteria for HV switchgear
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }
 \value{
-Numeric. Financial consequences of failure for LV switchgear
+Numeric. Financial consequences of failure for HV switchgear
 }
 \description{
 This function calculates safety consequences of failure

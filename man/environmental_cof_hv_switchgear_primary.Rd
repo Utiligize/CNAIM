@@ -33,7 +33,7 @@ A setting of \code{"Default"} will result in a bunding factor of 1.}
 This function calculates environmental consequences of failure
 (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
 of failure is used in
-the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
+the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for HV switchgear
 }
 \examples{
 environmental_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Secondary", type_env_factor = "Oil", prox_water = 95, bunded = "Yes")

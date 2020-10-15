@@ -14,7 +14,7 @@ financial_cof_hv_switchgear_primary(hv_asset_category, access_factor_criteria)
 \arguments{
 \item{hv_asset_category}{String The type of HV switchgear distribution asset category}
 
-\item{access_factor_criteria}{String. Asses Financial factor criteria for LV switchgear
+\item{access_factor_criteria}{String. Asses Financial factor criteria for HV switchgear
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }
 \value{
