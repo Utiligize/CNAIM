@@ -39,3 +39,11 @@ test_that("33kV RMU", {
 
 
 context("COF:Network EHV switch gear")
+
+test_that("33kV RMU", {
+  res <- network_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
+                                          actual_load_mva = 15)
+  expected_value <- 6137
+
+  expect_equal(res, expected_value)
+})

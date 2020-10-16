@@ -9,19 +9,12 @@ Health & Criticality - Version 1.1, 2017:
 \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 }
 \usage{
-network_cof_ehv_switchgear(
-  ehv_asset_category,
-  no_customers,
-  kva_per_customer = "Default"
-)
+network_cof_ehv_switchgear(ehv_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{no_customers}{Numeric. The numner of customers
-fed by an individual asset.}
+\item{actual_load_mva}{Numeric. TThe actual load on the asset}
 
-\item{kva_per_customer}{Numeric. If the asset have an exceptionally high
-demand per customer type in kVA per customer. A setting of \code{"Default"}
-results in a multiplication factor of 1 (cf. table 18, page 86, CNAIM, 2017).}
+\item{secure}{Boolean If the asset is in a secure network or not}
 
 \item{hv_asset_category}{String The type of LV asset category}
 }

@@ -216,11 +216,8 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param hv_asset_category String The type of LV asset category
-#' @param no_customers Numeric. The numner of customers
-#' fed by an individual asset.
-#' @param kva_per_customer Numeric. If the asset have an exceptionally high
-#' demand per customer type in kVA per customer. A setting of \code{"Default"}
-#' results in a multiplication factor of 1 (cf. table 18, page 86, CNAIM, 2017).
+#' @param actual_load_mva Numeric. TThe actual load on the asset
+#' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
@@ -230,14 +227,11 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 #' network_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
 #' no_customers = 750, kva_per_customer = 51)
 network_cof_ehv_switchgear<- function(ehv_asset_category,
-                                      no_customers,
-                                      kva_per_customer = "Default") {
+                                      actual_load_mva,
+                                      secure = T) {
 
-  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
-
-  asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
-    dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
+  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
+    `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
@@ -246,48 +240,25 @@ network_cof_ehv_switchgear<- function(ehv_asset_category,
   # Reference financial cost of failure -------------------------------------
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
-  # Customer factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
-  ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
+  # Load factor ---------------------------------------------------------
+  ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
+  ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                   `Asset Category` ==
-                                                    asset_category)
+                                                    ehv_asset_category)
 
-  ref_no_cust <-
-    ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
+  load_factor <- actual_load_mva/ref_nw_perf_cost_fail_ehv_single_row_df$`Maximum Demand Used To Derive Reference Cost (MVA)`
 
-  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+  # Network type factor -----------------------------------
+  network_type_factor <- 1
 
-
-  for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){
-    if (kva_per_customer == 'Default'){
-      adj_cust_no <- 1
-      break
-    } else if (kva_per_customer >= as.numeric(
-      customer_no_adjust_lv_hv_asset$Lower[n]) &
-      kva_per_customer < as.numeric(
-        customer_no_adjust_lv_hv_asset$Upper[n])){
-      adj_cust_no <-
-        customer_no_adjust_lv_hv_asset$
-        `No. of Customers to be used in the derivation of Customer Factor`[n]
-      break
-    }
+  if(!secure){
+    network_type_factor <- 2.5
   }
-
-  adj_cust_no <-
-    adj_cust_no %>% stringr::str_match_all("[0-9]+") %>% unlist %>% as.numeric
-
-  customer_factor <- (adj_cust_no * no_customers) / ref_no_cust
-
-
-  # Customer sensitivity factor ---------------------------------------------
-  customer_sensitivity_factor <- 1 # See section 7.6.2.2, p. 86 in CNAIM (2017)
-
 
   # Network perfomance consequence factor -----------------------------------
 
-  network_performance_consequence_factor <- customer_factor *
-    customer_sensitivity_factor
-
+  network_performance_consequence_factor <- load_factor *
+    network_type_factor
 
   # Network performance cost of failure -------------------------------------
   network_cof <- network_performance_consequence_factor * ncost
