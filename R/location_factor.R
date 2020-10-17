@@ -114,13 +114,14 @@ if (asset_type == "LV UGB" ||
   if (asset_category == "EHV OHL Conductor (Tower Lines)" ||
       asset_category == "132kV OHL Conductor (Tower Lines)") {
     generic_term_1 <- "Towers (Conductor)"
+  } else if (asset_category == "EHV OHL Fittings" ||
+             asset_category == "132kV OHL Fittings") {
+    generic_term_1 <- "Towers (Fittings)"
   }
 
   if (asset_category == "Overhead Line") {
     stop(paste0("Asset type not implemented: ", asset_type))
   }
-
-
 
    # Altitude ----------------------------------------------------------------
   altitude_factor_asset_df <- dplyr::select(gb_ref$altitude_factor_lut,
