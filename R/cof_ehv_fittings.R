@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for EHV fittings
+#' @title Financial cost of Failure for EHV/132kV fittings
 #' @description This function calculates financial consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
 #' of failure is used in
@@ -40,9 +40,14 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
 
   # Access financial factor -------------------------------------------------
   access_financial_factors <- gb_ref$access_factor_ohl
+  access_category_financial_factor <- "EHV OHL Fittings (Tower Lines)"
+  if(ehv_asset_category == "132kV Fittings"){
+    access_category_financial_factor <- "132kV OHL Fittings (Tower Lines)"
+  }
+
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 "EHV OHL Fittings (Tower Lines)")
+                                                 access_category_financial_factor)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -63,7 +68,7 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
 }
 
 
-#' @title Safety cost of Failure for EHV Fittings
+#' @title Safety cost of Failure for EHV/132kV Fittings
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
 #' of failure is used in
@@ -117,7 +122,7 @@ safety_cof_ehv_fittings <- function(ehv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for EHV fittings
+#' @title Environmental cost of Failure for EHV/132kV fittings
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
 #' of failure is used in
@@ -171,7 +176,7 @@ environmental_cof_ehv_fittings <- function(ehv_asset_category){
 }
 
 
-#' @title Network cost of Failure for EHV Fittings
+#' @title Network cost of Failure for EHV/132kV Fittings
 #' @description This function calculates network cost of failure for
 #' EHV fittings
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure

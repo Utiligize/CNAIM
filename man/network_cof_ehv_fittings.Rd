@@ -2,7 +2,7 @@
 % Please edit documentation in R/cof_ehv_fittings.R
 \name{network_cof_ehv_fittings}
 \alias{network_cof_ehv_fittings}
-\title{Network cost of Failure for EHV Fittings}
+\title{Network cost of Failure for EHV/132kV Fittings}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 1.1, 2017:
