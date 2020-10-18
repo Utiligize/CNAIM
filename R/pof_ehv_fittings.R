@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for EHV Fittings
+#' @title Current Probability of Failure for EHV/132kV Fittings
 #' @description This function calculates the current
 #' annual probability of failure per kilometer EHV Fittings
 #' The function is a cubic curve that is based on
@@ -125,8 +125,14 @@ pof_ehv_fittings <-
     mci_table_names <- list("thermal_imaging" = "mci_ehv_fittings_thrml_imaging",
                             "ductor_test" = "mci_ehv_fittings_ductor_test")
 
+    asset_category_mmi <- "EHV Fittings"
+
+    if(ehv_asset_category == "132kV Fittings"){
+      asset_category_mmi <- "132kV Fittings"
+    }
+
     measured_condition_modifier <-
-      get_measured_conditions_modifier_hv_switchgear("EHV Fittings",
+      get_measured_conditions_modifier_hv_switchgear(asset_category_mmi,
                                                      mci_table_names,
                                                      measured_condition_inputs)
 
@@ -138,7 +144,7 @@ pof_ehv_fittings <-
                             "tower_fitting_cond" = "oci_ehv_twr_fitting_cond")
 
     observed_condition_modifier <-
-      get_observed_conditions_modifier_hv_switchgear("EHV Fittings",
+      get_observed_conditions_modifier_hv_switchgear(asset_category_mmi,
                                                      oci_table_names,
                                                      observed_condition_inputs)
 

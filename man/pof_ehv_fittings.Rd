@@ -2,7 +2,7 @@
 % Please edit documentation in R/pof_ehv_fittings.R
 \name{pof_ehv_fittings}
 \alias{pof_ehv_fittings}
-\title{Current Probability of Failure for EHV Fittings}
+\title{Current Probability of Failure for EHV/132kV Fittings}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 1.1, 2017:
