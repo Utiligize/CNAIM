@@ -1,13 +1,14 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for EHV/132kV Fittings
+#' @title Current Probability of Failure for HV Poles
 #' @description This function calculates the current
-#' annual probability of failure per kilometer EHV Fittings
+#' annual probability of failure per kilometer HV Poles
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param hv_asset_category String The type of HV asset category
+#' @param sub_division String. Refers to material the pole is made of.
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
@@ -34,23 +35,23 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' # Current annual probability of failure for EHV Swicthgear
-#'pof_ehv_fittings(
-#'ehv_asset_category = "33kV Fittings",
+#' # Current annual probability of failure for HV Poles
+#'pof_ehv_poles(
+#'hv_asset_category = "20kV Poles",
+#'sub_division = "Wood",
 #'placement = "Default",
 #'altitude_m = "Default",
 #'distance_from_coast_km = "Default",
 #'corrosion_category_index = "Default",
 #'age = 10,
-#'observed_condition_inputs =list("insulator_elec_cond" = list("Condition Criteria: Observed Condition" = "Default"),
-#'"insulator_mech_cond" = list("Condition Criteria: Observed Condition" = "Default"),
-#'"conductor_fitting_cond" = list("Condition Criteria: Observed Condition" = "Default"),
-#'"tower_fitting_cond" = list("Condition Criteria: Observed Condition" = "Default")),
-#'measured_condition_inputs = list("thermal_imaging" = list("Condition Criteria: Thermal Imaging Result" = "Default"),
-#'"ductor_test" = list("Condition Criteria: Ductor Test Result" = "Default")),
+#'observed_condition_inputs =list("visual_pole_cond" = list("Condition Criteria: Pole Top Rot Present?" = "Default"),
+#'"pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
+#'"bird_animal_damage" = list("Condition Criteria: Bird/Animal Damage?" = "Default")),
+#'measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
 #'reliability_factor = "Default")
-pof_ehv_fittings <-
-  function(ehv_asset_category = "33kV Fittings",
+pof_hv_poles <-
+  function(hv_asset_category = "20kV Poles",
+           sub_division = "Wood",
            placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
@@ -67,7 +68,7 @@ pof_ehv_fittings <-
 
     asset_category <- gb_ref$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
-                      ehv_asset_category) %>%
+                      hv_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
     generic_term_1 <- gb_ref$generic_terms_for_assets %>%
@@ -81,14 +82,15 @@ pof_ehv_fittings <-
     # Normal expected life  -------------------------
     normal_expected_life_cond <- gb_ref$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` ==
-                      ehv_asset_category) %>%
+                      hv_asset_category,
+                    `Sub-division` == sub_division) %>%
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
 
     # POF function asset category.
 
-    pof_asset_category <- "Fittings"
+    pof_asset_category <- "Poles"
 
     k <- gb_ref$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` %in% pof_asset_category) %>%
@@ -109,7 +111,8 @@ pof_ehv_fittings <-
                                             altitude_m,
                                             distance_from_coast_km,
                                             corrosion_category_index,
-                                            asset_type = ehv_asset_category)
+                                            asset_type = hv_asset_category,
+                                            sub_division = sub_division)
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cond,
                                          duty_factor_cond,
@@ -122,14 +125,9 @@ pof_ehv_fittings <-
     initial_health_score <- initial_health(b1, age)
 
     # Measured conditions
-    mci_table_names <- list("thermal_imaging" = "mci_ehv_fittings_thrml_imaging",
-                            "ductor_test" = "mci_ehv_fittings_ductor_test")
+    mci_table_names <- list("pole_decay" = "mci_hv_pole_pole_decay_deter")
 
-    asset_category_mmi <- "EHV Fittings"
-
-    if(ehv_asset_category == "132kV Fittings"){
-      asset_category_mmi <- "132kV Fittings"
-    }
+    asset_category_mmi <- "HV Poles"
 
     measured_condition_modifier <-
       get_measured_conditions_modifier_hv_switchgear(asset_category_mmi,
@@ -138,10 +136,9 @@ pof_ehv_fittings <-
 
     # Observed conditions -----------------------------------------------------
 
-    oci_table_names <- list("insulator_elec_cond" = "oci_ehv_fitg_insltr_elect_cond",
-                            "insulator_mech_cond" = "oci_ehv_fitg_insltr_mech_cond",
-                            "conductor_fitting_cond" = "oci_ehv_cond_fitting_cond",
-                            "tower_fitting_cond" = "oci_ehv_twr_fitting_cond")
+    oci_table_names <- list("visual_pole_cond" = "oci_hv_pole_visual_pole_cond",
+                            "pole_leaning" = "oci_hv_pole_pole_leaning",
+                            "bird_animal_damage" = "oci_hv_pole_bird_animal_damage")
 
     observed_condition_modifier <-
       get_observed_conditions_modifier_hv_switchgear(asset_category_mmi,

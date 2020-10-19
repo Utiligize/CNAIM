@@ -65,6 +65,7 @@
 #'"132kV CB (Gas Insulated Busbars)(ID) (GM)",
 #'"132kV CB (Gas Insulated Busbars)(OD) (GM)", "132kV Transformer (GM)")
 #'}
+#' @param sub_division String. Refers to material the sub division in the asset category
 #' @return Numeric. Location factor
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
@@ -81,7 +82,8 @@ location_factor <- function(placement = "Default",
                             altitude_m = "Default",
                             distance_from_coast_km = "Default",
                             corrosion_category_index = "Default",
-                            asset_type = "6.6/11kV Transformer (GM)") {
+                            asset_type = "6.6/11kV Transformer (GM)",
+                            sub_division = NULL) {
 
 
 if (asset_type == "LV UGB" ||
@@ -111,14 +113,25 @@ if (asset_type == "LV UGB" ||
                                `Health Index Asset Category` ==
                                asset_category)]
 
+
+
   if (asset_category == "EHV OHL Conductor (Tower Lines)" ||
       asset_category == "132kV OHL Conductor (Tower Lines)") {
     generic_term_1 <- "Towers (Conductor)"
   } else if (asset_category == "EHV OHL Fittings" ||
              asset_category == "132kV OHL Fittings") {
     generic_term_1 <- "Towers (Fittings)"
+  }else if (asset_category == "HV OHL Support - Poles") {
+    # All the poles
+    if(sub_division %>% is.null())
+      stop("No sub division specified for the pole")
+    if(sub_division == "Steel")
+      generic_term_1 <- "Poles (Steel)"
+    if(sub_division == "Concrete")
+      generic_term_1 <- "Poles (Concrete)"
+    if(sub_division == "Wood")
+      generic_term_1 <- "Poles (Wood)"
   }
-
   if (asset_category == "Overhead Line") {
     stop(paste0("Asset type not implemented: ", asset_type))
   }
