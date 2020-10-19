@@ -1,13 +1,13 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for HV Poles
+#' @title Current Probability of Failure for Poles
 #' @description This function calculates the current
-#' annual probability of failure per kilometer HV Poles
+#' annual probability of failure per kilometer Poles
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
-#' @param hv_asset_category String The type of HV asset category
+#' @param pole_asset_category String The type of asset category
 #' @param sub_division String. Refers to material the pole is made of.
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
@@ -36,8 +36,8 @@
 #' @export
 #' @examples
 #' # Current annual probability of failure for HV Poles
-#'pof_ehv_poles(
-#'hv_asset_category = "20kV Poles",
+#'pof_poles(
+#'pole_asset_category = "20kV Poles",
 #'sub_division = "Wood",
 #'placement = "Default",
 #'altitude_m = "Default",
@@ -49,8 +49,8 @@
 #'"bird_animal_damage" = list("Condition Criteria: Bird/Animal Damage?" = "Default")),
 #'measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
 #'reliability_factor = "Default")
-pof_hv_poles <-
-  function(hv_asset_category = "20kV Poles",
+pof_poles <-
+  function(pole_asset_category = "20kV Poles",
            sub_division = "Wood",
            placement = "Default",
            altitude_m = "Default",
@@ -68,7 +68,7 @@ pof_hv_poles <-
 
     asset_category <- gb_ref$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
-                      hv_asset_category) %>%
+                      pole_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
     generic_term_1 <- gb_ref$generic_terms_for_assets %>%
@@ -82,7 +82,7 @@ pof_hv_poles <-
     # Normal expected life  -------------------------
     normal_expected_life_cond <- gb_ref$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` ==
-                      hv_asset_category,
+                      pole_asset_category,
                     `Sub-division` == sub_division) %>%
       dplyr::pull()
 
@@ -111,7 +111,7 @@ pof_hv_poles <-
                                             altitude_m,
                                             distance_from_coast_km,
                                             corrosion_category_index,
-                                            asset_type = hv_asset_category,
+                                            asset_type = pole_asset_category,
                                             sub_division = sub_division)
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cond,
@@ -125,8 +125,10 @@ pof_hv_poles <-
     initial_health_score <- initial_health(b1, age)
 
     # Measured conditions
-    mci_table_names <- list("pole_decay" = "mci_hv_pole_pole_decay_deter")
+    # The table data is same for all poles category
+    mci_table_names <- list("pole_decay" = "mci_ehv_pole_pole_decay_deter")
 
+    # The table data is same for all poles category
     asset_category_mmi <- "HV Poles"
 
     measured_condition_modifier <-
@@ -136,9 +138,11 @@ pof_hv_poles <-
 
     # Observed conditions -----------------------------------------------------
 
+    # The table data is same for all poles category
     oci_table_names <- list("visual_pole_cond" = "oci_hv_pole_visual_pole_cond",
-                            "pole_leaning" = "oci_hv_pole_pole_leaning",
-                            "bird_animal_damage" = "oci_hv_pole_bird_animal_damage")
+                            "pole_leaning" = "oci_ehv_pole_pole_leaning",
+                            "bird_animal_damage" = "oci_ehv_pole_bird_animal_damag",
+                            "top_rot" = "oci_ehv_pole_pole_top_rot")
 
     observed_condition_modifier <-
       get_observed_conditions_modifier_hv_switchgear(asset_category_mmi,

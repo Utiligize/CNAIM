@@ -121,7 +121,9 @@ if (asset_type == "LV UGB" ||
   } else if (asset_category == "EHV OHL Fittings" ||
              asset_category == "132kV OHL Fittings") {
     generic_term_1 <- "Towers (Fittings)"
-  }else if (asset_category == "HV OHL Support - Poles") {
+  }else if (asset_category == "HV OHL Support - Poles" ||
+            asset_category == "EHV OHL Support - Poles" ||
+            asset_category == "LV OHL Support" ) {
     # All the poles
     if(sub_division %>% is.null())
       stop("No sub division specified for the pole")
