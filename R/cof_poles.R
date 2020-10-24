@@ -1,10 +1,10 @@
-#' @title Financial cost of Failure for EHV/132kV fittings
+#' @title Financial cost of Failure for Poles
 #' @description This function calculates financial consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV Fittings asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for EHV fittings
+#' @param pole_asset_category String The type of Pole asset category
+#' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting (cf. table 214, page 164, CNAIM, 2017).
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -12,20 +12,20 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' financial_cof_ehv_fittings(ehv_asset_category = "33kV Fittings", type_financial_factor_criteria = "Tension", access_factor_criteria = "Type A")
-financial_cof_ehv_fittings <- function(ehv_asset_category,
-                                       type_financial_factor_criteria,
-                                       access_factor_criteria){
+#' financial_cof_poles(pole_asset_category = "33kV Pole", type_financial_factor_criteria = "Small footprint steel masts", access_factor_criteria = "Type A")
+financial_cof_poles <- function(pole_asset_category,
+                                type_financial_factor_criteria,
+                                access_factor_criteria){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == pole_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ehv_asset_category)
+                                                   pole_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   fcost <- reference_costs_of_failure_tf$`Financial - (GBP)`
@@ -33,21 +33,17 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
   # Type financial factor ---------------------------------------------------
   type_financial_factors <- gb_ref$type_financial_factors
   type_financial_factors_tf <- dplyr::filter(type_financial_factors,
-                                             `Asset Register Category` == ehv_asset_category,
+                                             `Asset Register Category` == pole_asset_category,
                                              `Type Financial Factor Criteria` == type_financial_factor_criteria)
 
   type_financial_factor <- type_financial_factors_tf$`Type Financial Factor`[1]
 
   # Access financial factor -------------------------------------------------
   access_financial_factors <- gb_ref$access_factor_ohl
-  access_category_financial_factor <- "EHV OHL Fittings (Tower Lines)"
-  if(ehv_asset_category == "132kV Fittings"){
-    access_category_financial_factor <- "132kV OHL Fittings (Tower Lines)"
-  }
 
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 access_category_financial_factor)
+                                                 asset_category)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -68,15 +64,15 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
 }
 
 
-#' @title Safety cost of Failure for EHV/132kV Fittings
+#' @title Safety cost of Failure for Pole
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV asset category
-#' @param location_risk String Type Financial factor criteria for EHV fittings
+#' @param pole_asset_category String The type of pole asset category
+#' @param location_risk String Type Financial factor criteria for Pole
 #' (cf. section D1.2.1, page 162, CNAIM, 2017).
-#' @param type_risk String. Asses Financial factor criteria for EHV fittings
+#' @param type_risk String. Asses Financial factor criteria for pole
 #' setting (cf. table 214, page 164, CNAIM, 2017).
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -84,19 +80,19 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_ehv_fittings(ehv_asset_category = "33kV Fittings", location_risk = "Default", type_risk = "Default")
-safety_cof_ehv_fittings <- function(ehv_asset_category,
+#' safety_cof_poles(pole_asset_category = "33kV Pole", location_risk = "Default", type_risk = "Default")
+safety_cof_poles <- function(pole_asset_category,
                                     location_risk,
                                     type_risk){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == pole_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ehv_asset_category)
+                                                   pole_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   scost <- reference_costs_of_failure_tf$`Safety - (GBP)`
@@ -122,12 +118,12 @@ safety_cof_ehv_fittings <- function(ehv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for EHV/132kV fittings
+#' @title Environmental cost of Failure for Poles
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param pole_asset_category String The type of Pole
 #' @param type_env_factor String The type environment factor of EHV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
@@ -140,18 +136,18 @@ safety_cof_ehv_fittings <- function(ehv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' environmental_cof_ehv_fittings(ehv_asset_category = "33kV Fittings")
-environmental_cof_ehv_fittings <- function(ehv_asset_category){
+#' environmental_cof_poles(pole_asset_category = "33kV Pole")
+environmental_cof_poles <- function(pole_asset_category){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == pole_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ehv_asset_category)
+                                                   pole_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ecost <- reference_costs_of_failure_tf$`Environmental - (GBP)`
@@ -176,7 +172,7 @@ environmental_cof_ehv_fittings <- function(ehv_asset_category){
 }
 
 
-#' @title Network cost of Failure for EHV/132kV Fittings
+#' @title Network cost of Failure for LV/HV Poles
 #' @description This function calculates network cost of failure for
 #' EHV fittings
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
@@ -190,9 +186,94 @@ environmental_cof_ehv_fittings <- function(ehv_asset_category){
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' network_cof_ehv_fittings(ehv_asset_category = "33kV Fittings",
-#' actual_load_mva = 15 , secure = T)
-network_cof_ehv_fittings<- function(ehv_asset_category,
+#' network_cof_hv_lv_poles(pole_asset_category = "20kV Poles",
+#' no_customers = 750, kva_per_customer = 51)
+network_cof_hv_lv_poles<- function(pole_asset_category,
+                                   no_customers,
+                                   kva_per_customer = "Default") {
+
+  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
+
+  asset_category <- gb_ref$categorisation_of_assets %>%
+    dplyr::filter(`Asset Register Category` == pole_asset_category) %>%
+    dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
+
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+                                                 `Asset Register Category` ==
+                                                   pole_asset_category)
+
+  # Reference financial cost of failure -------------------------------------
+  ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
+
+  # Customer factor ---------------------------------------------------------
+  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
+  ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
+                                                  `Asset Category` ==
+                                                    asset_category)
+
+  ref_no_cust <-
+    ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
+
+  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+
+
+  for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){
+    if (kva_per_customer == 'Default'){
+      adj_cust_no <- 1
+      break
+    } else if (kva_per_customer >= as.numeric(
+      customer_no_adjust_lv_hv_asset$Lower[n]) &
+      kva_per_customer < as.numeric(
+        customer_no_adjust_lv_hv_asset$Upper[n])){
+      adj_cust_no <-
+        customer_no_adjust_lv_hv_asset$
+        `No. of Customers to be used in the derivation of Customer Factor`[n]
+      break
+    }
+  }
+
+  adj_cust_no <-
+    adj_cust_no %>% stringr::str_match_all("[0-9]+") %>% unlist %>% as.numeric
+
+  customer_factor <- (adj_cust_no * no_customers) / ref_no_cust
+
+
+  # Customer sensitivity factor ---------------------------------------------
+  customer_sensitivity_factor <- 1 # See section 7.6.2.2, p. 86 in CNAIM (2017)
+
+
+  # Network perfomance consequence factor -----------------------------------
+
+  network_performance_consequence_factor <- customer_factor *
+    customer_sensitivity_factor
+
+
+  # Network performance cost of failure -------------------------------------
+  network_cof <- network_performance_consequence_factor * ncost
+
+  return(network_cof)
+
+}
+
+
+
+#' @title Network cost of Failure for EHV Pole
+#' @description This function calculates network cost of failure for
+#' all asset categories exclusive the assets EHV and 132kV transformers.
+#' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
+#' is used in the derivation of consequences of failure see \code{\link{cof}}().
+#' @param ehv_asset_category String The type of EHV asset category
+#' @param actual_load_mva Numeric. The actual load on the asset
+#' @param secure Boolean If the asset is in a secure network or not
+#' @return Numeric. Network cost of failure.
+#' @source DNO Common Network Asset Indices Methodology (CNAIM),
+#' Health & Criticality - Version 1.1, 2017:
+#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' @export
+#' @examples
+#' network_cof_ehv_pole(pole_asset_category = "33kV Pole",
+#' actual_load_mva = 15, secure = T)
+network_cof_ehv_pole<- function(pole_asset_category,
                                       actual_load_mva,
                                       secure = T) {
 
@@ -201,7 +282,7 @@ network_cof_ehv_fittings<- function(ehv_asset_category,
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ehv_asset_category)
+                                                   pole_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
@@ -210,7 +291,7 @@ network_cof_ehv_fittings<- function(ehv_asset_category,
   ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
-                                                             ehv_asset_category)
+                                                             pole_asset_category)
 
   load_factor <- actual_load_mva/ref_nw_perf_cost_fail_ehv_single_row_df$`Maximum Demand Used To Derive Reference Cost (MVA)`
 
