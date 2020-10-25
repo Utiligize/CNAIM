@@ -22,7 +22,7 @@ financial_cof_poles(
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }
 \value{
-Numeric. Financial consequences of failure for EHV fittings
+Numeric. Financial consequences of failure for Poles
 }
 \description{
 This function calculates financial consequences of failure

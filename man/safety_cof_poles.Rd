@@ -21,7 +21,7 @@ safety_cof_poles(pole_asset_category, location_risk, type_risk)
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }
 \value{
-Numeric. Financial consequences of failure for EHV fittings
+Numeric. Safety consequences of failure for poles
 }
 \description{
 This function calculates safety consequences of failure
