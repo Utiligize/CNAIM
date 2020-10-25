@@ -1,19 +1,17 @@
-#' @title Financial cost of Failure for EHV swicthgear
+#' @title Financial cost of Failure for EHV UG cabkes & 132 kV UG cables
 #' @description This function calculates financial consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV switchgear distribution asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for EHV switchgear
-#' setting (cf. table 214, page 164, CNAIM, 2017).
+#' @param ehv_asset_category String The type of EHV cable distribution asset category
 #' @return Numeric. Financial consequences of failure for EHV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' financial_cof_ehv_switchgear(ehv_asset_category = "33kV RMU", access_factor_criteria = "Type A")
-financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_criteria){
+#' financial_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)")
+financial_cof_ehv_cables <- function(ehv_asset_category){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -32,56 +30,30 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
   type_financial_factor <- 1
 
   # Access financial factor -------------------------------------------------
-  access_financial_factors <- gb_ref$access_factor_swg_tf_asset
-  access_financial_factors_tf <- dplyr::filter(access_financial_factors,
-                                               `Asset Category` ==
-                                                 "EHV Switchgear (GM)")
-
-  if (access_factor_criteria == "Type A") {
-    access_finacial_factor <-
-      access_financial_factors_tf$
-      `Access Factor: Type A Criteria - Normal Access ( & Default Value)`
-  }
-  else if (access_factor_criteria == "Type B") {
-    access_finacial_factor <-
-      access_financial_factors_tf$
-      `Access Factor: Type B Criteria - Constrained Access or Confined Working Space`
-  }
-  else if (access_factor_criteria == "Type C") {
-    access_finacial_factor <-
-      access_financial_factors_tf$
-      `Access Factor: Type C Criteria - Underground substation`
-  }
-
+  access_financial_factor <- 1
 
   # Financial consequences factor -------------------------------------------
-  fc_factor <- type_financial_factor * access_finacial_factor
+  fc_factor <- type_financial_factor * access_financial_factor
 
   # Financial consequences of failure ---------------------------------------
   return(fc_factor * fcost)
 }
 
 
-#' @title Safety cost of Failure for EHV Switchgear
+#' @title Safety cost of Failure for EHV UG cabkes & 132 kV UG cables
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV asset category
-#' @param location_risk String Type Financial factor criteria for EHV switchgear
-#' (cf. section D1.2.1, page 162, CNAIM, 2017).
-#' @param type_risk String. Asses Financial factor criteria for EHV switchgear
-#' setting (cf. table 214, page 164, CNAIM, 2017).
-#' @return Numeric. Financial consequences of failure for EHV switchgear
+#' @return Numeric. Financial consequences of failure for EEHV UG cabkes & 132 kV UG cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_ehv_switchgear(hv_asset_category = "33kV RMU", location_risk = "Default", type_risk = "Default")
-safety_cof_ehv_switchgear <- function(ehv_asset_category,
-                                      location_risk,
-                                      type_risk){
+#' safety_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)")
+safety_cof_ehv_cables <- function(ehv_asset_category){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -95,19 +67,8 @@ safety_cof_ehv_switchgear <- function(ehv_asset_category,
   # Reference financial cost of failure -------------------------------------
   scost <- reference_costs_of_failure_tf$`Safety - (GBP)`
 
-  if (location_risk == "Default") location_risk <- "Medium (Default)"
-  if (location_risk == "Medium") location_risk <- "Medium (Default)"
-  if (type_risk == "Default") type_risk <- "Medium"
-
-  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
-
-  row_no <- which(safety_conseq_factor_sg_tf_oh$
-                    `Safety Consequence Factor - Switchgear, Transformers & Overhead Lines...2` ==
-                    location_risk)
-
-  col_no <- grep(type_risk, colnames(safety_conseq_factor_sg_tf_oh))
-
-  safety_consequence_factor <- safety_conseq_factor_sg_tf_oh[row_no, col_no]
+  # Assuming that all cables are always buried
+  safety_consequence_factor <- 1
 
   # Safety consequence of failure -------------------------------------------
   safety_cof <- safety_consequence_factor * scost
@@ -116,13 +77,12 @@ safety_cof_ehv_switchgear <- function(ehv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for EHV switchgear
+#' @title Environmental cost of Failure for EHV UG cabkes & 132 kV UG cables
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 #' @param ehv_asset_category String The type of EHV asset category
-#' @param type_env_factor String The type environment factor of EHV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -134,11 +94,10 @@ safety_cof_ehv_switchgear <- function(ehv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' environmental_cof_ehv_switchgear(ehv_asset_category = "33kV RMU", type_env_factor = "Oil", prox_water = 95, bunded = "Yes")
-environmental_cof_ehv_switchgear <- function(ehv_asset_category,
-                                            type_env_factor,
-                                            prox_water,
-                                            bunded){
+#' environmental_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)", prox_water = 95, bunded = "Yes")
+environmental_cof_ehv_cables <- function(ehv_asset_category,
+                                             prox_water,
+                                             bunded){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
@@ -154,10 +113,7 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
   ecost <- reference_costs_of_failure_tf$`Environmental - (GBP)`
 
   # Type env factor -------------------------------------
-  asset_type_env_factor <- gb_ref$type_enviromental_factor %>%
-    dplyr::filter(`Type environment factor` == asset_category)
-
-  type_environmental_factor <- asset_type_env_factor[[type_env_factor]]
+  type_environmental_factor <- 1
 
   # Size env factor -------------------------------------
   size_environmental_factor <- 1
@@ -169,36 +125,41 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
                                                  `Asset Register Category` ==
                                                    asset_category)
 
-  # Bunded "Yes", "No", "Default" ?
-  if (bunded == "Default") {
-    bunding_factor <- 1
-  } else if (bunded == "Yes") {
-    bunding_factor <-
-      location_environ_al_factor_tf$`Bunding Factor: Bunded`
-  } else if (bunded == "No") {
-    bunding_factor <-
-      location_environ_al_factor_tf$`Bunding Factor: Not bunded`
+  if(nrow(location_environ_al_factor_tf) == 0){
+    location_environmental_factor <- 1
+  } else {
+    # Bunded "Yes", "No", "Default" ?
+    if (bunded == "Default") {
+      bunding_factor <- 1
+    } else if (bunded == "Yes") {
+      bunding_factor <-
+        location_environ_al_factor_tf$`Bunding Factor: Bunded`
+    } else if (bunded == "No") {
+      bunding_factor <-
+        location_environ_al_factor_tf$`Bunding Factor: Not bunded`
+    }
+
+    # Proximity to water.
+    if(prox_water == "Default") {
+      prox_factor <- 1
+    } else if (prox_water >= 40 && prox_water < 80) {
+      prox_factor <- location_environ_al_factor_tf$
+        `Proximity Factor: Close to Water Course (between 40m and 80m)`
+    } else if (prox_water >= 80 && prox_water < 120) {
+      prox_factor <- location_environ_al_factor_tf$
+        `Proximity Factor: Moderately Close to Water Course (between 80m and 120m)`
+    } else if (prox_water > 120) {
+      prox_factor <- location_environ_al_factor_tf$
+        `Proximity Factor: Not Close to Water Course (>120m) or No Oil`
+    } else if (prox_water < 40) {
+      prox_factor <- location_environ_al_factor_tf$
+        `Proximity Factor: Very Close to Water Course (<40m)`
+    }
+
+    # Location environmental factor
+    location_environmental_factor <- prox_factor * bunding_factor
   }
 
-  # Proximity to water.
-  if(prox_water == "Default") {
-    prox_factor <- 1
-  } else if (prox_water >= 40 && prox_water < 80) {
-    prox_factor <- location_environ_al_factor_tf$
-      `Proximity Factor: Close to Water Course (between 40m and 80m)`
-  } else if (prox_water >= 80 && prox_water < 120) {
-    prox_factor <- location_environ_al_factor_tf$
-      `Proximity Factor: Moderately Close to Water Course (between 80m and 120m)`
-  } else if (prox_water > 120) {
-    prox_factor <- location_environ_al_factor_tf$
-      `Proximity Factor: Not Close to Water Course (>120m) or No Oil`
-  } else if (prox_water < 40) {
-    prox_factor <- location_environ_al_factor_tf$
-      `Proximity Factor: Very Close to Water Course (<40m)`
-  }
-
-  # Location environmental factor
-  location_environmental_factor <- prox_factor * bunding_factor
 
   environmental_consequences_factor <- (type_environmental_factor *
                                           size_environmental_factor *
@@ -210,7 +171,7 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 }
 
 
-#' @title Network cost of Failure for EHV Switchgear
+#' @title Network cost of Failure for EHV UG cabkes & 132 kV UG cables
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
@@ -224,9 +185,9 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' network_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
+#' network_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)",
 #' actual_load_mva = 15, secure = T)
-network_cof_ehv_switchgear<- function(ehv_asset_category,
+network_cof_ehv_cables<- function(ehv_asset_category,
                                       actual_load_mva,
                                       secure = T) {
 
@@ -243,8 +204,8 @@ network_cof_ehv_switchgear<- function(ehv_asset_category,
   # Load factor ---------------------------------------------------------
   ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
-                                                  `Asset Category` ==
-                                                    ehv_asset_category)
+                                                           `Asset Category` ==
+                                                             ehv_asset_category)
 
   load_factor <- actual_load_mva/ref_nw_perf_cost_fail_ehv_single_row_df$`Maximum Demand Used To Derive Reference Cost (MVA)`
 
