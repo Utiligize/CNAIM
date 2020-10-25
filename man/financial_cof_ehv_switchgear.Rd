@@ -2,7 +2,7 @@
 % Please edit documentation in R/cof_ehv_switchgear.R
 \name{financial_cof_ehv_switchgear}
 \alias{financial_cof_ehv_switchgear}
-\title{Financial cost of Failure for EHV swicthgear}
+\title{Financial cost of Failure for EHV swicthgear & 132kV CB}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 1.1, 2017:
@@ -12,13 +12,13 @@ Health & Criticality - Version 1.1, 2017:
 financial_cof_ehv_switchgear(ehv_asset_category, access_factor_criteria)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV switchgear distribution asset category}
+\item{ehv_asset_category}{String The type of EHV swicthgear & 132kV CB}
 
-\item{access_factor_criteria}{String. Asses Financial factor criteria for EHV switchgear
+\item{access_factor_criteria}{String. Asses Financial factor criteria for EHV swicthgear & 132kV CB
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }
 \value{
-Numeric. Financial consequences of failure for EHV switchgear
+Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 }
 \description{
 This function calculates financial consequences of failure

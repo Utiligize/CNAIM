@@ -2,7 +2,7 @@
 % Please edit documentation in R/cof_ehv_switchgear.R
 \name{environmental_cof_ehv_switchgear}
 \alias{environmental_cof_ehv_switchgear}
-\title{Environmental cost of Failure for EHV switchgear}
+\title{Environmental cost of Failure for EHV swicthgear & 132kV CB}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 1.1, 2017:

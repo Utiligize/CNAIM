@@ -1,12 +1,12 @@
-#' @title Financial cost of Failure for EHV swicthgear
+#' @title Financial cost of Failure for EHV swicthgear & 132kV CB
 #' @description This function calculates financial consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV switchgear distribution asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for EHV switchgear
+#' @param ehv_asset_category String The type of EHV swicthgear & 132kV CB
+#' @param access_factor_criteria String. Asses Financial factor criteria for EHV swicthgear & 132kV CB
 #' setting (cf. table 214, page 164, CNAIM, 2017).
-#' @return Numeric. Financial consequences of failure for EHV switchgear
+#' @return Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
@@ -32,10 +32,16 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
   type_financial_factor <- 1
 
   # Access financial factor -------------------------------------------------
+  access_financial_factor_category <- "EHV Switchgear (GM)"
+  if("132kV" %in%  ehv_asset_category){
+    access_financial_factor_category <- "132kV CBs"
+  }
+
   access_financial_factors <- gb_ref$access_factor_swg_tf_asset
+
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 "EHV Switchgear (GM)")
+                                                 access_financial_factor_category)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -62,17 +68,17 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
 }
 
 
-#' @title Safety cost of Failure for EHV Switchgear
+#' @title Safety cost of Failure for EHV swicthgear & 132kV CB
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV asset category
-#' @param location_risk String Type Financial factor criteria for EHV switchgear
+#' @param location_risk String Type Financial factor criteria for EHV swicthgear & 132kV CB
 #' (cf. section D1.2.1, page 162, CNAIM, 2017).
-#' @param type_risk String. Asses Financial factor criteria for EHV switchgear
+#' @param type_risk String. Asses Financial factor criteria for EHV swicthgear & 132kV CB
 #' setting (cf. table 214, page 164, CNAIM, 2017).
-#' @return Numeric. Financial consequences of failure for EHV switchgear
+#' @return Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
@@ -116,7 +122,7 @@ safety_cof_ehv_switchgear <- function(ehv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for EHV switchgear
+#' @title Environmental cost of Failure for EHV swicthgear & 132kV CB
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
 #' of failure is used in
@@ -210,7 +216,7 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 }
 
 
-#' @title Network cost of Failure for EHV Switchgear
+#' @title Network cost of Failure for EHV swicthgear & 132kV CB
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
