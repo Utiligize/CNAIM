@@ -187,7 +187,8 @@ pof_hv_switchgear_distribution <-
   }
 
 
-get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names, measured_condition_inputs){
+get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names,
+                                                           measured_condition_inputs, sub_component = NULL){
   mcm_mmi_cal_df <-
     gb_ref$measured_cond_modifier_mmi_cal
 
@@ -246,13 +247,20 @@ get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, t
 }
 
 
-get_observed_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names, observed_condition_inputs){
+get_observed_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names,
+                                                           observed_condition_inputs, sub_component = NULL){
   oci_mmi_cal_df <-
     gb_ref$observed_cond_modifier_mmi_cal
 
   oci_mmi_cal_df <-
     oci_mmi_cal_df[which(
       oci_mmi_cal_df$`Asset Category` == asset_category_mmi), ]
+
+  if(!is.null(sub_component)){
+    oci_mmi_cal_df <-
+      oci_mmi_cal_df[which(
+        oci_mmi_cal_df$`Subcomponent` == sub_component), ]
+  }
 
   factor_divider_1 <-
     as.numeric(

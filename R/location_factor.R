@@ -133,6 +133,9 @@ if (asset_type == "LV UGB" ||
       generic_term_1 <- "Poles (Concrete)"
     if(sub_division == "Wood")
       generic_term_1 <- "Poles (Wood)"
+  }else if(asset_category == "EHV OHL Support - Towers" ||
+           asset_category == "132kV OHL Support - Tower"){
+    generic_term_1 <- "Towers (Structure)"
   }
   if (asset_category == "Overhead Line") {
     stop(paste0("Asset type not implemented: ", asset_type))
