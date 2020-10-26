@@ -1,9 +1,9 @@
-#' @title Financial cost of Failure for Towers
+#' @title Financial cost of Failure for Overhead Line Conductors
 #' @description This function calculates financial consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tower_asset_category String The type of Pole asset category
+#' @param ohl_cond_asset_category String The type of Pole asset category
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting (cf. table 214, page 164, CNAIM, 2017).
 #' @return Numeric. Financial consequences of failure for Poles
@@ -12,38 +12,37 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' financial_cof_towers(tower_asset_category = "33kV Tower", type_financial_factor_criteria = "Suspension", access_factor_criteria = "Type A")
-financial_cof_towers <- function(tower_asset_category,
-                                type_financial_factor_criteria,
-                                access_factor_criteria){
+#' financial_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor", access_factor_criteria = "Type A")
+financial_cof_ohl_cond <- function(ohl_cond_asset_category,
+                                 access_factor_criteria){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == tower_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ohl_cond_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   tower_asset_category)
+                                                   ohl_cond_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   fcost <- reference_costs_of_failure_tf$`Financial - (GBP)`
 
   # Type financial factor ---------------------------------------------------
-  type_financial_factors <- gb_ref$type_financial_factors
-  type_financial_factors_tf <- dplyr::filter(type_financial_factors,
-                                             `Asset Register Category` == tower_asset_category,
-                                             `Type Financial Factor Criteria` == type_financial_factor_criteria)
-
-  type_financial_factor <- type_financial_factors_tf$`Type Financial Factor`[1]
+  type_financial_factor <- 1
 
   # Access financial factor -------------------------------------------------
   access_financial_factors <- gb_ref$access_factor_ohl
+  access_finacial_factor_asset_category <- "EHV OHL Conductors (Tower Lines)"
+
+  if(asset_category == "132kV OHL Conductor (Tower Lines)"){
+    access_finacial_factor_asset_category <- "132kV OHL Conductors (Tower Lines)"
+  }
 
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 asset_category)
+                                                 access_finacial_factor_asset_category)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -64,35 +63,35 @@ financial_cof_towers <- function(tower_asset_category,
 }
 
 
-#' @title Safety cost of Failure for tower
+#' @title Safety cost of Failure for Overhead Line Conductors
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tower_asset_category String The type of tower asset category
-#' @param location_risk String Type Financial factor criteria for tower
+#' @param ohl_cond_asset_category String The type of overhead line conductor asset category
+#' @param location_risk String Type Financial factor criteria for Overhead Line Conductors
 #' (cf. section D1.2.1, page 162, CNAIM, 2017).
-#' @param type_risk String. Asses Financial factor criteria for tower
+#' @param type_risk String. Asses Financial factor criteria for Overhead Line Conductors
 #' setting (cf. table 214, page 164, CNAIM, 2017).
-#' @return Numeric. Safety consequences of failure for towers
+#' @return Numeric. Safety consequences of failure for Overhead Line Conductors
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_towers(tower_asset_category = "33kV Tower", location_risk = "Default", type_risk = "Default")
-safety_cof_towers <- function(tower_asset_category,
-                             location_risk,
-                             type_risk){
+#' safety_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor", location_risk = "Default", type_risk = "Default")
+safety_cof_ohl_cond <- function(ohl_cond_asset_category,
+                              location_risk,
+                              type_risk){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == tower_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ohl_cond_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   tower_asset_category)
+                                                   ohl_cond_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   scost <- reference_costs_of_failure_tf$`Safety - (GBP)`
@@ -118,29 +117,29 @@ safety_cof_towers <- function(tower_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for towers
+#' @title Environmental cost of Failure for Overhead line conductors
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param tower_asset_category String The type of tower
+#' @param ohl_cond_asset_category String The type of Overhead Line Conductors
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' environmental_cof_towers(tower_asset_category = "33kV Tower")
-environmental_cof_towers <- function(tower_asset_category){
+#' environmental_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor")
+environmental_cof_ohl_cond <- function(ohl_cond_asset_category){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == tower_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ohl_cond_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   tower_asset_category)
+                                                   ohl_cond_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ecost <- reference_costs_of_failure_tf$`Environmental - (GBP)`
@@ -165,12 +164,12 @@ environmental_cof_towers <- function(tower_asset_category){
 }
 
 
-#' @title Network cost of Failure for Towers
+#' @title Network cost of Failure for Overhead Line Conductors
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tower_asset_category String The type of Tower
+#' @param ohl_cond_asset_category String The type of Tower
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
@@ -179,18 +178,18 @@ environmental_cof_towers <- function(tower_asset_category){
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' network_cof_tower(tower_asset_category = "33kV Tower",
+#' network_cof_tower(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",
 #' actual_load_mva = 15, secure = T)
-network_cof_tower<- function(tower_asset_category,
-                                actual_load_mva,
-                                secure = T) {
+network_cof_ohl_cond<- function(ohl_cond_asset_category,
+                             actual_load_mva,
+                             secure = T) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   tower_asset_category)
+                                                   ohl_cond_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
@@ -199,7 +198,7 @@ network_cof_tower<- function(tower_asset_category,
   ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
-                                                             tower_asset_category)
+                                                             ohl_cond_asset_category)
 
   load_factor <- actual_load_mva/ref_nw_perf_cost_fail_ehv_single_row_df$`Maximum Demand Used To Derive Reference Cost (MVA)`
 

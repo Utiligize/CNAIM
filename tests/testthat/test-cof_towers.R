@@ -79,7 +79,7 @@ test_that("132kV Tower", {
 
 context("COF:Network Tower: EHV")
 
-test_that("33kV Pole", {
+test_that("33kV Tower", {
   res <- network_cof_tower(tower_asset_category = "33kV Tower",
                               actual_load_mva = 15) %>% round(2)
   expected_value <- 603.33
@@ -88,7 +88,7 @@ test_that("33kV Pole", {
 })
 
 
-test_that("132kV Pole", {
+test_that("132kV Tower", {
   res <- network_cof_tower(tower_asset_category = "132kV Tower",
                            actual_load_mva = 15) %>% round(2)
   expected_value <- 865.42
