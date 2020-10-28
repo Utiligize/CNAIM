@@ -56,7 +56,7 @@
 #'"oil_test" = list("Condition Criteria: Oil Test/ Gas Test Results" = "Default"),
 #'"temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
 #'"trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default"),
-#'"ir_test" = list("Condition Criteria: IR Test Results" = "Default" )_swg),
+#'"ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
 #'reliability_factor = "Default")
 
 pof_132kv_cb <-

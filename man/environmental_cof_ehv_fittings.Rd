@@ -13,16 +13,6 @@ environmental_cof_ehv_fittings(ehv_asset_category)
 }
 \arguments{
 \item{ehv_asset_category}{String The type of EHV asset category}
-
-\item{type_env_factor}{String The type environment factor of EHV asset category}
-
-\item{prox_water}{Numeric. Specify the proximity to a water course in meters.
-A setting of \code{"Default"} will result in a proximity factor of 1. Thus
-assume the proximity to a water course is between 80m and 120m
-(cf. table 223, page 172, CNAIM, 2017).}
-
-\item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
-A setting of \code{"Default"} will result in a bunding factor of 1.}
 }
 \description{
 This function calculates environmental consequences of failure

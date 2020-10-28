@@ -84,7 +84,7 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_ehv_switchgear(hv_asset_category = "33kV RMU", location_risk = "Default", type_risk = "Default")
+#' safety_cof_ehv_switchgear(ehv_asset_category = "33kV RMU", location_risk = "Default", type_risk = "Default")
 safety_cof_ehv_switchgear <- function(ehv_asset_category,
                                       location_risk,
                                       type_risk){
@@ -231,7 +231,7 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 #' @export
 #' @examples
 #' network_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
-#' actual_load_mva = 15, secure = T)
+#' actual_load_mva = 15)
 network_cof_ehv_switchgear<- function(ehv_asset_category,
                                       actual_load_mva,
                                       secure = T) {

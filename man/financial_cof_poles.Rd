@@ -18,6 +18,8 @@ financial_cof_poles(
 \arguments{
 \item{pole_asset_category}{String The type of Pole asset category}
 
+\item{type_financial_factor_criteria}{String. Type Financial factor criteria for Pole}
+
 \item{access_factor_criteria}{String. Asses Financial factor criteria for Pole
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }

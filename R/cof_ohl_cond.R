@@ -169,7 +169,7 @@ environmental_cof_ohl_cond <- function(ohl_cond_asset_category){
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ohl_cond_asset_category String The type of Tower
+#' @param ohl_cond_asset_category String The type of Overhead line conductor
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
@@ -178,8 +178,8 @@ environmental_cof_ohl_cond <- function(ohl_cond_asset_category){
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' network_cof_tower(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",
-#' actual_load_mva = 15, secure = T)
+#' network_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",
+#' actual_load_mva = 15)
 network_cof_ohl_cond<- function(ohl_cond_asset_category,
                              actual_load_mva,
                              secure = T) {

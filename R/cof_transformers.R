@@ -3,11 +3,12 @@
 #' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tf_asset_category String The type of Pole asset category
-#' @param type_financial_factor_criteria String The type financial factor for Tower
-#' @param access_factor_criteria String. Asses Financial factor criteria for Pole
+#' @param tf_asset_category String The type of Transformer asset category
+#' @param access_factor_criteria String. Asses Financial factor criteria for Transformer
 #' setting (cf. table 214, page 164, CNAIM, 2017).
-#' @return Numeric. Financial consequences of failure for Poles
+#' @param type_financial_factor_size String The type financial factor size for Transformer
+#' @param type_financial_factor_kva_mva Numeric The type financial factor kVA MVA for Transformer
+#' @return Numeric. Financial consequences of failure for Transformer
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
@@ -151,6 +152,8 @@ safety_cof_transformers <- function(tf_asset_category,
 #' (cf. table 223, page 172, CNAIM, 2017).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
+#' @param size_kva_mva Numeric The MVA KVA rating for the transformer
+#' @param size_conversion String The size conversion for the transfromer
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
@@ -266,7 +269,7 @@ environmental_cof_transformers <- function(tf_asset_category,
 #' @export
 #' @examples
 #' network_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-#' actual_load_mva = 15, secure = T)
+#' actual_load_mva = 15)
 network_cof_transformers<- function(tf_asset_category,
                              actual_load_mva,
                              secure = T) {

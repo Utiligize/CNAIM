@@ -29,5 +29,5 @@ is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
 network_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
-actual_load_mva = 15, secure = T)
+actual_load_mva = 15)
 }

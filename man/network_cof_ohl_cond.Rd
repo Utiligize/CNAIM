@@ -12,7 +12,7 @@ Health & Criticality - Version 1.1, 2017:
 network_cof_ohl_cond(ohl_cond_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{ohl_cond_asset_category}{String The type of Tower}
+\item{ohl_cond_asset_category}{String The type of Overhead line conductor}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
@@ -28,6 +28,6 @@ all asset categories exclusive the assets EHV and 132kV transformers.
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-network_cof_tower(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",
-actual_load_mva = 15, secure = T)
+network_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",
+actual_load_mva = 15)
 }

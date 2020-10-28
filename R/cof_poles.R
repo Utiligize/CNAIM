@@ -4,6 +4,7 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param pole_asset_category String The type of Pole asset category
+#' @param type_financial_factor_criteria String. Type Financial factor criteria for Pole
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting (cf. table 214, page 164, CNAIM, 2017).
 #' @return Numeric. Financial consequences of failure for Poles
@@ -267,7 +268,7 @@ network_cof_hv_lv_poles<- function(pole_asset_category,
 #' @export
 #' @examples
 #' network_cof_ehv_pole(pole_asset_category = "33kV Pole",
-#' actual_load_mva = 15, secure = T)
+#' actual_load_mva = 15)
 network_cof_ehv_pole<- function(pole_asset_category,
                                       actual_load_mva,
                                       secure = T) {

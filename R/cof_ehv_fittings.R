@@ -4,6 +4,7 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV Fittings asset category
+#' @param type_financial_factor_criteria String. Type Financial factor criteria for EHV fittings
 #' @param access_factor_criteria String. Asses Financial factor criteria for EHV fittings
 #' setting (cf. table 214, page 164, CNAIM, 2017).
 #' @return Numeric. Financial consequences of failure for EHV fittings
@@ -128,13 +129,6 @@ safety_cof_ehv_fittings <- function(ehv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 #' @param ehv_asset_category String The type of EHV asset category
-#' @param type_env_factor String The type environment factor of EHV asset category
-#' @param prox_water Numeric. Specify the proximity to a water course in meters.
-#' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
-#' assume the proximity to a water course is between 80m and 120m
-#' (cf. table 223, page 172, CNAIM, 2017).
-#' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
-#' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
@@ -191,7 +185,7 @@ environmental_cof_ehv_fittings <- function(ehv_asset_category){
 #' @export
 #' @examples
 #' network_cof_ehv_fittings(ehv_asset_category = "33kV Fittings",
-#' actual_load_mva = 15 , secure = T)
+#' actual_load_mva = 15)
 network_cof_ehv_fittings<- function(ehv_asset_category,
                                       actual_load_mva,
                                       secure = T) {

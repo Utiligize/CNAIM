@@ -226,7 +226,7 @@ network_cof_hv_sub_cables<- function(sub_cable_asset_category,
 #' @export
 #' @examples
 #' network_cof_ehv_sub_cable(sub_cable_asset_category = "EHV Sub Cable",
-#' actual_load_mva = 15, secure = T)
+#' actual_load_mva = 15, secure = TRUE)
 network_cof_ehv_sub_cable<- function(sub_cable_asset_category,
                                 actual_load_mva,
                                 secure = T) {

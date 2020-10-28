@@ -37,7 +37,7 @@
 #' @examples
 #' # Current annual probability of failure for EHV Swicthgear
 #'pof_ehv_switchgear(
-#'hv_asset_category = "33kV RMU",
+#'ehv_asset_category = "33kV RMU",
 #'number_of_operations = "Default",
 #'placement = "Default",
 #'altitude_m = "Default",

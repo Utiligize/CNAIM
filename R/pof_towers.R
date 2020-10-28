@@ -7,6 +7,7 @@
 #' probability of failure function see section 6
 #' on page 30 in CNAIM (2017).
 #' @param tower_asset_category String The type of Tower asset category
+#' @param number_of_operations Numeric Number of operations for the tower
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}

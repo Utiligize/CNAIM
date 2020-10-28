@@ -29,5 +29,5 @@ is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
 network_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)",
-actual_load_mva = 15, secure = T)
+actual_load_mva = 15)
 }

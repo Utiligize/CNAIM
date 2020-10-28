@@ -27,6 +27,10 @@ assume the proximity to a water course is between 80m and 120m
 
 \item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
 A setting of \code{"Default"} will result in a bunding factor of 1.}
+
+\item{size_kva_mva}{Numeric The MVA KVA rating for the transformer}
+
+\item{size_conversion}{String The size conversion for the transfromer}
 }
 \description{
 This function calculates environmental consequences of failure

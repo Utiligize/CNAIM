@@ -181,7 +181,7 @@ environmental_cof_towers <- function(tower_asset_category){
 #' @export
 #' @examples
 #' network_cof_tower(tower_asset_category = "33kV Tower",
-#' actual_load_mva = 15, secure = T)
+#' actual_load_mva = 15)
 network_cof_tower<- function(tower_asset_category,
                                 actual_load_mva,
                                 secure = T) {

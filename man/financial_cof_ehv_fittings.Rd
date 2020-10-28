@@ -18,6 +18,8 @@ financial_cof_ehv_fittings(
 \arguments{
 \item{ehv_asset_category}{String The type of EHV Fittings asset category}
 
+\item{type_financial_factor_criteria}{String. Type Financial factor criteria for EHV fittings}
+
 \item{access_factor_criteria}{String. Asses Financial factor criteria for EHV fittings
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }

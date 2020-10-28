@@ -17,15 +17,17 @@ financial_cof_transformers(
 )
 }
 \arguments{
-\item{tf_asset_category}{String The type of Pole asset category}
+\item{tf_asset_category}{String The type of Transformer asset category}
 
-\item{access_factor_criteria}{String. Asses Financial factor criteria for Pole
+\item{type_financial_factor_size}{String The type financial factor size for Transformer}
+
+\item{type_financial_factor_kva_mva}{Numeric The type financial factor kVA MVA for Transformer}
+
+\item{access_factor_criteria}{String. Asses Financial factor criteria for Transformer
 setting (cf. table 214, page 164, CNAIM, 2017).}
-
-\item{type_financial_factor_criteria}{String The type financial factor for Tower}
 }
 \value{
-Numeric. Financial consequences of failure for Poles
+Numeric. Financial consequences of failure for Transformer
 }
 \description{
 This function calculates financial consequences of failure

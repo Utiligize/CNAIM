@@ -34,6 +34,8 @@ pof_towers(
 
 \item{placement}{String. Specify if the asset is located outdoor or indoor.}
 
+\item{number_of_operations}{Numeric Number of operations for the tower}
+
 \item{altitude_m}{Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
 is used to derive the altitude factor. See page 107,

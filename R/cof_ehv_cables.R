@@ -186,7 +186,7 @@ environmental_cof_ehv_cables <- function(ehv_asset_category,
 #' @export
 #' @examples
 #' network_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)",
-#' actual_load_mva = 15, secure = T)
+#' actual_load_mva = 15)
 network_cof_ehv_cables<- function(ehv_asset_category,
                                       actual_load_mva,
                                       secure = T) {
