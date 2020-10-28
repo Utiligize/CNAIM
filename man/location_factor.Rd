@@ -14,7 +14,8 @@ location_factor(
   altitude_m = "Default",
   distance_from_coast_km = "Default",
   corrosion_category_index = "Default",
-  asset_type = "6.6/11kV Transformer (GM)"
+  asset_type = "6.6/11kV Transformer (GM)",
+  sub_division = NULL
 )
 }
 \arguments{
@@ -81,6 +82,8 @@ Options:
 "132kV CB (Gas Insulated Busbars)(ID) (GM)",
 "132kV CB (Gas Insulated Busbars)(OD) (GM)", "132kV Transformer (GM)")
 }}
+
+\item{sub_division}{String. Refers to material the sub division in the asset category}
 }
 \value{
 Numeric. Location factor

@@ -190,8 +190,9 @@ pof_hv_switchgear_primary <-
     return(probability_of_failure)
   }
 
-
+# This function is used for EHV switchgear as well
 get_duty_factor_hv_switchgear_primary <- function(number_of_operations){
+  `Number of operations` = NULL
   duty_factor_df <- gb_ref$duty_factor_lut_switchgear %>%
     dplyr::filter(`Number of operations` == number_of_operations)
   return(duty_factor_df$`Duty Factor`)

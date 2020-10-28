@@ -2,7 +2,7 @@
 % Please edit documentation in R/pof_lv_switchgear_and_other.R
 \name{pof_lv_switchgear_and_other}
 \alias{pof_lv_switchgear_and_other}
-\title{Current Probability of Failure for 0.4-10kV OHL Conductors}
+\title{Current Probability of Failure for LV switchgear and others}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 1.1, 2017:
@@ -60,7 +60,7 @@ per annum per kilometer.
 }
 \description{
 This function calculates the current
-annual probability of failure per kilometer 0.4-10kV OHL conductors.
+annual probability of failure for LV switchgear and others
 The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
@@ -68,7 +68,7 @@ probability of failure function see section 6
 on page 30 in CNAIM (2017).
 }
 \examples{
-# Current annual probability of failure for 10kV OHL (Tower Line) Conductor
+# Current annual probability of failure for LV Switchgear and other
 pof_lv_switchgear_and_other(
 lv_asset_category = "LV Circuit Breaker",
 placement = "Default",

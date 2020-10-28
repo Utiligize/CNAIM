@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 0.4-10kV OHL Conductors
+#' @title Current Probability of Failure for LV switchgear and others
 #' @description This function calculates the current
-#' annual probability of failure per kilometer 0.4-10kV OHL conductors.
+#' annual probability of failure for LV switchgear and others
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
@@ -10,11 +10,6 @@
 #' @param lv_asset_category String.
 #' A sting that refers to the specific asset category.
 #' See See page 15, table 1 in CNAIM (2017).
-#' Options:
-#' \code{ohl_conductor = c("0.4kV OHL (Tower Line) Conductor",
-#' "10kV OHL (Tower Line) Conductor")}.
-#' The default setting is
-#' \code{ohl_conductor = "10kV OHL (Tower Line) Conductor"}.
 #' @param lv_asset_category String The type of LV asset category
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
@@ -42,7 +37,7 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' # Current annual probability of failure for 10kV OHL (Tower Line) Conductor
+#' # Current annual probability of failure for LV Switchgear and other
 #'pof_lv_switchgear_and_other(
 #'lv_asset_category = "LV Circuit Breaker",
 #'placement = "Default",

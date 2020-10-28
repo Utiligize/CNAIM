@@ -4,7 +4,7 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param hv_asset_category String The type of HV switchgear distribution asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
+#' @param access_factor_criteria String. Asses Financial factor criteria for HV switchgear
 #' setting (cf. table 214, page 164, CNAIM, 2017).
 #' @return Numeric. Financial consequences of failure for HV switchgear primary
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -68,12 +68,12 @@ financial_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' (cf. section 7.3, page 75, CNAIM, 2017). Safetyr consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of LV asset category
-#' @param location_risk String Type Financial factor criteria for LV switchgear
+#' @param hv_asset_category String The type of HV asset category
+#' @param location_risk String Type Financial factor criteria for HV switchgear
 #' (cf. section D1.2.1, page 162, CNAIM, 2017).
-#' @param type_risk String. Asses Financial factor criteria for LV switchgear
+#' @param type_risk String. Asses Financial factor criteria for HV switchgear
 #' setting (cf. table 214, page 164, CNAIM, 2017).
-#' @return Numeric. Financial consequences of failure for LV switchgear
+#' @return Numeric. Financial consequences of failure for HV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
@@ -121,7 +121,7 @@ safety_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
 #' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
+#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for HV switchgear
 #' @param hv_asset_category String The type of HV asset category
 #' @param type_env_factor String The type environment factor of HV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
@@ -216,7 +216,7 @@ environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of LV asset category
+#' @param hv_asset_category String The type of HV asset category
 #' @param no_customers Numeric. The numner of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
@@ -228,7 +228,7 @@ environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' network_cof_hv_switchgear_primary(hv_asset_category = "LV Board (WM)",
+#' network_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Secondary",
 #' no_customers = 750, kva_per_customer = 51)
 network_cof_hv_switchgear_primary <- function(hv_asset_category,
                                               no_customers,

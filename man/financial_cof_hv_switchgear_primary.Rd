@@ -14,7 +14,7 @@ financial_cof_hv_switchgear_primary(hv_asset_category, access_factor_criteria)
 \arguments{
 \item{hv_asset_category}{String The type of HV switchgear distribution asset category}
 
-\item{access_factor_criteria}{String. Asses Financial factor criteria for LV switchgear
+\item{access_factor_criteria}{String. Asses Financial factor criteria for HV switchgear
 setting (cf. table 214, page 164, CNAIM, 2017).}
 }
 \value{
@@ -27,5 +27,5 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-financial_cof_hv_switchgear_distribution(hv_asset_category = "6.6/11kV CB (GM) Primary", access_factor_criteria = "Type A")
+financial_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Primary", access_factor_criteria = "Type A")
 }
