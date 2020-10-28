@@ -22,7 +22,8 @@ financial_cof_transformers <- function(tf_asset_category,
                                  type_financial_factor_size = NULL,
                                  type_financial_factor_kva_mva = NULL,
                                  access_factor_criteria){
-  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
+  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
+    `Type Financial Factor Criteria` = `Lower` = `Upper` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == tf_asset_category) %>%
@@ -166,7 +167,7 @@ environmental_cof_transformers <- function(tf_asset_category,
                                      size_kva_mva = NULL,
                                      size_conversion = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
-    `Type environment factor` = NULL
+    `Type environment factor` = `Size` = `Lower` = `Upper` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == tf_asset_category) %>%

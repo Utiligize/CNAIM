@@ -70,7 +70,7 @@ pof_towers <-
            observed_condition_inputs_foundation,
            reliability_factor = "Default") {
 
-    `Asset Register Category` = `Health Index Asset Category` =
+    `Asset Register Category` = `Health Index Asset Category` = `Sub-division` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check

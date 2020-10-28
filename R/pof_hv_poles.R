@@ -64,7 +64,7 @@ pof_poles <-
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` = NULL
     # due to NSE notes in R CMD check
 
     asset_category <- gb_ref$categorisation_of_assets %>%

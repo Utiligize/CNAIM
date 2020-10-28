@@ -17,7 +17,8 @@
 financial_cof_poles <- function(pole_asset_category,
                                 type_financial_factor_criteria,
                                 access_factor_criteria){
-  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
+  `Asset Register Category` = `Health Index Asset Category` =
+    `Type Financial Factor Criteria` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == pole_asset_category) %>%
