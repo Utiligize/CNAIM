@@ -4,6 +4,7 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param tower_asset_category String The type of Pole asset category
+#' @param type_financial_factor_criteria String The type financial factor for Tower
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting (cf. table 214, page 164, CNAIM, 2017).
 #' @return Numeric. Financial consequences of failure for Poles
