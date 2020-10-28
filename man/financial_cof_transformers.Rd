@@ -11,17 +11,18 @@ Health & Criticality - Version 1.1, 2017:
 \usage{
 financial_cof_transformers(
   tf_asset_category,
-  type_financial_factor_criteria,
+  type_financial_factor_size = NULL,
+  type_financial_factor_kva_mva = NULL,
   access_factor_criteria
 )
 }
 \arguments{
 \item{tf_asset_category}{String The type of Pole asset category}
 
-\item{type_financial_factor_criteria}{String The type financial factor for Tower}
-
 \item{access_factor_criteria}{String. Asses Financial factor criteria for Pole
 setting (cf. table 214, page 164, CNAIM, 2017).}
+
+\item{type_financial_factor_criteria}{String The type financial factor for Tower}
 }
 \value{
 Numeric. Financial consequences of failure for Poles
@@ -34,6 +35,7 @@ the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
 financial_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-type_financial_factor_criteria = "33/20kV, >20MVA CMR equivalent",
+type_financial_factor_size = "33/20kV, CMR equivalent",
+type_financial_factor_kva_mva = 20,
 access_factor_criteria = "Type A")
 }

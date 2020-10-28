@@ -28,6 +28,6 @@ all asset categories exclusive the assets EHV and 132kV transformers.
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-network_cof_transformers(tf_asset_category = "33kV Tower",
+network_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
 actual_load_mva = 15, secure = T)
 }
