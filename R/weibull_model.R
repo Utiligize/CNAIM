@@ -1,3 +1,4 @@
+#' @importFrom stats dweibull lm uniroot
 #' @title Prediction function for Weibull model
 #' @description This function uses the Weibull model parameters trained by the function \code{\link{train_weibull_model}}(), together
 #' with the environmental factors for a specific transformer, and determines the probability of failure at a given age.

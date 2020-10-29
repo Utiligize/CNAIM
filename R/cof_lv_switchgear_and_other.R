@@ -14,7 +14,9 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' financial_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)", type_financial_factor_criteria = "Asbestos clad", access_factor_criteria = "Type A")
+#' financial_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
+#' type_financial_factor_criteria = "Asbestos clad",
+#' access_factor_criteria = "Type A")
 financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
                                                   type_financial_factor_criteria,
                                                   access_factor_criteria){
@@ -92,7 +94,9 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)", location_risk = "Default", type_risk = "Default")
+#' safety_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
                                                location_risk,
                                                type_risk){

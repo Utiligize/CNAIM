@@ -30,5 +30,7 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-safety_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)", location_risk = "Default", type_risk = "Default")
+safety_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
+location_risk = "Default",
+type_risk = "Default")
 }

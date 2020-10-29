@@ -34,5 +34,7 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-financial_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)", type_financial_factor_criteria = "Asbestos clad", access_factor_criteria = "Type A")
+financial_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
+type_financial_factor_criteria = "Asbestos clad",
+access_factor_criteria = "Type A")
 }

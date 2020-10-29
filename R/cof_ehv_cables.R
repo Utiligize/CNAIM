@@ -94,7 +94,8 @@ safety_cof_ehv_cables <- function(ehv_asset_category){
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' environmental_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)", prox_water = 95, bunded = "Yes")
+#' environmental_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)",
+#' prox_water = 95, bunded = "Yes")
 environmental_cof_ehv_cables <- function(ehv_asset_category,
                                              prox_water,
                                              bunded){

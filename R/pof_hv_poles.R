@@ -44,11 +44,16 @@
 #'distance_from_coast_km = "Default",
 #'corrosion_category_index = "Default",
 #'age = 10,
-#'observed_condition_inputs =list("visual_pole_cond" = list("Condition Criteria: Pole Top Rot Present?" = "Default"),
+#'observed_condition_inputs =
+#'list("visual_pole_cond" =
+#'list("Condition Criteria: Pole Top Rot Present?" = "Default"),
 #'"pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
-#'"bird_animal_damage" = list("Condition Criteria: Bird/Animal Damage?" = "Default"),
+#'"bird_animal_damage" =
+#'list("Condition Criteria: Bird/Animal Damage?" = "Default"),
 #'"top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
-#'measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
+#'measured_condition_inputs =
+#'list("pole_decay" =
+#'list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
 #'reliability_factor = "Default")
 pof_poles <-
   function(pole_asset_category = "20kV Poles",

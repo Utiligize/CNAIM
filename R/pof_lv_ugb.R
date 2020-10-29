@@ -45,13 +45,16 @@
 #'corrosion_category_index = "Default",
 #'age = 10,
 #'observed_condition_inputs =
-#'list("steel_cover_and_pit_condition" = list("Condition Criteria: Observed Condition" = "Default"),
+#'list("steel_cover_and_pit_condition" =
+#'list("Condition Criteria: Observed Condition" = "Default"),
 #'"water_moisture" = list("Condition Criteria: Observed Condition" = "Default"),
 #'"bell_cond" = list("Condition Criteria: Observed Condition" = "Default"),
 #'"insulation_cond" = list("Condition Criteria: Observed Condition" = "Default"),
 #'"signs_heating" = list("Condition Criteria: Observed Condition" = "Default"),
 #'"phase_barriers" = list("Condition Criteria: Observed Condition" = "Default")),
-#'measured_condition_inputs = list("opsal_adequacy" = list("Condition Criteria: Operational Adequacy" = "Default")),
+#'measured_condition_inputs =
+#'list("opsal_adequacy" =
+#'list("Condition Criteria: Operational Adequacy" = "Default")),
 #'reliability_factor = "Default")
 pof_lv_ugb <-
   function(lv_asset_category = "LV UGB",

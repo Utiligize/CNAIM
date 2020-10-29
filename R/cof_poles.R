@@ -13,7 +13,9 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' financial_cof_poles(pole_asset_category = "33kV Pole", type_financial_factor_criteria = "Small footprint steel masts", access_factor_criteria = "Type A")
+#' financial_cof_poles(pole_asset_category = "33kV Pole",
+#' type_financial_factor_criteria = "Small footprint steel masts",
+#' access_factor_criteria = "Type A")
 financial_cof_poles <- function(pole_asset_category,
                                 type_financial_factor_criteria,
                                 access_factor_criteria){
@@ -82,7 +84,9 @@ financial_cof_poles <- function(pole_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_poles(pole_asset_category = "33kV Pole", location_risk = "Default", type_risk = "Default")
+#' safety_cof_poles(pole_asset_category = "33kV Pole",
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_poles <- function(pole_asset_category,
                                     location_risk,
                                     type_risk){

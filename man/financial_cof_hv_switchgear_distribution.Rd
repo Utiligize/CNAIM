@@ -30,5 +30,7 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-financial_cof_hv_switchgear_distribution(hv_asset_category = "6.6/11kV CB (GM) Secondary", access_factor_criteria = "Type A")
+financial_cof_hv_switchgear_distribution(
+hv_asset_category = "6.6/11kV CB (GM) Secondary",
+access_factor_criteria = "Type A")
 }

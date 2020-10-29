@@ -12,7 +12,9 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' financial_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Primary", access_factor_criteria = "Type A")
+#' financial_cof_hv_switchgear_primary(
+#' hv_asset_category = "6.6/11kV CB (GM) Primary",
+#' access_factor_criteria = "Type A")
 financial_cof_hv_switchgear_primary <- function(hv_asset_category,
                                                 access_factor_criteria){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
@@ -79,7 +81,10 @@ financial_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Primary", location_risk = "Default", type_risk = "Default")
+#' safety_cof_hv_switchgear_primary(
+#' hv_asset_category = "6.6/11kV CB (GM) Primary",
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_hv_switchgear_primary <- function(hv_asset_category,
                                              location_risk,
                                              type_risk){
@@ -135,7 +140,10 @@ safety_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' environmental_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Secondary", type_env_factor = "Oil", prox_water = 95, bunded = "Yes")
+#' environmental_cof_hv_switchgear_primary(
+#' hv_asset_category = "6.6/11kV CB (GM) Secondary",
+#' type_env_factor = "Oil",
+#' prox_water = 95, bunded = "Yes")
 environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
                                                     type_env_factor,
                                                     prox_water,

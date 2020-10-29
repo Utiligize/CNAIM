@@ -103,7 +103,9 @@ financial_cof_transformers <- function(tf_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_transformers(tf_asset_category = "33kV Transformer (GM)", location_risk = "Default", type_risk = "Default")
+#' safety_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_transformers <- function(tf_asset_category,
                               location_risk,
                               type_risk){

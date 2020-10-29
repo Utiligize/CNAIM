@@ -30,5 +30,7 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-safety_cof_towers(tower_asset_category = "33kV Tower", location_risk = "Default", type_risk = "Default")
+safety_cof_towers(tower_asset_category = "33kV Tower",
+location_risk = "Default",
+type_risk = "Default")
 }

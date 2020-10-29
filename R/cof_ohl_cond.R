@@ -12,7 +12,9 @@
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' financial_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor", access_factor_criteria = "Type A")
+#' financial_cof_ohl_cond(
+#' ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",
+#' access_factor_criteria = "Type A")
 financial_cof_ohl_cond <- function(ohl_cond_asset_category,
                                  access_factor_criteria){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
@@ -79,7 +81,10 @@ financial_cof_ohl_cond <- function(ohl_cond_asset_category,
 #' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
 #' @export
 #' @examples
-#' safety_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor", location_risk = "Default", type_risk = "Default")
+#' safety_cof_ohl_cond(
+#' ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_ohl_cond <- function(ohl_cond_asset_category,
                               location_risk,
                               type_risk){

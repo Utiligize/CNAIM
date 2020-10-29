@@ -33,5 +33,7 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-financial_cof_towers(tower_asset_category = "33kV Tower", type_financial_factor_criteria = "Suspension", access_factor_criteria = "Type A")
+financial_cof_towers(tower_asset_category = "33kV Tower",
+type_financial_factor_criteria = "Suspension",
+access_factor_criteria = "Type A")
 }

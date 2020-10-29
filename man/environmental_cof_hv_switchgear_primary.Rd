@@ -36,5 +36,8 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for HV switchgear
 }
 \examples{
-environmental_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Secondary", type_env_factor = "Oil", prox_water = 95, bunded = "Yes")
+environmental_cof_hv_switchgear_primary(
+hv_asset_category = "6.6/11kV CB (GM) Secondary",
+type_env_factor = "Oil",
+prox_water = 95, bunded = "Yes")
 }

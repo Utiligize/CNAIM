@@ -76,7 +76,11 @@ altitude_m = "Default",
 distance_from_coast_km = "Default",
 corrosion_category_index = "Default",
 age = 10,
-observed_condition_inputs =list("external_condition" = list("Condition Criteria: Observed Condition" = "Default")),
-measured_condition_inputs = list("operational_adequacy" = list("Condition Criteria: Operational Adequacy" = "Default")),
+observed_condition_inputs =
+list("external_condition" =
+list("Condition Criteria: Observed Condition" = "Default")),
+measured_condition_inputs =
+list("operational_adequacy" =
+list("Condition Criteria: Operational Adequacy" = "Default")),
 reliability_factor = "Default")
 }

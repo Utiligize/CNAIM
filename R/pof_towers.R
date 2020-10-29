@@ -48,12 +48,15 @@
 #'age = 10,
 #'paint_type = "Paint System - Galvanising",
 #'foundation_type = "Foundation - Earth Grillage",
-#'observed_condition_inputs_steelwork =list("tower_legs" = list("Condition Criteria: Observed Condition" = "Default"),
+#'observed_condition_inputs_steelwork =
+#'list("tower_legs" = list("Condition Criteria: Observed Condition" = "Default"),
 #'"tower_bracings" = list("Condition Criteria: Observed Condition" = "Default"),
 #'"tower_crossarms" = list("Condition Criteria: Observed Condition" = "Default"),
 #'"tower_peak" = list("Condition Criteria: Observed Condition" = "Default")),
-#'observed_condition_inputs_paint = list("paintwork_cond" = list("Condition Criteria: Observed Condition" = "Default")),
-#'observed_condition_inputs_foundation = list("foundation_cond" = list("Condition Criteria: Observed Condition" = "Default")),
+#'observed_condition_inputs_paint =
+#'list("paintwork_cond" = list("Condition Criteria: Observed Condition" = "Default")),
+#'observed_condition_inputs_foundation =
+#'list("foundation_cond" = list("Condition Criteria: Observed Condition" = "Default")),
 #'reliability_factor = "Default")
 pof_towers <-
   function(tower_asset_category = "33kV Tower",

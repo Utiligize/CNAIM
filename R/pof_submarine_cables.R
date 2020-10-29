@@ -80,7 +80,7 @@ pof_submarine_cables <-
       `Functional Failure Category`= `K-Value (%)` =
       `C-Value` = `Condition Criteria: Sheath Test Result` =
       `Condition Criteria: Partial Discharge Test Result` =
-      `Asset Category` = `Condition Criteria` = NULL
+      `Asset Category` = `Condition Criteria` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
