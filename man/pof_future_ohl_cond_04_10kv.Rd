@@ -88,6 +88,13 @@ See page 131-132, table 127 and 129 in CNAIM (2017).}
 \item{midspan_joints}{Integer. Number of midspan joints on the conductor.
 A span includes all conductors in that span.
 See page 131-132, table 128 and 130 in CNAIM (2017).}
+<<<<<<< HEAD
+=======
+
+\item{reliability_factor}{Reliabilty factor}
+
+\item{simulation_end_year}{The year till which simulation has to be run}
+>>>>>>> d695c88c37e5c56744f476db597950b83e8bd067
 }
 \value{
 Numeric. Current probability of failure
