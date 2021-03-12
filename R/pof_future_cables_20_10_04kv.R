@@ -103,6 +103,7 @@ pof_future_cables_20_10_04kv <-
                       type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
       dplyr::pull() / 100
 
+    k <- k*80/60
     c <- gb_ref$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       type_k_c) %>% dplyr::select(`C-Value`) %>%
