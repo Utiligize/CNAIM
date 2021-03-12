@@ -18,7 +18,8 @@ pof_cables_20_10_04kv(
   partial_discharge = "Default",
   fault_hist = "Default",
   reliability_factor = "Default",
-  age
+  age,
+  normal_expected_life_cable
 )
 }
 \arguments{
@@ -63,6 +64,9 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 69 in CNAIM (2017).}
 
 \item{age}{Numeric. The current age in years of the cable.}
+
+\item{normal_expected_life_cable}{Numeric. The normal expected life for the
+cable type.}
 }
 \value{
 Numeric. Current probability of failure
@@ -88,7 +92,8 @@ sheath_test = "Default",
 partial_discharge = "Default",
 fault_hist = "Default",
 reliability_factor = "Default",
-age = 50) * 100
+age = 50,
+normal_expected_life_cable = 80) * 100
 
 paste0(sprintf("Probability of failure \%.4f", pof_cables_10kV_APB),
 " percent per annum")

@@ -44,6 +44,7 @@ pof_future_cables_20_10_04kv <-
            fault_hist = "Default",
            reliability_factor = "Default",
            age,
+           normal_expected_life_cable,
            simulation_end_year = 100) {
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -57,6 +58,17 @@ pof_future_cables_20_10_04kv <-
         hv_lv_cable_type ==  "10-20kV cable, APB" ||
         hv_lv_cable_type ==  "0.4kV cable") {
       pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
+    }
+
+    if(hv_lv_cable_type ==  "10-20kV cable, APB") {
+      if(sub_division == "Aluminium sheath - Aluminium conductor" ||
+         sub_division == "Lead sheath - Copper conductor") {
+
+        warning('hv_lv_cable_type = "10-20kV cable, APB",
+               cable type consists of a lead sheath.
+               Please review sub_division. Selected for type for
+                sub_division = "Lead sheath - Copper conductor".')
+      }
     }
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
@@ -74,10 +86,10 @@ pof_future_cables_20_10_04kv <-
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  ---------------------------
-    normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` == pseudo_cable_type &
-                      `Sub-division` == sub_division) %>%
-      dplyr::pull()
+    # normal_expected_life_cable <- gb_ref$normal_expected_life %>%
+    #   dplyr::filter(`Asset Register  Category` == pseudo_cable_type &
+    #                   `Sub-division` == sub_division) %>%
+    #   dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
     type_k_c <- gb_ref$pof_curve_parameters$`Functional Failure Category`[which(

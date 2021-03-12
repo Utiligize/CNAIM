@@ -19,6 +19,7 @@ pof_future_cables_20_10_04kv(
   fault_hist = "Default",
   reliability_factor = "Default",
   age,
+  normal_expected_life_cable,
   simulation_end_year = 100
 )
 }
@@ -64,6 +65,9 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 69 in CNAIM (2017).}
 
 \item{age}{Numeric. The current age in years of the cable.}
+
+\item{normal_expected_life_cable}{Numeric. The normal expected life for the
+cable type.}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}

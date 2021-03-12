@@ -18,6 +18,8 @@
 #' @inheritParams duty_factor_cables
 #' @inheritParams location_factor
 #' @param age  Numeric. The current age in years of the conductor.
+#' @param normal_expected_life_cond Numeric. The normal expected life for the
+#' conductor type.
 #' @param conductor_samp String. Conductor sampling. Options:
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 #' See page 146-147, table 192 and 194 in CNAIM (2017).
@@ -49,6 +51,7 @@
 #'distance_from_coast_km = "Default",
 #'corrosion_category_index = "Default",
 #'age = 10,
+#'normal_expected_life_cond = 55,
 #'conductor_samp = "Default",
 #'corr_mon_survey = "Default",
 #'visual_cond = "Default",
@@ -64,6 +67,7 @@ pof_ohl_cond_04_10kv <-
            distance_from_coast_km = "Default",
            corrosion_category_index = "Default",
            age,
+           normal_expected_life_cond,
            conductor_samp = "Default",
            corr_mon_survey = "Default",
            visual_cond = "Default",
@@ -100,11 +104,11 @@ pof_ohl_cond_04_10kv <-
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` ==
-                      ohl_conductor &
-                      `Sub-division` == "Cu") %>%
-      dplyr::pull()
+    # normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+    #   dplyr::filter(`Asset Register  Category` ==
+    #                   ohl_conductor &
+    #                   `Sub-division` == "Cu") %>%
+    #   dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
 
