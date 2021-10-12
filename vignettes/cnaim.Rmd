@@ -35,9 +35,10 @@ vignette: >
   * *Degraded - significant failure* 
   * *Catastrophic - total failure* 
   
-  ```{r echo=F, message=F, class.source='highlight',comment=""}
+```{r echo=F, message=F, class.source='highlight',comment=""}
 library(CNAIM)
 ```
+
 ##### Example for a 6.6/11 kV transformer
 Assuming a transformer:
 
