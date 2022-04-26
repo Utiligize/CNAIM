@@ -97,6 +97,7 @@ partial_discharge = "Default",
 fault_hist = "Default",
 reliability_factor = "Default",
 age = 15,
+normal_expected_life_cable = 10,
 simulation_end_year = 100)
 # Plot
 plot(pof_10kV_pex$PoF * 100,
