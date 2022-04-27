@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for EHV UG cabkes & 132 kV UG cables
+#' @title Financial cost of Failure for EHV UG cables & 132 kV UG cables
 #' @description This function calculates financial consequences of failure
 #' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
 #' of failure is used in
