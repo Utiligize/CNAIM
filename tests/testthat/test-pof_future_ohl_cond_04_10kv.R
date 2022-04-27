@@ -20,8 +20,9 @@ test_that("pof_future_ohl_cond_04_10kv", {
     visual_cond = "Default",
     midspan_joints = "Default",
     reliability_factor = "Default",
+    normal_expected_life_cond = 30,
     simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$year == 50)], 0.0025421194)
+  expect_equal(res$PoF[which(res$year == 50)], 0.0698149686)
 
 })

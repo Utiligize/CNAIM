@@ -14,6 +14,7 @@ test_that("pof_ohl_cond_04_10kv", {
     altitude_m = 5,
     distance_from_coast_km = 1,
     corrosion_category_index = "Default",
+    normal_expected_life_cond = 10,
     age = 10,
     conductor_samp = "Default",
     corr_mon_survey = "Default",
@@ -21,6 +22,6 @@ test_that("pof_ohl_cond_04_10kv", {
     midspan_joints = "Default",
     reliability_factor = "Default")
 
-  expect_equal(res, 0.0001900938)
+  expect_equal(res, 0.004837129)
 
 })

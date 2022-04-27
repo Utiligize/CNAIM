@@ -14,9 +14,10 @@ test_that("pof_cables_20_10_04kv", {
                                partial_discharge = "High",
                                fault_hist = "Default",
                                reliability_factor = "Default",
-                               age = 10)
+                               age = 10,
+                               normal_expected_life_cable = 80)
 
-  expect_equal(res, 0.03978539)
+  expect_equal(res, 0.05304718)
 
 })
 
