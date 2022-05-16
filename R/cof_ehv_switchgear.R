@@ -9,7 +9,7 @@
 #' @return Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' financial_cof_ehv_switchgear(ehv_asset_category = "33kV RMU", access_factor_criteria = "Type A")
@@ -81,7 +81,7 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
 #' @return Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' safety_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
@@ -139,7 +139,7 @@ safety_cof_ehv_switchgear <- function(ehv_asset_category,
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' environmental_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
@@ -232,7 +232,7 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' network_cof_ehv_switchgear(ehv_asset_category = "33kV RMU",
