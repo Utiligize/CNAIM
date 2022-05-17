@@ -5,8 +5,8 @@
 \title{DGA Test Modifier}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 dga_test_modifier(
@@ -64,7 +64,7 @@ Data table.
 \description{
 This function calculates the DGA test modifier
 for 33/10kV, 66/10kV and 132kV transformers. See e.g. section 6.12 on page
-65 in CNAIM (2017).
+69 in CNAIM (2021).
 }
 \examples{
 # DGA test modifier

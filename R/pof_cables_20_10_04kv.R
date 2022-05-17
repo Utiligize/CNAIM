@@ -6,7 +6,7 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @param hv_lv_cable_type String.
 #' A sting that refers to the specific asset category.
 #' Options:
@@ -23,15 +23,15 @@
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 141, table 168 in CNAIM (2017).
+#' "Default")}. See page 153, table 168 in CNAIM (2021).
 #' @param partial_discharge String. Only applied for non pressurised cables.
 #' Indicating the level of partial discharge. Options:
 #' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 141, table 169 in CNAIM (2017).
+#'  "Default")}. See page 153, table 169 in CNAIM (2021).
 #' @param fault_hist Numeric. Only applied for non pressurised cables.
 #' The calculated fault rate for the cable in the period per kilometer.
 #' A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 141, table 170 in CNAIM (2017).
+#' indicates no fault. See page 153, table 170 in CNAIM (2021).
 #' @inheritParams current_health
 #' @param age Numeric. The current age in years of the cable.
 #' @param normal_expected_life_cable Numeric. The normal expected life for the
@@ -39,8 +39,8 @@
 #' @return Numeric. Current probability of failure
 #' per annum for 20/10/0.4kV cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 10-20kV cable, APB, 50 years old
@@ -162,8 +162,8 @@ pof_cables_20_10_04kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 34 to Table 195
-    # and Table 200 in Appendix B.
+    # These overriding values are shown in Table 35 to Table 202
+    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")

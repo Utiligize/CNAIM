@@ -5,8 +5,8 @@
 \title{Current Probability of Failure for Submarine Cables}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 pof_submarine_cables(
@@ -29,7 +29,7 @@ pof_submarine_cables(
 \arguments{
 \item{sub_cable_type}{String.
 A sting that refers to the specific asset category.
-See See page 15, table 1 in CNAIM (2017).
+See See page 17, table 1 in CNAIM (2021).
 Options:
 \code{sub_cable_type =
 c("HV Sub Cable", "EHV Sub Cable", "132kV Sub Cable")}.
@@ -72,16 +72,16 @@ setting for \code{landlocked = "no"}.}
 
 \item{sheath_test}{String. Indicating the state of the sheath. Options:
 \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-"Default")}. See page 143, table 182 in CNAIM (2017).}
+"Default")}. See page 158, table 189 in CNAIM (2021).}
 
 \item{partial_discharge}{String. Indicating the level of partial discharge.
 Options:
 \code{partial_discharge = c("Low", "Medium", "High",
- "Default")}. See page 144, table 183 in CNAIM (2017).}
+ "Default")}. See page 158, table 190 in CNAIM (2021).}
 
 \item{fault_hist}{Numeric. The calculated fault rate for the cable per annum
 per kilometer. A setting of \code{"No historic faults recorded"}
-indicates no fault. See page 144, table 184 in CNAIM (2017).}
+indicates no fault. See page 158, table 191 in CNAIM (2021).}
 
 \item{condition_armour}{String. Indicating the external condition of the
 submarine cables armour. Options:
@@ -92,7 +92,7 @@ submarine cables armour. Options:
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
-See section 6.14 on page 69 in CNAIM (2017).}
+See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
 Numeric. Current probability of failure
@@ -105,7 +105,7 @@ The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017).
+on page 34 in CNAIM (2021).
 }
 \examples{
 # Current annual probability of failure for 1 km EHV Sub Cable

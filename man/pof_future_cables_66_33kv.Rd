@@ -5,8 +5,8 @@
 \title{Future Probability of Failure for 33-66kV cables}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 pof_future_cables_66_33kv(
@@ -26,7 +26,7 @@ pof_future_cables_66_33kv(
 \arguments{
 \item{cable_type}{String.
 A sting that refers to the specific asset category.
-See See page 15, table 1 in CNAIM (2017).
+See See page 17, table 1 in CNAIM (2021).
 Options:
 \code{cable_type = c("33kV UG Cable (Gas)", "66kV UG Cable (Gas)",
 "33kV UG Cable (Non Pressurised)", "66kV UG Cable (Non Pressurised)",
@@ -50,28 +50,28 @@ operating/design voltage.}
 \item{sheath_test}{String. Only applied for non pressurised cables.
 Indicating the state of the sheath. Options:
 \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-"Default")}. See page 141, table 168 in CNAIM (2017).}
+"Default")}. See page 156, table 179 in CNAIM (2021).}
 
 \item{partial_discharge}{String. Only applied for non pressurised cables.
 Indicating the level of partial discharge. Options:
 \code{partial_discharge = c("Low", "Medium", "High",
- "Default")}. See page 141, table 169 in CNAIM (2017).}
+ "Default")}. See page 156, table 1180 in CNAIM (2021).}
 
 \item{fault_hist}{Numeric. Only applied for non pressurised cables.
 The calculated fault rate for the cable in the period per kilometer.
 A setting of \code{"No historic faults recorded"}
-indicates no fault. See page 141, table 170 in CNAIM (2017).}
+indicates no fault. See page 156, table 181 in CNAIM (2021).}
 
 \item{leakage}{String. Only applied for oil and gas pressurised cables.
 Options:
 \code{leakage = c("No (or very low) historic leakage recorded",
 "Low/ moderate", "High", "Very High", "Default")}.
-See page 142, table 171 (oil) and 172 (gas) in CNAIM (2017).}
+See page 157, table 182 (oil) and 183 (gas) in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
-See section 6.14 on page 69 in CNAIM (2017).}
+See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{age}{Numeric. The current age in years of the cable.}
 
@@ -89,7 +89,7 @@ The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017).
+on page 34 in CNAIM (2021).
 }
 \examples{
 # Future probability of failure for 66kV UG Cable (Non Pressurised)

@@ -2,7 +2,7 @@
 #' @title Environmental Consequences of Failure for transformers
 #' @description This function calculates environmental consequences of failure
 #' for all type of transformers.
-#' (cf. section 7.5, page 80, CNAIM, 2017). Environmental consequences
+#' (cf. section 7.5, page 84, CNAIM, 2021). Environmental consequences
 #'  of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param asset_type_tf String. Transformer types.
@@ -15,17 +15,17 @@
 #' ratings. For \code{"20kV Transformer (GM)", "33kV Transformer (GM)",
 #' "66kV Transformer (GM)", "132kV Transformer (GM)"} use MVA ratings.
 #' A setting of \code{"Default"} will result in a
-#' size environmental factor of 1 (cf. table 222, page 171, CNAIM, 2017).
+#' size environmental factor of 1 (cf. table 230, page 187, CNAIM, 2021).
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
-#' (cf. table 223, page 172, CNAIM, 2017).
+#' (cf. table 231, page 188, CNAIM, 2021).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @return Numeric. Financial cost of failure for a 10kV transformer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Environmental consequences of failure for a 6.6/11 kV transformer

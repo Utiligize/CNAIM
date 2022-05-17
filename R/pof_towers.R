@@ -5,19 +5,19 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @param tower_asset_category String The type of Tower asset category
 #' @param number_of_operations Numeric Number of operations for the tower
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
-#' is used to derive the altitude factor. See page 107,
-#' table 23 in CNAIM (2017). A setting of \code{"Default"}
+#' is used to derive the altitude factor. See page 111,
+#' table 23 in CNAIM (2021). A setting of \code{"Default"}
 #' will set the altitude factor to 1 independent of \code{asset_type}.
 #' @param distance_from_coast_km Numeric. Specify the distance from the
 #' coast measured in kilometers. \code{distance_from_coast_km} is used
-#' to derive the distance from coast factor See page 106,
-#' table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+#' to derive the distance from coast factor See page 110,
+#' table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
 #'  distance from coast factor to 1 independent of \code{asset_type}.
 #' @param corrosion_category_index Integer.
 #' Specify the corrosion index category, 1-5.
@@ -28,13 +28,13 @@
 #' @param observed_condition_inputs_paint Named list observed_conditions_input
 #' @param observed_condition_inputs_foundation Named list observed_conditions_input
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-#' See page 146-147, table 192 and 194 in CNAIM (2017).
+#' See page 161, table 199 and 201 in CNAIM (2021).
 #' @inheritParams current_health
 #' @return Numeric. Current probability of failure
 #' per annum per kilometer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for Towers

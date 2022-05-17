@@ -15,17 +15,17 @@ safety_cof_transformers(tf_asset_category, location_risk, type_risk)
 \item{tf_asset_category}{String The type of Transformer}
 
 \item{location_risk}{String Type Financial factor criteria for Transformer
-(cf. section D1.2.1, page 162, CNAIM, 2017).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).}
 
 \item{type_risk}{String. Asses Financial factor criteria for Transformer
-setting (cf. table 214, page 164, CNAIM, 2017).}
+setting (cf. table 221, page 180, CNAIM, 2021).}
 }
 \value{
 Numeric. Safety consequences of failure for Transformers
 }
 \description{
 This function calculates safety consequences of failure
-(cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
+(cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }

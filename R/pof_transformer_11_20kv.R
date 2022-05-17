@@ -6,7 +6,7 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @param hv_transformer_type String. Refers to the high voltage transformer
 #' type the calculation is done for. Options: \code{hv_transformer_type =
 #' c("6.6/11kV Transformer (GM)", "20kV Transformer (GM)")}. The default setting
@@ -18,21 +18,21 @@
 #' @param partial_discharge String. Indicating the
 #' level of partial discharge. Options for \code{partial_discharge}:
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 138, table 159 in CNAIM (2017).
+#'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).
 #' @param oil_acidity Numeric. Measured in mg KOH/g.
-#' See page 138, table 160 in CNAIM (2017).
+#' See page 138, table 160 in CNAIM (2017). This table is not part of CNAIM (2021)
 #' @param temperature_reading String. Indicating the criticality.
 #' Options for \code{temperature_reading}:
 #' \code{temperature_reading = c("Normal", "Moderately High",
-#' "Very High", "Default")}. See page 139, table 161 in CNAIM (2017).
+#' "Very High", "Default")}. See page 153, table 172 in CNAIM (2021).
 #' @param observed_condition String. Indicating the observed condition of the
 #'  transformer. Options for \code{observed_condition}:
-#' \code{observed_condition = c("As New", "Good", "Slight Deterioration",
-#'  "Poor", "Very Poor", "Default")}. See page 120, table 73 in CNAIM (2017).
+#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
+#'  "Some deterioration", "Substantial deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).
 #' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current probability of failure for a 6.6/11 kV transformer
@@ -124,8 +124,8 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
   # of the Health Score. However, in some instances
   # these parameters are set to other values in the
   # Health Score Modifier calibration tables.
-  # These overriding values are shown in Table 34 to Table 195
-  # and Table 200 in Appendix B.
+  # These overriding values are shown in Table 35 to Table 202
+  # and Table 207 in Appendix B.
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-

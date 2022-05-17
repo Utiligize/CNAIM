@@ -6,8 +6,8 @@
 Overhead Lines}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 s_cof_swg_tf_ohl(
@@ -20,13 +20,13 @@ s_cof_swg_tf_ohl(
 \item{type_risk}{String. Risk that the asset presents to the
 public by its characteristics and particular situation. Options:
 \code{type_risk = c("Low", "Medium", "High", "Default")}
-(cf. table 218, page 168, CNAIM, 2017).
+(cf. table 225, page 183, CNAIM, 2021).
 A setting of \code{"Default"} equals a setting of \code{"Medium"}.}
 
 \item{location_risk}{String. Proximity to areas that may affect its
 likelihood of trespass or interference. Options:
 \code{location_risk = c("Low", "Medium", "High", "Default")}
-(cf. table 218, page 168, CNAIM, 2017).
+(cf. table 225, page 183, CNAIM, 2021).
 A setting of \code{"Default"} equals a setting of \code{"Medium"}.}
 
 \item{asset_type_scf}{String.
@@ -65,7 +65,7 @@ switchgear, transformers and overhead lines.
 \description{
 This function calculates safety consequences of failure
 for switchgear, transformers and overhead lines
-(cf. section 7.4, page 75, CNAIM, 2017). Safety consequences of failure
+(cf. section 7.4, page 79, CNAIM, 2021). Safety consequences of failure
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
