@@ -18,7 +18,7 @@ safety_cof_lv_ugb(lv_asset_category, location_risk, type_risk)
 (cf. section D1.2.1, page 178, CNAIM, 2021).}
 
 \item{type_risk}{String. Asses Financial factor criteria for LV UGB
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 178, CNAIM, 2021).}
 }
 \value{
 Numeric. Financial consequences of failure for LV UGB

@@ -41,7 +41,7 @@ To derive the health score factor for EHV and 132kV transformers one needs
  The constants \code{factor_divider_1}, \code{factor_divider_2}
   and \code{max_no_combined_factors} are all available in the lookup
    table 10 and 11 on page 57 and 58 in CNAIM (2021).
-For an in deph desciption see also section 6.8 on page 57 in CNAIM (2021).
+For an in dept description see also section 6.8 on page 57 in CNAIM (2021).
 The \code{mmi}() can also be used in the derivation of observed and measured
  condition factors for all assets, using measured and observed
  input factors.

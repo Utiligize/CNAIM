@@ -29,7 +29,7 @@ pof_ohl_cond_04_10kv(
 \arguments{
 \item{ohl_conductor}{String.
 A sting that refers to the specific asset category.
-See See page 15, table 1 in CNAIM (2017).
+See See page 17, table 1 in CNAIM (2021).
 Options:
 \code{ohl_conductor = c("0.4kV OHL (Tower Line) Conductor",
 "10kV OHL (Tower Line) Conductor")}.
@@ -48,7 +48,7 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 111-112,
+  on the specification of \code{asset_type}. See page 110-113,
   table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
@@ -90,7 +90,7 @@ See page 146, table 140 and 142 in CNAIM (2021).}
 
 \item{midspan_joints}{Integer. Number of midspan joints on the conductor.
 A span includes all conductors in that span.
-See page 146, table 141 and 141 in CNAIM (2021).}
+See page 146, table 141 and 143 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}

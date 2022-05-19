@@ -11,7 +11,7 @@ Health & Criticality - Version 2.1, 2021:
 \usage{
 location_factor_sub(
   topography = "Default",
-  sitution = "Default",
+  situation = "Default",
   wind_wave = "Default",
   intensity = "Default",
   landlocked = "no"
@@ -23,11 +23,6 @@ Options:
 \code{typography = c("Low Detrimental Topography",
 "Medium Detrimental Topography", "High Detrimental Topography",
 "Very High Detrimental Topography","Default" )}}
-
-\item{sitution}{String. Descibes how the submarine cable af fixed to the
-sea floor.
-Options:
-\code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}}
 
 \item{wind_wave}{Numeric.
 Options:
@@ -46,6 +41,11 @@ Options:
 
 \item{landlocked}{String. Options: \code{landlocked = c("yes","no")}. Default
 setting for \code{landlocked = "no"}.}
+
+\item{sitution}{String. Descibes how the submarine cable af fixed to the
+sea floor.
+Options:
+\code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}}
 }
 \value{
 Numeric. Location factor
@@ -60,7 +60,7 @@ factor for all other network assets please see the function
 \examples{
  # Location factor for a non-landlocked submarine cable
 location_factor_sub(topography = "Default",
-                   sitution = "Default",
+                   situation = "Default",
                    wind_wave = "Default",
                    intensity = "Default",
                    landlocked = "no")

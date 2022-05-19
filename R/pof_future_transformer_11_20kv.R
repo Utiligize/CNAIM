@@ -26,10 +26,12 @@
 #'corrosion_category_index = "Default",
 #'age = 20,
 #'partial_discharge = "Default",
-#'oil_acidity = "Default",
 #'temperature_reading = "Default",
 #'observed_condition = "Default",
 #'reliability_factor = "Default",
+#'moisture = "Default",
+#'acidity = "Default",
+#'bd_strength = "Default",
 #'simulation_end_year = 100)
 # # Plot
 #'plot(future_pof_transformer$PoF * 100,
@@ -45,10 +47,12 @@ pof_future_transformer_11_20kv <-
            corrosion_category_index = "Default",
            age,
            partial_discharge = "Default",
-           oil_acidity = "Default",
            temperature_reading = "Default",
            observed_condition = "Default",
            reliability_factor = "Default",
+           moisture = "Default",
+           acidity = "Default",
+           bd_strength = "Default",
            simulation_end_year = 100) {
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -160,23 +164,10 @@ pof_future_transformer_11_20kv <-
           partial_discharge)]
 
     # Oil acidity -------------------------------------------------------------
-    mci_hv_tf_oil_acidity <-
-      gb_ref$mci_hv_tf_oil_acidity
+    oil_test_mod <- oil_test_modifier(moisture,
+                                      acidity,
+                                      bd_strength)
 
-    ci_cap_oil_acidity <- 10
-    ci_collar_oil_acidity <- 0.5
-
-    if (oil_acidity == "Default") {
-      ci_factor_oil_acidity <- 1
-    } else if (oil_acidity <= 0.15) {
-      ci_factor_oil_acidity <- 0.9
-    } else if (0.15 < oil_acidity && oil_acidity <= 0.3) {
-      ci_factor_oil_acidity <- 1
-    } else if (0.3 < oil_acidity && oil_acidity <= 0.5) {
-      ci_factor_oil_acidity <- 1.15
-    } else {
-      ci_factor_oil_acidity <- 1.4
-    }
 
     # Temperature readings ----------------------------------------------------
     mci_hv_tf_temp_readings <-
@@ -202,7 +193,7 @@ pof_future_transformer_11_20kv <-
 
     # measured condition factor -----------------------------------------------
     factors <- c(ci_factor_partial_discharge,
-                 ci_factor_oil_acidity,
+                 oil_test_mod$oil_condition_factor,
                  ci_factor_temp_reading)
 
     measured_condition_factor <- mmi(factors,
@@ -212,13 +203,13 @@ pof_future_transformer_11_20kv <-
 
     # Measured condition cap --------------------------------------------------
     caps <- c(ci_cap_partial_discharge,
-              ci_cap_oil_acidity,
+              oil_test_mod$oil_condition_cap,
               ci_cap_temp_reading)
     measured_condition_cap <- min(caps)
 
     # Measured condition collar -----------------------------------------------
     collars <- c(ci_collar_partial_discharge,
-                 ci_collar_oil_acidity,
+                 oil_test_mod$oil_condition_collar,
                  ci_collar_temp_reading)
     measured_condition_collar <- max(collars)
 

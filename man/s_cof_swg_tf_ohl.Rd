@@ -65,7 +65,7 @@ switchgear, transformers and overhead lines.
 \description{
 This function calculates safety consequences of failure
 for switchgear, transformers and overhead lines
-(cf. section 7.4, page 79, CNAIM, 2021). Safety consequences of failure
+(cf. section 7.4, page 80, CNAIM, 2021). Safety consequences of failure
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{

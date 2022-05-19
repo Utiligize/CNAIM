@@ -47,7 +47,7 @@ Specify the corrosion index category, 1-5.}
 
 \item{observed_condition_inputs}{Named list observed_conditions_input
 \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-See page 161, table 199 and 201 in CNAIM (2017).}
+See page 161, table 199 and 201 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}

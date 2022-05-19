@@ -73,7 +73,7 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 111-112,
+  on the specification of \code{asset_type}. See page 110-113,
   table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
@@ -144,7 +144,7 @@ in CNAIM (2021).}
 
 \item{cable_boxes}{String. Indicating the observed condition of the
 cable boxes. Options:
-\code{cable_boxes = c("No Deterioration", Superficial/minor deterioration", "Some Deterioration",
+\code{cable_boxes = c("No Deterioration","Superficial/minor deterioration", "Some Deterioration",
 "Substantial Deterioration", "Default")}. See page 132, table 87
 in CNAIM (2021).}
 
@@ -152,31 +152,31 @@ in CNAIM (2021).}
  tapchanger. Options:
 \code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
 "Substantial Deterioration", "Default")}. See page 133, table 88
-in CNAIM (2017).}
+in CNAIM (2021).}
 
 \item{internal_tap}{String. Indicating the observed internal condition of the
  tapchanger. Options:
 \code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
 "Substantial Deterioration", "Default")}. See page 133, table 89
-in CNAIM (2017).}
+in CNAIM (2021).}
 
 \item{mechnism_cond}{String. Indicating the observed condition of the
  drive mechnism. Options:
-\code{mechnism_cond = c("No Deterioration", "Superficial/minor deterioration", "Some Deterioration",
+\code{mechnism_cond = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
 "Substantial Deterioration", "Default")}. See page 133, table 90
-in CNAIM (2017).}
+in CNAIM (2021).}
 
 \item{diverter_contacts}{String. Indicating the observed condition of the
 selector and diverter contacts. Options:
-\code{diverter_contacts = c("No Deterioration", "Superficial/minor deterioration", "Some Deterioration",
+\code{diverter_contacts = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
 "Substantial Deterioration", "Default")}. See page 133, table 91
-in CNAIM (2017).}
+in CNAIM (2021).}
 
 \item{diverter_braids}{String. Indicating the observed condition of the
 selector and diverter braids. Options:
-\code{diverter_braids = c("No Deterioration", "Superficial/minor deterioration", "Some Deterioration",
+\code{diverter_braids = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
 "Substantial Deterioration", "Default")}. See page 134, table 92
-in CNAIM (2017)}
+in CNAIM (2021)}
 
 \item{moisture}{Numeric. Refers to the moisture level in the
 transformer oil. Moisture levels are measured in ppm.

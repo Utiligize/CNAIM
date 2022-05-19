@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 10kV APB cables
+#' @title Future Probability of Failure for Danish 10kV APB cables
 #' @description This function calculates the future
-#' #' annual probability of failure per kilometer for a 10 kV APB cable.
+#' #' annual probability of failure per kilometer for a Danish 10 kV APB cable.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the

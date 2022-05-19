@@ -16,7 +16,7 @@ environmental_cof_ehv_fittings(ehv_asset_category)
 }
 \description{
 This function calculates environmental consequences of failure
-(cf. section 7.3, page 9, CNAIM, 2021). Environmental consequences
+(cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 }

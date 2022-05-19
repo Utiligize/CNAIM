@@ -64,7 +64,7 @@ Data table.
 \description{
 This function calculates the DGA test modifier
 for 33/10kV, 66/10kV and 132kV transformers. See e.g. section 6.12 on page
-69 in CNAIM (2021).
+65 in CNAIM (2017).
 }
 \examples{
 # DGA test modifier

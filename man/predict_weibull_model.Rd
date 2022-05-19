@@ -38,7 +38,7 @@ corrosion_category_index: Numeric or "Default",
 partial_discharge: "Low", "Medium", "High (Not Confirmed)", "High (Confirmed)" or "Default",
 oil_acidity: Numeric or "Default",
 temperature_reading: "Normal", "Moderately High", "Very High" or "Default",
-observed_condition: "As New", "Good", "Slight Deterioration", "Poor", "Very Poor" or "Default"
+observed_condition: "No deterioration", "Superficial/minor deterioration", "Slight Deterioration", "Some deterioration", "Substantial deterioration" or "Default"
 Default value if environmental_factors is not provided: data frame with value "Default" for all fields}
 
 \item{weibull_model_parameters}{Data frame. The output returned by the function

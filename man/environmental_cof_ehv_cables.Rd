@@ -2,7 +2,7 @@
 % Please edit documentation in R/cof_ehv_cables.R
 \name{environmental_cof_ehv_cables}
 \alias{environmental_cof_ehv_cables}
-\title{Environmental cost of Failure for EHV UG cabkes & 132 kV UG cables}
+\title{Environmental cost of Failure for EHV UG cables & 132 kV UG cables}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 2.1, 2021:

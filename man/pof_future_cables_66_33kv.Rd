@@ -50,17 +50,17 @@ operating/design voltage.}
 \item{sheath_test}{String. Only applied for non pressurised cables.
 Indicating the state of the sheath. Options:
 \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-"Default")}. See page 156, table 179 in CNAIM (2021).}
+"Default")}. See page 153, table 168 in CNAIM (2021).}
 
 \item{partial_discharge}{String. Only applied for non pressurised cables.
 Indicating the level of partial discharge. Options:
 \code{partial_discharge = c("Low", "Medium", "High",
- "Default")}. See page 156, table 1180 in CNAIM (2021).}
+ "Default")}. See page 153, table 169 in CNAIM (2021).}
 
 \item{fault_hist}{Numeric. Only applied for non pressurised cables.
 The calculated fault rate for the cable in the period per kilometer.
 A setting of \code{"No historic faults recorded"}
-indicates no fault. See page 156, table 181 in CNAIM (2021).}
+indicates no fault. See page 153, table 170 in CNAIM (2021).}
 
 \item{leakage}{String. Only applied for oil and gas pressurised cables.
 Options:

@@ -29,7 +29,7 @@ pof_submarine_cables(
 \arguments{
 \item{sub_cable_type}{String.
 A sting that refers to the specific asset category.
-See See page 17, table 1 in CNAIM (2021).
+See See page 17, table 1 in CNAIM (2017).
 Options:
 \code{sub_cable_type =
 c("HV Sub Cable", "EHV Sub Cable", "132kV Sub Cable")}.

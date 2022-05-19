@@ -18,10 +18,12 @@ pof_future_transformer_11_20kv(
   corrosion_category_index = "Default",
   age,
   partial_discharge = "Default",
-  oil_acidity = "Default",
   temperature_reading = "Default",
   observed_condition = "Default",
   reliability_factor = "Default",
+  moisture = "Default",
+  acidity = "Default",
+  bd_strength = "Default",
   simulation_end_year = 100
 )
 }
@@ -40,7 +42,7 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 111-112,
+  on the specification of \code{asset_type}. See page 110-113,
   table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
@@ -69,9 +71,6 @@ level of partial discharge. Options for \code{partial_discharge}:
 \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
 
-\item{oil_acidity}{Numeric. Measured in mg KOH/g.
-See page 138, table 160 in CNAIM (2017).} This is not include in CNAIM (2021)
-
 \item{temperature_reading}{String. Indicating the criticality.
 Options for \code{temperature_reading}:
 \code{temperature_reading = c("Normal", "Moderately High",
@@ -79,8 +78,8 @@ Options for \code{temperature_reading}:
 
 \item{observed_condition}{String. Indicating the observed condition of the
  transformer. Options for \code{observed_condition}:
-\code{observed_condition = c("As New", "Good", "Slight Deterioration",
- "Poor", "Very Poor", "Default")}. See page 130, table 81 in CNAIM (2021).}
+\code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
+ "Some deterioration", "Substantial deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
@@ -113,10 +112,12 @@ distance_from_coast_km = "Default",
 corrosion_category_index = "Default",
 age = 20,
 partial_discharge = "Default",
-oil_acidity = "Default",
 temperature_reading = "Default",
 observed_condition = "Default",
 reliability_factor = "Default",
+moisture = "Default",
+acidity = "Default",
+bd_strength = "Default",
 simulation_end_year = 100)
 plot(future_pof_transformer$PoF * 100,
 type = "line", ylab = "\%", xlab = "years",

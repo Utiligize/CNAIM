@@ -49,7 +49,7 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 111-112,
+  on the specification of \code{asset_type}. See page 110-113,
   table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
@@ -85,13 +85,13 @@ See page 161, table 199 and 201 in CNAIM (2021).}
 See page 161, table 200 and 202 in CNAIM (2021).}
 
 \item{visual_cond}{String. Visual condition. Options:
-\code{visual_cond = c("As New","Normal Wear","Some Deterioration",
+\code{visual_cond = c("No deterioration","Superficial/minor deterioration","Some Deterioration",
 "Substantial Deterioration", "Default")}.
 See page 146, table 140 and 142 in CNAIM (2021).}
 
 \item{midspan_joints}{Integer. Number of midspan joints on the conductor.
 A span includes all conductors in that span.
-See page 146, table 141 and 143 in CNAIM (2021).}
+See page 131-132, table 128 and 130 in CNAIM (2017).}
 
 \item{reliability_factor}{Reliabilty factor}
 

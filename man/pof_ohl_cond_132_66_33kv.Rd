@@ -50,7 +50,7 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 111-112,
+  on the specification of \code{asset_type}. See page 110-113,
   table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
@@ -68,7 +68,7 @@ table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
 \item{corrosion_category_index}{Integer.
 Specify the corrosion index category, 1-5.
 \code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 111, table 24 in CNAIM (2017).
+category factor. See page 111, table 24 in CNAIM (2021).
 A setting of \code{"Default"} will set the corrosion category factor
 to 1 independent of \code{asset_type}.}
 

@@ -5,7 +5,7 @@
 \title{Environmental cost of Failure for Transformers}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 2.1, 2021:
+Health & Criticality - Version 1.1, 2017:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
@@ -30,7 +30,7 @@ A setting of \code{"Default"} will result in a bunding factor of 1.}
 
 \item{size_kva_mva}{Numeric The MVA KVA rating for the transformer}
 
-\item{size_conversion}{String The size conversion for the transfromer}
+\item{size_conversion}{String The size conversion for the transformer}
 }
 \description{
 This function calculates environmental consequences of failure

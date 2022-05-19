@@ -22,7 +22,7 @@ Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 }
 \description{
 This function calculates financial consequences of failure
-(cf. section 7.3, page 79, CNAIM, 2017). Financial consequences
+(cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }

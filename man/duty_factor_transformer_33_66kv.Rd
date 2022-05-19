@@ -28,7 +28,7 @@ This function calculates the duty factor for
 33/10kV and 66/10kV transformers depending on the maximum
 percentage utilisation under normal operating conditions. And the tapchanger
 depending on the average number of daily taps.
-The duty factor is used in the deriviation of the expected life of an asset.
+The duty factor is used in the derivation of the expected life of an asset.
 See e.g. \code{\link{expected_life}}(). For more general information about
 the derivation of the duty factor see section 6.6 on page 51 in CNAIM (2021)
 }

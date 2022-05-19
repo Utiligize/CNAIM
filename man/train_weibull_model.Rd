@@ -20,7 +20,7 @@ corrosion_category_index: Numeric or "Default",
 partial_discharge: "Low", "Medium", "High (Not Confirmed)", "High (Confirmed)" or "Default",
 oil_acidity: Numeric or "Default",
 temperature_reading: "Normal", "Moderately High", "Very High" or "Default",
-observed_condition: "As New", "Good", "Slight Deterioration", "Poor", "Very Poor" or "Default"
+observed_condition: "No deterioration", "Superficial/minor deterioration", "Slight Deterioration", "Some deterioration", "Substantial deterioration" or "Default"
 age: Numeric}
 }
 \value{

@@ -65,7 +65,7 @@ The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 34 in CNAIM (2021).
+on page 34 in CNAIM (2017).
 }
 \examples{
 # Current annual probability of failure for EHV Swicthgear

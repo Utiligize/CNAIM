@@ -18,12 +18,12 @@ network_cof_lv_ugb(
 \arguments{
 \item{lv_asset_category}{String The type of LV asset category}
 
-\item{no_customers}{Numeric. The numner of customers
+\item{no_customers}{Numeric. The number of customers
 fed by an individual asset.}
 
 \item{kva_per_customer}{Numeric. If the asset have an exceptionally high
 demand per customer type in kVA per customer. A setting of \code{"Default"}
-results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).}
+results in a multiplication factor of 1 (cf. table 18, page 89, CNAIM, 2021).}
 }
 \value{
 Numeric. Network cost of failure.

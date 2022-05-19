@@ -16,7 +16,7 @@ environmental_cof_poles(pole_asset_category)
 }
 \description{
 This function calculates environmental consequences of failure
-(cf. section 7.3, page 79, CNAIM, 2017). Environmental consequences
+(cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 }

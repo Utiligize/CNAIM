@@ -68,7 +68,7 @@ Numeric. Consequences of failure for a 6.6/11 kV transformer.
 }
 \description{
 This function calculates consequences of failure
-for a 6.6/11 kV transformer (cf.section 7, page 71, CNAIM, 2017).
+for a 6.6/11 kV transformer (cf.section 7, page 75, CNAIM, 2021).
 }
 \examples{
 # Consequences of failure for a 6.6/11 kV transformer
