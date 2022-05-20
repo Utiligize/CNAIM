@@ -40,7 +40,7 @@ financial_cof_ehv_cables <- function(ehv_asset_category){
 }
 
 
-#' @title Safety cost of Failure for EHV UG cabkes & 132 kV UG cables
+#' @title Safety cost of Failure for EHV UG cables & 132 kV UG cables
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in

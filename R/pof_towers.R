@@ -123,7 +123,7 @@ pof_towers <-
       dplyr::select(`C-Value`) %>%
       dplyr::pull()
 
-    # Location factor ----------------------------------------------------
+    # Duty factor ----------------------------------------------------
     duty_factor <- 1
 
     # Location factor ----------------------------------------------------
@@ -136,21 +136,21 @@ pof_towers <-
 
     # Expected life for structure ------------------------------
     expected_life_years_steelwork <- expected_life(normal_expected_life =
-                                                     normal_expected_life_steelwork,
-                                            duty_factor,
-                                            location_factor)
-
-    # Expected life for paint ------------------------------
-    expected_life_years_foundation <- expected_life(normal_expected_life =
-                                                     normal_expected_life_foundation,
+                                                   normal_expected_life_steelwork,
                                                    duty_factor,
                                                    location_factor)
 
     # Expected life for paint ------------------------------
-    expected_life_years_paint <- expected_life(normal_expected_life =
-                                                      normal_expected_life_paint,
+    expected_life_years_foundation <- expected_life(normal_expected_life =
+                                                    normal_expected_life_foundation,
                                                     duty_factor,
                                                     location_factor)
+
+    # Expected life for paint ------------------------------
+    expected_life_years_paint <- expected_life(normal_expected_life =
+                                               normal_expected_life_paint,
+                                               duty_factor,
+                                               location_factor)
 
     # b1 (Initial Ageing Rate) ------------------------------------------------
     b1_steelwork <- beta_1(expected_life_years_steelwork)

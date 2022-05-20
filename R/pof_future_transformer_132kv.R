@@ -1,102 +1,23 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 33/10kV and 66/10kV Transformers
-#' @description This function calculates the current
-#' annual probability of failure for 33/10kV and 66/10kV transformers.
+#' @title Future Probability of Failure for 132kV Transformers
+#' @description This function calculates the future
+#' annual probability of failure for 132kV transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 34 in CNAIM (2021).
-#' @param transformer_type String. A sting that refers to the specific
-#' asset category. See See page 17, table 1 in CNAIM (2021).
-#' Options:
-#' \code{transformer_type =
-#' c("33kV Transformer (GM)", "66kV Transformer (GM)")}. The default setting is
-#' \code{transformer_type = "66kV Transformer (GM)"}
-#' @param year_of_manufacture Numeric. Normal expected life depends on the
-#' year for manufacture, see page 107 table 20 in CNAIM (2021).
-#' @inheritParams duty_factor_transformer_33_66kv
-#' @inheritParams location_factor
-#' @inheritParams current_health
-#' @param age_tf Numeric. The current age in years
-#' of the transformer.
-#' @param age_tc Numeric. The current age in years
-#' of the tapchanger
-#' @param partial_discharge_tf String. Indicating the
-#' level of partial discharge in the transformer.
-#' Options:
-#' \code{partial_discharge_tf = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 154, table 173 in CNAIM (2021).
-#' @param partial_discharge_tc String. Indicating the
-#' level of partial discharge in the tapchanger
-#' Options:
-#' \code{partial_discharge_tc = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 155, table 175 in CNAIM (2021).
-#' @param temperature_reading String. Indicating the criticality.
-#' Options:
-#' \code{temperature_reading = c("Normal", "Moderately High",
-#' "Very High", "Default")}. See page 154, table 174 in CNAIM (2021).
-#' @param main_tank String. Indicating the observed condition of the
-#' main tank. Options:
-#' \code{main_tank = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 131, table 83
-#' in CNAIM (2021).
-#' @param coolers_radiator String. Indicating the observed condition of the
-#' coolers/radiators. Options:
-#' \code{coolers_radiator = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 131, table 84
-#' in CNAIM (2021).
-#' @param bushings String. Indicating the observed condition of the
-#' bushings. Options:
-#' \code{bushings = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 131, table 85
-#' in CNAIM (2021).
-#' @param kiosk String. Indicating the observed condition of the
-#' kiosk. Options:
-#' \code{kiosk = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 132, table 86
-#' in CNAIM (2021).
-#' @param cable_boxes String. Indicating the observed condition of the
-#' cable boxes. Options:
-#' \code{cable_boxes = c("No Deterioration","Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 132, table 87
-#' in CNAIM (2021).
-#' @param external_tap String. Indicating the observed external condition of the
-#'  tapchanger. Options:
-#' \code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 88
-#' in CNAIM (2021).
-#' @param internal_tap String. Indicating the observed internal condition of the
-#'  tapchanger. Options:
-#' \code{internal_tap = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 89
-#' in CNAIM (2021).
-#' @param mechnism_cond String. Indicating the observed condition of the
-#'  drive mechnism. Options:
-#' \code{mechnism_cond = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 90
-#' in CNAIM (2021).
-#' @param diverter_contacts String. Indicating the observed condition of the
-#' selector and diverter contacts. Options:
-#' \code{diverter_contacts = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 91
-#' in CNAIM (2021).
-#' @param diverter_braids String. Indicating the observed condition of the
-#' selector and diverter braids. Options:
-#' \code{diverter_braids = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 134, table 92
-#' in CNAIM (2021)
-#' @inheritParams oil_test_modifier
-#' @inheritParams dga_test_modifier
-#' @inheritParams ffa_test_modifier
+#' @inheritParams pof_transformer_132kv
+#' @param simulation_end_year Numeric. The last year of simulating probability
+#' of failure. Default is 100.
 #' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' # Current probability of failure for a 66/10kV transformer
-#' pof_transformer_33_66kv(transformer_type = "66kV Transformer (GM)",
+#' # Future probability of failure for a 66/10kV transformer
+#' pof_future_transformer_132kv(transformer_type = "132kV Transformer (GM)",
 #'year_of_manufacture = 1980,
 #'utilisation_pct = "Default",
 #'no_taps = "Default",
@@ -133,46 +54,49 @@
 #'ethane_pre = "Default",
 #'acetylene_pre = "Default",
 #'furfuraldehyde = "Default",
-#'reliability_factor = "Default")
+#'reliability_factor = "Default",
+#'simulation_end_year = 100)
 
-pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
-                                    year_of_manufacture,
-                                    utilisation_pct = "Default",
-                                    no_taps = "Default",
-                                    placement = "Default",
-                                    altitude_m = "Default",
-                                    distance_from_coast_km = "Default",
-                                    corrosion_category_index = "Default",
-                                    age_tf,
-                                    age_tc,
-                                    partial_discharge_tf = "Default",
-                                    partial_discharge_tc = "Default",
-                                    temperature_reading = "Default",
-                                    main_tank = "Default",
-                                    coolers_radiator = "Default",
-                                    bushings = "Default",
-                                    kiosk = "Default",
-                                    cable_boxes = "Default",
-                                    external_tap = "Default",
-                                    internal_tap = "Default",
-                                    mechnism_cond = "Default",
-                                    diverter_contacts = "Default",
-                                    diverter_braids = "Default",
-                                    moisture = "Default",
-                                    acidity = "Default",
-                                    bd_strength = "Default",
-                                    hydrogen = "Default",
-                                    methane = "Default",
-                                    ethylene = "Default",
-                                    ethane = "Default",
-                                    acetylene = "Default",
-                                    hydrogen_pre = "Default",
-                                    methane_pre = "Default",
-                                    ethylene_pre = "Default",
-                                    ethane_pre = "Default",
-                                    acetylene_pre = "Default",
-                                    furfuraldehyde = "Default",
-                                    reliability_factor = "Default") {
+
+pof_future_transformer_132kv <- function(transformer_type = "132kV Transformer (GM)",
+                                  year_of_manufacture,
+                                  utilisation_pct = "Default",
+                                  no_taps = "Default",
+                                  placement = "Default",
+                                  altitude_m = "Default",
+                                  distance_from_coast_km = "Default",
+                                  corrosion_category_index = "Default",
+                                  age_tf,
+                                  age_tc,
+                                  partial_discharge_tf = "Default",
+                                  partial_discharge_tc = "Default",
+                                  temperature_reading = "Default",
+                                  main_tank = "Default",
+                                  coolers_radiator = "Default",
+                                  bushings = "Default",
+                                  kiosk = "Default",
+                                  cable_boxes = "Default",
+                                  external_tap = "Default",
+                                  internal_tap = "Default",
+                                  mechnism_cond = "Default",
+                                  diverter_contacts = "Default",
+                                  diverter_braids = "Default",
+                                  moisture = "Default",
+                                  acidity = "Default",
+                                  bd_strength = "Default",
+                                  hydrogen = "Default",
+                                  methane = "Default",
+                                  ethylene = "Default",
+                                  ethane = "Default",
+                                  acetylene = "Default",
+                                  hydrogen_pre = "Default",
+                                  methane_pre = "Default",
+                                  ethylene_pre = "Default",
+                                  ethane_pre = "Default",
+                                  acetylene_pre = "Default",
+                                  furfuraldehyde = "Default",
+                                  reliability_factor = "Default",
+                                  simulation_end_year = 100) {
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -277,7 +201,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
     gb_ref$measured_cond_modifier_mmi_cal
 
   mcm_mmi_cal_df <-
-    mcm_mmi_cal_df[which(mcm_mmi_cal_df$`Asset Category` == "EHV Transformer (GM)"), ]
+    mcm_mmi_cal_df[which(mcm_mmi_cal_df$`Asset Category` == "132kV Transformer (GM)"), ]
 
 
   factor_divider_1_tf <-
@@ -313,70 +237,70 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
 
   # Partial discharge transformer ----------------------------------------------
-  mci_hv_tf_partial_discharge <-
-    gb_ref$mci_ehv_tf_main_tf_prtl_dis
+  mci_132kv_tf_partial_discharge <-
+    gb_ref$mci_132kv_tf_main_tf_prtl_dis
 
   ci_factor_partial_discharge_tf <-
-    mci_hv_tf_partial_discharge$`Condition Input Factor`[which(
-      mci_hv_tf_partial_discharge$
+    mci_132kv_tf_partial_discharge$`Condition Input Factor`[which(
+      mci_132kv_tf_partial_discharge$
         `Condition Criteria: Partial Discharge Test Result` ==
         partial_discharge_tf)]
 
   ci_cap_partial_discharge_tf <-
-    mci_hv_tf_partial_discharge$`Condition Input Cap`[which(
-      mci_hv_tf_partial_discharge$
+    mci_132kv_tf_partial_discharge$`Condition Input Cap`[which(
+      mci_132kv_tf_partial_discharge$
         `Condition Criteria: Partial Discharge Test Result` ==
         partial_discharge_tf)]
 
   ci_collar_partial_discharge_tf <-
-    mci_hv_tf_partial_discharge$`Condition Input Collar`[which(
-      mci_hv_tf_partial_discharge$
+    mci_132kv_tf_partial_discharge$`Condition Input Collar`[which(
+      mci_132kv_tf_partial_discharge$
         `Condition Criteria: Partial Discharge Test Result` ==
         partial_discharge_tf)]
 
 
   # Partial discharge tapchanger ------------------------------------------------
-  mci_hv_tf_partial_discharge_tc <-
-    gb_ref$mci_ehv_tf_tapchngr_prtl_dis
+  mci_132kv_tf_partial_discharge_tc <-
+    gb_ref$mci_132kv_tf_tpchngr_prtl_dis
 
   ci_factor_partial_discharge_tc <-
-    mci_hv_tf_partial_discharge_tc$`Condition Input Factor`[which(
-      mci_hv_tf_partial_discharge_tc$
+    mci_132kv_tf_partial_discharge_tc$`Condition Input Factor`[which(
+      mci_132kv_tf_partial_discharge_tc$
         `Condition Criteria: Partial Discharge Test Result` ==
         partial_discharge_tc)]
 
   ci_cap_partial_discharge_tc <-
-    mci_hv_tf_partial_discharge_tc$`Condition Input Cap`[which(
-      mci_hv_tf_partial_discharge_tc$
+    mci_132kv_tf_partial_discharge_tc$`Condition Input Cap`[which(
+      mci_132kv_tf_partial_discharge_tc$
         `Condition Criteria: Partial Discharge Test Result` ==
         partial_discharge_tc)]
 
   ci_collar_partial_discharge_tc <-
-    mci_hv_tf_partial_discharge_tc$`Condition Input Collar`[which(
-      mci_hv_tf_partial_discharge_tc$
+    mci_132kv_tf_partial_discharge_tc$`Condition Input Collar`[which(
+      mci_132kv_tf_partial_discharge_tc$
         `Condition Criteria: Partial Discharge Test Result` ==
         partial_discharge_tc)]
 
 
   # Temperature readings ----------------------------------------------------
-  mci_hv_tf_temp_readings <-
-    gb_ref$mci_ehv_tf_temp_readings
+  mci_132kv_tf_temp_readings <-
+    gb_ref$mci_132kv_tf_temp_readings
 
   ci_factor_temp_reading <-
-    mci_hv_tf_temp_readings$`Condition Input Factor`[which(
-      mci_hv_tf_temp_readings$
+    mci_132kv_tf_temp_readings$`Condition Input Factor`[which(
+      mci_132kv_tf_temp_readings$
         `Condition Criteria: Temperature Reading` ==
         temperature_reading)]
 
   ci_cap_temp_reading <-
-    mci_hv_tf_temp_readings$`Condition Input Cap`[which(
-      mci_hv_tf_temp_readings$
+    mci_132kv_tf_temp_readings$`Condition Input Cap`[which(
+      mci_132kv_tf_temp_readings$
         `Condition Criteria: Temperature Reading` ==
         temperature_reading)]
 
   ci_collar_temp_reading <-
-    mci_hv_tf_temp_readings$`Condition Input Collar`[which(
-      mci_hv_tf_temp_readings$
+    mci_132kv_tf_temp_readings$`Condition Input Collar`[which(
+      mci_132kv_tf_temp_readings$
         `Condition Criteria: Temperature Reading` ==
         temperature_reading)]
 
@@ -422,7 +346,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
   # Observed condition inputs ---------------------------------------------
   oci_mmi_cal_df <-
     gb_ref$observed_cond_modifier_mmi_cal %>%
-    dplyr::filter(`Asset Category` == "EHV Transformer (GM)")
+    dplyr::filter(`Asset Category` == "132kV Transformer (GM)")
 
   factor_divider_1_tf_obs <-
     as.numeric(oci_mmi_cal_df$`Parameters for Combination Using MMI Technique - Factor Divider 1`[
@@ -459,203 +383,203 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
   # Transformer -------------------------------------------------------------
 
   # Main tank condition
-  oci_ehv_tf_main_tank_cond <-
-    gb_ref$oci_ehv_tf_main_tank_cond
+  oci_132kv_tf_main_tank_cond <-
+    gb_ref$oci_132kv_tf_main_tank_cond
 
   Oi_collar_main_tank <-
-    oci_ehv_tf_main_tank_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_main_tank_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_main_tank_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_main_tank_cond$`Condition Criteria: Observed Condition` ==
         main_tank)]
 
   Oi_cap_main_tank <-
-    oci_ehv_tf_main_tank_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_main_tank_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_main_tank_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_main_tank_cond$`Condition Criteria: Observed Condition` ==
         main_tank)]
 
   Oi_factor_main_tank <-
-    oci_ehv_tf_main_tank_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_main_tank_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_main_tank_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_main_tank_cond$`Condition Criteria: Observed Condition` ==
         main_tank)]
 
   # Coolers/Radiator condition
 
-  oci_ehv_tf_cooler_radiatr_cond <-
-    gb_ref$oci_ehv_tf_cooler_radiatr_cond
+  oci_132kv_tf_cooler_radiatr_cond <-
+    gb_ref$oci_132kv_tf_cooler_radtr_cond
 
   Oi_collar_coolers_radiator <-
-    oci_ehv_tf_cooler_radiatr_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_cooler_radiatr_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cooler_radiatr_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_cooler_radiatr_cond$`Condition Criteria: Observed Condition` ==
         coolers_radiator)]
 
   Oi_cap_coolers_radiator <-
-    oci_ehv_tf_cooler_radiatr_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_cooler_radiatr_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cooler_radiatr_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_cooler_radiatr_cond$`Condition Criteria: Observed Condition` ==
         coolers_radiator)]
 
   Oi_factor_coolers_radiator <-
-    oci_ehv_tf_cooler_radiatr_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_cooler_radiatr_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cooler_radiatr_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_cooler_radiatr_cond$`Condition Criteria: Observed Condition` ==
         coolers_radiator)]
 
 
   # Bushings
 
-  oci_ehv_tf_bushings_cond <-
-    gb_ref$oci_ehv_tf_bushings_cond
+  oci_132kv_tf_bushings_cond <-
+    gb_ref$oci_132kv_tf_bushings_cond
 
   Oi_collar_bushings <-
-    oci_ehv_tf_bushings_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_bushings_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_bushings_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_bushings_cond$`Condition Criteria: Observed Condition` ==
         bushings)]
 
   Oi_cap_bushings <-
-    oci_ehv_tf_bushings_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_bushings_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_bushings_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_bushings_cond$`Condition Criteria: Observed Condition` ==
         bushings)]
 
   Oi_factor_bushings <-
-    oci_ehv_tf_bushings_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_bushings_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_bushings_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_bushings_cond$`Condition Criteria: Observed Condition` ==
         bushings)]
 
   # Kiosk
 
-  oci_ehv_tf_kiosk_cond <-
-    gb_ref$oci_ehv_tf_kiosk_cond
+  oci_132kv_tf_kiosk_cond <-
+    gb_ref$oci_132kv_tf_kiosk_cond
 
   Oi_collar_kiosk <-
-    oci_ehv_tf_kiosk_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_kiosk_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_kiosk_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_kiosk_cond$`Condition Criteria: Observed Condition` ==
         kiosk)]
 
   Oi_cap_kiosk <-
-    oci_ehv_tf_kiosk_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_kiosk_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_kiosk_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_kiosk_cond$`Condition Criteria: Observed Condition` ==
         kiosk)]
 
   Oi_factor_kiosk <-
-    oci_ehv_tf_kiosk_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_kiosk_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_kiosk_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_kiosk_cond$`Condition Criteria: Observed Condition` ==
         kiosk)]
 
 
   # Cable box
-  oci_ehv_tf_cable_boxes_cond <-
-    gb_ref$oci_ehv_tf_cable_boxes_cond
+  oci_132kv_tf_cable_boxes_cond <-
+    gb_ref$oci_132kv_tf_cable_boxes_cond
 
   Oi_collar_cable_boxes <-
-    oci_ehv_tf_cable_boxes_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_cable_boxes_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cable_boxes_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_cable_boxes_cond$`Condition Criteria: Observed Condition` ==
         cable_boxes)]
 
   Oi_cap_cable_boxes <-
-    oci_ehv_tf_cable_boxes_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_cable_boxes_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cable_boxes_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_cable_boxes_cond$`Condition Criteria: Observed Condition` ==
         cable_boxes)]
 
   Oi_factor_cable_boxes <-
-    oci_ehv_tf_cable_boxes_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_cable_boxes_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cable_boxes_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_cable_boxes_cond$`Condition Criteria: Observed Condition` ==
         cable_boxes)]
 
 
   # Tapchanger --------------------------------------------------------------
 
   # External condition
-  oci_ehv_tf_tapchanger_ext_cond <-
-    gb_ref$oci_ehv_tf_tapchanger_ext_cond
+  oci_132kv_tf_tapchanger_ext_cond <-
+    gb_ref$oci_132kv_tf_tapchngr_ext_cond
 
   Oi_collar_external_tap <-
-    oci_ehv_tf_tapchanger_ext_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_tapchanger_ext_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_tapchanger_ext_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_tapchanger_ext_cond$`Condition Criteria: Observed Condition` ==
         external_tap)]
 
   Oi_cap_external_tap <-
-    oci_ehv_tf_tapchanger_ext_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_tapchanger_ext_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_tapchanger_ext_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_tapchanger_ext_cond$`Condition Criteria: Observed Condition` ==
         external_tap)]
 
   Oi_factor_external_tap <-
-    oci_ehv_tf_tapchanger_ext_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_tapchanger_ext_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_tapchanger_ext_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_tapchanger_ext_cond$`Condition Criteria: Observed Condition` ==
         external_tap)]
 
 
   # Internal condition
-  oci_ehv_tf_int_cond <-
-    gb_ref$oci_ehv_tf_int_cond
+  oci_132kv_tf_int_cond <-
+    gb_ref$oci_132kv_tf_int_cond
 
   Oi_collar_internal_tap <-
-    oci_ehv_tf_int_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_int_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_int_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_int_cond$`Condition Criteria: Observed Condition` ==
         internal_tap)]
 
   Oi_cap_internal_tap <-
-    oci_ehv_tf_int_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_int_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_int_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_int_cond$`Condition Criteria: Observed Condition` ==
         internal_tap)]
 
   Oi_factor_internal_tap <-
-    oci_ehv_tf_int_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_int_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_int_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_int_cond$`Condition Criteria: Observed Condition` ==
         internal_tap)]
 
   # Drive mechanism
-  oci_ehv_tf_drive_mechnism_cond <-
-    gb_ref$oci_ehv_tf_drive_mechnism_cond
+  oci_132kv_tf_drive_mechnism_cond <-
+    gb_ref$oci_132kv_tf_drive_mechsm_cond
 
   Oi_collar_mechnism_cond <-
-    oci_ehv_tf_drive_mechnism_cond$`Condition Input Collar`[which(
-      oci_ehv_tf_drive_mechnism_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_drive_mechnism_cond$`Condition Input Collar`[which(
+      oci_132kv_tf_drive_mechnism_cond$`Condition Criteria: Observed Condition` ==
         mechnism_cond)]
 
   Oi_cap_mechnism_cond <-
-    oci_ehv_tf_drive_mechnism_cond$`Condition Input Cap`[which(
-      oci_ehv_tf_drive_mechnism_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_drive_mechnism_cond$`Condition Input Cap`[which(
+      oci_132kv_tf_drive_mechnism_cond$`Condition Criteria: Observed Condition` ==
         mechnism_cond)]
 
   Oi_factor_mechnism_cond <-
-    oci_ehv_tf_drive_mechnism_cond$`Condition Input Factor`[which(
-      oci_ehv_tf_drive_mechnism_cond$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_drive_mechnism_cond$`Condition Input Factor`[which(
+      oci_132kv_tf_drive_mechnism_cond$`Condition Criteria: Observed Condition` ==
         mechnism_cond)]
 
   # Selecter diverter contacts
-  oci_ehv_tf_cond_select_divrter_cst <-
-    gb_ref$oci_ehv_tf_cond_select_div_cts
+  oci_132kv_tf_cond_select_divrter_cst <-
+    gb_ref$oci_132kv_tf_cond_select_div_c
 
   Oi_collar_diverter_contacts <-
-    oci_ehv_tf_cond_select_divrter_cst$`Condition Input Collar`[which(
-      oci_ehv_tf_cond_select_divrter_cst$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cond_select_divrter_cst$`Condition Input Collar`[which(
+      oci_132kv_tf_cond_select_divrter_cst$`Condition Criteria: Observed Condition` ==
         diverter_contacts)]
 
   Oi_cap_diverter_contacts <-
-    oci_ehv_tf_cond_select_divrter_cst$`Condition Input Cap`[which(
-      oci_ehv_tf_cond_select_divrter_cst$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cond_select_divrter_cst$`Condition Input Cap`[which(
+      oci_132kv_tf_cond_select_divrter_cst$`Condition Criteria: Observed Condition` ==
         diverter_contacts)]
 
   Oi_factor_diverter_contacts <-
-    oci_ehv_tf_cond_select_divrter_cst$`Condition Input Factor`[which(
-      oci_ehv_tf_cond_select_divrter_cst$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cond_select_divrter_cst$`Condition Input Factor`[which(
+      oci_132kv_tf_cond_select_divrter_cst$`Condition Criteria: Observed Condition` ==
         diverter_contacts)]
 
 
   # Selecter diverter braids
-  oci_ehv_tf_cond_select_divrter_brd <-
-    gb_ref$oci_ehv_tf_cond_select_div_brd
+  oci_132kv_tf_cond_select_divrter_brd <-
+    gb_ref$oci_132kv_tf_cond_select_div_b
 
   Oi_collar_diverter_braids <-
-    oci_ehv_tf_cond_select_divrter_brd$`Condition Input Collar`[which(
-      oci_ehv_tf_cond_select_divrter_brd$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cond_select_divrter_brd$`Condition Input Collar`[which(
+      oci_132kv_tf_cond_select_divrter_brd$`Condition Criteria: Observed Condition` ==
         diverter_braids)]
 
   Oi_cap_diverter_braids <-
-    oci_ehv_tf_cond_select_divrter_brd$`Condition Input Cap`[which(
-      oci_ehv_tf_cond_select_divrter_brd$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cond_select_divrter_brd$`Condition Input Cap`[which(
+      oci_132kv_tf_cond_select_divrter_brd$`Condition Criteria: Observed Condition` ==
         diverter_braids)]
 
   Oi_factor_diverter_braids <-
-    oci_ehv_tf_cond_select_divrter_brd$`Condition Input Factor`[which(
-      oci_ehv_tf_cond_select_divrter_brd$`Condition Criteria: Observed Condition` ==
+    oci_132kv_tf_cond_select_divrter_brd$`Condition Input Factor`[which(
+      oci_132kv_tf_cond_select_divrter_brd$`Condition Criteria: Observed Condition` ==
         diverter_braids)]
 
 
@@ -889,5 +813,94 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
        (((c * current_health_score)^2) / factorial(2)) +
        (((c * current_health_score)^3) / factorial(3)))
 
-  return(probability_of_failure)
+  # Future probability of failure -------------------------------------------
+  # the Health Score of a new asset
+  H_new <- 0.5
+  # the Health Score of the asset when it reaches its Expected Life
+
+  # Transformer
+  current_health_score_tf <-
+    current_health(initial_health_score_tf,
+                   health_score_modifier_tf$health_score_factor_tf,
+                   health_score_modifier_tf$health_score_cap_tf,
+                   health_score_modifier_tf$health_score_collar,
+                   reliability_factor = reliability_factor)
+
+  # Tapchanger
+  current_health_score_tc <-
+    current_health(initial_health_score_tf,
+                   health_score_modifier_tc$health_score_factor_tc,
+                   health_score_modifier_tc$health_score_cap_tc,
+                   health_score_modifier_tc$health_score_collar_tc,
+                   reliability_factor = reliability_factor)
+
+
+  b2_tf <- beta_2(current_health_score_tf, age = age_tf)
+  b2_tc <- beta_2(current_health_score_tc, age = age_tc)
+
+  # Transformer
+  if (b2_tf > 2*b1_tf){
+    b2_tf <- b1_tf
+  } else if (current_health_score_tf == 0.5){
+    b2_tf <- b1_tf
+  }
+
+  if (current_health_score_tf < 2) {
+    ageing_reduction_factor_tf <- 1
+  } else if (current_health_score_tf <= 5.5) {
+    ageing_reduction_factor_tf <- ((current_health_score_tf - 2)/7) + 1
+  } else {
+    ageing_reduction_factor_tf <- 1.5
+  }
+
+  # Tapchanger
+  if (b2_tc > 2*b1_tc){
+    b2_tc <- b1_tc
+  } else if (current_health_score_tc == 0.5){
+    b2_tc <- b1_tc
+  }
+
+  if (current_health_score_tc < 2) {
+    ageing_reduction_factor_tc <- 1
+  } else if (current_health_score_tc <= 5.5) {
+    ageing_reduction_factor_tc <- ((current_health_score_tc - 2)/7) + 1
+  } else {
+    ageing_reduction_factor_tc <- 1.5
+  }
+
+
+  # Dynamic bit -------------------------------------------------------------
+  pof_year <- list()
+  year <- seq(from=0,to=simulation_end_year,by=1)
+
+  for (y in 1:length(year)){
+    t <- year[y]
+
+    future_health_Score_tf <- current_health_score_tf*exp((b2_tf/ageing_reduction_factor_tf) * t)
+    future_health_Score_tc <- current_health_score_tc*exp((b2_tc/ageing_reduction_factor_tc) * t)
+    H <- max(future_health_Score_tf, future_health_Score_tc)
+
+    future_health_score_limit <- 15
+    if (H > future_health_score_limit){
+      H <- future_health_score_limit
+    }
+
+    pof_year[[paste(y)]] <- k * (1 + (c * H) +
+                                   (((c * H)^2) / factorial(2)) +
+                                   (((c * H)^3) / factorial(3)))
+  }
+
+  pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+  pof_future$age <- NA
+  pof_future$age[1] <- age_tf
+
+  for(i in 2:nrow(pof_future)) {
+
+    pof_future$age[i] <- age_tf + i -1
+
+  }
+
+  return(pof_future)
 }
+
+

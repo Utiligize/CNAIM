@@ -7,7 +7,7 @@
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 34 in CNAIM (2021).
-#' @inheritParams pof_transformer_11_20kv # this is the same for 0.4/10kV Transformers
+#' @inheritParams pof_transformer_04_10kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure.
