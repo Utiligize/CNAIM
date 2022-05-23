@@ -2,7 +2,7 @@
 % Please edit documentation in R/cof_ehv_cables.R
 \name{safety_cof_ehv_cables}
 \alias{safety_cof_ehv_cables}
-\title{Safety cost of Failure for EHV UG cabkes & 132 kV UG cables}
+\title{Safety cost of Failure for EHV UG cables & 132 kV UG cables}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 2.1, 2021:

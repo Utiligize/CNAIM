@@ -16,7 +16,7 @@
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
 #'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).
 #' @inheritParams oil_test_modifier
-#' See page 138, table 160 in CNAIM (2017). This table is not part of CNAIM (2021)
+#' See page 162, table 204-207 in CNAIM (2021).
 #' @param temperature_reading String. Indicating the criticality.
 #' Options for \code{temperature_reading}:
 #' \code{temperature_reading = c("Normal", "Moderately High",

@@ -75,7 +75,8 @@ sheath_test = "Default",
 partial_discharge = "Default",
 fault_hist = "Default",
 reliability_factor = "Default",
-age = 50) * 100
+age = 50,
+simulation_end_year = 100) * 100
 
 paste0(sprintf("Probability of failure \%.4f", pof_future_cables_10kV_apb_result),
 " percent per annum")

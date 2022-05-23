@@ -66,7 +66,7 @@ on page 34 in CNAIM (2021).
 pof_cables_10kv_apb_result <-
 pof_cables_10kv_apb(
 utilisation_pct = 80,
-operating_voltage_pct = 60,
+operating_voltage_pct = "Default",
 sheath_test = "Default",
 partial_discharge = "Default",
 fault_hist = "Default",

@@ -33,7 +33,7 @@
 #'pof_cables_10kv_apb_result <-
 #'pof_cables_10kv_apb(
 #'utilisation_pct = 80,
-#'operating_voltage_pct = 60,
+#'operating_voltage_pct = "Default",
 #'sheath_test = "Default",
 #'partial_discharge = "Default",
 #'fault_hist = "Default",
@@ -43,8 +43,7 @@
 #'paste0(sprintf("Probability of failure %.4f", pof_cables_10kv_apb_result),
 #'" percent per annum")
 
-pof_cables_10kv_apb <-
-  function(utilisation_pct = "Default",
+pof_cables_10kv_apb <- function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            sheath_test = "Default",
            partial_discharge = "Default",
