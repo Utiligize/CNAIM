@@ -1,15 +1,41 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 33-132kV OHL Conductors
-#' @description This function calculates the future
-#' annual probability of failure per kilometer 33-132kV OHL conductors.
+#' @title Current Probability of Failure for 50kV OHL Conductors
+#' @description This function calculates the current
+#' annual probability of failure per kilometer 50kV OHL conductors.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 34 in CNAIM (2021).
-#' @inheritParams pof_ohl_cond_132_66_33kv
-#' @param simulation_end_year Numeric. The last year of simulating probability
-#'  of failure. Default is 100.
+#' @param ohl_conductor String.
+#' A sting that refers to the specific asset category.
+#' See See page 17, table 1 in CNAIM (2021).
+#' Options:
+#' @param sub_division String. Refers to material the conductor is
+#' made of. Options:
+#' \code{sub_division = c("ACSR - greased",
+#' "ACSR - non-greased",
+#' "AAAC",
+#' "Cad Cu",
+#' "Cu",
+#' "Other")
+#'}. See page 107, table 20 in CNAIM (2021).
+#' @inheritParams location_factor
+#' @param age  Numeric. The current age in years of the conductor.
+#' @param conductor_samp String. Conductor sampling. Options:
+#' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
+#' See page 161, table 199 and 201 in CNAIM (2021).
+#' @param corr_mon_survey String. Corrosion monitoring survey. Options:
+#' \code{corr_mon_survey = c("Low","Medium/Normal","High","Default")}.
+#' See page 161, table 200 and 202 in CNAIM (2021).
+#' @param visual_cond String. Visual condition. Options:
+#' \code{visual_cond = c("No deterioration","Superficial/minor deterioration","Some Deterioration",
+#' "Substantial Deterioration", "Default")}.
+#' See page 146, table 140 and 142 in CNAIM (2021).
+#' @param midspan_joints Integer. Number of midspan joints on the conductor.
+#' A span includes all conductors in that span.
+#' See page 146, table 141 and 143 in CNAIM (2021).
+#' @inheritParams current_health
 #' @return Numeric. Current probability of failure
 #' per annum per kilometer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -17,9 +43,8 @@
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' # Future annual probability of failure for 66kV OHL (Tower Line) Conductor
-# pof_future_ohl_cond_132_66_33kv(
-# ohl_conductor = "66kV OHL (Tower Line) Conductor",
+#' # Current annual probability of failure for 66kV OHL (Tower Line) Conductor
+# pof_ohl_cond_50kv(
 # sub_division = "Cu",
 # placement = "Default",
 # altitude_m = "Default",
@@ -30,12 +55,10 @@
 # corr_mon_survey = "Default",
 # visual_cond = "Default",
 # midspan_joints = "Default",
-# reliability_factor = "Default",
-# simulation_end_year = 100)
+# reliability_factor = "Default")
 
-pof_future_ohl_cond_132_66_33kv <-
-  function(ohl_conductor = "66kV OHL (Tower Line) Conductor",
-           sub_division = "Cu",
+pof_ohl_cond_50kv <-
+  function(sub_division = "Cu",
            placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
@@ -45,16 +68,16 @@ pof_future_ohl_cond_132_66_33kv <-
            corr_mon_survey = "Default",
            visual_cond = "Default",
            midspan_joints = "Default",
-           reliability_factor = "Default",
-           simulation_end_year = 100) {
+           reliability_factor = "Default") {
 
+    ohl_conductor <- "66kV OHL (Tower Line) Conductor"
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` =
-      `Sub-division` = `Condition Criteria: Observed Condition` =
-      `Condition Criteria: Corrosion Monitoring Survey Result` =
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
       `Condition Criteria: Conductor Sampling Result` =
+      `Condition Criteria: Corrosion Monitoring Survey Result` =
+      `Condition Criteria: Observed Condition` =
       `Condition Criteria: No. of Midspan Joints` = NULL
     # due to NSE notes in R CMD check
 
@@ -246,7 +269,6 @@ pof_future_ohl_cond_132_66_33kv <-
 
     # Observed conditions -----------------------------------------------------
 
-
     oci_mmi_cal_df <-
       gb_ref$observed_cond_modifier_mmi_cal
 
@@ -406,59 +428,6 @@ pof_future_ohl_cond_132_66_33kv <-
          (((c * current_health_score)^2) / factorial(2)) +
          (((c * current_health_score)^3) / factorial(3)))
 
-    # Future probability of failure -------------------------------------------
 
-    # the Health Score of a new asset
-    H_new <- 0.5
-
-    # the Health Score of the asset when it reaches its Expected Life
-    b2 <- beta_2(current_health_score, age)
-
-    if (b2 > 2*b1){
-      b2 <- b1
-    } else if (current_health_score == 0.5){
-      b2 <- b1
-    }
-
-    if (current_health_score < 2) {
-      ageing_reduction_factor <- 1
-    } else if (current_health_score <= 5.5) {
-      ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
-    } else {
-      ageing_reduction_factor <- 1.5
-    }
-
-    # Dynamic part
-    pof_year <- list()
-    year <- seq(from=0,to=simulation_end_year,by=1)
-
-    for (y in 1:length(year)){
-      t <- year[y]
-
-      future_health_Score <-
-        current_health_score*exp((b2/ageing_reduction_factor) * t)
-
-      H <- future_health_Score
-
-      future_health_score_limit <- 15
-      if (H > future_health_score_limit){
-        H <- future_health_score_limit
-      }
-
-      pof_year[[paste(y)]] <- k * (1 + (c * H) +
-                                     (((c * H)^2) / factorial(2)) +
-                                     (((c * H)^3) / factorial(3)))
-    }
-
-    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
-    pof_future$age <- NA
-    pof_future$age[1] <- age
-
-    for(i in 2:nrow(pof_future)) {
-
-      pof_future$age[i] <- age + i -1
-
-    }
-
-    return(pof_future)
+    return(probability_of_failure)
   }

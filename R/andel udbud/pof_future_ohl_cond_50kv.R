@@ -1,13 +1,13 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 33-132kV OHL Conductors
+#' @title Future Probability of Failure for 50kV OHL Conductors
 #' @description This function calculates the future
-#' annual probability of failure per kilometer 33-132kV OHL conductors.
+#' annual probability of failure per kilometer 50kV OHL conductors.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 34 in CNAIM (2021).
-#' @inheritParams pof_ohl_cond_132_66_33kv
+#' @inheritParams pof_ohl_cond_50kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric. Current probability of failure
@@ -17,9 +17,8 @@
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' # Future annual probability of failure for 66kV OHL (Tower Line) Conductor
-# pof_future_ohl_cond_132_66_33kv(
-# ohl_conductor = "66kV OHL (Tower Line) Conductor",
+#' # Future annual probability of failure for 50kV OHL (Tower Line) Conductor
+# pof_future_ohl_cond_50kv(
 # sub_division = "Cu",
 # placement = "Default",
 # altitude_m = "Default",
@@ -33,9 +32,8 @@
 # reliability_factor = "Default",
 # simulation_end_year = 100)
 
-pof_future_ohl_cond_132_66_33kv <-
-  function(ohl_conductor = "66kV OHL (Tower Line) Conductor",
-           sub_division = "Cu",
+pof_future_ohl_cond_50kv <-
+  function(sub_division = "Cu",
            placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
@@ -48,13 +46,14 @@ pof_future_ohl_cond_132_66_33kv <-
            reliability_factor = "Default",
            simulation_end_year = 100) {
 
+    ohl_conductor <- "66kV OHL (Tower Line) Conductor"
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` =
-      `Sub-division` = `Condition Criteria: Observed Condition` =
-      `Condition Criteria: Corrosion Monitoring Survey Result` =
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
       `Condition Criteria: Conductor Sampling Result` =
+      `Condition Criteria: Corrosion Monitoring Survey Result` =
+      `Condition Criteria: Observed Condition` =
       `Condition Criteria: No. of Midspan Joints` = NULL
     # due to NSE notes in R CMD check
 
@@ -245,7 +244,6 @@ pof_future_ohl_cond_132_66_33kv <-
 
 
     # Observed conditions -----------------------------------------------------
-
 
     oci_mmi_cal_df <-
       gb_ref$observed_cond_modifier_mmi_cal
