@@ -9,7 +9,7 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-present_value_future_risk(pof, cof, n, i)
+present_value_future_risk(pof, cof, n, i, r = 0.035)
 }
 \arguments{
 \item{pof}{The probability of failure of the asset}
@@ -23,7 +23,4 @@ present_value_future_risk(pof, cof, n, i)
 \description{
 This function calculates the present value of future risk.
 See section 5.5 on page 32 in CNAIM (2021).
-}
-\examples{
-
 }
