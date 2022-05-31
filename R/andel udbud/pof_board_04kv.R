@@ -1,24 +1,22 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for HV Switchgear Primary
+#' @title Current Probability of Failure for 0.4kV Board
 #' @description This function calculates the current
-#' annual probability of failure per kilometer HV Switchgear Primary
+#' annual probability of failure for 0.4kV Board
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
-#' @param hv_asset_category String The type of HV asset category
-#' @param number_of_operations The number of operations for duty factor
+#' exponential function.
+#' @param lv_asset_category String.
+#' A sting that refers to the specific asset category.
+#' @param lv_asset_category String The type of LV asset category
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
-#' is used to derive the altitude factor. See page 111,
-#' table 23 in CNAIM (2021). A setting of \code{"Default"}
+#' is used to derive the altitude factor. A setting of \code{"Default"}
 #' will set the altitude factor to 1 independent of \code{asset_type}.
 #' @param distance_from_coast_km Numeric. Specify the distance from the
 #' coast measured in kilometers. \code{distance_from_coast_km} is used
-#' to derive the distance from coast factor See page 110,
-#' table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
+#' to derive the distance from coast factor.
+#' A setting of \code{"Default"} will set the
 #'  distance from coast factor to 1 independent of \code{asset_type}.
 #' @param corrosion_category_index Integer.
 #' Specify the corrosion index category, 1-5.
@@ -26,61 +24,63 @@
 #' @param measured_condition_inputs Named list observed_conditions_input
 #' @param observed_condition_inputs Named list observed_conditions_input
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-#' See page 161, table 199 and 201 in CNAIM (2021).
 #' @inheritParams current_health
+#' @param k_value Numeric. \code{k_value = 0.0069} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 60} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometer.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' # Current annual probability of failure for HV Swicthgear Primary
-# pof_hv_switchgear_primary(
-# hv_asset_category = "6.6/11kV CB (GM) Secondary",
-# number_of_operations = "Default",
+#' # Current annual probability of failure for 0.4kV board
+# pof_board_04kv(
 # placement = "Default",
 # altitude_m = "Default",
 # distance_from_coast_km = "Default",
 # corrosion_category_index = "Default",
 # age = 10,
 # observed_condition_inputs =
-# list("external_condition" =
+# list("external_cond" =
 # list("Condition Criteria: Observed Condition" = "Default"),
-# "oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
-# "thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
-# "internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
-# "indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
+# "compound_leaks" = list("Condition Criteria: Observed Condition" = "Default"),
+# "internal_cond" = list("Condition Criteria: Observed Condition" = "Default"),
+# "insulation" = list("Condition Criteria: Observed Condition" = "Default"),
+# "signs_heating" = list("Condition Criteria: Observed Condition" = "Default"),
+# "phase_barriers" = list("Condition Criteria: Observed Condition" = "Default")),
 # measured_condition_inputs =
-# list("partial_discharge" =
-# list("Condition Criteria: Partial Discharge Test Results" = "Default"),
-# "ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
-# "oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
-# "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
-# "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default"),
-# "ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
-# reliability_factor = "Default")
+# list("opsal_adequacy" =
+# list("Condition Criteria: Operational Adequacy" = "Default")),
+# reliability_factor = "Default",
+# k_value = 0.0069,
+# c_value = 1.087,
+# normal_expected_life = 60)
 
-pof_hv_switchgear_primary <-
-  function(hv_asset_category = "6.6/11kV CB (GM) Primary",
-           placement = "Default",
-           number_of_operations = "Default",
+pof_board_04kv <-
+  function(placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
            corrosion_category_index = "Default",
            age,
            measured_condition_inputs,
            observed_condition_inputs,
-           reliability_factor = "Default") {
+           reliability_factor = "Default",
+           k_value = 0.0069,
+           c_value = 1.087,
+           normal_expected_life = 60) {
 
+    lv_asset_category <- "LV Board (WM)"
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+      `K-Value (%)` = `C-Value` = `Asset Register  Category`  = NULL
     # due to NSE notes in R CMD check
 
     asset_category <- gb_ref$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
-                      hv_asset_category) %>%
+                      lv_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
     generic_term_1 <- gb_ref$generic_terms_for_assets %>%
@@ -91,38 +91,25 @@ pof_hv_switchgear_primary <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-    # Normal expected life  -------------------------
-    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` ==
-                      hv_asset_category) %>%
-      dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
 
-    # POF function asset category.
+    k <- k_value/100
 
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` %in% asset_category) %>%
-      dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull()/100
-
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` %in% asset_category) %>%
-      dplyr::select(`C-Value`) %>%
-      dplyr::pull()
+    c <- c_value
 
     # Duty factor -------------------------------------------------------------
 
-    duty_factor_cond <- get_duty_factor_hv_switchgear_primary(number_of_operations)
+    duty_factor_cond <- 1
 
     # Location factor ----------------------------------------------------
     location_factor_cond <- location_factor(placement,
                                             altitude_m,
                                             distance_from_coast_km,
                                             corrosion_category_index,
-                                            asset_type = hv_asset_category)
+                                            asset_type = lv_asset_category)
     # Expected life ------------------------------
-    expected_life_years <- expected_life(normal_expected_life_cond,
+    expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_cond,
                                          location_factor_cond)
 
@@ -132,31 +119,32 @@ pof_hv_switchgear_primary <-
     # Initial health score ----------------------------------------------------
     initial_health_score <- initial_health(b1, age)
 
+    asset_category_mmi <- get_mmi_lv_switchgear_asset_category(lv_asset_category)
+
     # Measured conditions
-    mci_table_names <- list("partial_discharge" = "mci_hv_swg_pri_prtl_dischrg",
-                            "ductor_test" = "mci_hv_swg_pri_ductor_test",
-                            "oil_test" = "mci_hv_swg_pri_oil_tests",
-                            "temp_reading" = "mci_hv_swg_pri_temp_reading",
-                            "trip_test" = "mci_hv_swg_pri_trip_test",
-                            "ir_test"= "mci_hv_swg_pri_ir_test")
+    mci_table_names <- list("opsal_adequacy" = "mci_lv_board_wm_opsal_adequacy")
 
     measured_condition_modifier <-
-      get_measured_conditions_modifier_hv_switchgear(asset_category,
+      get_measured_conditions_modifier_lv_switchgear(asset_category_mmi,
                                                      mci_table_names,
                                                      measured_condition_inputs)
 
     # Observed conditions -----------------------------------------------------
 
-    oci_table_names <- list("external_condition" = "oci_hv_swg_pri_swg_ext",
-                            "oil_gas" = "oci_hv_swg_pri_oil_leak_gas_pr",
-                            "thermo_assment" = "oci_hv_swg_pri_thermo_assment",
-                            "internal_condition" = "oci_hv_swg_pri_swg_int_cond_op",
-                            "indoor_env" = "oci_hv_swg_pri_indoor_environ")
+    oci_table_names <- list(
+      "external_cond" = "oci_lv_board_swg_ext_cond",
+      "compound_leaks" = "oci_lv_board_wm_compound_leak",
+      "internal_cond" = "oci_lv_board_wm_swg_int_cond",
+      "insulation" = "oci_lv_board_wm_insulation_cond",
+      "signs_heating" = "oci_lv_board_wm_signs_heating",
+      "phase_barriers" = "oci_lv_board_wm_phase_barriers"
+    )
 
     observed_condition_modifier <-
-      get_observed_conditions_modifier_hv_switchgear(asset_category,
+      get_observed_conditions_modifier_lv_switchgear(asset_category_mmi,
                                                      oci_table_names,
                                                      observed_condition_inputs)
+
 
     # Health score factor ---------------------------------------------------
     health_score_factor <-
@@ -194,11 +182,4 @@ pof_hv_switchgear_primary <-
     return(probability_of_failure)
   }
 
-# This function is used for EHV switchgear as well
-get_duty_factor_hv_switchgear_primary <- function(number_of_operations){
-  `Number of operations` = NULL
-  duty_factor_df <- gb_ref$duty_factor_lut_switchgear %>%
-    dplyr::filter(`Number of operations` == number_of_operations)
-  return(duty_factor_df$`Duty Factor`)
-}
 

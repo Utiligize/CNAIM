@@ -1,67 +1,42 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for Submarine Cables
-#' @description This function calculates the current
-#' annual probability of failure per kilometer for submarine cables.
+#' @title Future Probability of Failure for 10kV Non Pressurised submarine cables
+#' @description This function calculates the future
+#' annual probability of failure per kilometer for a 10kV non pressurised submarine cables
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
-#' @param sub_cable_type String.
-#' A sting that refers to the specific asset category.
-#' See See page 17, table 1 in CNAIM (2021).
-#' Options:
-#' \code{sub_cable_type =
-#' c("HV Sub Cable", "EHV Sub Cable", "132kV Sub Cable")}.
-#' The deafult setting is \code{sub_cable_type = "EHV Sub Cable"}.
-#' @inheritParams duty_factor_cables
-#' @inheritParams location_factor_sub
-#' @param sheath_test String. Indicating the state of the sheath. Options:
-#' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 158, table 189 in CNAIM (2021).
-#' @param partial_discharge String. Indicating the level of partial discharge.
-#' Options:
-#' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 158, table 190 in CNAIM (2021).
-#' @param fault_hist Numeric. The calculated fault rate for the cable per annum
-#' per kilometer. A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 158, table 191 in CNAIM (2021).
-#' @param condition_armour String. Indicating the external condition of the
-#' submarine cables armour. Options:
-#' \code{condition_armour = c("Good","Poor","Critical","Default")}
-#' @inheritParams current_health
-#' @param age Numeric. The current age in years of the cable.
-#' @return Numeric. Current probability of failure
-#' per annum per kilometre.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+#' exponential function.
+#' @inheritParams pof_submarine_cables_30_60kv
+#' @param simulation_end_year Numeric. The last year of simulating probability
+#'  of failure. Default is 100.
+#' @return Numeric array. Future probability of failure
+#' per annum per kilometre for 30kV and 60kV submarine cables
 #' @export
 #' @examples
-#' # Current annual probability of failure for 1 km EHV Sub Cable
-#  pof_submarine_cables(
-#  sub_cable_type = "EHV Sub Cable",
-#  utilisation_pct = "Default",
-#  operating_voltage_pct = "Default",
-#  topography = "Default",
-#  sitution = "Default",
-#  wind_wave = "Default",
-#  intensity = "Default",
-#  landlocked = "no",
-#  sheath_test = "Default",
-#  partial_discharge = "Default",
-#  fault_hist = "Default",
-#  condition_armour = "Default",
-#  age = 10,
-#  reliability_factor = "Default"
-# )
-#'paste0(sprintf("Probability of failure %.4f", pof_subcables),
+#' # Future annual probability of failure for 1 km 10kV non pressurised Sub Cable
+# pof_future_submarine_cables_10kv_pex(
+# utilisation_pct = "Default",
+# operating_voltage_pct = "Default",
+# topography = "Default",
+# sitution = "Default",
+# wind_wave = "Default",
+# intensity = "Default",
+# landlocked = "no",
+# sheath_test = "Default",
+# partial_discharge = "Default",
+# fault_hist = "Default",
+# condition_armour = "Default",
+# age = 10,
+# reliability_factor = "Default",
+# k_value = 0.0202,
+# c_value = 1.087,
+# normal_expected_life = 60,
+# simulation_end_year = 100)
+#'paste0(sprintf("Probability of failure %.4f", pof_future_submarine_cables_10kv_pex),
 #'" percent per annum")
 #'
 
-pof_submarine_cables <-
-  function(sub_cable_type = "EHV Sub Cable",
-           utilisation_pct = "Default",
+pof_future_submarine_cables_10kv_pex <-
+  function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            topography = "Default",
            sitution = "Default",
@@ -73,8 +48,13 @@ pof_submarine_cables <-
            fault_hist = "Default",
            condition_armour = "Default",
            age,
-           reliability_factor = "Default") {
+           reliability_factor = "Default",
+           k_value = 0.0202,
+           c_value = 1.087,
+           normal_expected_life = 60,
+           simulation_end_year = 100) {
 
+    sub_cable_type <- "HV Sub Cable"
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` =
       `Functional Failure Category`= `K-Value (%)` =
@@ -97,29 +77,14 @@ pof_submarine_cables <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-    # Normal expected life  -------------------------
-    normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` == sub_cable_type)  %>%
-      dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      asset_category) %>% dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull()/100
+    k <- k_value/100
 
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      asset_category) %>% dplyr::select(`C-Value`) %>%
-      dplyr::pull()
+    c <- c_value
 
     # Duty factor -------------------------------------------------------------
-    if (sub_cable_type == "EHV Sub Cable" || sub_cable_type ==
-        "132kV Sub Cable") {
-      sub_marine_col_level <- "EHV"
-    } else {
-      sub_marine_col_level <- "LV & HV"
-    }
+    sub_marine_col_level <- "HV"
 
     duty_factor_sub <-
       duty_factor_cables(
@@ -128,18 +93,17 @@ pof_submarine_cables <-
         voltage_level = sub_marine_col_level)
 
 
-    # Location factor ---------------------------------------------------------
+    # # Location factor ---------------------------------------------------------
     lf_submarine <- location_factor_sub(topography,
                                         sitution,
                                         wind_wave,
                                         intensity,
                                         landlocked)
 
-
     # Expected life ------------------------------
-    expected_life_years <- expected_life(normal_expected_life_cable,
+    expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_sub,
-                                         location_factor = lf_submarine)
+                                         lf_submarine)
 
     # b1 (Initial Ageing Rate) ------------------------------------------------
     b1 <- beta_1(expected_life_years)
@@ -289,7 +253,6 @@ pof_submarine_cables <-
 
 
     # External conditions of armour
-
     oci_submrn_cable_ext_cond_armr <-
       gb_ref$oci_submrn_cable_ext_cond_armr %>%
       dplyr::filter(
@@ -351,6 +314,59 @@ pof_submarine_cables <-
          (((c * current_health_score)^2) / factorial(2)) +
          (((c * current_health_score)^3) / factorial(3)))
 
+    # Future probability of failure -------------------------------------------
 
-    return(probability_of_failure)
+    # the Health Score of a new asset
+    H_new <- 0.5
+
+    # the Health Score of the asset when it reaches its Expected Life
+    b2 <- beta_2(current_health_score, age)
+
+    if (b2 > 2*b1){
+      b2 <- b1
+    } else if (current_health_score == 0.5){
+      b2 <- b1
+    }
+
+    if (current_health_score < 2) {
+      ageing_reduction_factor <- 1
+    } else if (current_health_score <= 5.5) {
+      ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
+    } else {
+      ageing_reduction_factor <- 1.5
+    }
+
+    # Dynamic part
+    pof_year <- list()
+    year <- seq(from=0,to=simulation_end_year,by=1)
+
+    for (y in 1:length(year)){
+      t <- year[y]
+
+      future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
+
+      H <- future_health_Score
+
+      future_health_score_limit <- 15
+      if (H > future_health_score_limit){
+        H <- future_health_score_limit
+      }
+
+      pof_year[[paste(y)]] <- k * (1 + (c * H) +
+                                     (((c * H)^2) / factorial(2)) +
+                                     (((c * H)^3) / factorial(3)))
+    }
+
+    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future$age <- NA
+    pof_future$age[1] <- age
+
+    for(i in 2:nrow(pof_future)) {
+
+      pof_future$age[i] <- age + i -1
+
+    }
+
+    return(pof_future)
   }
+

@@ -1,23 +1,19 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for HV Switchgear Distribution
+#' @title Current Probability of Failure for 10kV Switchgear secondary
 #' @description This function calculates the current
-#' annual probability of failure per kilometer HV Switchgear Distribution
+#' annual probability of failure per kilometer 10 kVSwitchgear secondary
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @param hv_asset_category String The type of LV asset category
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
-#' is used to derive the altitude factor. See page 111,
-#' table 23 in CNAIM (2021). A setting of \code{"Default"}
+#' is used to derive the altitude factor. A setting of \code{"Default"}
 #' will set the altitude factor to 1 independent of \code{asset_type}.
 #' @param distance_from_coast_km Numeric. Specify the distance from the
 #' coast measured in kilometers. \code{distance_from_coast_km} is used
-#' to derive the distance from coast factor See page 110,
-#' table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
+#' to derive the distance from coast factor. A setting of \code{"Default"} will set the
 #'  distance from coast factor to 1 independent of \code{asset_type}.
 #' @param corrosion_category_index Integer.
 #' Specify the corrosion index category, 1-5.
@@ -25,18 +21,20 @@
 #' @param measured_condition_inputs Named list observed_conditions_input
 #' @param observed_condition_inputs Named list observed_conditions_input
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-#' See page 161, table 199 and 201 in CNAIM (2021).
 #' @inheritParams current_health
+#' @param k_value Numeric. \code{k_value = 0.0067} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 55} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometer.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' # Current annual probability of failure for HV Swicthgear distribution
-# pof_hv_switchgear_distribution(
-# hv_asset_category = "6.6/11kV CB (GM) Secondary",
+#' # Current annual probability of failure for 10kV Swicthgear secondary
+# pof_switchgear_secondary_10kV(
 # placement = "Default",
 # altitude_m = "Default",
 # distance_from_coast_km = "Default",
@@ -56,18 +54,25 @@
 # "oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
 # "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
 # "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
-# reliability_factor = "Default")
+# reliability_factor = "Default",
+# k_value = 0.0067,
+# c_value = 1.087,
+# normal_expected_life = 55)
 
-pof_hv_switchgear_distribution <-
-  function(hv_asset_category = "6.6/11kV CB (GM) Secondary",
-           placement = "Default",
+pof_switchgear_secondary_10kV <-
+  function(placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
            corrosion_category_index = "Default",
            age,
            measured_condition_inputs,
            observed_condition_inputs,
-           reliability_factor = "Default") {
+           reliability_factor = "Default",
+           k_value = 0.0067,
+           c_value = 1.087,
+           normal_expected_life = 55) {
+
+    hv_asset_category <- "6.6/11kV CB (GM) Secondary"
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -87,26 +92,11 @@ pof_hv_switchgear_distribution <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-    # Normal expected life  -------------------------
-    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` ==
-                      hv_asset_category) %>%
-      dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
+    k <- k_value/100
 
-    # POF function asset category. This is bit different from other tables
-    kc_hv_asset_category <- "HV Switchgear (GM) - Distribution (GM)"
-
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` %in% kc_hv_asset_category) %>%
-      dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull()/100
-
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` %in% kc_hv_asset_category) %>%
-      dplyr::select(`C-Value`) %>%
-      dplyr::pull()
+    c <- c_value
 
     # Duty factor -------------------------------------------------------------
 
@@ -119,7 +109,7 @@ pof_hv_switchgear_distribution <-
                                             corrosion_category_index,
                                             asset_type = hv_asset_category)
     # Expected life ------------------------------
-    expected_life_years <- expected_life(normal_expected_life_cond,
+    expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_cond,
                                          location_factor_cond)
 
@@ -189,128 +179,3 @@ pof_hv_switchgear_distribution <-
 
     return(probability_of_failure)
   }
-
-
-get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names,
-                                                           measured_condition_inputs, sub_component = NULL){
-  mcm_mmi_cal_df <-
-    gb_ref$measured_cond_modifier_mmi_cal
-
-  mcm_mmi_cal_df <-
-    mcm_mmi_cal_df[which(
-      mcm_mmi_cal_df$`Asset Category` == asset_category_mmi), ]
-
-  factor_divider_1 <-
-    as.numeric(
-      mcm_mmi_cal_df$
-        `Parameters for Combination Using MMI Technique - Factor Divider 1`)
-
-  factor_divider_2 <-
-    as.numeric(
-      mcm_mmi_cal_df$
-        `Parameters for Combination Using MMI Technique - Factor Divider 2`)
-
-  max_no_combined_factors <-
-    as.numeric(
-      mcm_mmi_cal_df$
-        `Parameters for Combination Using MMI Technique - Max. No. of Combined Factors`
-    )
-
-  # Measured inputs-----------------------------------------------------------
-  factor_dfs <- list()
-  for(table_name in names(table_names)){
-    gb_ref_table_name <- table_names[[table_name]]
-    mci_table <- gb_ref[[gb_ref_table_name]]
-    mci_table_check_col_name <- names(measured_condition_inputs[[table_name]])[1]
-    mci_table_check_col_val <- measured_condition_inputs[[table_name]][1]
-    row_number <- which(mci_table[[mci_table_check_col_name]] ==
-                          mci_table_check_col_val)
-    factor_df <- mci_table[row_number,] %>%
-      dplyr::select(c("Condition Input Factor", "Condition Input Cap",
-                      "Condition Input Collar"))
-    factor_dfs[[table_name]] <- factor_df
-  }
-
-  mci_factor_df <- factor_dfs %>% plyr::ldply()
-
-  measured_condition_factor <- mmi(mci_factor_df[["Condition Input Factor"]],
-                                   factor_divider_1,
-                                   factor_divider_2,
-                                   max_no_combined_factors)
-
-  measured_condition_cap <- min(mci_factor_df[["Condition Input Cap"]])
-
-  measured_condition_collar <- max(mci_factor_df[["Condition Input Collar"]])
-
-  # Measured condition modifier ---------------------------------------------
-  measured_condition_modifier <- data.frame(condition_factor = measured_condition_factor,
-                                            condition_cap = measured_condition_cap,
-                                            condition_collar = measured_condition_collar)
-
-  return(measured_condition_modifier)
-}
-
-
-get_observed_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names,
-                                                           observed_condition_inputs, sub_component = NULL){
-  oci_mmi_cal_df <-
-    gb_ref$observed_cond_modifier_mmi_cal
-
-  oci_mmi_cal_df <-
-    oci_mmi_cal_df[which(
-      oci_mmi_cal_df$`Asset Category` == asset_category_mmi), ]
-
-  if(!is.null(sub_component)){
-    oci_mmi_cal_df <-
-      oci_mmi_cal_df[which(
-        oci_mmi_cal_df$`Subcomponent` == sub_component), ]
-  }
-
-  factor_divider_1 <-
-    as.numeric(
-      oci_mmi_cal_df$`Parameters for Combination Using MMI Technique - Factor Divider 1`)
-
-  factor_divider_2 <-
-    as.numeric(
-      oci_mmi_cal_df$`Parameters for Combination Using MMI Technique - Factor Divider 2`)
-
-  max_no_combined_factors <-
-    as.numeric(
-      oci_mmi_cal_df$
-        `Parameters for Combination Using MMI Technique - Max. No. of Combined Factors`
-    )
-
-  # Observed inputs-----------------------------------------------------------
-  factor_dfs <- list()
-  for(table_name in names(table_names)){
-    gb_ref_table_name <- table_names[[table_name]]
-    oci_table <- gb_ref[[gb_ref_table_name]]
-    oci_table_check_col_name <- names(observed_condition_inputs[[table_name]])[1]
-    oci_table_check_col_val <- observed_condition_inputs[[table_name]][1]
-    row_number <- which(oci_table[[oci_table_check_col_name]] ==
-                          oci_table_check_col_val)
-    factor_df <- oci_table[row_number,] %>%
-      dplyr::select(c("Condition Input Factor", "Condition Input Cap",
-                      "Condition Input Collar"))
-    factor_dfs[[table_name]] <- factor_df
-  }
-
-  oci_factor_df <- factor_dfs %>% plyr::ldply()
-
-  observed_condition_factor <- mmi(oci_factor_df[["Condition Input Factor"]],
-                                   factor_divider_1,
-                                   factor_divider_2,
-                                   max_no_combined_factors)
-
-  observed_condition_cap <- min(oci_factor_df[["Condition Input Cap"]])
-
-  observed_condition_collar <- max(oci_factor_df[["Condition Input Collar"]])
-
-  # Observed condition modifier ---------------------------------------------
-  observed_condition_modifier <- data.frame(condition_factor = observed_condition_factor,
-                                            condition_cap = observed_condition_cap,
-                                            condition_collar = observed_condition_collar)
-
-  return(observed_condition_modifier)
-
-}

@@ -4,32 +4,30 @@
 #' annual probability of failure per kilometer for a 30-60kV cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @inheritParams pof_cables_60_30kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
 #' per annum per kilometre for 30-60kV cables.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Future probability of failure for 60kV UG Cable (Non Pressurised)
-#' pof_60kV_non_pressurised <-
-#' pof_future_cables_60_30kv(cable_type = "60kV UG Cable (Non Pressurised)",
-#'sub_division = "Aluminium sheath - Aluminium conductor",
-#'utilisation_pct = 75,
-#'operating_voltage_pct = 50,
-#'sheath_test = "Default",
-#'partial_discharge = "Default",
-#'fault_hist = "Default",
-#'leakage = "Default",
-#'reliability_factor = "Default",
-#'age = 1,
-#'simulation_end_year = 100)
+# pof_60kV_non_pressurised <-
+# pof_future_cables_60_30kv(cable_type = "60kV UG Cable (Non Pressurised)",
+# sub_division = "Aluminium sheath - Aluminium conductor",
+# utilisation_pct = 75,
+# operating_voltage_pct = 50,
+# sheath_test = "Default",
+# partial_discharge = "Default",
+# fault_hist = "Default",
+# leakage = "Default",
+# reliability_factor = "Default",
+# age = 1,
+# k_value = "Default",
+# c_value = 1.087,
+# normal_expected_life = "Default",
+# simulation_end_year = 100)
 #' # Plot
 #'plot(pof_60kV_non_pressurised$PoF * 100,
 #'type = "line", ylab = "%", xlab = "years",
@@ -46,6 +44,9 @@ pof_future_cables_60_30kv <-
            leakage = "Default",
            reliability_factor = "Default",
            age,
+           k_value = "Default",
+           c_value = 1.087,
+           normal_expected_life = "Default",
            simulation_end_year = 100) {
 
     if (cable_type == "30kV UG Cable (Non Pressurised)" ) {
@@ -87,10 +88,18 @@ pof_future_cables_60_30kv <-
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` == cable_type &
-                      `Sub-division` == sub_division) %>%
-      dplyr::pull()
+
+
+    if (normal_expected_life == "Default") {
+      normal_expected_life_cable <- gb_ref$normal_expected_life %>%
+        dplyr::filter(`Asset Register  Category` == cable_type &
+                        `Sub-division` == sub_division) %>%
+        dplyr::pull()
+    } else {
+      normal_expected_life_cable <- normal_expected_life
+    }
+
+
 
     # Constants C and K for PoF function --------------------------------------
     if (asset_category == "EHV UG Cable (Non Pressurised)") {
@@ -110,15 +119,16 @@ pof_future_cables_60_30kv <-
         )]
     }
 
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull()/100
+    if (k_value == "Default") {
+      k <- gb_ref$pof_curve_parameters %>%
+        dplyr::filter(`Functional Failure Category` ==
+                        type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
+        dplyr::pull()/100
+    } else {
+      k <- k_value/100
+    }
 
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`C-Value`) %>%
-      dplyr::pull()
+    c <- c_value
 
     # Duty factor -------------------------------------------------------------
 
@@ -144,8 +154,7 @@ pof_future_cables_60_30kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 35 to Table 202
-    # and Table 207 in Appendix B.
+
 
     # Measured condition inputs ---------------------------------------------
     asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")
@@ -344,6 +353,7 @@ pof_future_cables_60_30kv <-
       (1 + (c * current_health_score) +
          (((c * current_health_score)^2) / factorial(2)) +
          (((c * current_health_score)^3) / factorial(3)))
+
 
     # Future probability of failure -------------------------------------------
 

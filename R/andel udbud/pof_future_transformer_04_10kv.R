@@ -4,34 +4,32 @@
 #' annual probability of failure for Danish 0.4/10kV Transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @inheritParams pof_transformer_11_20kv # this is the same for 0.4/10kV Transformers
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Future probability of a 0.4/10 kV transformer
 #' future_pof_transformer <-
-#' pof_future_transformer_04_10kv(utilisation_pct = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age = 20,
-#'partial_discharge = "Default",
-#'temperature_reading = "Default",
-#'observed_condition = "Default",
-#'reliability_factor = "Default",
-#'moisture = "Default",
-#'acidity = "Default",
-#'bd_strength = "Default",
-#'simulation_end_year = 100)
+# pof_future_transformer_04_10kv(utilisation_pct = "Default",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age = 20,
+# partial_discharge = "Default",
+# temperature_reading = "Default",
+# observed_condition = "Default",
+# reliability_factor = "Default",
+# moisture = "Default",
+# acidity = "Default",
+# bd_strength = "Default",
+# k_value = 0.0077,
+# c_value = 1.087,
+# normal_expected_life = 55,
+# simulation_end_year = 100)
 # # Plot
 #'plot(future_pof_transformer$PoF * 100,
 #'type = "line", ylab = "%", xlab = "years",
@@ -50,6 +48,9 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     moisture = "Default",
                                     acidity = "Default",
                                     bd_strength = "Default",
+                                    k_value = 0.0077,
+                                    c_value = 1.087,
+                                    normal_expected_life = 55,
                                     simulation_end_year = 100) {
 
   hv_transformer_type <- "6.6/11kV Transformer (GM)" # this is in order to access tables the are identical to the ones 0.4/10kV transformer is using
@@ -70,12 +71,10 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-  # Normal expected life for 0.4/10 kV transformer ------------------------------
-  normal_expected_life <- 55 # is set to 55 as seeb on p. 18 in DE-10kV apb kabler CNAIM
 
   # Constants C and K for PoF function --------------------------------------
-  k <- 0.0077/100 # see page 31 in DE-10kV apb kabler CNAIM
-  c <- 1.087 # # see page 31 in DE-10kV apb kabler CNAIM
+  k <- k_value/100 # see page 31 in DE-10kV apb kabler CNAIM
+  c <- c_value # # see page 31 in DE-10kV apb kabler CNAIM
 
   # Duty factor -------------------------------------------------------------
   duty_factor_tf_11kv <- duty_factor_transformer_11_20kv(utilisation_pct)
@@ -104,8 +103,6 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
   # of the Health Score. However, in some instances
   # these parameters are set to other values in the
   # Health Score Modifier calibration tables.
-  # These overriding values are shown in Table 35 to Table 202
-  # and Table 207 in Appendix B.
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-

@@ -8,8 +8,11 @@
 #' probability of failure function see section 6
 #' on page 34 in CNAIM (2021).
 #' @param lv_asset_category String.
-#' A sting that refers to the specific asset category.
-#' See See page 17, table 1 in CNAIM (2021).
+#' A sting that refers to the specific asset category. Chose between
+#' \code{lv_asset_category = ("LV Board (WM)", "LV Board (X-type Network) (WM)",
+#' "LV Circuit Breaker", "LV Pillar (ID)", "LV Pillar (OD at Substation)",
+#' "LV Pillar (OD not at a Substation)")}.
+#' See also page 17, table 1 in CNAIM (2021).
 #' @param lv_asset_category String The type of LV asset category
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for

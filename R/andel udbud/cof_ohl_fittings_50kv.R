@@ -1,42 +1,54 @@
-#' @title Financial cost of Failure for 50kV Overhead Line Conductors
-#' @param ohl_cond_asset_category String The type of Pole asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for Pole
-#' @return Numeric. Financial consequences of failure for Poles
+#' @title Financial cost of Failure for 50kV fittings
+#' @description This function calculates financial consequences of failure.
+#' Financial consequences of failure is used in
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @param ehv_asset_category String The type of EHV Fittings asset category
+#' @param type_financial_factor_criteria String. Type Financial factor criteria for EHV fittings
+#' @param access_factor_criteria String. Asses Financial factor criteria for EHV fittings
+#' setting
+#' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
-#' financial_cof_ohl_cond_50kv(
-#' access_factor_criteria = "Type A")
-financial_cof_ohl_cond_50kv <- function(access_factor_criteria){
+# financial_cof_ohl_fittings_50kv(
+# type_financial_factor_criteria = "Tension",
+# access_factor_criteria = "Type A")
+financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
+                                       access_factor_criteria){
 
-  ohl_cond_asset_category <- "66kV OHL (Tower Line) Conductor"
-  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
+  ehv_asset_category = "66kV Fittings"
+  `Asset Register Category` = `Health Index Asset Category` =
+    `Type Financial Factor Criteria` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == ohl_cond_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ohl_cond_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   fcost <- reference_costs_of_failure_tf$`Financial - (GBP)`
 
   # Type financial factor ---------------------------------------------------
-  type_financial_factor <- 1
+  type_financial_factors <- gb_ref$type_financial_factors
+  type_financial_factors_tf <- dplyr::filter(type_financial_factors,
+                                             `Asset Register Category` == ehv_asset_category,
+                                             `Type Financial Factor Criteria` == type_financial_factor_criteria)
+
+  type_financial_factor <- type_financial_factors_tf$`Type Financial Factor`[1]
 
   # Access financial factor -------------------------------------------------
   access_financial_factors <- gb_ref$access_factor_ohl
-  access_finacial_factor_asset_category <- "EHV OHL Conductors (Tower Lines)"
-
-  if(asset_category == "132kV OHL Conductor (Tower Lines)"){
-    access_finacial_factor_asset_category <- "132kV OHL Conductors (Tower Lines)"
+  access_category_financial_factor <- "EHV OHL Fittings (Tower Lines)"
+  if(ehv_asset_category == "132kV Fittings"){
+    access_category_financial_factor <- "132kV OHL Fittings (Tower Lines)"
   }
 
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 access_finacial_factor_asset_category)
+                                                 access_category_financial_factor)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -57,30 +69,33 @@ financial_cof_ohl_cond_50kv <- function(access_factor_criteria){
 }
 
 
-#' @title Safety cost of Failure for 50kV Overhead Line Conductors
+#' @title Safety cost of Failure for 50kV Fittings
 #' @description This function calculates safety consequences of failure
-#' @param ohl_cond_asset_category String The type of overhead line conductor asset category
-#' @param location_risk String Type Financial factor criteria for Overhead Line Conductors
-#' @param type_risk String. Asses Financial factor criteria for Overhead Line Conductors
-#' @return Numeric. Safety consequences of failure for Overhead Line Conductors
+#' Safety consequences of failure is used in
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @param ehv_asset_category String The type of EHV asset category
+#' @param location_risk String Type Financial factor criteria for 50kV fittings
+#' @param type_risk String. Asses Financial factor criteria for 50kV fittings
+#' setting
+#' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
-#' safety_cof_ohl_cond_50kv(
-#' location_risk = "Default",
-#' type_risk = "Default")
-safety_cof_ohl_cond_50kv <- function(location_risk,
-                                type_risk){
+# safety_cof_ohl_fittings_50kv(
+# location_risk = "Default",
+# type_risk = "Default")
+safety_cof_ohl_fittings_50kv <- function(location_risk,
+                                         type_risk){
 
-  ohl_cond_asset_category <- "66kV OHL (Tower Line) Conductor"
+  ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == ohl_cond_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ohl_cond_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   scost <- reference_costs_of_failure_tf$`Safety - (GBP)`
@@ -106,25 +121,27 @@ safety_cof_ohl_cond_50kv <- function(location_risk,
 }
 
 
-#' @title Environmental cost of Failure for 50kV Overhead line conductors
+#' @title Environmental cost of Failure for 50kV fittings
 #' @description This function calculates environmental consequences of failure
-#' @param ohl_cond_asset_category String The type of Overhead Line Conductors
+#' Environmental consequences of failure is used in
+#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for 50kv fittings
+#' @param ehv_asset_category String The type of EHV asset category
 #' @export
 #' @examples
-#' environmental_cof_ohl_cond_50kv()
-environmental_cof_ohl_cond_50kv <- function(){
+#' environmental_cof_ohl_fittings_50kv()
+environmental_cof_ohl_fittings_50kv <- function(){
 
-  ohl_cond_asset_category <- "66kV OHL (Tower Line) Conductor"
+  ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == ohl_cond_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ohl_cond_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ecost <- reference_costs_of_failure_tf$`Environmental - (GBP)`
@@ -149,25 +166,29 @@ environmental_cof_ohl_cond_50kv <- function(){
 }
 
 
-#' @title Network cost of Failure for 50kV Overhead Line Conductors
+#' @title Network cost of Failure for 50kV Fittings
 #' @description This function calculates network cost of failure for
-#' @param ohl_cond_asset_category String The type of Overhead line conductor
+#' 50kV fittings
+#' Network cost of failure is used in the derivation of consequences of failure see \code{\link{cof}}().
+#' @param ehv_asset_category String The type of EHV asset category
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
+#' @export
 #' @examples
-#' network_cof_ohl_cond_50kv(
+#' network_cof_ohl_fittings_50kv(
 #' actual_load_mva = 15)
-network_cof_ohl_cond_50kv<- function(actual_load_mva,
-                                secure = T) {
+network_cof_ohl_fittings_50kv<- function(
+                                    actual_load_mva,
+                                    secure = T) {
 
-  ohl_cond_asset_category <- "33kV OHL (Tower Line) Conductor"
+  ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   ohl_cond_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
@@ -176,7 +197,7 @@ network_cof_ohl_cond_50kv<- function(actual_load_mva,
   ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
-                                                             ohl_cond_asset_category)
+                                                             ehv_asset_category)
 
   load_factor <- actual_load_mva/ref_nw_perf_cost_fail_ehv_single_row_df$`Maximum Demand Used To Derive Reference Cost (MVA)`
 

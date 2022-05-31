@@ -10,8 +10,8 @@
 #' @param operating_voltage_pct Numeric. The ratio in percent of
 #' operating/design voltage.
 #' @param voltage_level String. Specify the voltage level. Options:
-#' \code{voltage_level = c("EHV", "LV & HV")}.
-#' Choose \code{"EHV"} for cables \code{>= 33kV}  and \code{"LV & HV"}
+#' \code{voltage_level = c("EHV", "HV")}.
+#' Choose \code{"EHV"} for cables \code{>= 33kV}  and \code{"HV"}
 #' for cables \code{< 33kV} .
 #' @return Numeric. Duty factor for cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -27,18 +27,18 @@ duty_factor_cables <- function(utilisation_pct = "Default",
                                operating_voltage_pct = "Default",
                                voltage_level = "EHV") {
 
-  `Duty Factor (LV & HV)` = `Duty Factor (EHV & 132kV)` = NULL
+  `Duty Factor (HV)` = `Duty Factor (EHV & 132kV)` = NULL
   if (voltage_level == "EHV") {
     duty_factor_table1 <- gb_ref$duty_factor_lut_cables_df1 %>% dplyr::select(
-      !`Duty Factor (LV & HV)`)
+      !`Duty Factor (HV)`)
     duty_factor_table1$`Duty Factor` <-
       duty_factor_table1$`Duty Factor (EHV & 132kV)`
 
-  } else if(voltage_level == "LV & HV") {
+  } else if(voltage_level == "HV") {
     duty_factor_table1 <- gb_ref$duty_factor_lut_cables_df1 %>% dplyr::select(
       !`Duty Factor (EHV & 132kV)`)
     duty_factor_table1$`Duty Factor` <-
-      duty_factor_table1$`Duty Factor (LV & HV)`
+      duty_factor_table1$`Duty Factor (HV)`
   }
 
 

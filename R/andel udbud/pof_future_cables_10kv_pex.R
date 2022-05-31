@@ -1,37 +1,34 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for Danish 10kV APB cables
+#' @title Future Probability of Failure for 10kV UG PEX non Pressurised cables
 #' @description This function calculates the future
-#' #' annual probability of failure per kilometer for a Danish 10 kV APB cable.
+#' #' annual probability of failure per kilometer for a 10kV PEX non Pressurised cables
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
-#' @inheritParams pof_cables_10kv_apb
+#' exponential function.
+#' @inheritParams pof_cables_10kv_pex
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
-#' per annum for 10 kv APB cables.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+#' per annum for 10 kv oil cables.
 #' @export
 #' @examples
-#' # Current annual probability of failure for 10-20kV cable, APB, 50 years old
-#'pof_future_cables_10kV_apb_result <-
-#'pof_future_cables_10kv_apb(
-#'utilisation_pct = 80,
-#'operating_voltage_pct = 60,
-#'sheath_test = "Default",
-#'partial_discharge = "Default",
-#'fault_hist = "Default",
-#'reliability_factor = "Default",
-#'age = 50) * 100
-#'
-#'paste0(sprintf("Probability of failure %.4f", pof_future_cables_10kV_apb_result),
-#'" percent per annum")
+#' # future annual probability of failure for 10kV cable oil, 50 years old
+#'pof_future_cables_10kV_pex_result <-
+# pof_future_cables_10kv_pex(
+# utilisation_pct = 80,
+# operating_voltage_pct = 60,
+# sheath_test = "Default",
+# partial_discharge = "Default",
+# fault_hist = "Default",
+# reliability_factor = "Default",
+# age = 50,
+# k_value = 0.0658,
+# c_value = 1.087,
+# normal_expected_life = 80,
+# simulation_end_year = 100)
 
-pof_future_cables_10kv_apb <-
+
+pof_future_cables_10kv_pex <-
   function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            sheath_test = "Default",
@@ -39,6 +36,9 @@ pof_future_cables_10kv_apb <-
            fault_hist = "Default",
            reliability_factor = "Default",
            age,
+           k_value = 0.0658,
+           c_value = 1.087,
+           normal_expected_life = 80,
            simulation_end_year = 100) {
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -48,8 +48,8 @@ pof_future_cables_10kv_apb <-
       `Condition Criteria: Partial Discharge Test Result` =
       NULL
 
-      pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
-      sub_division <- "Lead sheath - Copper conductor"
+    pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
+    sub_division <- "Lead sheath - Copper conductor"
 
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
@@ -68,16 +68,16 @@ pof_future_cables_10kv_apb <-
 
     # Constants C and K for PoF function --------------------------------------
 
-    k <- 0.238/100 # see p. 34  "DE-10kV apb kabler CNAIM"
-    c <- 1.087 # set to the standard accordingly in CNAIM (2021) and in "DE-10kV apb kabler CNAIM"
+    k <- k_value/100 # see p. 34  "DE-10kV apb kabler CNAIM"
+    c <- c_value # set to the standard accordingly in CNAIM (2021) and in "DE-10kV apb kabler CNAIM"
 
     duty_factor_cable <-
       duty_factor_cables(utilisation_pct,
                          operating_voltage_pct,
-                         voltage_level = "LV & HV")
+                         voltage_level = "HV")
 
     # Expected life ------------------------------ # the expected life set to 80 accordingly to p. 33 in "DE-10kV apb kabler CNAIM"
-    expected_life_years <- expected_life(80,
+    expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_cable,
                                          location_factor = 1)
 
@@ -93,8 +93,6 @@ pof_future_cables_10kv_apb <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 35 to Table 202
-    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")

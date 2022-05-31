@@ -4,58 +4,56 @@
 #' annual probability of failure for 30/10kV and 60/10kV transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @inheritParams pof_transformer_30_60kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #' of failure. Default is 100.
 #' @return Numeric. Current probability of failure.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
-#' @export
 #' @examples
 #' # Future probability of failure for a 60/10kV transformer
-#' pof_future_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
-#'year_of_manufacture = 1980,
-#'utilisation_pct = "Default",
-#'no_taps = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age_tf = 43,
-#'age_tc = 43,
-#'partial_discharge_tf = "Default",
-#'partial_discharge_tc = "Default",
-#'temperature_reading = "Default",
-#'main_tank = "Default",
-#'coolers_radiator = "Default",
-#'bushings = "Default",
-#'kiosk = "Default",
-#'cable_boxes = "Default",
-#'external_tap = "Default",
-#'internal_tap = "Default",
-#'mechnism_cond = "Default",
-#'diverter_contacts = "Default",
-#'diverter_braids = "Default",
-#'moisture = "Default",
-#'acidity = "Default",
-#'bd_strength = "Default",
-#'hydrogen = "Default",
-#'methane = "Default",
-#'ethylene = "Default",
-#'ethane = "Default",
-#'acetylene = "Default",
-#'hydrogen_pre = "Default",
-#'methane_pre = "Default",
-#'ethylene_pre = "Default",
-#'ethane_pre = "Default",
-#'acetylene_pre = "Default",
-#'furfuraldehyde = "Default",
-#'reliability_factor = "Default",
-#'simulation_end_year = 100)
+# pof_future_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
+# year_of_manufacture = 1980,
+# utilisation_pct = "Default",
+# no_taps = "Default",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age_tf = 43,
+# age_tc = 43,
+# partial_discharge_tf = "Default",
+# partial_discharge_tc = "Default",
+# temperature_reading = "Default",
+# main_tank = "Default",
+# coolers_radiator = "Default",
+# bushings = "Default",
+# kiosk = "Default",
+# cable_boxes = "Default",
+# external_tap = "Default",
+# internal_tap = "Default",
+# mechnism_cond = "Default",
+# diverter_contacts = "Default",
+# diverter_braids = "Default",
+# moisture = "Default",
+# acidity = "Default",
+# bd_strength = "Default",
+# hydrogen = "Default",
+# methane = "Default",
+# ethylene = "Default",
+# ethane = "Default",
+# acetylene = "Default",
+# hydrogen_pre = "Default",
+# methane_pre = "Default",
+# ethylene_pre = "Default",
+# ethane_pre = "Default",
+# acetylene_pre = "Default",
+# furfuraldehyde = "Default",
+# reliability_factor = "Default",
+# k_value = 0.454,
+# c_value = 1.087,
+# normal_expected_life_tf = "Default",
+# normal_expected_life_tc = "Default",
+# simulation_end_year = 100)
 
 
 pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer (GM)",
@@ -96,6 +94,10 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
                                     acetylene_pre = "Default",
                                     furfuraldehyde = "Default",
                                     reliability_factor = "Default",
+                                    k_value = 0.454,
+                                    c_value = 1.087,
+                                    normal_expected_life_tf = "Default",
+                                    normal_expected_life_tc = "Default",
                                     simulation_end_year = 100) {
 
   if (transformer_type == "30kV Transformer (GM)" ) {
@@ -134,27 +136,29 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
 
   }
 
-  normal_expected_life_tf <- gb_ref$normal_expected_life %>%
-    dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
-                    sub_division) %>%
-    dplyr::pull()
+  if (normal_expected_life_tf == "Default") {
+    normal_expected_life_tf <- gb_ref$normal_expected_life %>%
+      dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
+                      sub_division) %>%
+      dplyr::pull()
+  } else {
+    normal_expected_life_tf <- normal_expected_life_tf
+  }
 
   # Normal expected life for tapchanger -----------------------------
-
-  normal_expected_life_tc <- gb_ref$normal_expected_life %>%
-    dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
-                    "Tapchanger") %>%
-    dplyr::pull()
+  if (normal_expected_life_tc == "Default") {
+    normal_expected_life_tc <- gb_ref$normal_expected_life %>%
+      dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
+                      "Tapchanger") %>%
+      dplyr::pull()
+  } else {
+    normal_expected_life_tc <- normal_expected_life_tc
+  }
 
   # Constants C and K for PoF function --------------------------------------
-  k <- gb_ref$pof_curve_parameters %>%
-    dplyr::filter(`Functional Failure Category` ==
-                    'EHV Transformer/ 132kV Transformer') %>% dplyr::select(`K-Value (%)`) %>%
-    dplyr::pull()/100
+  k <- k_value/100
 
-  c <- gb_ref$pof_curve_parameters %>%
-    dplyr::filter(`Functional Failure Category` ==
-                    'EHV Transformer/ 132kV Transformer') %>% dplyr::select(`C-Value`) %>% dplyr::pull()
+  c <- c_value
 
   # Duty factor -------------------------------------------------------------
   duty_factor_tf_11kv <- duty_factor_transformer_33_66kv(utilisation_pct,
@@ -200,8 +204,6 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
   # of the Health Score. However, in some instances
   # these parameters are set to other values in the
   # Health Score Modifier calibration tables.
-  # These overriding values are shown in Table 35 to Table 202
-  # and Table 207 in Appendix B.
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-

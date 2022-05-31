@@ -1,22 +1,18 @@
-#' @title Financial cost of Failure for HV swicthgear primary
+#' @title Financial cost of Failure for 10 kV swicthgear secondary
 #' @description This function calculates financial consequences of failure
-#' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
-#' of failure is used in
+#' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of HV switchgear distribution asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for HV switchgear
-#' setting (cf. table 221, page 180, CNAIM, 2021).
-#' @return Numeric. Financial consequences of failure for HV switchgear primary
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+#' @param hv_asset_category String The type of switchgear secondary asset category
+#' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
+#' setting
 #' @export
 #' @examples
-#' financial_cof_hv_switchgear_primary(
-#' hv_asset_category = "6.6/11kV CB (GM) Primary",
+#' financial_cof_switchgear_secondary_10kv(
 #' access_factor_criteria = "Type A")
-financial_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                                access_factor_criteria){
+financial_cof_switchgear_secondary_10kv <- function(hv_asset_category,
+                                                     access_factor_criteria){
+
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -65,29 +61,26 @@ financial_cof_hv_switchgear_primary <- function(hv_asset_category,
 }
 
 
-#' @title Safety cost of Failure for HV Switchgear Primary
-#' @description This function calculates safety consequences of failure
-#' (cf. section 7.3, page 79, CNAIM, 2021). Safetyr consequences
-#' of failure is used in
+#' @title Safety cost of Failure for 10 kV Switchgear Secondary
+#' @description This function calculates safety consequences of failure.
+#'Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of HV asset category
-#' @param location_risk String Type Financial factor criteria for HV switchgear
+#' @param hv_asset_category String The type of LV asset category
+#' @param location_risk String Type Financial factor criteria for 10kV switchgear secondary
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
-#' @param type_risk String. Asses Financial factor criteria for HV switchgear
-#' setting (cf. table 218, page 176, CNAIM, 2021).
-#' @return Numeric. Financial consequences of failure for HV switchgear
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+#' @param type_risk String. Asses Financial factor criteria for 10kV switchgear secondary
+#' setting
+#' @return Numeric. Financial consequences of failure for 10kV switchgear secondary
 #' @export
 #' @examples
-#' safety_cof_hv_switchgear_primary(
-#' hv_asset_category = "6.6/11kV CB (GM) Primary",
+#' safety_cof_switchgear_secondary_10kv(
 #' location_risk = "Default",
 #' type_risk = "Default")
-safety_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                             location_risk,
-                                             type_risk){
+safety_cof_switchgear_secondary_10kv <- function(hv_asset_category,
+                                                  location_risk,
+                                                  type_risk){
+
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -122,32 +115,29 @@ safety_cof_hv_switchgear_primary <- function(hv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for HV switchgear primary
-#' @description This function calculates environmental consequences of failure
-#' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
-#' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for HV switchgear
+#' @title Environmental cost of Failure for 10kV switchgear secondary
+#' @description This function calculates environmental consequences of failure.
+#' Environmental consequences of failure is used in
+#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric.
+#' Financial consequences of failure for 10 kV switchgear secondary
 #' @param hv_asset_category String The type of HV asset category
 #' @param type_env_factor String The type environment factor of HV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
-#' (cf. table 231, page 188, CNAIM, 2021).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' environmental_cof_hv_switchgear_primary(
-#' hv_asset_category = "6.6/11kV CB (GM) Primary",
-#' type_env_factor = "Oil",
-#' prox_water = 95, bunded = "Yes")
-environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                                    type_env_factor,
-                                                    prox_water,
-                                                    bunded){
+#' environmental_cof_switchgear_secondary_10kv(
+#' type_env_factor = "Oil", prox_water = 95,
+#' bunded = "Yes")
+environmental_cof_switchgear_secondary_10kv <- function(hv_asset_category,
+                                                         type_env_factor,
+                                                         prox_water,
+                                                         bunded){
+
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
@@ -219,29 +209,27 @@ environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
 }
 
 
-#' @title Network cost of Failure for HV Switchgear Primary
+#' @title Network cost of Failure for 10kV Switchgear secondary
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
-#' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
+#' Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of HV asset category
+#' @param hv_asset_category String The type of LV asset category
 #' @param no_customers Numeric. The numner of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
 #' results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).
 #' @return Numeric. Network cost of failure.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' network_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Secondary",
+#' network_cof_switchgear_secondary_10kv(
 #' no_customers = 750, kva_per_customer = 51)
-network_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                              no_customers,
-                                              kva_per_customer = "Default") {
+network_cof_switchgear_secondary_10kv <- function(hv_asset_category,
+                                                   no_customers,
+                                                   kva_per_customer = "Default") {
 
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%

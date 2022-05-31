@@ -4,13 +4,9 @@
 #' annual probability of failure per kilometer 50kV OHL conductors.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @param ohl_conductor String.
 #' A sting that refers to the specific asset category.
-#' See See page 17, table 1 in CNAIM (2021).
-#' Options:
 #' @param sub_division String. Refers to material the conductor is
 #' made of. Options:
 #' \code{sub_division = c("ACSR - greased",
@@ -19,28 +15,29 @@
 #' "Cad Cu",
 #' "Cu",
 #' "Other")
-#'}. See page 107, table 20 in CNAIM (2021).
+#'}.
 #' @inheritParams location_factor
 #' @param age  Numeric. The current age in years of the conductor.
 #' @param conductor_samp String. Conductor sampling. Options:
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-#' See page 161, table 199 and 201 in CNAIM (2021).
 #' @param corr_mon_survey String. Corrosion monitoring survey. Options:
 #' \code{corr_mon_survey = c("Low","Medium/Normal","High","Default")}.
-#' See page 161, table 200 and 202 in CNAIM (2021).
 #' @param visual_cond String. Visual condition. Options:
-#' \code{visual_cond = c("No deterioration","Superficial/minor deterioration","Some Deterioration",
+#' \code{visual_cond = c("No deterioration","Superficial/minor deterioration",
+#' "Some Deterioration",
 #' "Substantial Deterioration", "Default")}.
-#' See page 146, table 140 and 142 in CNAIM (2021).
 #' @param midspan_joints Integer. Number of midspan joints on the conductor.
 #' A span includes all conductors in that span.
-#' See page 146, table 141 and 143 in CNAIM (2021).
 #' @inheritParams current_health
+#' @param k_value Numeric. \code{k_value = 0.0080} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = "Default"} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometer.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 66kV OHL (Tower Line) Conductor
@@ -55,7 +52,10 @@
 # corr_mon_survey = "Default",
 # visual_cond = "Default",
 # midspan_joints = "Default",
-# reliability_factor = "Default")
+# reliability_factor = "Default",
+# k_value = 0.0080,
+# c_value = 1.087,
+# normal_expected_life = "Default")
 
 pof_ohl_cond_50kv <-
   function(sub_division = "Cu",
@@ -68,7 +68,10 @@ pof_ohl_cond_50kv <-
            corr_mon_survey = "Default",
            visual_cond = "Default",
            midspan_joints = "Default",
-           reliability_factor = "Default") {
+           reliability_factor = "Default",
+           k_value = 0.0080,
+           c_value = 1.087,
+           normal_expected_life = "Default") {
 
     ohl_conductor <- "66kV OHL (Tower Line) Conductor"
 
@@ -101,17 +104,19 @@ pof_ohl_cond_50kv <-
                       `Sub-division` == sub_division) %>%
       dplyr::pull()
 
+    if (normal_expected_life == "Default") {
+      normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+        dplyr::filter(`Asset Register  Category` == ohl_conductor &
+                        `Sub-division` == sub_division) %>%
+        dplyr::pull()
+    } else {
+      normal_expected_life_cond <- normal_expected_life
+    }
+
     # Constants C and K for PoF function --------------------------------------
 
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      generic_term_2) %>% dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull()/100
-
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      generic_term_2) %>% dplyr::select(`C-Value`) %>%
-      dplyr::pull()
+    k <- k_value/100
+    c <- c_value
 
     # Duty factor -------------------------------------------------------------
 
@@ -140,8 +145,6 @@ pof_ohl_cond_50kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 35 to Table 202
-    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     if (asset_category == "EHV OHL Conductor (Tower Lines)") {

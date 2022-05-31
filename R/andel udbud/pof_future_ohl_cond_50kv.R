@@ -4,17 +4,12 @@
 #' annual probability of failure per kilometer 50kV OHL conductors.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @inheritParams pof_ohl_cond_50kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric. Current probability of failure
+#' @return Numeric. Future probability of failure
 #' per annum per kilometer.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Future annual probability of failure for 50kV OHL (Tower Line) Conductor
@@ -30,6 +25,9 @@
 # visual_cond = "Default",
 # midspan_joints = "Default",
 # reliability_factor = "Default",
+# k_value = 0.0080,
+# c_value = 1.087,
+# normal_expected_life = "Default",
 # simulation_end_year = 100)
 
 pof_future_ohl_cond_50kv <-
@@ -44,6 +42,9 @@ pof_future_ohl_cond_50kv <-
            visual_cond = "Default",
            midspan_joints = "Default",
            reliability_factor = "Default",
+           k_value = 0.0080,
+           c_value = 1.087,
+           normal_expected_life = "Default",
            simulation_end_year = 100) {
 
     ohl_conductor <- "66kV OHL (Tower Line) Conductor"
@@ -77,17 +78,19 @@ pof_future_ohl_cond_50kv <-
                       `Sub-division` == sub_division) %>%
       dplyr::pull()
 
+    if (normal_expected_life == "Default") {
+      normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+        dplyr::filter(`Asset Register  Category` == ohl_conductor &
+                        `Sub-division` == sub_division) %>%
+        dplyr::pull()
+    } else {
+      normal_expected_life_cond <- normal_expected_life
+    }
+
     # Constants C and K for PoF function --------------------------------------
 
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      generic_term_2) %>% dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull()/100
-
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      generic_term_2) %>% dplyr::select(`C-Value`) %>%
-      dplyr::pull()
+    k <- k_value/100
+    c <- c_value
 
     # Duty factor -------------------------------------------------------------
 
@@ -116,8 +119,6 @@ pof_future_ohl_cond_50kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 35 to Table 202
-    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     if (asset_category == "EHV OHL Conductor (Tower Lines)") {
@@ -403,6 +404,7 @@ pof_future_ohl_cond_50kv <-
       (1 + (c * current_health_score) +
          (((c * current_health_score)^2) / factorial(2)) +
          (((c * current_health_score)^3) / factorial(3)))
+
 
     # Future probability of failure -------------------------------------------
 

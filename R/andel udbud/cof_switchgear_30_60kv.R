@@ -1,32 +1,35 @@
-#' @title Financial cost of Failure for HV swicthgear primary
+#' @title Financial cost of Failure for 30kV and 60kV switchgear
 #' @description This function calculates financial consequences of failure
-#' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
-#' of failure is used in
+#' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of HV switchgear distribution asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for HV switchgear
-#' setting (cf. table 221, page 180, CNAIM, 2021).
-#' @return Numeric. Financial consequences of failure for HV switchgear primary
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+#' @param ehv_asset_category String The type of 30kV and 60kV switchgear
+#' @param access_factor_criteria String. Asses Financial factor criteria for 30kV and 60kV switchgear
+#' setting
+#' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
+
 #' @export
 #' @examples
-#' financial_cof_hv_switchgear_primary(
-#' hv_asset_category = "6.6/11kV CB (GM) Primary",
-#' access_factor_criteria = "Type A")
-financial_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                                access_factor_criteria){
+#' financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV", access_factor_criteria = "Type A")
+financial_cof_switchgear_30_60kv <- function(ehv_asset_category, access_factor_criteria){
+
+  if (ehv_asset_category == "30kV" ) {
+    ehv_asset_category <- "33kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else if (ehv_asset_category == "60kV" ) {
+    ehv_asset_category <- "66kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else {
+    ehv_asset_category <- NULL
+    warning("Wrong input, please go to CNAIM.io for more documentation")
+  }
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   hv_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   fcost <- reference_costs_of_failure_tf$`Financial - (GBP)`
@@ -35,10 +38,16 @@ financial_cof_hv_switchgear_primary <- function(hv_asset_category,
   type_financial_factor <- 1
 
   # Access financial factor -------------------------------------------------
+  access_financial_factor_category <- "EHV Switchgear (GM)"
+  if("132kV" %in%  ehv_asset_category){
+    access_financial_factor_category <- "132kV CBs"
+  }
+
   access_financial_factors <- gb_ref$access_factor_swg_tf_asset
+
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 "HV Switchgear (GM) - Distribution")
+                                                 access_financial_factor_category)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -65,38 +74,40 @@ financial_cof_hv_switchgear_primary <- function(hv_asset_category,
 }
 
 
-#' @title Safety cost of Failure for HV Switchgear Primary
+#' @title Safety cost of Failure for 30kV and 60kV switchgear
 #' @description This function calculates safety consequences of failure
-#' (cf. section 7.3, page 79, CNAIM, 2021). Safetyr consequences
-#' of failure is used in
+#' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of HV asset category
-#' @param location_risk String Type Financial factor criteria for HV switchgear
-#' (cf. section D1.2.1, page 178, CNAIM, 2021).
-#' @param type_risk String. Asses Financial factor criteria for HV switchgear
-#' setting (cf. table 218, page 176, CNAIM, 2021).
-#' @return Numeric. Financial consequences of failure for HV switchgear
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+#' @param ehv_asset_category String The type of 30kV and 60kV switchgear
+#' @param location_risk String Type Financial factor criteria for 30kV and 60kV switchgear
+#' @param type_risk String. Asses Financial factor criteria for 30kV and 60kV switchgear
+#' setting
+#' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
 #' @export
 #' @examples
-#' safety_cof_hv_switchgear_primary(
-#' hv_asset_category = "6.6/11kV CB (GM) Primary",
+#' safety_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
 #' location_risk = "Default",
 #' type_risk = "Default")
-safety_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                             location_risk,
-                                             type_risk){
+safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
+                                          location_risk,
+                                          type_risk){
+  if (ehv_asset_category == "30kV" ) {
+    ehv_asset_category <- "33kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else if (ehv_asset_category == "60kV" ) {
+    ehv_asset_category <- "66kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else {
+    ehv_asset_category <- NULL
+    warning("Wrong input, please go to CNAIM.io for more documentation")
+  }
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   hv_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   scost <- reference_costs_of_failure_tf$`Safety - (GBP)`
@@ -122,42 +133,46 @@ safety_cof_hv_switchgear_primary <- function(hv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for HV switchgear primary
+#' @title Environmental cost of Failure for 30kV and 60kV switchgear
 #' @description This function calculates environmental consequences of failure
-#' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
-#' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for HV switchgear
-#' @param hv_asset_category String The type of HV asset category
-#' @param type_env_factor String The type environment factor of HV asset category
+#' Environmental consequences of failure is used in
+#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
+#' @param ehv_asset_category String The type of EHV asset category
+#' @param type_env_factor String The type environment factor of 30kV and 60kV switchgear
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
-#' (cf. table 231, page 188, CNAIM, 2021).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' environmental_cof_hv_switchgear_primary(
-#' hv_asset_category = "6.6/11kV CB (GM) Primary",
+#' environmental_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
 #' type_env_factor = "Oil",
-#' prox_water = 95, bunded = "Yes")
-environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                                    type_env_factor,
-                                                    prox_water,
-                                                    bunded){
+#' prox_water = 95,
+#' bunded = "Yes")
+environmental_cof_switchgear_30_60kv <- function(ehv_asset_category,
+                                             type_env_factor,
+                                             prox_water,
+                                             bunded){
+
+  if (ehv_asset_category == "30kV" ) {
+    ehv_asset_category <- "33kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else if (ehv_asset_category == "60kV" ) {
+    ehv_asset_category <- "66kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else {
+    ehv_asset_category <- NULL
+    warning("Wrong input, please go to CNAIM.io for more documentation")
+  }
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
+    dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   hv_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ecost <- reference_costs_of_failure_tf$`Environmental - (GBP)`
@@ -219,84 +234,59 @@ environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
 }
 
 
-#' @title Network cost of Failure for HV Switchgear Primary
+#' @title Network cost of Failure for 30kV and 60kV switchgear
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
-#' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
-#' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of HV asset category
-#' @param no_customers Numeric. The numner of customers
-#' fed by an individual asset.
-#' @param kva_per_customer Numeric. If the asset have an exceptionally high
-#' demand per customer type in kVA per customer. A setting of \code{"Default"}
-#' results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).
+#' Network cost of failureis used in the derivation
+#'  of consequences of failure see \code{\link{cof}}().
+#' @param ehv_asset_category String The type of 30kV and 60kV switchgear category
+#' @param actual_load_mva Numeric. The actual load on the asset
+#' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' network_cof_hv_switchgear_primary(hv_asset_category = "6.6/11kV CB (GM) Secondary",
-#' no_customers = 750, kva_per_customer = 51)
-network_cof_hv_switchgear_primary <- function(hv_asset_category,
-                                              no_customers,
-                                              kva_per_customer = "Default") {
-
-  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
-
-  asset_category <- gb_ref$categorisation_of_assets %>%
-    dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
-    dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
+#' network_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+#' actual_load_mva = 15)
+network_cof_switchgear_30_60kv <- function(ehv_asset_category,
+                                           actual_load_mva,
+                                           secure = T) {
+  if (ehv_asset_category == "30kV" ) {
+    ehv_asset_category <- "33kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else if (ehv_asset_category == "60kV" ) {
+    ehv_asset_category <- "66kV CB (Air Insulated Busbars)(ID) (GM)"
+  } else {
+    ehv_asset_category <- NULL
+    warning("Wrong input, please go to CNAIM.io for more documentation")
+  }
+  `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
+    `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   hv_asset_category)
+                                                   ehv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
-  # Customer factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
-  ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
-                                                  `Asset Category` ==
-                                                    asset_category)
+  # Load factor ---------------------------------------------------------
+  ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
+  ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
+                                                           `Asset Category` ==
+                                                             ehv_asset_category)
 
-  ref_no_cust <-
-    ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
+  load_factor <- actual_load_mva/ref_nw_perf_cost_fail_ehv_single_row_df$`Maximum Demand Used To Derive Reference Cost (MVA)`
 
-  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+  # Network type factor -----------------------------------
+  network_type_factor <- 1
 
-
-  for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){
-    if (kva_per_customer == 'Default'){
-      adj_cust_no <- 1
-      break
-    } else if (kva_per_customer >= as.numeric(
-      customer_no_adjust_lv_hv_asset$Lower[n]) &
-      kva_per_customer < as.numeric(
-        customer_no_adjust_lv_hv_asset$Upper[n])){
-      adj_cust_no <-
-        customer_no_adjust_lv_hv_asset$
-        `No. of Customers to be used in the derivation of Customer Factor`[n]
-      break
-    }
+  if(!secure){
+    network_type_factor <- 2.5
   }
-
-  adj_cust_no <-
-    adj_cust_no %>% stringr::str_match_all("[0-9]+") %>% unlist %>% as.numeric
-
-  customer_factor <- (adj_cust_no * no_customers) / ref_no_cust
-
-
-  # Customer sensitivity factor ---------------------------------------------
-  customer_sensitivity_factor <- 1 # See section 7.6.2.2, p. 89 in CNAIM (2021)
-
 
   # Network perfomance consequence factor -----------------------------------
 
-  network_performance_consequence_factor <- customer_factor *
-    customer_sensitivity_factor
-
+  network_performance_consequence_factor <- load_factor *
+    network_type_factor
 
   # Network performance cost of failure -------------------------------------
   network_cof <- network_performance_consequence_factor * ncost

@@ -4,17 +4,15 @@
 #' annual probability of failure for 30/10kV and 60/10kV transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @param transformer_type String. A sting that refers to the specific
-#' asset category. See See page 17, table 1 in CNAIM (2021).
+#' asset category.
 #' Options:
 #' \code{transformer_type =
 #' c("30kV Transformer (GM)", "60kV Transformer (GM)")}. The default setting is
 #' \code{transformer_type = "60kV Transformer (GM)"}
 #' @param year_of_manufacture Numeric. Normal expected life depends on the
-#' year for manufacture, see page 107 table 20 in CNAIM (2021).
+#' year for manufacture.
 #' @inheritParams duty_factor_transformer_33_66kv
 #' @inheritParams location_factor
 #' @inheritParams current_health
@@ -26,114 +24,120 @@
 #' level of partial discharge in the transformer.
 #' Options:
 #' \code{partial_discharge_tf = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 154, table 173 in CNAIM (2021).
+#'  "High (Confirmed)", "Default")}.
 #' @param partial_discharge_tc String. Indicating the
 #' level of partial discharge in the tapchanger
 #' Options:
 #' \code{partial_discharge_tc = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 155, table 175 in CNAIM (2021).
+#'  "High (Confirmed)", "Default")}.
 #' @param temperature_reading String. Indicating the criticality.
 #' Options:
 #' \code{temperature_reading = c("Normal", "Moderately High",
-#' "Very High", "Default")}. See page 154, table 174 in CNAIM (2021).
+#' "Very High", "Default")}.
 #' @param main_tank String. Indicating the observed condition of the
 #' main tank. Options:
 #' \code{main_tank = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 131, table 83
+#' "Substantial Deterioration", "Default")}.
 #' in CNAIM (2021).
 #' @param coolers_radiator String. Indicating the observed condition of the
 #' coolers/radiators. Options:
 #' \code{coolers_radiator = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 131, table 84
+#' "Substantial Deterioration", "Default")}.
 #' in CNAIM (2021).
 #' @param bushings String. Indicating the observed condition of the
 #' bushings. Options:
 #' \code{bushings = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 131, table 85
-#' in CNAIM (2021).
+#' "Substantial Deterioration", "Default")}.
 #' @param kiosk String. Indicating the observed condition of the
 #' kiosk. Options:
 #' \code{kiosk = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 132, table 86
-#' in CNAIM (2021).
+#' "Substantial Deterioration", "Default")}.
 #' @param cable_boxes String. Indicating the observed condition of the
 #' cable boxes. Options:
 #' \code{cable_boxes = c("No Deterioration","Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 132, table 87
-#' in CNAIM (2021).
+#' "Substantial Deterioration", "Default")}.
 #' @param external_tap String. Indicating the observed external condition of the
 #'  tapchanger. Options:
 #' \code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 88
+#' "Substantial Deterioration", "Default")}.
 #' in CNAIM (2021).
 #' @param internal_tap String. Indicating the observed internal condition of the
 #'  tapchanger. Options:
 #' \code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 89
+#' "Substantial Deterioration", "Default")}.
 #' in CNAIM (2021).
 #' @param mechnism_cond String. Indicating the observed condition of the
 #'  drive mechnism. Options:
 #' \code{mechnism_cond = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 90
+#' "Substantial Deterioration", "Default")}.
 #' in CNAIM (2021).
 #' @param diverter_contacts String. Indicating the observed condition of the
 #' selector and diverter contacts. Options:
 #' \code{diverter_contacts = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 133, table 91
+#' "Substantial Deterioration", "Default")}.
 #' in CNAIM (2021).
 #' @param diverter_braids String. Indicating the observed condition of the
 #' selector and diverter braids. Options:
 #' \code{diverter_braids = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 134, table 92
-#' in CNAIM (2021)
+#' "Substantial Deterioration", "Default")}.
+#' @param k_value Numeric. \code{k_value = "0.0454"} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life_tf Numeric. \code{normal_expected_life_tf = "Default"} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
+#' @param normal_expected_life_tc Numeric. \code{normal_expected_life_tc = "Default"} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @inheritParams oil_test_modifier
 #' @inheritParams dga_test_modifier
 #' @inheritParams ffa_test_modifier
 #' @return Numeric. Current probability of failure.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current probability of failure for a 60/10kV transformer
-#' pof_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
-#'year_of_manufacture = 1980,
-#'utilisation_pct = "Default",
-#'no_taps = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age_tf = 43,
-#'age_tc = 43,
-#'partial_discharge_tf = "Default",
-#'partial_discharge_tc = "Default",
-#'temperature_reading = "Default",
-#'main_tank = "Default",
-#'coolers_radiator = "Default",
-#'bushings = "Default",
-#'kiosk = "Default",
-#'cable_boxes = "Default",
-#'external_tap = "Default",
-#'internal_tap = "Default",
-#'mechnism_cond = "Default",
-#'diverter_contacts = "Default",
-#'diverter_braids = "Default",
-#'moisture = "Default",
-#'acidity = "Default",
-#'bd_strength = "Default",
-#'hydrogen = "Default",
-#'methane = "Default",
-#'ethylene = "Default",
-#'ethane = "Default",
-#'acetylene = "Default",
-#'hydrogen_pre = "Default",
-#'methane_pre = "Default",
-#'ethylene_pre = "Default",
-#'ethane_pre = "Default",
-#'acetylene_pre = "Default",
-#'furfuraldehyde = "Default",
-#'reliability_factor = "Default")
+# pof_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
+# year_of_manufacture = 1980,
+# utilisation_pct = "Default",
+# no_taps = "Default",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age_tf = 43,
+# age_tc = 43,
+# partial_discharge_tf = "Default",
+# partial_discharge_tc = "Default",
+# temperature_reading = "Default",
+# main_tank = "Default",
+# coolers_radiator = "Default",
+# bushings = "Default",
+# kiosk = "Default",
+# cable_boxes = "Default",
+# external_tap = "Default",
+# internal_tap = "Default",
+# mechnism_cond = "Default",
+# diverter_contacts = "Default",
+# diverter_braids = "Default",
+# moisture = "Default",
+# acidity = "Default",
+# bd_strength = "Default",
+# hydrogen = "Default",
+# methane = "Default",
+# ethylene = "Default",
+# ethane = "Default",
+# acetylene = "Default",
+# hydrogen_pre = "Default",
+# methane_pre = "Default",
+# ethylene_pre = "Default",
+# ethane_pre = "Default",
+# acetylene_pre = "Default",
+# furfuraldehyde = "Default",
+# reliability_factor = "Default",
+# k_value = 0.454,
+# c_value = 1.087,
+# normal_expected_life_tf = "Default",
+# normal_expected_life_tc = "Default")
 
 pof_transformer_30_60kv <- function(transformer_type = "60kV Transformer (GM)",
                                     year_of_manufacture,
@@ -172,7 +176,11 @@ pof_transformer_30_60kv <- function(transformer_type = "60kV Transformer (GM)",
                                     ethane_pre = "Default",
                                     acetylene_pre = "Default",
                                     furfuraldehyde = "Default",
-                                    reliability_factor = "Default") {
+                                    reliability_factor = "Default",
+                                    k_value = 0.454,
+                                    c_value = 1.087,
+                                    normal_expected_life_tf = "Default",
+                                    normal_expected_life_tc = "Default") {
 
   if (transformer_type == "30kV Transformer (GM)" ) {
     transformer_type <- "33kV Transformer (GM)"
@@ -210,28 +218,29 @@ pof_transformer_30_60kv <- function(transformer_type = "60kV Transformer (GM)",
 
   }
 
-  normal_expected_life_tf <- gb_ref$normal_expected_life %>%
-    dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
-                    sub_division) %>%
-    dplyr::pull()
+  if (normal_expected_life_tf == "Default") {
+    normal_expected_life_tf <- gb_ref$normal_expected_life %>%
+      dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
+                      sub_division) %>%
+      dplyr::pull()
+  } else {
+    normal_expected_life_tf <- normal_expected_life_tf
+  }
 
   # Normal expected life for tapchanger -----------------------------
-
-  normal_expected_life_tc <- gb_ref$normal_expected_life %>%
-    dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
-                    "Tapchanger") %>%
-    dplyr::pull()
+  if (normal_expected_life_tc == "Default") {
+    normal_expected_life_tc <- gb_ref$normal_expected_life %>%
+      dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
+                      "Tapchanger") %>%
+      dplyr::pull()
+  } else {
+    normal_expected_life_tc <- normal_expected_life_tc
+  }
 
   # Constants C and K for PoF function --------------------------------------
-  k <- gb_ref$pof_curve_parameters %>%
-    dplyr::filter(`Functional Failure Category` ==
-                    'EHV Transformer/ 132kV Transformer') %>% dplyr::select(`K-Value (%)`) %>%
-    dplyr::pull()/100
+  k <- k_value/100
 
-  c <- gb_ref$pof_curve_parameters %>%
-    dplyr::filter(`Functional Failure Category` ==
-                    'EHV Transformer/ 132kV Transformer') %>% dplyr::select(`C-Value`) %>% dplyr::pull()
-
+  c <- c_value
   # Duty factor -------------------------------------------------------------
   duty_factor_tf_11kv <- duty_factor_transformer_33_66kv(utilisation_pct,
                                                          no_taps)
@@ -276,8 +285,6 @@ pof_transformer_30_60kv <- function(transformer_type = "60kV Transformer (GM)",
   # of the Health Score. However, in some instances
   # these parameters are set to other values in the
   # Health Score Modifier calibration tables.
-  # These overriding values are shown in Table 35 to Table 202
-  # and Table 207 in Appendix B.
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-
