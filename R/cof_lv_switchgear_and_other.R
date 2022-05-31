@@ -1,17 +1,17 @@
 #' @title Financial cost of Failure for LV swicthgear and others
 #' @description This function calculates financial consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
 #' @param type_financial_factor_criteria String Type Financial factor criteria for LV switchgear
-#' (cf. section D1.2.1, page 162, CNAIM, 2017).
+#' (cf. section D1.2.1, page 178, CNAIM, 2021).
 #' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
-#' setting (cf. table 214, page 164, CNAIM, 2017).
+#' setting (cf. table 221, page 180, CNAIM, 2021).
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' financial_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
@@ -80,18 +80,18 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
 
 #' @title Safety cost of Failure for LV swicthgear and others
 #' @description This function calculates safety consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Safetyr consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Safetyr consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
 #' @param location_risk String Type Financial factor criteria for LV switchgear
-#' (cf. section D1.2.1, page 162, CNAIM, 2017).
+#' (cf. section D1.2.1, page 178, CNAIM, 2021).
 #' @param type_risk String. Asses Financial factor criteria for LV switchgear
-#' setting (cf. table 214, page 164, CNAIM, 2017).
+#' setting (cf. table 221, page 180, CNAIM, 2021).
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' safety_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
@@ -136,13 +136,13 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
 
 #' @title Environmental cost of Failure for LV swicthgear and others
 #' @description This function calculates environmental consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 #' @param lv_asset_category String The type of LV asset category
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' environmental_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)")
@@ -177,18 +177,18 @@ environmental_cof_lv_switchgear_and_other <- function(lv_asset_category){
 #' @title Network cost of Failure for LV swicthgear and others
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
-#' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
+#' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
 #' @param no_customers Numeric. The numner of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
-#' results in a multiplication factor of 1 (cf. table 18, page 86, CNAIM, 2017).
+#' results in a multiplication factor of 1 (cf. table 18, page 89, CNAIM, 2021).
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' network_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
@@ -242,7 +242,7 @@ network_cof_lv_switchgear_and_other <- function(lv_asset_category,
 
 
   # Customer sensitivity factor ---------------------------------------------
-  customer_sensitivity_factor <- 1 # See section 7.6.2.2, p. 86 in CNAIM (2017)
+  customer_sensitivity_factor <- 1 # See section 7.6.2.2, p. 89 in CNAIM (2021)
 
 
   # Network perfomance consequence factor -----------------------------------

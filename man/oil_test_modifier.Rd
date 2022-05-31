@@ -5,14 +5,15 @@
 \title{Oil Test Modifier}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 oil_test_modifier(
   moisture = "Default",
   acidity = "Default",
-  bd_strength = "Default"
+  bd_strength = "Default",
+  transformer_type_all = "20kV Transformer (GM)"
 )
 }
 \arguments{
@@ -27,6 +28,15 @@ A setting of \code{"Default"} will result in the best possible result.}
 \item{bd_strength}{Numeric. Refers to the breakdown strength.
 Breakdown strength is measured in kV.
 A setting of \code{"Default"} will result in the best possible result.}
+
+\item{transformer_type_all}{String. A sting that refers to the specific
+transformer type.
+Options:
+\code{transformer_type_all =
+c("6.6/11kV Transformer (GM)", "20kV Transformer (GM)",
+"33kV Transformer (GM)", "66kV Transformer (GM)",
+"132kV Transformer (GM)" )}. The default setting is
+\code{transformer_type = "66kV Transformer (GM)"}}
 }
 \value{
 Data table.
@@ -34,11 +44,12 @@ Data table.
 \description{
 This function calculates the oil test modifier
 for 33/10kV, 66/10kV and 132kV transformers and tapchangers.
-See e.g. section 6.11 on page 64 in CNAIM (2017).
+See e.g. section 6.11 on page 68 in CNAIM (2021).
 }
 \examples{
 # Oil test modifier
 oil_test_modifier(moisture = 15,
 acidity = 0.15,
-bd_strength = 30)
+bd_strength = 30,
+ transformer_type_all = "20kV Transformer (GM)")
 }

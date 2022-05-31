@@ -1,52 +1,25 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 20/10/0.4kV cables
-#' @description This function calculates the current
-#' annual probability of failure per kilometer for a 20/10/0.4kV cable.
+#' @title Future Probability of Failure for Danish 10kV APB cables
+#' @description This function calculates the future
+#' #' annual probability of failure per kilometer for a Danish 10 kV APB cable.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
-#' @param hv_lv_cable_type String.
-#' A sting that refers to the specific asset category.
-#' Options:
-#' \code{hv_lv_cable_type = c("10-20kV cable, PEX","10-20kV cable, APB",
-#' "0.4kV cable")}. The default setting is
-#' \code{hv_lv_cable_type = "10-20kV cable, PEX"}.
-#' @param sub_division String. Refers to material the sheath and conductor is
-#' made of. Options:
-#' \code{sub_division = c("Aluminium sheath - Aluminium conductor",
-#' "Aluminium sheath - Copper conductor",
-#' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")
-#'}
-#' @inheritParams duty_factor_cables
-#' @param sheath_test String. Only applied for non pressurised cables.
-#' Indicating the state of the sheath. Options:
-#' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 141, table 168 in CNAIM (2017).
-#' @param partial_discharge String. Only applied for non pressurised cables.
-#' Indicating the level of partial discharge. Options:
-#' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 141, table 169 in CNAIM (2017).
-#' @param fault_hist Numeric. Only applied for non pressurised cables.
-#' The calculated fault rate for the cable in the period per kilometer.
-#' A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 141, table 170 in CNAIM (2017).
-#' @inheritParams current_health
-#' @param age Numeric. The current age in years of the cable.
-#' @param normal_expected_life_cable Numeric. The normal expected life for the
-#' cable type.
-#' @return Numeric. Current probability of failure
-#' per annum for 20/10/0.4kV cables.
+#' on page 34 in CNAIM (2021).
+#' @inheritParams pof_cables_10kv_apb
+#' @param simulation_end_year Numeric. The last year of simulating probability
+#'  of failure. Default is 100.
+#' @return Numeric array. Future probability of failure
+#' per annum for 10 kv APB cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 10-20kV cable, APB, 50 years old
-#'pof_cables_10kV_APB <-
-#'pof_cables_20_10_04kv(hv_lv_cable_type = "10-20kV cable, APB",
-#'sub_division = "Lead sheath - Copper conductor",
+#'pof_future_cables_10kV_apb_result <-
+#'pof_future_cables_10kv_apb(
 #'utilisation_pct = 80,
 #'operating_voltage_pct = 60,
 #'sheath_test = "Default",
@@ -54,22 +27,20 @@
 #'fault_hist = "Default",
 #'reliability_factor = "Default",
 #'age = 50,
-#'normal_expected_life_cable = 80) * 100
+#'simulation_end_year = 100) * 100
 #'
-#'paste0(sprintf("Probability of failure %.4f", pof_cables_10kV_APB),
+#'paste0(sprintf("Probability of failure %.4f", pof_future_cables_10kV_apb_result),
 #'" percent per annum")
 
-pof_cables_20_10_04kv <-
-  function(hv_lv_cable_type = "10-20kV cable, PEX",
-           sub_division = "Aluminium sheath - Aluminium conductor",
-           utilisation_pct = "Default",
+pof_future_cables_10kv_apb <-
+  function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            sheath_test = "Default",
            partial_discharge = "Default",
            fault_hist = "Default",
            reliability_factor = "Default",
            age,
-           normal_expected_life_cable) {
+           simulation_end_year = 100) {
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -77,24 +48,9 @@ pof_cables_20_10_04kv <-
       `Condition Criteria: Sheath Test Result` =
       `Condition Criteria: Partial Discharge Test Result` =
       NULL
-    # due to NSE notes in R CMD check
 
-    if (hv_lv_cable_type ==  "10-20kV cable, PEX" ||
-        hv_lv_cable_type ==  "10-20kV cable, APB" ||
-        hv_lv_cable_type ==  "0.4kV cable") {
       pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
-    }
-
-    if(hv_lv_cable_type ==  "10-20kV cable, APB") {
-      if(sub_division == "Aluminium sheath - Aluminium conductor" ||
-         sub_division == "Lead sheath - Copper conductor") {
-
-        warning('hv_lv_cable_type = "10-20kV cable, APB",
-               cable type consists of a lead sheath.
-               Please review sub_division. Selected for type for
-                sub_division = "Lead sheath - Copper conductor".')
-      }
-    }
+      sub_division <- "Lead sheath - Copper conductor"
 
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
@@ -110,43 +66,19 @@ pof_cables_20_10_04kv <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-    # Normal expected life  ---------------------------
-    # normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-    #   dplyr::filter(`Asset Register  Category` == pseudo_cable_type &
-    #                   `Sub-division` == sub_division) %>%
-    #   dplyr::pull()
-
-    #################################################################
-
 
     # Constants C and K for PoF function --------------------------------------
-    type_k_c <- gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
-      grepl("Non Pressurised",
-            gb_ref$pof_curve_parameters$`Functional Failure Category`,
-            fixed = TRUE) == TRUE
-    )]
 
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull() / 100
-
-    k <- k*80/60
-
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`C-Value`) %>%
-      dplyr::pull()
-
-    # Duty factor -------------------------------------------------------------
+    k <- 0.238/100 # see p. 34  "DE-10kV apb kabler CNAIM"
+    c <- 1.087 # set to the standard accordingly in CNAIM (2021) and in "DE-10kV apb kabler CNAIM"
 
     duty_factor_cable <-
       duty_factor_cables(utilisation_pct,
                          operating_voltage_pct,
                          voltage_level = "LV & HV")
 
-    # Expected life ------------------------------
-    expected_life_years <- expected_life(normal_expected_life_cable,
+    # Expected life ------------------------------ # the expected life set to 80 accordingly to p. 33 in "DE-10kV apb kabler CNAIM"
+    expected_life_years <- expected_life(80,
                                          duty_factor_cable,
                                          location_factor = 1)
 
@@ -158,12 +90,12 @@ pof_cables_20_10_04kv <-
 
     ## NOTE
     # Typically, the Health Score Collar is 0.5 and
-    # Health Score Cap is 10, implying no overriding
+    # Health Score Cap is 5.5 (p. 33 in DE-10kV apb kabler CNAIM), implying no overriding
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 34 to Table 195
-    # and Table 200 in Appendix B.
+    # These overriding values are shown in Table 35 to Table 202
+    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")
@@ -314,6 +246,63 @@ pof_cables_20_10_04kv <-
          (((c * current_health_score)^2) / factorial(2)) +
          (((c * current_health_score)^3) / factorial(3)))
 
-    return(probability_of_failure)
+
+    # Future probability of failure -------------------------------------------
+
+    # the Health Score of a new asset
+    H_new <- 0.5
+
+    # the Health Score of the asset when it reaches its Expected Life
+    b2 <- beta_2(current_health_score, age)
+
+    if (b2 > 2*b1){
+      b2 <- b1
+    } else if (current_health_score == 0.5){
+      b2 <- b1
+    }
+
+    if (current_health_score < 2) {
+      ageing_reduction_factor <- 1
+    } else if (current_health_score <= 5.5) {
+      ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
+    } else {
+      ageing_reduction_factor <- 1.5
+    }
+
+    # Dynamic part
+    pof_year <- list()
+    year <- seq(from=0,to=simulation_end_year,by=1)
+
+    for (y in 1:length(year)){
+      t <- year[y]
+
+      future_health_Score <-
+        current_health_score*exp((b2/ageing_reduction_factor) * t)
+
+      H <- future_health_Score
+
+      future_health_score_limit <- 15
+      if (H > future_health_score_limit){
+        H <- future_health_score_limit
+      }
+
+      pof_year[[paste(y)]] <- k * (1 + (c * H) +
+                                     (((c * H)^2) / factorial(2)) +
+                                     (((c * H)^3) / factorial(3)))
+    }
+
+    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future$age <- NA
+    pof_future$age[1] <- age
+
+    for(i in 2:nrow(pof_future)) {
+
+      pof_future$age[i] <- age + i -1
+
+    }
+
+    return(pof_future)
   }
+
+
 

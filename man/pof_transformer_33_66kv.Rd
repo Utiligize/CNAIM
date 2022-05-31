@@ -5,8 +5,8 @@
 \title{Current Probability of Failure for 33/10kV and 66/10kV Transformers}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 pof_transformer_33_66kv(
@@ -52,14 +52,14 @@ pof_transformer_33_66kv(
 }
 \arguments{
 \item{transformer_type}{String. A sting that refers to the specific
-asset category. See See page 15, table 1 in CNAIM (2017).
+asset category. See See page 17, table 1 in CNAIM (2021).
 Options:
 \code{transformer_type =
 c("33kV Transformer (GM)", "66kV Transformer (GM)")}. The default setting is
 \code{transformer_type = "66kV Transformer (GM)"}}
 
 \item{year_of_manufacture}{Numeric. Normal expected life depends on the
-year for manufacture, see page 103 table 20 in CNAIM (2017).}
+year for manufacture, see page 107 table 20 in CNAIM (2021).}
 
 \item{utilisation_pct}{Numeric. The max percentage of utilisation
 under normal operating conditions.}
@@ -72,25 +72,25 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 107-108,
-  table 25A in CNAIM (2017) for default environments.}
+  on the specification of \code{asset_type}. See page 110-113,
+  table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
-is used to derive the altitude factor. See page 107,
-table 23 in CNAIM (2017). A setting of \code{"Default"}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
 will set the altitude factor to 1 independent of \code{asset_type}.}
 
 \item{distance_from_coast_km}{Numeric. Specify the distance from the
 coast measured in kilometers. \code{distance_from_coast_km} is used
-to derive the distance from coast factor See page 106,
-table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
 Specify the corrosion index category, 1-5.
 \code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 107, table 24 in CNAIM (2017).
+category factor. See page 111, table 24 in CNAIM (2021).
 A setting of \code{"Default"} will set the corrosion category factor
 to 1 independent of \code{asset_type}.}
 
@@ -104,78 +104,78 @@ of the tapchanger}
 level of partial discharge in the transformer.
 Options:
 \code{partial_discharge_tf = c("Low", "Medium", "High (Not Confirmed)",
- "High (Confirmed)", "Default")}. See page 139, table 162 in CNAIM (2017).}
+ "High (Confirmed)", "Default")}. See page 154, table 173 in CNAIM (2021).}
 
 \item{partial_discharge_tc}{String. Indicating the
 level of partial discharge in the tapchanger
 Options:
 \code{partial_discharge_tc = c("Low", "Medium", "High (Not Confirmed)",
- "High (Confirmed)", "Default")}. See page 140, table 164 in CNAIM (2017).}
+ "High (Confirmed)", "Default")}. See page 155, table 175 in CNAIM (2021).}
 
 \item{temperature_reading}{String. Indicating the criticality.
 Options:
 \code{temperature_reading = c("Normal", "Moderately High",
-"Very High", "Default")}. See page 139, table 163 in CNAIM (2017).}
+"Very High", "Default")}. See page 154, table 174 in CNAIM (2021).}
 
 \item{main_tank}{String. Indicating the observed condition of the
 main tank. Options:
-\code{main_tank = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 120, table 74
-in CNAIM (2017).}
+\code{main_tank = c("Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 131, table 83
+in CNAIM (2021).}
 
 \item{coolers_radiator}{String. Indicating the observed condition of the
 coolers/radiators. Options:
-\code{coolers_radiator = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 120, table 75
-in CNAIM (2017).}
+\code{coolers_radiator = c("Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 131, table 84
+in CNAIM (2021).}
 
 \item{bushings}{String. Indicating the observed condition of the
 bushings. Options:
-\code{bushings = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 120, table 76
-in CNAIM (2017).}
+\code{bushings = c("Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 131, table 85
+in CNAIM (2021).}
 
 \item{kiosk}{String. Indicating the observed condition of the
 kiosk. Options:
-\code{kiosk = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 121, table 77
-in CNAIM (2017).}
+\code{kiosk = c("Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 132, table 86
+in CNAIM (2021).}
 
 \item{cable_boxes}{String. Indicating the observed condition of the
 cable boxes. Options:
-\code{cable_boxes = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 121, table 78
-in CNAIM (2017).}
+\code{cable_boxes = c("No Deterioration","Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 132, table 87
+in CNAIM (2021).}
 
 \item{external_tap}{String. Indicating the observed external condition of the
  tapchanger. Options:
-\code{external_tap = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 121, table 79
-in CNAIM (2017).}
+\code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 133, table 88
+in CNAIM (2021).}
 
 \item{internal_tap}{String. Indicating the observed internal condition of the
  tapchanger. Options:
-\code{external_tap = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 121, table 80
-in CNAIM (2017).}
+\code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 133, table 89
+in CNAIM (2021).}
 
 \item{mechnism_cond}{String. Indicating the observed condition of the
  drive mechnism. Options:
-\code{mechnism_cond = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 121, table 81
-in CNAIM (2017).}
+\code{mechnism_cond = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 133, table 90
+in CNAIM (2021).}
 
 \item{diverter_contacts}{String. Indicating the observed condition of the
 selector and diverter contacts. Options:
-\code{diverter_contacts = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 122, table 82
-in CNAIM (2017).}
+\code{diverter_contacts = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 133, table 91
+in CNAIM (2021).}
 
 \item{diverter_braids}{String. Indicating the observed condition of the
 selector and diverter braids. Options:
-\code{diverter_braids = c("Normal Wear", "Some Deterioration",
-"Substantial Deterioration", "Default")}. See page 122, table 83
-in CNAIM (2017)}
+\code{diverter_braids = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
+"Substantial Deterioration", "Default")}. See page 134, table 92
+in CNAIM (2021)}
 
 \item{moisture}{Numeric. Refers to the moisture level in the
 transformer oil. Moisture levels are measured in ppm.
@@ -231,7 +231,7 @@ A setting of \code{"Default"} will result in the best possible result.}
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
-See section 6.14 on page 69 in CNAIM (2017).}
+See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
 Numeric. Current probability of failure.
@@ -243,7 +243,7 @@ The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017).
+on page 34 in CNAIM (2021).
 }
 \examples{
 # Current probability of failure for a 66/10kV transformer

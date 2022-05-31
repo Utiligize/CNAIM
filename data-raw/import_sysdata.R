@@ -13,7 +13,7 @@ table_index <- read_excel_allsheets("data-raw/excel-spreadsheets/table_index.xls
 
 tables <- list()
 navne  <- names(table_index)
-table_index <- table_index$`1 to 227`
+table_index <- table_index$`1 to 241`
 
 for(i in 1:length(table_data)){
   new_name  <- names(table_data)[i]

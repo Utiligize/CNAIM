@@ -30,8 +30,8 @@
 #' A setting of \code{"Default"} will result in the best possible result.
 #' @return Data table.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # DGA test modifier
@@ -224,7 +224,7 @@ dga_test_modifier <- function(hydrogen = "Default",
   }
 
 
-  # DGA tets score ----------------------------------------------------------
+  # DGA tests score ----------------------------------------------------------
 
   dga_test_score_pre <-
     50 * hydrogen_score_pre +

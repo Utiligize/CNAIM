@@ -5,8 +5,8 @@
 \title{Duty Factor for all cables (incl. submarine cables).}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 duty_factor_cables(
@@ -36,7 +36,7 @@ cables depending on the maximum
 percentage utilisation under normal operating conditions.
 The duty factor is used in the deriviation of the expected life of an asset.
 See e.g. \code{\link{expected_life}()}. For more general information about
-the derivation of the duty factor see section 6.6 on page 47 in CNAIM (2017)
+the derivation of the duty factor see section 6.6 on page 51 in CNAIM (2021)
 }
 \examples{
 duty_factor_cables(utilisation_pct = "Default",

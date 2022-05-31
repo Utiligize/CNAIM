@@ -5,13 +5,13 @@
 \title{Location Factor (Excl.Submarine Cables)}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 location_factor_sub(
   topography = "Default",
-  sitution = "Default",
+  situation = "Default",
   wind_wave = "Default",
   intensity = "Default",
   landlocked = "no"
@@ -23,11 +23,6 @@ Options:
 \code{typography = c("Low Detrimental Topography",
 "Medium Detrimental Topography", "High Detrimental Topography",
 "Very High Detrimental Topography","Default" )}}
-
-\item{sitution}{String. Descibes how the submarine cable af fixed to the
-sea floor.
-Options:
-\code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}}
 
 \item{wind_wave}{Numeric.
 Options:
@@ -46,6 +41,11 @@ Options:
 
 \item{landlocked}{String. Options: \code{landlocked = c("yes","no")}. Default
 setting for \code{landlocked = "no"}.}
+
+\item{sitution}{String. Descibes how the submarine cable af fixed to the
+sea floor.
+Options:
+\code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}}
 }
 \value{
 Numeric. Location factor
@@ -53,14 +53,14 @@ Numeric. Location factor
 \description{
 This function calculates the location factor for
 submarine cables based in the specific location of the cable.
-See section 6.5 on page 44 in CNAIM (2017). For calculating the location
+See section 6.5 on page 48 in CNAIM (2021). For calculating the location
 factor for all other network assets please see the function
 \code{\link{location_factor}()}.
 }
 \examples{
  # Location factor for a non-landlocked submarine cable
 location_factor_sub(topography = "Default",
-                   sitution = "Default",
+                   situation = "Default",
                    wind_wave = "Default",
                    intensity = "Default",
                    landlocked = "no")

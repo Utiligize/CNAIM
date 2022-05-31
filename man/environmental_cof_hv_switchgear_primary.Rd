@@ -5,8 +5,8 @@
 \title{Environmental cost of Failure for HV switchgear primary}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 environmental_cof_hv_switchgear_primary(
@@ -24,14 +24,14 @@ environmental_cof_hv_switchgear_primary(
 \item{prox_water}{Numeric. Specify the proximity to a water course in meters.
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 assume the proximity to a water course is between 80m and 120m
-(cf. table 223, page 172, CNAIM, 2017).}
+(cf. table 231, page 188, CNAIM, 2021).}
 
 \item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
 A setting of \code{"Default"} will result in a bunding factor of 1.}
 }
 \description{
 This function calculates environmental consequences of failure
-(cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
+(cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for HV switchgear
 }
