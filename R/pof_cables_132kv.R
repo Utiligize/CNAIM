@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 33-66kV cables
+#' @title Current Probability of Failure for 132kV cables
 #' @description This function calculates the current
-#' annual probability of failure per kilometer for a 33-66kV cables.
+#' annual probability of failure per kilometer for a 132kV cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
@@ -11,11 +11,10 @@
 #' A sting that refers to the specific asset category.
 #' See See page 17, table 1 in CNAIM (2021).
 #' Options:
-#' \code{cable_type = c("33kV UG Cable (Gas)", "66kV UG Cable (Gas)",
-#' "33kV UG Cable (Non Pressurised)", "66kV UG Cable (Non Pressurised)",
-#' "33kV UG Cable (Oil)", "66kV UG Cable (Oil)")
+#' \code{cable_type = c("132kV UG Cable (Gas)", "132kV UG Cable (Gas)",
+#' "132kV UG Cable (Non Pressurised)")
 #'}. The default setting is
-#' \code{cable_type = "66kV UG Cable (Gas)"}.
+#' \code{cable_type = "132kV UG Cable (Gas)"}.
 #' @param sub_division String. Refers to material the sheath and conductor is
 #' made of. Options:
 #' \code{sub_division = c("Aluminium sheath - Aluminium conductor",
@@ -26,47 +25,48 @@
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 153, table 168 in CNAIM (2021).
+#' "Default")}. See page 157, table 184 in CNAIM (2021).
 #' @param partial_discharge String. Only applied for non pressurised cables.
 #' Indicating the level of partial discharge. Options:
 #' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 153, table 169 in CNAIM (2021).
+#'  "Default")}. See page 157, table 185 in CNAIM (2021).
 #' @param fault_hist Numeric. Only applied for non pressurised cables.
 #' The calculated fault rate for the cable in the period per kilometer.
 #' A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 153, table 170 in CNAIM (2021).
+#' indicates no fault. See page 157, table 186 in CNAIM (2021).
 #' @param leakage String. Only applied for oil and gas pressurised cables.
 #' Options:
 #' \code{leakage = c("No (or very low) historic leakage recorded",
 #' "Low/ moderate", "High", "Very High", "Default")}.
-#' See page 157, table 182 (oil) and 183 (gas) in CNAIM (2021).
+#' See page 158, table 187 (oil) and 188 (gas) in CNAIM (2021).
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years of the cable.
 #' @return Numeric. Current probability of failure
-#' per annum per kilometre for 66/33kV cables.
+#' per annum per kilometre for 132kV cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for
-#' # "66kV UG Cable (Non Pressurised)", 50 years old
-#'pof_cables_66kV_non <-
-# pof_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
-# sub_division = "Lead sheath - Copper conductor",
-# utilisation_pct = 80,
-# operating_voltage_pct = 60,
-# sheath_test = "Default",
-# partial_discharge = "Default",
-# fault_hist = "Default",
-# leakage = "Default",
-# reliability_factor = "Default",
-# age = 50) * 100
+#' # "132kV UG Cable (Non Pressurised)", 50 years old
+#'pof_cables_132kV_non <-
+#'pof_cables_132kv(cable_type = "132kV UG Cable (Non Pressurised)",
+#'sub_division = "Lead sheath - Copper conductor",
+#'utilisation_pct = 80,
+#'operating_voltage_pct = 60,
+#'sheath_test = "Default",
+#'partial_discharge = "Default",
+#'fault_hist = "Default",
+#'leakage = "Default",
+#'reliability_factor = "Default",
+#'age = 50) * 100
 #'
-#'paste0(sprintf("Probability of failure %.4f", pof_cables_66kV_non),
+#'paste0(sprintf("Probability of failure %.4f", pof_cables_132kV_non),
 #'" percent per annum")
-pof_cables_66_33kv <-
-  function(cable_type = "66kV UG Cable (Gas)",
+
+pof_cables_132kv <-
+  function(cable_type = "132kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",
            utilisation_pct = "Default",
            operating_voltage_pct = "Default",
@@ -106,7 +106,7 @@ pof_cables_66_33kv <-
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    if (asset_category == "EHV UG Cable (Non Pressurised)") {
+    if (asset_category == "132kV UG Cable (Non Pressurised)") {
       type_k_c <-
         gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
           grepl("Non Pressurised",
@@ -138,7 +138,7 @@ pof_cables_66_33kv <-
     duty_factor_cable <-
       duty_factor_cables(utilisation_pct,
                          operating_voltage_pct,
-                         voltage_level = "EHV")
+                         voltage_level = "EHV") # EHV and 132kv have identical duty factors
 
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life_cable,
@@ -197,23 +197,23 @@ pof_cables_66_33kv <-
 
 
     # Sheath test -------------------------------------------------------------
-    if (asset_category == "EHV UG Cable (Non Pressurised)") {
+    if (asset_category == "132kV UG Cable (Non Pressurised)") {
 
-      mci_ehv_cbl_non_pr_sheath_test <-
-        gb_ref$mci_ehv_cbl_non_pr_sheath_test %>% dplyr::filter(
+      mci_132kv_cbl_non_pr_shth_test <-
+        gb_ref$mci_132kv_cbl_non_pr_shth_test %>% dplyr::filter(
           `Condition Criteria: Sheath Test Result` == sheath_test
         )
 
       ci_factor_sheath <-
-        mci_ehv_cbl_non_pr_sheath_test$`Condition Input Factor`
+        mci_132kv_cbl_non_pr_shth_test$`Condition Input Factor`
       ci_cap_sheath <-
-        mci_ehv_cbl_non_pr_sheath_test$`Condition Input Cap`
+        mci_132kv_cbl_non_pr_shth_test$`Condition Input Cap`
       ci_collar_sheath <-
-        mci_ehv_cbl_non_pr_sheath_test$`Condition Input Collar`
+        mci_132kv_cbl_non_pr_shth_test$`Condition Input Collar`
 
 
-      mci_ehv_cbl_non_pr_prtl_disch <-
-        gb_ref$mci_ehv_cbl_non_pr_prtl_disch %>%
+      mci_132kv_cbl_non_pr_prtl_disc <-
+        gb_ref$mci_132kv_cbl_non_pr_prtl_disc %>%
         dplyr::filter(
           `Condition Criteria: Partial Discharge Test Result` == partial_discharge
         )
@@ -222,13 +222,13 @@ pof_cables_66_33kv <-
 
 
       ci_factor_partial <-
-        mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Factor`
-      ci_cap_partial <- mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Cap`
+        mci_132kv_cbl_non_pr_prtl_disc$`Condition Input Factor`
+      ci_cap_partial <- mci_132kv_cbl_non_pr_prtl_disc$`Condition Input Cap`
       ci_collar_partial <-
-        mci_ehv_cbl_non_pr_prtl_disch$`Condition Input Collar`
+        mci_132kv_cbl_non_pr_prtl_disc$`Condition Input Collar`
 
-      mci_ehv_cbl_non_pr_fault_hist <-
-        gb_ref$mci_ehv_cbl_non_pr_fault_hist
+      mci_132kv_cbl_non_pr_flt_hist <-
+        gb_ref$mci_132kv_cbl_non_pr_flt_hist
 
 
       # Fault -------------------------------------------------------
@@ -236,26 +236,26 @@ pof_cables_66_33kv <-
       for (n in 2:4) {
         if (fault_hist == 'Default' || fault_hist ==
             'No historic faults recorded') {
-          no_row <- which(mci_ehv_cbl_non_pr_fault_hist$Upper == fault_hist)
+          no_row <- which(mci_132kv_cbl_non_pr_flt_hist$Upper == fault_hist)
 
           ci_factor_fault <-
-            mci_ehv_cbl_non_pr_fault_hist$`Condition Input Factor`[no_row]
+            mci_132kv_cbl_non_pr_flt_hist$`Condition Input Factor`[no_row]
           ci_cap_fault <-
-            mci_ehv_cbl_non_pr_fault_hist$`Condition Input Cap`[no_row]
+            mci_132kv_cbl_non_pr_flt_hist$`Condition Input Cap`[no_row]
           ci_collar_fault <-
-            mci_ehv_cbl_non_pr_fault_hist$`Condition Input Collar`[no_row]
+            mci_132kv_cbl_non_pr_flt_hist$`Condition Input Collar`[no_row]
           break
         } else if (fault_hist >=
-                   as.numeric(mci_ehv_cbl_non_pr_fault_hist$Lower[n]) &
+                   as.numeric(mci_132kv_cbl_non_pr_flt_hist$Lower[n]) &
                    fault_hist <
-                   as.numeric(mci_ehv_cbl_non_pr_fault_hist$Upper[n])) {
+                   as.numeric(mci_132kv_cbl_non_pr_flt_hist$Upper[n])) {
 
           ci_factor_fault <-
-            mci_ehv_cbl_non_pr_fault_hist$`Condition Input Factor`[n]
+            mci_132kv_cbl_non_pr_flt_hist$`Condition Input Factor`[n]
           ci_cap_fault <-
-            mci_ehv_cbl_non_pr_fault_hist$`Condition Input Cap`[n]
+            mci_132kv_cbl_non_pr_flt_hist$`Condition Input Cap`[n]
           ci_collar_fault <-
-            mci_ehv_cbl_non_pr_fault_hist$`Condition Input Collar`[n]
+            mci_132kv_cbl_non_pr_flt_hist$`Condition Input Collar`[n]
 
           break
         }
@@ -283,19 +283,19 @@ pof_cables_66_33kv <-
                    ci_collar_fault)
       measured_condition_collar <- max(collars)
 
-    } else if (asset_category == "EHV UG Cable (Oil)") {
+    } else if (asset_category == "132kV UG Cable (Oil)") {
 
-      mci_ehv_cable_oil_leakage <-
-        gb_ref$mci_ehv_cable_oil_leakage %>% dplyr::filter(
+      mci_132kv_cable_oil_leakage <-
+        gb_ref$mci_132kv_cable_oil_leakage %>% dplyr::filter(
           `Condition Criteria: Leakage Rate` == leakage
         )
 
       ci_factor_leakage_oil <-
-        mci_ehv_cable_oil_leakage$`Condition Input Factor`
+        mci_132kv_cable_oil_leakage$`Condition Input Factor`
       ci_cap_leakage_oil <-
-        mci_ehv_cable_oil_leakage$`Condition Input Cap`
+        mci_132kv_cable_oil_leakage$`Condition Input Cap`
       ci_collar_leakage_oil <-
-        mci_ehv_cable_oil_leakage$`Condition Input Collar`
+        mci_132kv_cable_oil_leakage$`Condition Input Collar`
 
       # Measured conditions
 
@@ -304,16 +304,16 @@ pof_cables_66_33kv <-
       measured_condition_collar <- ci_collar_leakage_oil
 
 
-    } else if (asset_category == "EHV UG Cable (Gas)") {
+    } else if (asset_category == "132kV UG Cable (Gas)") {
 
-      mci_ehv_cbl_gas <-
-        gb_ref$mci_ehv_cable_gas_leakage %>% dplyr::filter(
+      mci_132kv_cbl_gas <-
+        gb_ref$mci_132kv_cable_gas_leakage %>% dplyr::filter(
           `Condition Criteria: Leakage Rate` == leakage
         )
 
-      ci_factor_leakage_gas <- mci_ehv_cbl_gas$`Condition Input Factor`
-      ci_cap_leakage_gas <- mci_ehv_cbl_gas$`Condition Input Cap`
-      ci_collar_leakage_gas <- mci_ehv_cbl_gas$`Condition Input Collar`
+      ci_factor_leakage_gas <- mci_132kv_cbl_gas$`Condition Input Factor`
+      ci_cap_leakage_gas <- mci_132kv_cbl_gas$`Condition Input Cap`
+      ci_collar_leakage_gas <- mci_132kv_cbl_gas$`Condition Input Collar`
 
       # Measured conditions
 

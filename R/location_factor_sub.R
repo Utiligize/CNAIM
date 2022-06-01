@@ -9,7 +9,7 @@
 #' \code{typography = c("Low Detrimental Topography",
 #' "Medium Detrimental Topography", "High Detrimental Topography",
 #' "Very High Detrimental Topography","Default" )}
-#' @param sitution String. Descibes how the submarine cable af fixed to the
+#' @param situation String. Descibes how the submarine cable af fixed to the
 #' sea floor.
 #' Options:
 #' \code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}
@@ -34,12 +34,12 @@
 #'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#'  # Location factor for a non-landlocked submarine cable
-#'location_factor_sub(topography = "Default",
-#'                    situation = "Default",
-#'                    wind_wave = "Default",
-#'                    intensity = "Default",
-#'                    landlocked = "no")
+#  # Location factor for a non-landlocked submarine cable
+# location_factor_sub(topography = "Default",
+#                     situation = "Default",
+#                     wind_wave = "Default",
+#                     intensity = "Default",
+#                     landlocked = "no")
 
 
 location_factor_sub <- function(topography = "Default",
@@ -58,7 +58,7 @@ location_factor_sub <- function(topography = "Default",
 
 
   # Situation
-  submarin_cable_situation_factor <- gb_ref$submarin_cable_situation_factor %>%
+  submarin_cable_situation_factor <- gb_ref$submarin_cable_sitution_factor %>%
     dplyr::filter(Situation == situation)
 
   sit_score <- submarin_cable_situation_factor$Score
@@ -91,7 +91,7 @@ location_factor_sub <- function(topography = "Default",
   # INC
   inc_sub <- gb_ref$increment_constants$`Submarine Cables`
 
-  # Submarine Cable Route Topography Factor, Situation Factor, Wind/Wave
+  # Submarine Cable Route Topography Factor, Sitution Factor, Wind/Wave
   # Factor, Combined Wave & Current Energy Factor is greater than 1
 
   if (landlocked == "yes") {

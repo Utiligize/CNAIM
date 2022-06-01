@@ -36,30 +36,30 @@
 #' @export
 #' @examples
 #' # Current annual probability of failure for HV Swicthgear Primary
-#'pof_hv_switchgear_primary(
-#'hv_asset_category = "6.6/11kV CB (GM) Secondary",
-#'number_of_operations = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age = 10,
-#'observed_condition_inputs =
-#'list("external_condition" =
-#'list("Condition Criteria: Observed Condition" = "Default"),
-#'"oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
-#'"thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
-#'"internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
-#'"indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
-#'measured_condition_inputs =
-#'list("partial_discharge" =
-#'list("Condition Criteria: Partial Discharge Test Results" = "Default"),
-#'"ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
-#'"oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
-#'"temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
-#'"trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default"),
-#'"ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
-#'reliability_factor = "Default")
+# pof_hv_switchgear_primary(
+# hv_asset_category = "6.6/11kV CB (GM) Secondary",
+# number_of_operations = "Default",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age = 10,
+# observed_condition_inputs =
+# list("external_condition" =
+# list("Condition Criteria: Observed Condition" = "Default"),
+# "oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
+# "thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
+# "internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
+# "indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
+# measured_condition_inputs =
+# list("partial_discharge" =
+# list("Condition Criteria: Partial Discharge Test Results" = "Default"),
+# "ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
+# "oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
+# "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
+# "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default"),
+# "ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
+# reliability_factor = "Default")
 
 pof_hv_switchgear_primary <-
   function(hv_asset_category = "6.6/11kV CB (GM) Primary",

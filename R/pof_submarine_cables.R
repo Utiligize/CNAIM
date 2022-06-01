@@ -39,22 +39,22 @@
 #' @export
 #' @examples
 #' # Current annual probability of failure for 1 km EHV Sub Cable
-#' pof_subcables <- pof_submarine_cables(
-#'  sub_cable_type = "EHV Sub Cable",
-#'  utilisation_pct = "Default",
-#'  operating_voltage_pct = "Default",
-#'  topography = "Default",
-#'  sitution = "Default",
-#'  wind_wave = "Default",
-#'  intensity = "Default",
-#'  landlocked = "no",
-#'  sheath_test = "Default",
-#'  partial_discharge = "Default",
-#'  fault_hist = "Default",
-#'  condition_armour = "Default",
-#'  age = 10,
-#'  reliability_factor = "Default"
-#')
+#  pof_submarine_cables(
+#  sub_cable_type = "EHV Sub Cable",
+#  utilisation_pct = "Default",
+#  operating_voltage_pct = "Default",
+#  topography = "Default",
+#  sitution = "Default",
+#  wind_wave = "Default",
+#  intensity = "Default",
+#  landlocked = "no",
+#  sheath_test = "Default",
+#  partial_discharge = "Default",
+#  fault_hist = "Default",
+#  condition_armour = "Default",
+#  age = 10,
+#  reliability_factor = "Default"
+# )
 #'paste0(sprintf("Probability of failure %.4f", pof_subcables),
 #'" percent per annum")
 #'

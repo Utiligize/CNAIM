@@ -156,7 +156,7 @@ in CNAIM (2021).}
 
 \item{internal_tap}{String. Indicating the observed internal condition of the
  tapchanger. Options:
-\code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
+\code{internal_tap = c("Superficial/minor deterioration", "Some Deterioration",
 "Substantial Deterioration", "Default")}. See page 133, table 89
 in CNAIM (2021).}
 
