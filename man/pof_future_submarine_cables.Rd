@@ -30,7 +30,7 @@ pof_future_submarine_cables(
 \arguments{
 \item{sub_cable_type}{String.
 A sting that refers to the specific asset category.
-See See page 17, table 1 in CNAIM (2017).
+See See page 17, table 1 in CNAIM (2021).
 Options:
 \code{sub_cable_type =
 c("HV Sub Cable", "EHV Sub Cable", "132kV Sub Cable")}.
@@ -47,11 +47,6 @@ Options:
 \code{typography = c("Low Detrimental Topography",
 "Medium Detrimental Topography", "High Detrimental Topography",
 "Very High Detrimental Topography","Default" )}}
-
-\item{sitution}{String. Descibes how the submarine cable af fixed to the
-sea floor.
-Options:
-\code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}}
 
 \item{wind_wave}{Numeric.
 Options:

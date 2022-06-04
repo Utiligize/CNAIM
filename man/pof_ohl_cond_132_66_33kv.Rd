@@ -102,7 +102,7 @@ per annum per kilometer.
 }
 \description{
 This function calculates the current
-annual probability of failure per kilometer 3-132kV OHL conductors.
+annual probability of failure per kilometer 33-132kV OHL conductors.
 The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
@@ -111,17 +111,4 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Current annual probability of failure for 66kV OHL (Tower Line) Conductor
-pof_ohl_cond_132_66_33kv(
-ohl_conductor = "66kV OHL (Tower Line) Conductor",
-sub_division = "Cu",
-placement = "Default",
-altitude_m = "Default",
-distance_from_coast_km = "Default",
-corrosion_category_index = "Default",
-age = 10,
-conductor_samp = "Default",
-corr_mon_survey = "Default",
-visual_cond = "Default",
-midspan_joints = "Default",
-reliability_factor = "Default")
 }

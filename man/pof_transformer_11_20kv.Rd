@@ -22,7 +22,7 @@ pof_transformer_11_20kv(
   observed_condition = "Default",
   reliability_factor = "Default",
   moisture = "Default",
-  acidity = "Default",
+  oil_acidity = "Default",
   bd_strength = "Default"
 )
 }
@@ -111,6 +111,6 @@ temperature_reading = "Default",
 observed_condition = "Default",
 reliability_factor = "Default"
 moisture = "Default",
-acidity = "Default",
+oil_acidity = "Default",
 bd_strength = "Default")
 }

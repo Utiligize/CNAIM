@@ -22,7 +22,7 @@ pof_future_transformer_11_20kv(
   observed_condition = "Default",
   reliability_factor = "Default",
   moisture = "Default",
-  acidity = "Default",
+  oil_acidity = "Default",
   bd_strength = "Default",
   simulation_end_year = 100
 )
@@ -116,7 +116,7 @@ temperature_reading = "Default",
 observed_condition = "Default",
 reliability_factor = "Default",
 moisture = "Default",
-acidity = "Default",
+oil_acidity = "Default",
 bd_strength = "Default",
 simulation_end_year = 100)
 plot(future_pof_transformer$PoF * 100,
