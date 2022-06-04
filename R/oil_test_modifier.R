@@ -55,8 +55,8 @@ oil_test_modifier <- function(moisture = "Default",
   if (acidity == "Default") acidity <- -0.1
   if (bd_strength == "Default") bd_strength <- 10000
 
-
-  moisture_df <- gb_ref$moisture_cond_state_calib %>% filter(Type %in% type_tf)
+  moisture_df <- gb_ref$moisture_cond_state_calib
+  moisture_df <- moisture_df[moisture_df$Type == type_tf,]
 
   moisture_df$Lower[1] <- -Inf
   moisture_df$Upper[nrow(moisture_df)] <- Inf
@@ -72,7 +72,9 @@ oil_test_modifier <- function(moisture = "Default",
   }
 
 
-  acidity_df <- gb_ref$acidity_cond_state_calib %>% filter(Type %in% type_tf)
+  acidity_df <- gb_ref$acidity_cond_state_calib
+  acidity_df <- acidity_df[acidity_df$Type == type_tf, ]
+  acidity_df <- acidity_df[!is.na(acidity_df$Lower), ]
 
   acidity_df$Lower[1] <- -Inf
   acidity_df$Upper[nrow(acidity_df)] <- Inf
@@ -88,7 +90,8 @@ oil_test_modifier <- function(moisture = "Default",
   }
 
 
-  bd_strength_df <- gb_ref$bd_strength_cond_state_calib %>% filter(Type %in% type_tf)
+  bd_strength_df <- gb_ref$bd_strength_cond_state_calib
+  bd_strength_df <- bd_strength_df[bd_strength_df$Type == type_tf,]
 
   bd_strength_df$Lower[1] <- -Inf
   bd_strength_df$Upper[nrow(bd_strength_df)] <- Inf
@@ -111,11 +114,12 @@ oil_test_modifier <- function(moisture = "Default",
     80 * bd_strength_score
 
   # Oil condition factor
-  oil_cond_factor_df <- gb_ref$oil_test_factor_calib %>% filter(Type %in% type_tf)
+  oil_cond_factor_df <- gb_ref$oil_test_factor_calib
+  oil_cond_factor_df <- oil_cond_factor_df[oil_cond_factor_df$Type == type_tf, ]
+  oil_cond_factor_df <- oil_cond_factor_df[!is.na(oil_cond_factor_df$Lower), ]
 
   oil_cond_factor_df$Lower[1] <- -Inf
   oil_cond_factor_df$Upper[nrow(oil_cond_factor_df)] <- Inf
-
 
   for (n in 1:nrow(oil_cond_factor_df)){
 
@@ -129,7 +133,9 @@ oil_test_modifier <- function(moisture = "Default",
 
   # Oil condition collar
 
-  oil_cond_collar_df <- gb_ref$oil_test_collar_calib %>% filter(Type %in% type_tf)
+  oil_cond_collar_df <- gb_ref$oil_test_collar_calib
+  oil_cond_collar_df <- oil_cond_collar_df[oil_cond_collar_df$Type == type_tf, ]
+  oil_cond_collar_df <- oil_cond_collar_df[!is.na(oil_cond_collar_df$Lower), ]
 
   for (n in 1:nrow(oil_cond_collar_df)){
 

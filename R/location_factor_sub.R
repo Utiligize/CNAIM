@@ -34,14 +34,12 @@
 #'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#  # Location factor for a non-landlocked submarine cable
-# location_factor_sub(topography = "Default",
-#                     situation = "Default",
-#                     wind_wave = "Default",
-#                     intensity = "Default",
-#                     landlocked = "no")
-
-
+#'  # Location factor for a non-landlocked submarine cable
+#'location_factor_sub(topography = "Default",
+#'                     situation = "Default",
+#'                     wind_wave = "Default",
+#'                     intensity = "Default",
+#'                     landlocked = "no")
 location_factor_sub <- function(topography = "Default",
                                 situation = "Default",
                                 wind_wave = "Default",

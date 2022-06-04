@@ -162,8 +162,6 @@ predict_weibull_model <- function(age,
 #' @examples
 #' train_weibull_model(transformer_faults_data = transformer_11kv_faults)
 #'
-
-
 train_weibull_model <- function(transformer_faults_data) {
 
   # need numerical representation of the data:
@@ -245,6 +243,7 @@ train_weibull_model <- function(transformer_faults_data) {
   for (h in list(H1_data, H2_data, H3_data, H4_data, H5_data))
   {
     # find multilinear model for expected lifetime:
+    if(nrow(h) == 0)  next
     lm_age <- lm(formula = age ~ utilisation_pct + placement + altitude_m + distance_from_coast_km
                  + corrosion_category_index + partial_discharge + oil_acidity + temperature_reading
                  + observed_condition, data = h)

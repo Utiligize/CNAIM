@@ -50,7 +50,7 @@ test_that("Default case", {
                             value = c("na", "na"),
                             id = c(1,2),
                             point_x = c("20", "na"),
-                            point_y = c("22.7513227513227", "na"),
+                            point_y = c("20.4660769610704", "na"),
                             dot_radius = c("4", "na"))
 
   expect_equal(res, expected_df)

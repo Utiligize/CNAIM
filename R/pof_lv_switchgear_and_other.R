@@ -193,8 +193,7 @@ get_mmi_lv_switchgear_asset_category <- function(asset_category){
 
 get_gb_ref_measured_conditions_table_names_lv_switchgear <- function(asset_category_mmi){
   if(asset_category_mmi == "LV Board (WM)")
-    return(list("operational_adequacy" = "mci_lv_board_wm_opsal_adequacy",
-                "security" = "mci_lv_board_wm_security"))
+    return(list("operational_adequacy" = "mci_lv_board_wm_opsal_adequacy"))
   if(asset_category_mmi == "LV Pillars")
     return(list("operational_adequacy" = "mci_lv_pillar_opsal_adequacy"))
   if(asset_category_mmi == "LV Circuit Breaker")
@@ -247,6 +246,7 @@ get_measured_conditions_modifier_lv_switchgear <- function(asset_category_mmi, t
   # Measured inputs-----------------------------------------------------------
   factor_dfs <- list()
   for(table_name in names(table_names)){
+
     gb_ref_table_name <- table_names[[table_name]]
     mci_table <- gb_ref[[gb_ref_table_name]]
     mci_table_check_col_name <- names(measured_condition_inputs[[table_name]])[1]

@@ -4,7 +4,6 @@ library(CNAIM)
 context("Current Probability of Failure for a Transformer")
 
 test_that("pof_transformer_11_20kv", {
-  # TODO: verify correctness
   expect_equal(pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
                                        utilisation_pct = "Default",
                                        placement = "Default",

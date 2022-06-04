@@ -6,7 +6,7 @@ context("Location factor for a non-landlocked submarine cable")
 test_that("cof", {
 
   res <- location_factor_sub(topography = "Default",
-                    sitution = "Default",
+                    situation = "Default",
                     wind_wave = "Default",
                     intensity = "Default",
                     landlocked = "no")

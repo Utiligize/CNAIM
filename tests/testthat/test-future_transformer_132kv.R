@@ -4,7 +4,6 @@ library(CNAIM)
 context("Future Probability of Failure for 132kV Transformer (GM)")
 
 test_that("pof_future_transformer_132kv", {
-  # TODO: verify correctness
 
   res <-
     pof_future_transformer_132kv(transformer_type = "132kV Transformer (GM)",

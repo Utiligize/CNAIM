@@ -48,7 +48,7 @@
 #'observed_condition = "Default",
 #'reliability_factor = "Default"
 #'moisture = "Default",
-#'acidity = "Default",
+#'oil_acidity = "Default",
 #'bd_strength = "Default")
 
 pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
@@ -63,7 +63,7 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
                                     observed_condition = "Default",
                                     reliability_factor = "Default",
                                     moisture = "Default",
-                                    acidity = "Default",
+                                    oil_acidity = "Default",
                                     bd_strength = "Default") {
 
   `Asset Register Category` = `Health Index Asset Category` =
@@ -176,7 +176,7 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
 
   # Oil test modifier -------------------------------------------------------
   oil_test_mod <- oil_test_modifier(moisture,
-                                    acidity,
+                                    oil_acidity,
                                     bd_strength)
 
   # Temperature readings ----------------------------------------------------

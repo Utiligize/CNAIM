@@ -60,7 +60,7 @@ test_that("LV Board(WM)", {
                                      "security" = list("Condition Criteria: Security" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_value <- 0.00015
+  expected_value <- 0.000119
 
   expect_equal(res, expected_value)
 })

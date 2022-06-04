@@ -30,7 +30,7 @@
 #'observed_condition = "Default",
 #'reliability_factor = "Default",
 #'moisture = "Default",
-#'acidity = "Default",
+#'oil_acidity = "Default",
 #'bd_strength = "Default",
 #'simulation_end_year = 100)
 # # Plot
@@ -51,7 +51,7 @@ pof_future_transformer_11_20kv <-
            observed_condition = "Default",
            reliability_factor = "Default",
            moisture = "Default",
-           acidity = "Default",
+           oil_acidity = "Default",
            bd_strength = "Default",
            simulation_end_year = 100) {
 
@@ -165,7 +165,7 @@ pof_future_transformer_11_20kv <-
 
     # Oil acidity -------------------------------------------------------------
     oil_test_mod <- oil_test_modifier(moisture,
-                                      acidity,
+                                      oil_acidity,
                                       bd_strength)
 
 
