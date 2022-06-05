@@ -51,7 +51,6 @@
 #' @examples
 #' # Current annual probability of failure for
 #' # "66kV UG Cable (Non Pressurised)", 50 years old
-#'pof_cables_66kV_non <-
 # pof_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
 # sub_division = "Lead sheath - Copper conductor",
 # utilisation_pct = 80,
@@ -61,10 +60,7 @@
 # fault_hist = "Default",
 # leakage = "Default",
 # reliability_factor = "Default",
-# age = 50) * 100
-#'
-#'paste0(sprintf("Probability of failure %.4f", pof_cables_66kV_non),
-#'" percent per annum")
+# age = 50)
 pof_cables_66_33kv <-
   function(cable_type = "66kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",

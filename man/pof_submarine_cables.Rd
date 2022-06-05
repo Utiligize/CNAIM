@@ -104,7 +104,4 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Current annual probability of failure for 1 km EHV Sub Cable
-paste0(sprintf("Probability of failure \%.4f", pof_subcables),
-" percent per annum")
-
 }

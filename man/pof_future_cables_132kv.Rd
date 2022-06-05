@@ -92,7 +92,6 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Future probability of failure for 132kV UG Cable (Non Pressurised)
-pof_66kV_non_pressurised <-
 pof_future_cables_132kv(cable_type = "132kV UG Cable (Non Pressurised)",
 sub_division = "Aluminium sheath - Aluminium conductor",
 utilisation_pct = 75,
@@ -104,8 +103,4 @@ leakage = "Default",
 reliability_factor = "Default",
 age = 1,
 simulation_end_year = 100)
-# Plot
-plot(pof_132kV_non_pressurised$PoF * 100,
-type = "line", ylab = "\%", xlab = "years",
-main = "PoF per kilometre - 132kV UG Cable (Non Pressurised)")
 }

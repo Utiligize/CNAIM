@@ -90,7 +90,6 @@ on page 34 in CNAIM (2021).
 \examples{
 # Current annual probability of failure for
 # "60kV UG Cable (Non Pressurised)", 50 years old
-pof_cables_60kV_non <-
 pof_cables_60_30kv(cable_type = "66kV UG Cable (Non Pressurised)",
 sub_division = "Lead sheath - Copper conductor",
 utilisation_pct = 80,
@@ -101,7 +100,4 @@ fault_hist = "Default",
 leakage = "Default",
 reliability_factor = "Default",
 age = 50) * 100
-
-paste0(sprintf("Probability of failure \%.4f", pof_cables_66kV_non),
-" percent per annum")
 }

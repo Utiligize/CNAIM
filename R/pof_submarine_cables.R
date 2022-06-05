@@ -55,10 +55,6 @@
 #  age = 10,
 #  reliability_factor = "Default"
 # )
-#'paste0(sprintf("Probability of failure %.4f", pof_subcables),
-#'" percent per annum")
-#'
-
 pof_submarine_cables <-
   function(sub_cable_type = "EHV Sub Cable",
            utilisation_pct = "Default",

@@ -20,3 +20,6 @@ present_value_future_risk(pof, cof, r = 0.035)
 This function calculates the present value of future risk.
 See section 5.5 on page 32 in CNAIM (2021).
 }
+\examples{
+present_value_future_risk(c(0.1, 0.2, 0.5), 100)
+}

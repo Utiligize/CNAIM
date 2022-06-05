@@ -8,6 +8,7 @@
 #'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
+#' present_value_future_risk(c(0.1, 0.2, 0.5), 100)
 present_value_future_risk <- function(pof, cof, r = 0.035) {
   n <- length(pof)
   sum_pof <- lapply(1:length(pof), function(i){

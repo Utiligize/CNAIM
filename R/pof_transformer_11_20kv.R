@@ -20,7 +20,6 @@
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
 #'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).
 #' @inheritParams oil_test_modifier
-#' See page 162, table 204-207 in CNAIM (2021).
 #' @param temperature_reading String. Indicating the criticality.
 #' Options for \code{temperature_reading}:
 #' \code{temperature_reading = c("Normal", "Moderately High",
@@ -46,11 +45,10 @@
 #'partial_discharge = "Default",
 #'temperature_reading = "Default",
 #'observed_condition = "Default",
-#'reliability_factor = "Default"
+#'reliability_factor = "Default",
 #'moisture = "Default",
 #'oil_acidity = "Default",
 #'bd_strength = "Default")
-
 pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
                                     utilisation_pct = "Default",
                                     placement = "Default",

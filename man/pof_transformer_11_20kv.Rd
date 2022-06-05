@@ -84,6 +84,14 @@ Options for \code{temperature_reading}:
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
 See section 6.14 on page 73 in CNAIM (2021).}
+
+\item{moisture}{Numeric. Refers to the moisture level in the
+transformer oil. Moisture levels are measured in ppm.
+A setting of \code{"Default"} will result in the best possible result.}
+
+\item{bd_strength}{Numeric. Refers to the breakdown strength.
+Breakdown strength is measured in kV.
+A setting of \code{"Default"} will result in the best possible result.}
 }
 \value{
 Numeric. Current probability of failure.
@@ -109,7 +117,7 @@ age = 10,
 partial_discharge = "Default",
 temperature_reading = "Default",
 observed_condition = "Default",
-reliability_factor = "Default"
+reliability_factor = "Default",
 moisture = "Default",
 oil_acidity = "Default",
 bd_strength = "Default")
