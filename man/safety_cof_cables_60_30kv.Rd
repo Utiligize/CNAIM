@@ -11,6 +11,9 @@ Health & Criticality - Version 2.1, 2021:
 \usage{
 safety_cof_cables_60_30kv(ehv_asset_category)
 }
+\arguments{
+\item{ehv_asset_category}{Asset category for analysis}
+}
 \value{
 Numeric. Financial consequences of failure for 30-60 kV UG cables
 }

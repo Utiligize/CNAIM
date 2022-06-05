@@ -4,13 +4,12 @@ library(CNAIM)
 context("Current Probability of Failure for 132kV Sub Cable")
 
 test_that("pof_submarine_cables", {
-  # TODO: verify correctness
 
   res <- pof_submarine_cables(sub_cable_type = "132kV Sub Cable",
                                utilisation_pct = 95,
                                operating_voltage_pct = 80,
                                topography = "High Detrimental Topography",
-                               sitution = "Laid on bed",
+                               situation = "Laid on bed",
                                wind_wave = 3,
                                intensity = "Low",
                                landlocked = "no",

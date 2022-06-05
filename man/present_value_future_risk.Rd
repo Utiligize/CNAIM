@@ -15,6 +15,8 @@ present_value_future_risk(pof, cof, r = 0.035)
 \item{pof}{A vector of the probability of failure of the asset over years}
 
 \item{cof}{The consequence of failure of the asset}
+
+\item{r}{discount rate}
 }
 \description{
 This function calculates the present value of future risk.

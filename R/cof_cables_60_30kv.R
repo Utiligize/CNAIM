@@ -8,6 +8,7 @@
 #' "30kV UG Cable (Oil)", "60kV UG Cable (Oil)")
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
+#' @param ehv_asset_category Asset category for the analysis
 #' @return Numeric. Financial consequences of failure for EHV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -70,6 +71,7 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category){
 #' "30kV UG Cable (Oil)", "60kV UG Cable (Oil)")
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
+#' @param ehv_asset_category Asset category for analysis
 #' @return Numeric. Financial consequences of failure for 30-60 kV UG cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -126,6 +128,7 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category){
 #' "30kV UG Cable (Oil)", "60kV UG Cable (Oil)")
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
+#' @param ehv_asset_category Asset category for the analysis
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -240,6 +243,7 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
 #' "30kV UG Cable (Oil)", "60kV UG Cable (Oil)")
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
+#' @param ehv_asset_category Asset category for the analysis
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

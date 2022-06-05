@@ -30,6 +30,7 @@
 #' submarine cables armour. Options:
 #' \code{condition_armour = c("Good","Poor","Critical","Default")}
 #' @inheritParams current_health
+#' @param situation Situation of the cable
 #' @param age Numeric. The current age in years of the cable.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometre.
@@ -44,7 +45,7 @@
 #  utilisation_pct = "Default",
 #  operating_voltage_pct = "Default",
 #  topography = "Default",
-#  sitution = "Default",
+#  situation = "Default",
 #  wind_wave = "Default",
 #  intensity = "Default",
 #  landlocked = "no",
@@ -60,7 +61,7 @@ pof_submarine_cables <-
            utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            topography = "Default",
-           sitution = "Default",
+           situation = "Default",
            wind_wave = "Default",
            intensity = "Default",
            landlocked = "no",
@@ -126,7 +127,7 @@ pof_submarine_cables <-
 
     # Location factor ---------------------------------------------------------
     lf_submarine <- location_factor_sub(topography,
-                                        sitution,
+                                        situation,
                                         wind_wave,
                                         intensity,
                                         landlocked)

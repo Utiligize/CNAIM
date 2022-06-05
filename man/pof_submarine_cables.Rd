@@ -14,7 +14,7 @@ pof_submarine_cables(
   utilisation_pct = "Default",
   operating_voltage_pct = "Default",
   topography = "Default",
-  sitution = "Default",
+  situation = "Default",
   wind_wave = "Default",
   intensity = "Default",
   landlocked = "no",
@@ -46,6 +46,8 @@ Options:
 \code{typography = c("Low Detrimental Topography",
 "Medium Detrimental Topography", "High Detrimental Topography",
 "Very High Detrimental Topography","Default" )}}
+
+\item{situation}{Situation of the cable}
 
 \item{wind_wave}{Numeric.
 Options:

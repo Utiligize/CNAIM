@@ -16,6 +16,7 @@
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years.
 #' @param partial_discharge String. Indicating the
+#' @param oil_acidity Oil Acidity
 #' level of partial discharge. Options for \code{partial_discharge}:
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
 #'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).

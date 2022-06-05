@@ -3,6 +3,7 @@
 #' See section 5.5 on page 32 in CNAIM (2021).
 #' @param pof A vector of the probability of failure of the asset over years
 #' @param cof The consequence of failure of the asset
+#' @param r discount rate
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}

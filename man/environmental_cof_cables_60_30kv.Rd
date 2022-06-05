@@ -12,6 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_cables_60_30kv(ehv_asset_category, prox_water, bunded)
 }
 \arguments{
+\item{ehv_asset_category}{Asset category for the analysis}
+
 \item{prox_water}{Numeric. Specify the proximity to a water course in meters.
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 assume the proximity to a water course is between 80m and 120m

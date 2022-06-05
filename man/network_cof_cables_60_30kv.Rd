@@ -12,6 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_cables_60_30kv(ehv_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
+\item{ehv_asset_category}{Asset category for the analysis}
+
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}

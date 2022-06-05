@@ -65,10 +65,7 @@ to 1 independent of \code{asset_type}.}
 
 \item{age}{Numeric. The current age in years.}
 
-\item{partial_discharge}{String. Indicating the
-level of partial discharge. Options for \code{partial_discharge}:
-\code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
- "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
+\item{partial_discharge}{String. Indicating the}
 
 \item{temperature_reading}{String. Indicating the criticality.
 Options for \code{temperature_reading}:
@@ -88,6 +85,11 @@ See section 6.14 on page 73 in CNAIM (2021).}
 \item{moisture}{Numeric. Refers to the moisture level in the
 transformer oil. Moisture levels are measured in ppm.
 A setting of \code{"Default"} will result in the best possible result.}
+
+\item{oil_acidity}{Oil Acidity
+level of partial discharge. Options for \code{partial_discharge}:
+\code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
+ "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
 
 \item{bd_strength}{Numeric. Refers to the breakdown strength.
 Breakdown strength is measured in kV.

@@ -23,7 +23,7 @@
 #'  utilisation_pct = "Default",
 #'  operating_voltage_pct = "Default",
 #'  topography = "Default",
-#'  sitution = "Default",
+#'  situation = "Default",
 #'  wind_wave = "Default",
 #'  intensity = "Default",
 #'  landlocked = "no",
@@ -40,7 +40,7 @@ pof_future_submarine_cables <-
            utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            topography = "Default",
-           sitution = "Default",
+           situation = "Default",
            wind_wave = "Default",
            intensity = "Default",
            landlocked = "no",
@@ -107,7 +107,7 @@ pof_future_submarine_cables <-
 
     # Location factor ---------------------------------------------------------
     lf_submarine <- location_factor_sub(topography,
-                                        sitution,
+                                        situation,
                                         wind_wave,
                                         intensity,
                                         landlocked)
