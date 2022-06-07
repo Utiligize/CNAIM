@@ -19,7 +19,8 @@ predict_weibull_model(
     -0.0017302242), scales.2 = c(-8.202209, -3.856043, -2.818854, -2.388243, -2.940468),
     scales.3 = c(-0.003023546, -0.001602048, -0.00134834, -0.00198866, -0.003149921),
     scales.4 = c(-0.040016081, -0.028129483, -0.017586604, -0.009426902, -0.02178312),
-    scales.5 = c(-1.4776137, -0.6794045,      -0.6000869, -0.3839049, -0.4445468),
+    scales.5 = c(-1.4776137, -0.6794045, 
+     -0.6000869, -0.3839049, -0.4445468),
     scales.6 = c(-0.811395564, 0.015705206, -9.815935489, -0.002548827, -0.085903822),
     scales.7 = c(-4.4776511, -0.3677058, 0.4590218, -0.6364809, -0.3314029), scales.8 =
     c(-1.5861982, 0, -0.1398528, -0.1721091, 0), scales.9 = c(-0.7914404, -0.2632199,
@@ -38,7 +39,7 @@ corrosion_category_index: Numeric or "Default",
 partial_discharge: "Low", "Medium", "High (Not Confirmed)", "High (Confirmed)" or "Default",
 oil_acidity: Numeric or "Default",
 temperature_reading: "Normal", "Moderately High", "Very High" or "Default",
-observed_condition: "As New", "Good", "Slight Deterioration", "Poor", "Very Poor" or "Default"
+observed_condition: "No deterioration", "Superficial/minor deterioration", "Slight Deterioration", "Some deterioration", "Substantial deterioration" or "Default"
 Default value if environmental_factors is not provided: data frame with value "Default" for all fields}
 
 \item{weibull_model_parameters}{Data frame. The output returned by the function

@@ -1,15 +1,15 @@
 #' @title Financial cost of Failure for Overhead Line Conductors
 #' @description This function calculates financial consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ohl_cond_asset_category String The type of Pole asset category
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
-#' setting (cf. table 214, page 164, CNAIM, 2017).
+#' setting (cf. table 221, page 180, CNAIM, 2021).
 #' @return Numeric. Financial consequences of failure for Poles
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' financial_cof_ohl_cond(
@@ -67,18 +67,18 @@ financial_cof_ohl_cond <- function(ohl_cond_asset_category,
 
 #' @title Safety cost of Failure for Overhead Line Conductors
 #' @description This function calculates safety consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ohl_cond_asset_category String The type of overhead line conductor asset category
 #' @param location_risk String Type Financial factor criteria for Overhead Line Conductors
-#' (cf. section D1.2.1, page 162, CNAIM, 2017).
+#' (cf. section D1.2.1, page 178, CNAIM, 2021).
 #' @param type_risk String. Asses Financial factor criteria for Overhead Line Conductors
-#' setting (cf. table 214, page 164, CNAIM, 2017).
+#' setting (cf. table 221, page 180, CNAIM, 2021).
 #' @return Numeric. Safety consequences of failure for Overhead Line Conductors
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' safety_cof_ohl_cond(
@@ -124,13 +124,13 @@ safety_cof_ohl_cond <- function(ohl_cond_asset_category,
 
 #' @title Environmental cost of Failure for Overhead line conductors
 #' @description This function calculates environmental consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 #' @param ohl_cond_asset_category String The type of Overhead Line Conductors
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' environmental_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor")
@@ -155,7 +155,7 @@ environmental_cof_ohl_cond <- function(ohl_cond_asset_category){
   # Size env factor -------------------------------------
   size_environmental_factor <- 1
 
-  # Location environmetal factor table 222 ----------------------------------
+  # Location environmetal factor table 231 ----------------------------------
 
   location_environmental_factor <- 1
 
@@ -172,15 +172,15 @@ environmental_cof_ohl_cond <- function(ohl_cond_asset_category){
 #' @title Network cost of Failure for Overhead Line Conductors
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
-#' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
+#' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ohl_cond_asset_category String The type of Overhead line conductor
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' network_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor",

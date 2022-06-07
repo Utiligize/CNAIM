@@ -6,7 +6,7 @@ Authors@R:
     c(person(given = "Emil",
              family = "Larsen",
              role = c("aut", "cre"),
-             email = "mohsin@utiligize.com"),
+             email = "emil@utiligize.com"),
       person(given = "Kalle",
              family = "Hansen",
              role = c("aut"),
@@ -14,8 +14,12 @@ Authors@R:
       person(given = "Peter",
              family = "Larsen",
              role = c("aut"),
-             email = "peter@utiligize.com"))
-Maintainer: Emil Larsen <mohsin@utiligize.com>
+             email = "peter@utiligize.com"),
+      person(given = "Mohsin",
+             family = "Vindhani",
+             role = c("aut"),
+             email = "mohsin@utiligize.com"))
+Maintainer: Mohsin Vindhani <mohsin@utiligize.com>
 Description: Implementation of the CNAIM standard in R. Contains a series of
     algorithms which determine the probability of failure, consequences of
     failure and monetary risk associated with electricity distribution
@@ -41,7 +45,7 @@ Imports:
     testthat,
     tibble,
     widgetframe
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Suggests: 
     knitr,
     rmarkdown

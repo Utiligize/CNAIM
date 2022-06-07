@@ -6,15 +6,15 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @param transformer_type String. A sting that refers to the specific
-#' asset category. See See page 15, table 1 in CNAIM (2017).
+#' asset category. See See page 17, table 1 in CNAIM (2021).
 #' Options:
 #' \code{transformer_type =
 #' c("33kV Transformer (GM)", "66kV Transformer (GM)")}. The default setting is
 #' \code{transformer_type = "66kV Transformer (GM)"}
 #' @param year_of_manufacture Numeric. Normal expected life depends on the
-#' year for manufacture, see page 103 table 20 in CNAIM (2017).
+#' year for manufacture, see page 107 table 20 in CNAIM (2021).
 #' @inheritParams duty_factor_transformer_33_66kv
 #' @inheritParams location_factor
 #' @inheritParams current_health
@@ -26,73 +26,73 @@
 #' level of partial discharge in the transformer.
 #' Options:
 #' \code{partial_discharge_tf = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 139, table 162 in CNAIM (2017).
+#'  "High (Confirmed)", "Default")}. See page 154, table 173 in CNAIM (2021).
 #' @param partial_discharge_tc String. Indicating the
 #' level of partial discharge in the tapchanger
 #' Options:
 #' \code{partial_discharge_tc = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 140, table 164 in CNAIM (2017).
+#'  "High (Confirmed)", "Default")}. See page 155, table 175 in CNAIM (2021).
 #' @param temperature_reading String. Indicating the criticality.
 #' Options:
 #' \code{temperature_reading = c("Normal", "Moderately High",
-#' "Very High", "Default")}. See page 139, table 163 in CNAIM (2017).
+#' "Very High", "Default")}. See page 154, table 174 in CNAIM (2021).
 #' @param main_tank String. Indicating the observed condition of the
 #' main tank. Options:
-#' \code{main_tank = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 120, table 74
-#' in CNAIM (2017).
+#' \code{main_tank = c("Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 131, table 83
+#' in CNAIM (2021).
 #' @param coolers_radiator String. Indicating the observed condition of the
 #' coolers/radiators. Options:
-#' \code{coolers_radiator = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 120, table 75
-#' in CNAIM (2017).
+#' \code{coolers_radiator = c("Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 131, table 84
+#' in CNAIM (2021).
 #' @param bushings String. Indicating the observed condition of the
 #' bushings. Options:
-#' \code{bushings = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 120, table 76
-#' in CNAIM (2017).
+#' \code{bushings = c("Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 131, table 85
+#' in CNAIM (2021).
 #' @param kiosk String. Indicating the observed condition of the
 #' kiosk. Options:
-#' \code{kiosk = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 77
-#' in CNAIM (2017).
+#' \code{kiosk = c("Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 132, table 86
+#' in CNAIM (2021).
 #' @param cable_boxes String. Indicating the observed condition of the
 #' cable boxes. Options:
-#' \code{cable_boxes = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 78
-#' in CNAIM (2017).
+#' \code{cable_boxes = c("No Deterioration","Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 132, table 87
+#' in CNAIM (2021).
 #' @param external_tap String. Indicating the observed external condition of the
 #'  tapchanger. Options:
-#' \code{external_tap = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 79
-#' in CNAIM (2017).
+#' \code{external_tap = c("Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 133, table 88
+#' in CNAIM (2021).
 #' @param internal_tap String. Indicating the observed internal condition of the
 #'  tapchanger. Options:
-#' \code{external_tap = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 80
-#' in CNAIM (2017).
+#' \code{internal_tap = c("Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 133, table 89
+#' in CNAIM (2021).
 #' @param mechnism_cond String. Indicating the observed condition of the
 #'  drive mechnism. Options:
-#' \code{mechnism_cond = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 121, table 81
-#' in CNAIM (2017).
+#' \code{mechnism_cond = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 133, table 90
+#' in CNAIM (2021).
 #' @param diverter_contacts String. Indicating the observed condition of the
 #' selector and diverter contacts. Options:
-#' \code{diverter_contacts = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 122, table 82
-#' in CNAIM (2017).
+#' \code{diverter_contacts = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 133, table 91
+#' in CNAIM (2021).
 #' @param diverter_braids String. Indicating the observed condition of the
 #' selector and diverter braids. Options:
-#' \code{diverter_braids = c("Normal Wear", "Some Deterioration",
-#' "Substantial Deterioration", "Default")}. See page 122, table 83
-#' in CNAIM (2017)
+#' \code{diverter_braids = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
+#' "Substantial Deterioration", "Default")}. See page 134, table 92
+#' in CNAIM (2021)
 #' @inheritParams oil_test_modifier
 #' @inheritParams dga_test_modifier
 #' @inheritParams ffa_test_modifier
 #' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current probability of failure for a 66/10kV transformer
@@ -269,8 +269,8 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
   # of the Health Score. However, in some instances
   # these parameters are set to other values in the
   # Health Score Modifier calibration tables.
-  # These overriding values are shown in Table 34 to Table 195
-  # and Table 200 in Appendix B.
+  # These overriding values are shown in Table 35 to Table 202
+  # and Table 207 in Appendix B.
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-

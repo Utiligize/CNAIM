@@ -66,7 +66,7 @@ pof <- pof_transformer_11_20kv(
   partial_discharge = "Low",
   oil_acidity = 0.1,
   temperature_reading = "Normal",
-  observed_condition = "Good",
+  observed_condition = "Default",
   reliability_factor = "Default")
 sprintf("The probability of failure is %.2f%% per year", 100*pof) 
 ```

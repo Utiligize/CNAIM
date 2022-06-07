@@ -6,13 +6,13 @@
 #' \code{\link{mmi}}(). The function combines observed and measured
 #' condition factors using the simplified maximum and
 #' multiple increment (MMI) technique to
-#' construct the health score factor (cf. CNAIM, 2017, page 52, table 9).
+#' construct the health score factor (cf. CNAIM, 2021, page 56, table 9).
 #' @param observed_condition_factor Numeric.
 #' @param measured_condition_factor Numeric.
 #' @return Numeric. Health score factor.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#'\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # An asset with an observed condition factor of 1 and a measured condition

@@ -1,15 +1,15 @@
 #' @importFrom magrittr %>%
 #' @title Current Probability of Failure for 33-132kV OHL Conductors
 #' @description This function calculates the current
-#' annual probability of failure per kilometer 3-132kV OHL conductors.
+#' annual probability of failure per kilometer 33-132kV OHL conductors.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @param ohl_conductor String.
 #' A sting that refers to the specific asset category.
-#' See See page 15, table 1 in CNAIM (2017).
+#' See See page 17, table 1 in CNAIM (2021).
 #' Options:
 #' \code{ohl_conductor = c("33kV OHL (Tower Line) Conductor",
 #' "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.
@@ -23,44 +23,44 @@
 #' "Cad Cu",
 #' "Cu",
 #' "Other")
-#'}. See page 103, table 20 in CNAIM (2017).
+#'}. See page 107, table 20 in CNAIM (2021).
 #' @inheritParams location_factor
 #' @param age  Numeric. The current age in years of the conductor.
 #' @param conductor_samp String. Conductor sampling. Options:
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-#' See page 146-147, table 192 and 194 in CNAIM (2017).
+#' See page 161, table 199 and 201 in CNAIM (2021).
 #' @param corr_mon_survey String. Corrosion monitoring survey. Options:
 #' \code{corr_mon_survey = c("Low","Medium/Normal","High","Default")}.
-#' See page 146-147, table 193 and 195 in CNAIM (2017).
+#' See page 161, table 200 and 202 in CNAIM (2021).
 #' @param visual_cond String. Visual condition. Options:
-#' \code{visual_cond = c("As New","Normal Wear","Some Deterioration",
+#' \code{visual_cond = c("No deterioration","Superficial/minor deterioration","Some Deterioration",
 #' "Substantial Deterioration", "Default")}.
-#' See page 131-132, table 127 and 129 in CNAIM (2017).
+#' See page 146, table 140 and 142 in CNAIM (2021).
 #' @param midspan_joints Integer. Number of midspan joints on the conductor.
 #' A span includes all conductors in that span.
-#' See page 131-132, table 128 and 130 in CNAIM (2017).
+#' See page 146, table 141 and 143 in CNAIM (2021).
 #' @inheritParams current_health
 #' @return Numeric. Current probability of failure
 #' per annum per kilometer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 66kV OHL (Tower Line) Conductor
-#'pof_ohl_cond_132_66_33kv(
-#'ohl_conductor = "66kV OHL (Tower Line) Conductor",
-#'sub_division = "Cu",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age = 10,
-#'conductor_samp = "Default",
-#'corr_mon_survey = "Default",
-#'visual_cond = "Default",
-#'midspan_joints = "Default",
-#'reliability_factor = "Default")
+# pof_ohl_cond_132_66_33kv(
+# ohl_conductor = "66kV OHL (Tower Line) Conductor",
+# sub_division = "Cu",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age = 10,
+# conductor_samp = "Default",
+# corr_mon_survey = "Default",
+# visual_cond = "Default",
+# midspan_joints = "Default",
+# reliability_factor = "Default")
 
 pof_ohl_cond_132_66_33kv <-
   function(ohl_conductor = "66kV OHL (Tower Line) Conductor",
@@ -145,8 +145,8 @@ pof_ohl_cond_132_66_33kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 34 to Table 195
-    # and Table 200 in Appendix B.
+    # These overriding values are shown in Table 35 to Table 202
+    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     if (asset_category == "EHV OHL Conductor (Tower Lines)") {

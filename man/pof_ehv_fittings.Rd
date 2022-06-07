@@ -5,8 +5,8 @@
 \title{Current Probability of Failure for EHV/132kV Fittings}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 pof_ehv_fittings(
@@ -28,14 +28,14 @@ pof_ehv_fittings(
 
 \item{altitude_m}{Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
-is used to derive the altitude factor. See page 107,
-table 23 in CNAIM (2017). A setting of \code{"Default"}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
 will set the altitude factor to 1 independent of \code{asset_type}.}
 
 \item{distance_from_coast_km}{Numeric. Specify the distance from the
 coast measured in kilometers. \code{distance_from_coast_km} is used
-to derive the distance from coast factor See page 106,
-table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
@@ -47,12 +47,12 @@ Specify the corrosion index category, 1-5.}
 
 \item{observed_condition_inputs}{Named list observed_conditions_input
 \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-See page 146-147, table 192 and 194 in CNAIM (2017).}
+See page 161, table 199 and 201 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
-See section 6.14 on page 69 in CNAIM (2017).}
+See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
 Numeric. Current probability of failure
@@ -65,29 +65,8 @@ The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017).
+on page 34 in CNAIM (2021).
 }
 \examples{
 # Current annual probability of failure for EHV Swicthgear
-pof_ehv_fittings(
-ehv_asset_category = "33kV Fittings",
-placement = "Default",
-altitude_m = "Default",
-distance_from_coast_km = "Default",
-corrosion_category_index = "Default",
-age = 10,
-observed_condition_inputs =
-list("insulator_elec_cond" =
-list("Condition Criteria: Observed Condition" = "Default"),
-"insulator_mech_cond" =
-list("Condition Criteria: Observed Condition" = "Default"),
-"conductor_fitting_cond" =
-list("Condition Criteria: Observed Condition" = "Default"),
-"tower_fitting_cond" =
-list("Condition Criteria: Observed Condition" = "Default")),
-measured_condition_inputs =
-list("thermal_imaging" =
-list("Condition Criteria: Thermal Imaging Result" = "Default"),
-"ductor_test" = list("Condition Criteria: Ductor Test Result" = "Default")),
-reliability_factor = "Default")
 }

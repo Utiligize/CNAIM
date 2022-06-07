@@ -5,8 +5,8 @@
 \title{Location Factor (Excl.Submarine Cables)}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 location_factor(
@@ -25,32 +25,32 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 107-108,
-  table 25A in CNAIM (2017) for default environments.}
+  on the specification of \code{asset_type}. See page 110-113,
+  table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
-is used to derive the altitude factor. See page 107,
-table 23 in CNAIM (2017). A setting of \code{"Default"}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
 will set the altitude factor to 1 independent of \code{asset_type}.}
 
 \item{distance_from_coast_km}{Numeric. Specify the distance from the
 coast measured in kilometers. \code{distance_from_coast_km} is used
-to derive the distance from coast factor See page 106,
-table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
 Specify the corrosion index category, 1-5.
 \code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 107, table 24 in CNAIM (2017).
+category factor. See page 111, table 24 in CNAIM (2021).
 A setting of \code{"Default"} will set the corrosion category factor
 to 1 independent of \code{asset_type}.}
 
 \item{asset_type}{String.
 A sting that refers to the specific asset category.
 For LV UGB and non-submarine cables a location factor of 1 is assigned.
-See See page 15, table 1 in CNAIM (2017).
+See See page 17, table 1 in CNAIM (2021).
 Options:
 \code{asset_type = c("LV Poles", "LV Circuit Breaker",
 "LV Pillar (ID)", "LV Pillar (OD at Substation)",
@@ -91,7 +91,7 @@ Numeric. Location factor
 \description{
 This function calculates the location factor for
 an electric network asset based in the specific location of the asset.
-See section 6.4 on page 42 in CNAIM (2017). For calculating the location
+See section 6.4 on page 46 in CNAIM (2021). For calculating the location
 factor for submarine cables please see the function
 \code{\link{location_factor_sub}()}. Note the location factor for all other
 cables are always equal to 1 hence the function will return a location

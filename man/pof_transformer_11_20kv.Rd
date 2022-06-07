@@ -5,8 +5,8 @@
 \title{Current Probability of Failure for 6.6/11kV and 20kV Transformers}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 pof_transformer_11_20kv(
@@ -18,10 +18,12 @@ pof_transformer_11_20kv(
   corrosion_category_index = "Default",
   age,
   partial_discharge = "Default",
-  oil_acidity = "Default",
   temperature_reading = "Default",
   observed_condition = "Default",
-  reliability_factor = "Default"
+  reliability_factor = "Default",
+  moisture = "Default",
+  oil_acidity = "Default",
+  bd_strength = "Default"
 )
 }
 \arguments{
@@ -39,52 +41,59 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 107-108,
-  table 25A in CNAIM (2017) for default environments.}
+  on the specification of \code{asset_type}. See page 110-113,
+  table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
-is used to derive the altitude factor. See page 107,
-table 23 in CNAIM (2017). A setting of \code{"Default"}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
 will set the altitude factor to 1 independent of \code{asset_type}.}
 
 \item{distance_from_coast_km}{Numeric. Specify the distance from the
 coast measured in kilometers. \code{distance_from_coast_km} is used
-to derive the distance from coast factor See page 106,
-table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
 Specify the corrosion index category, 1-5.
 \code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 107, table 24 in CNAIM (2017).
+category factor. See page 111, table 24 in CNAIM (2021).
 A setting of \code{"Default"} will set the corrosion category factor
 to 1 independent of \code{asset_type}.}
 
 \item{age}{Numeric. The current age in years.}
 
-\item{partial_discharge}{String. Indicating the
-level of partial discharge. Options for \code{partial_discharge}:
-\code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
- "High (Confirmed)", "Default")}. See page 138, table 159 in CNAIM (2017).}
-
-\item{oil_acidity}{Numeric. Measured in mg KOH/g.
-See page 138, table 160 in CNAIM (2017).}
+\item{partial_discharge}{String. Indicating the}
 
 \item{temperature_reading}{String. Indicating the criticality.
 Options for \code{temperature_reading}:
 \code{temperature_reading = c("Normal", "Moderately High",
-"Very High", "Default")}. See page 139, table 161 in CNAIM (2017).}
+"Very High", "Default")}. See page 153, table 172 in CNAIM (2021).}
 
 \item{observed_condition}{String. Indicating the observed condition of the
  transformer. Options for \code{observed_condition}:
-\code{observed_condition = c("As New", "Good", "Slight Deterioration",
- "Poor", "Very Poor", "Default")}. See page 120, table 73 in CNAIM (2017).}
+\code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
+ "Some deterioration", "Substantial deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
-See section 6.14 on page 69 in CNAIM (2017).}
+See section 6.14 on page 73 in CNAIM (2021).}
+
+\item{moisture}{Numeric. Refers to the moisture level in the
+transformer oil. Moisture levels are measured in ppm.
+A setting of \code{"Default"} will result in the best possible result.}
+
+\item{oil_acidity}{Oil Acidity
+level of partial discharge. Options for \code{partial_discharge}:
+\code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
+ "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
+
+\item{bd_strength}{Numeric. Refers to the breakdown strength.
+Breakdown strength is measured in kV.
+A setting of \code{"Default"} will result in the best possible result.}
 }
 \value{
 Numeric. Current probability of failure.
@@ -96,7 +105,7 @@ The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017).
+on page 34 in CNAIM (2021).
 }
 \examples{
 # Current probability of failure for a 6.6/11 kV transformer
@@ -108,8 +117,10 @@ distance_from_coast_km = "Default",
 corrosion_category_index = "Default",
 age = 10,
 partial_discharge = "Default",
-oil_acidity = "Default",
 temperature_reading = "Default",
 observed_condition = "Default",
-reliability_factor = "Default")
+reliability_factor = "Default",
+moisture = "Default",
+oil_acidity = "Default",
+bd_strength = "Default")
 }

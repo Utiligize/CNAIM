@@ -14,7 +14,7 @@ test_that("Default case", {
 
   # doing to avoid floating point errors during comparison
   risk_coordinates$point_y <- risk_coordinates$point_y %>% round(5)
-  expected_df <- data.frame(id = 1, point_x = 20, point_y = 22.75132)
+  expected_df <- data.frame(id = 1, point_x = 20, point_y = 20.46608)
 
   expect_equal(risk_coordinates, expected_df)
 })

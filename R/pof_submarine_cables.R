@@ -6,10 +6,10 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @param sub_cable_type String.
 #' A sting that refers to the specific asset category.
-#' See See page 15, table 1 in CNAIM (2017).
+#' See See page 17, table 1 in CNAIM (2021).
 #' Options:
 #' \code{sub_cable_type =
 #' c("HV Sub Cable", "EHV Sub Cable", "132kV Sub Cable")}.
@@ -18,53 +18,50 @@
 #' @inheritParams location_factor_sub
 #' @param sheath_test String. Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 143, table 182 in CNAIM (2017).
+#' "Default")}. See page 158, table 189 in CNAIM (2021).
 #' @param partial_discharge String. Indicating the level of partial discharge.
 #' Options:
 #' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 144, table 183 in CNAIM (2017).
+#'  "Default")}. See page 158, table 190 in CNAIM (2021).
 #' @param fault_hist Numeric. The calculated fault rate for the cable per annum
 #' per kilometer. A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 144, table 184 in CNAIM (2017).
+#' indicates no fault. See page 158, table 191 in CNAIM (2021).
 #' @param condition_armour String. Indicating the external condition of the
 #' submarine cables armour. Options:
 #' \code{condition_armour = c("Good","Poor","Critical","Default")}
 #' @inheritParams current_health
+#' @param situation Situation of the cable
 #' @param age Numeric. The current age in years of the cable.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometre.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 1 km EHV Sub Cable
-#' pof_subcables <- pof_submarine_cables(
-#'  sub_cable_type = "EHV Sub Cable",
-#'  utilisation_pct = "Default",
-#'  operating_voltage_pct = "Default",
-#'  topography = "Default",
-#'  sitution = "Default",
-#'  wind_wave = "Default",
-#'  intensity = "Default",
-#'  landlocked = "no",
-#'  sheath_test = "Default",
-#'  partial_discharge = "Default",
-#'  fault_hist = "Default",
-#'  condition_armour = "Default",
-#'  age = 10,
-#'  reliability_factor = "Default"
-#')
-#'paste0(sprintf("Probability of failure %.4f", pof_subcables),
-#'" percent per annum")
-#'
-
+#  pof_submarine_cables(
+#  sub_cable_type = "EHV Sub Cable",
+#  utilisation_pct = "Default",
+#  operating_voltage_pct = "Default",
+#  topography = "Default",
+#  situation = "Default",
+#  wind_wave = "Default",
+#  intensity = "Default",
+#  landlocked = "no",
+#  sheath_test = "Default",
+#  partial_discharge = "Default",
+#  fault_hist = "Default",
+#  condition_armour = "Default",
+#  age = 10,
+#  reliability_factor = "Default"
+# )
 pof_submarine_cables <-
   function(sub_cable_type = "EHV Sub Cable",
            utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            topography = "Default",
-           sitution = "Default",
+           situation = "Default",
            wind_wave = "Default",
            intensity = "Default",
            landlocked = "no",
@@ -130,7 +127,7 @@ pof_submarine_cables <-
 
     # Location factor ---------------------------------------------------------
     lf_submarine <- location_factor_sub(topography,
-                                        sitution,
+                                        situation,
                                         wind_wave,
                                         intensity,
                                         landlocked)
@@ -153,8 +150,8 @@ pof_submarine_cables <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 34 to Table 195
-    # and Table 200 in Appendix B.
+    # These overriding values are shown in Table 35 to Table 202
+    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     mcm_mmi_cal_df <-

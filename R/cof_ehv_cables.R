@@ -1,13 +1,13 @@
-#' @title Financial cost of Failure for EHV UG cabkes & 132 kV UG cables
+#' @title Financial cost of Failure for EHV UG cables & 132 kV UG cables
 #' @description This function calculates financial consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV cable distribution asset category
 #' @return Numeric. Financial consequences of failure for EHV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' financial_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)")
@@ -40,16 +40,16 @@ financial_cof_ehv_cables <- function(ehv_asset_category){
 }
 
 
-#' @title Safety cost of Failure for EHV UG cabkes & 132 kV UG cables
+#' @title Safety cost of Failure for EHV UG cables & 132 kV UG cables
 #' @description This function calculates safety consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Safety consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV asset category
 #' @return Numeric. Financial consequences of failure for EEHV UG cabkes & 132 kV UG cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' safety_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)")
@@ -77,21 +77,21 @@ safety_cof_ehv_cables <- function(ehv_asset_category){
 }
 
 
-#' @title Environmental cost of Failure for EHV UG cabkes & 132 kV UG cables
+#' @title Environmental cost of Failure for EHV UG cables & 132 kV UG cables
 #' @description This function calculates environmental consequences of failure
-#' (cf. section 7.3, page 75, CNAIM, 2017). Environmental consequences
+#' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 #' @param ehv_asset_category String The type of EHV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
-#' (cf. table 223, page 172, CNAIM, 2017).
+#' (cf. table 231, page 188, CNAIM, 2021).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' environmental_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)",
@@ -175,15 +175,15 @@ environmental_cof_ehv_cables <- function(ehv_asset_category,
 #' @title Network cost of Failure for EHV UG cabkes & 132 kV UG cables
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
-#' (cf. section 7.6, page 83, CNAIM, 2017). Network cost of failure
+#' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV asset category
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' network_cof_ehv_cables(ehv_asset_category = "33kV UG Cable (Oil)",

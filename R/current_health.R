@@ -1,6 +1,6 @@
 #' @title Current Health score
 #' @description This function calculates the current health score for a
-#' given electric network asset (cf. CNAIM, 2017. Page 21, section 4.3.2).
+#' given electric network asset (cf. CNAIM, 2021. Page 23, section 4.3.2).
 #' @param initial_health_score Numeric. The output from the function
 #'  \code{\link{initial_health}}().
 #' @param health_score_factor Numeric. E.g. output from the function
@@ -27,11 +27,11 @@
 #' @param reliability_factor Numeric. \code{reliability_factor}
 #' shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 #'  sets the \code{reliability_factor} to 1.
-#' See section 6.14 on page 69 in CNAIM (2017).
+#' See section 6.14 on page 73 in CNAIM (2021).
 #' @return Numeric. The Current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#'\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #'current_health(initial_health_score = 0.5,
@@ -69,7 +69,7 @@ current_health <- function(initial_health_score,
     current_health_score <- pmax(health_score_collar,reliability_collar)
   }
 
-  # See page 23 and the example on page 185
+  # See page 25 and the example on page 219
   if (current_health_score > 10) current_health_score <- 10
   if (current_health_score < 0.5) current_health_score <- 0.5
   return(current_health_score)

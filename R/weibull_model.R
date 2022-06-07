@@ -12,7 +12,7 @@
 #' partial_discharge: "Low", "Medium", "High (Not Confirmed)", "High (Confirmed)" or "Default",
 #' oil_acidity: Numeric or "Default",
 #' temperature_reading: "Normal", "Moderately High", "Very High" or "Default",
-#' observed_condition: "As New", "Good", "Slight Deterioration", "Poor", "Very Poor" or "Default"
+#' observed_condition: "No deterioration", "Superficial/minor deterioration", "Slight Deterioration", "Some deterioration", "Substantial deterioration" or "Default"
 #' Default value if environmental_factors is not provided: data frame with value "Default" for all fields
 #' @param weibull_model_parameters Data frame. The output returned by the function
 #'  \code{\link{train_weibull_model}}().
@@ -90,11 +90,12 @@ predict_weibull_model <- function(age,
   EF_num$temperature_reading[EF$temperature_reading == "Very High"] <- 3
 
   # 9. observed condition
-  EF_num$observed_condition[EF$observed_condition ==  "As New"] <- 1
-  EF_num$observed_condition[EF$observed_condition %in%  c("Good", "Default")] <- 2
+  EF_num$observed_condition[EF$observed_condition ==  "No deterioration"] <- 1
+  EF_num$observed_condition[EF$observed_condition %in%  c("Superficial/minor deterioration", "Default")] <- 2
   EF_num$observed_condition[EF$observed_condition ==  "Slight Deterioration"] <- 3
-  EF_num$observed_condition[EF$observed_condition ==  "Poor"] <- 4
-  EF_num$observed_condition[EF$observed_condition ==  "Very Poor"] <- 5
+  EF_num$observed_condition[EF$observed_condition ==  "Some deterioration"] <- 4
+  EF_num$observed_condition[EF$observed_condition ==  "Substantial deterioration"] <- 5
+
 
 
   # find which part of the partition the data point is in::
@@ -153,7 +154,7 @@ predict_weibull_model <- function(age,
 #' partial_discharge: "Low", "Medium", "High (Not Confirmed)", "High (Confirmed)" or "Default",
 #' oil_acidity: Numeric or "Default",
 #' temperature_reading: "Normal", "Moderately High", "Very High" or "Default",
-#' observed_condition: "As New", "Good", "Slight Deterioration", "Poor", "Very Poor" or "Default"
+#' observed_condition: "No deterioration", "Superficial/minor deterioration", "Slight Deterioration", "Some deterioration", "Substantial deterioration" or "Default"
 #' age: Numeric
 #' @return Data frame. All shape and scale parameters needed for the function \code{\link{predict_weibull_model}}().
 #' @source \url{https://www.cnaim.io/docs/fault-analysis/}
@@ -161,8 +162,6 @@ predict_weibull_model <- function(age,
 #' @examples
 #' train_weibull_model(transformer_faults_data = transformer_11kv_faults)
 #'
-
-
 train_weibull_model <- function(transformer_faults_data) {
 
   # need numerical representation of the data:
@@ -204,11 +203,11 @@ train_weibull_model <- function(transformer_faults_data) {
   TF_num$temperature_reading[TF$temperature_reading == "Very High"] <- 3
 
   # 9. observed condition
-  TF_num$observed_condition[TF$observed_condition ==  "As New"] <- 1
-  TF_num$observed_condition[TF$observed_condition %in%  c("Good", "Default")] <- 2
+  TF_num$observed_condition[TF$observed_condition ==  "No deterioration"] <- 1
+  TF_num$observed_condition[TF$observed_condition %in%  c("Superficial/minor deterioration", "Default")] <- 2
   TF_num$observed_condition[TF$observed_condition ==  "Slight Deterioration"] <- 3
-  TF_num$observed_condition[TF$observed_condition ==  "Poor"] <- 4
-  TF_num$observed_condition[TF$observed_condition ==  "Very Poor"] <- 5
+  TF_num$observed_condition[TF$observed_condition ==  "Some deterioration"] <- 4
+  TF_num$observed_condition[TF$observed_condition ==  "Substantial deterioration"] <- 5
 
   # 10. age
   TF_num$age <- TF$age
@@ -244,6 +243,7 @@ train_weibull_model <- function(transformer_faults_data) {
   for (h in list(H1_data, H2_data, H3_data, H4_data, H5_data))
   {
     # find multilinear model for expected lifetime:
+    if(nrow(h) == 0)  next
     lm_age <- lm(formula = age ~ utilisation_pct + placement + altitude_m + distance_from_coast_km
                  + corrosion_category_index + partial_discharge + oil_acidity + temperature_reading
                  + observed_condition, data = h)
