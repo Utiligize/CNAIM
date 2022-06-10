@@ -1,7 +1,7 @@
 Package: CNAIM
 Type: Package
 Title: Common Network Asset Indices Methodology (CNAIM)
-Version: 1.0.1
+Version: 2.1.0
 Authors@R: 
     c(person(given = "Emil",
              family = "Larsen",
