@@ -2,23 +2,12 @@ Package: CNAIM
 Type: Package
 Title: Common Network Asset Indices Methodology (CNAIM)
 Version: 2.1.0
-Authors@R: 
-    c(person(given = "Emil",
-             family = "Larsen",
-             role = c("aut", "cre"),
-             email = "emil@utiligize.com"),
-      person(given = "Kalle",
-             family = "Hansen",
-             role = c("aut"),
-             email = "kalle@utiligize.com"),
-      person(given = "Peter",
-             family = "Larsen",
-             role = c("aut"),
-             email = "peter@utiligize.com"),
-      person(given = "Mohsin",
-             family = "Vindhani",
-             role = c("aut"),
-             email = "mohsin@utiligize.com"))
+Authors@R: c(
+    person("Emil", "Larsen", , "mohsin@utiligize.com", role = "aut"),
+    person("Kalle", "Hansen", , "kalle@utiligize.com", role = "aut"),
+    person("Peter", "Larsen", , "peter@utiligize.com", role = "aut"),
+    person("Mohsin", "Vindhani", , "mohsin@utiligize.com", role = c("aut", "cre"))
+  )
 Maintainer: Mohsin Vindhani <mohsin@utiligize.com>
 Description: Implementation of the CNAIM standard in R. Contains a series of
     algorithms which determine the probability of failure, consequences of
