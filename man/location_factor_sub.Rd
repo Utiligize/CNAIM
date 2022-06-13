@@ -57,11 +57,3 @@ See section 6.5 on page 48 in CNAIM (2021). For calculating the location
 factor for all other network assets please see the function
 \code{\link{location_factor}()}.
 }
-\examples{
- # Location factor for a non-landlocked submarine cable
-location_factor_sub(topography = "Default",
-                    situation = "Default",
-                    wind_wave = "Default",
-                    intensity = "Default",
-                    landlocked = "no")
-}

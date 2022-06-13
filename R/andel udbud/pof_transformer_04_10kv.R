@@ -1,61 +1,60 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 6.6/11kV and 20kV Transformers
+#' @title Current Probability of Failure for Danish 0.4/10kV Transformers
 #' @description This function calculates the current
-#' annual probability of failure for 6.6/11kV and 20kV transformers.
+#' annual probability of failure for Danish 0.4/10kV Transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
-#' @param hv_transformer_type String. Refers to the high voltage transformer
-#' type the calculation is done for. Options: \code{hv_transformer_type =
-#' c("6.6/11kV Transformer (GM)", "20kV Transformer (GM)")}. The default setting
-#' is \code{hv_transformer_type = 6.6/11kV Transformer (GM)}.
-#' @inheritParams duty_factor_transformer_11_20kv
+#' exponential function.
+#' @inheritParams duty_factor_transformer_11_20kv # this is the same for 0.4/10kV Transformers
 #' @inheritParams location_factor
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years.
 #' @param partial_discharge String. Indicating the
-#' @param oil_acidity Oil Acidity
 #' level of partial discharge. Options for \code{partial_discharge}:
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
-#'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).
+#'  "High (Confirmed)", "Default")}.
 #' @inheritParams oil_test_modifier
-<<<<<<< HEAD
-=======
-#' See page 162, table 204 in CNAIM (2021).
->>>>>>> 6a1fadf (updated - cof in DKK)
 #' @param temperature_reading String. Indicating the criticality.
 #' Options for \code{temperature_reading}:
 #' \code{temperature_reading = c("Normal", "Moderately High",
-#' "Very High", "Default")}. See page 153, table 172 in CNAIM (2021).
+#' "Very High", "Default")}.
 #' @param observed_condition String. Indicating the observed condition of the
 #'  transformer. Options for \code{observed_condition}:
-#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight deterioration",
-#'  "Some Deterioration", "Substantial Deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).
+#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
+#'  "Some deterioration", "Substantial deterioration", "Default")}.
+#' @param k_value Numeric. \code{k_value = 0.0077} by default. This number is
+#' given in a percentage. The default value is accordingly to the standard
+#' "DE-10kV apb kabler CNAIM" on p. 34.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 55} by default.
+#' The default value is accordingly to the standard
+#' "DE-10kV apb kabler CNAIM" on p. 33.
 #' @return Numeric. Current probability of failure.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' # Current probability of failure for a 6.6/11 kV transformer
-#' pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
-#' utilisation_pct = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age = 10,
-#'partial_discharge = "Default",
-#'temperature_reading = "Default",
-#'observed_condition = "Default",
-#'reliability_factor = "Default",
-#'moisture = "Default",
-#'oil_acidity = "Default",
-#'bd_strength = "Default")
-pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
-                                    utilisation_pct = "Default",
+#' # Current probability of failure for Danish 0.4/10kV Transformers
+# pof_transformer_04_10kv_res <-
+# pof_transformer_04_10kv(utilisation_pct = "Default",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age = 10,
+# partial_discharge = "Default",
+# temperature_reading = "Default",
+# observed_condition = "Default",
+# reliability_factor = "Default",
+# moisture = "Default",
+# acidity = "Default",
+# bd_strength = "Default",
+# k_value = 0.0077,
+# c_value = 1.087,
+# normal_expected_life = 55) * 100
+# paste0(sprintf("Probability of failure %.4f", pof_transformer_04_10kv_res),
+# " percent per annum")
+
+pof_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     placement = "Default",
                                     altitude_m = "Default",
                                     distance_from_coast_km = "Default",
@@ -66,13 +65,15 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
                                     observed_condition = "Default",
                                     reliability_factor = "Default",
                                     moisture = "Default",
-                                    oil_acidity = "Default",
-                                    bd_strength = "Default") {
+                                    acidity = "Default",
+                                    bd_strength = "Default",
+                                    k_value = 0.0077,
+                                    c_value = 1.087,
+                                    normal_expected_life = 55) {
 
-  `Asset Register Category` = `Health Index Asset Category` =
-    `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-    `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
-  # due to NSE notes in R CMD check
+  hv_transformer_type <- "6.6/11kV Transformer (GM)"
+  # this is in order to access tables the are identical to the ones 0.4/10kV transformer is using
+
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
   asset_type <- hv_transformer_type
@@ -89,20 +90,9 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
-  # Normal expected life for 6.6/11 kV transformer ------------------------------
-  normal_expected_life <- gb_ref$normal_expected_life %>%
-    dplyr::filter(`Asset Register  Category` == asset_type) %>%
-    dplyr::pull()
-
   # Constants C and K for PoF function --------------------------------------
-  k <- gb_ref$pof_curve_parameters %>%
-    dplyr::filter(`Functional Failure Category` ==
-                    asset_category) %>% dplyr::select(`K-Value (%)`) %>%
-    dplyr::pull()/100
-
-  c <- gb_ref$pof_curve_parameters %>%
-    dplyr::filter(`Functional Failure Category` ==
-                    asset_category) %>% dplyr::select(`C-Value`) %>% dplyr::pull()
+  k <- k_value/100 # see page 31 in DE-10kV apb kabler CNAIM
+  c <- c_value # see page 31 in DE-10kV apb kabler CNAIM
 
   # Duty factor -------------------------------------------------------------
   duty_factor_tf_11kv <- duty_factor_transformer_11_20kv(utilisation_pct)
@@ -114,7 +104,7 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
                                                  corrosion_category_index,
                                                  asset_type)
 
-  # Expected life for6.6/11 kV transformer ------------------------------
+  # Expected life for 0.4/10 kV transformer ------------------------------
   expected_life_years <- expected_life(normal_expected_life,
                                        duty_factor_tf_11kv,
                                        location_factor_transformer)
@@ -131,8 +121,6 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
   # of the Health Score. However, in some instances
   # these parameters are set to other values in the
   # Health Score Modifier calibration tables.
-  # These overriding values are shown in Table 35 to Table 202
-  # and Table 207 in Appendix B.
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-
@@ -179,7 +167,7 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
 
   # Oil test modifier -------------------------------------------------------
   oil_test_mod <- oil_test_modifier(moisture,
-                                    oil_acidity,
+                                    acidity,
                                     bd_strength)
 
   # Temperature readings ----------------------------------------------------

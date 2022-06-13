@@ -74,8 +74,8 @@ Options for \code{temperature_reading}:
 
 \item{observed_condition}{String. Indicating the observed condition of the
  transformer. Options for \code{observed_condition}:
-\code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
- "Some deterioration", "Substantial deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).}
+\code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight deterioration",
+ "Some Deterioration", "Substantial Deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
