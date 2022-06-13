@@ -23,8 +23,8 @@ under normal operating conditions.}
 operating/design voltage.}
 
 \item{voltage_level}{String. Specify the voltage level. Options:
-\code{voltage_level = c("EHV", "LV & HV")}.
-Choose \code{"EHV"} for cables \code{>= 33kV}  and \code{"LV & HV"}
+\code{voltage_level = c("EHV", "HV")}.
+Choose \code{"EHV"} for cables \code{>= 33kV}  and \code{"HV"}
 for cables \code{< 33kV} .}
 }
 \value{

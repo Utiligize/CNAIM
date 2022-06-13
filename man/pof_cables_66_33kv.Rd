@@ -5,7 +5,7 @@
 \title{Current Probability of Failure for 33-66kV cables}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 2.1, 2017:
+Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
@@ -76,7 +76,7 @@ See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
 Numeric. Current probability of failure
-per annum per kilometre for 20/10/0.4kV cables.
+per annum per kilometre for 66/33kV cables.
 }
 \description{
 This function calculates the current
@@ -91,16 +91,6 @@ on page 34 in CNAIM (2021).
 # Current annual probability of failure for
 # "66kV UG Cable (Non Pressurised)", 50 years old
 pof_cables_66kV_non <-
-pof_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
-sub_division = "Lead sheath - Copper conductor",
-utilisation_pct = 80,
-operating_voltage_pct = 60,
-sheath_test = "Default",
-partial_discharge = "Default",
-fault_hist = "Default",
-leakage = "Default",
-reliability_factor = "Default",
-age = 50) * 100
 
 paste0(sprintf("Probability of failure \%.4f", pof_cables_66kV_non),
 " percent per annum")

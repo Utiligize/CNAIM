@@ -37,7 +37,7 @@ the derivation of consequences of failure see \code{\link{cof}}().#' @return Num
 }
 \examples{
 environmental_cof_hv_switchgear_primary(
-hv_asset_category = "6.6/11kV CB (GM) Secondary",
+hv_asset_category = "6.6/11kV CB (GM) Primary",
 type_env_factor = "Oil",
 prox_water = 95, bunded = "Yes")
 }

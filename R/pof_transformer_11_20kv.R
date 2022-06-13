@@ -20,15 +20,15 @@
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
 #'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).
 #' @inheritParams oil_test_modifier
-#' See page 138, table 160 in CNAIM (2017). This table is not part of CNAIM (2021)
+#' See page 162, table 204 in CNAIM (2021).
 #' @param temperature_reading String. Indicating the criticality.
 #' Options for \code{temperature_reading}:
 #' \code{temperature_reading = c("Normal", "Moderately High",
 #' "Very High", "Default")}. See page 153, table 172 in CNAIM (2021).
 #' @param observed_condition String. Indicating the observed condition of the
 #'  transformer. Options for \code{observed_condition}:
-#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
-#'  "Some deterioration", "Substantial deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).
+#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight deterioration",
+#'  "Some Deterioration", "Substantial Deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).
 #' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -36,20 +36,20 @@
 #' @export
 #' @examples
 #' # Current probability of failure for a 6.6/11 kV transformer
-#' pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
-#' utilisation_pct = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age = 10,
-#'partial_discharge = "Default",
-#'temperature_reading = "Default",
-#'observed_condition = "Default",
-#'reliability_factor = "Default"
-#'moisture = "Default",
-#'acidity = "Default",
-#'bd_strength = "Default")
+# pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
+# utilisation_pct = "Default",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age = 10,
+# partial_discharge = "Default",
+# temperature_reading = "Default",
+# observed_condition = "Default",
+# reliability_factor = "Default",
+# moisture = "Default",
+# acidity = "Default",
+# bd_strength = "Default")
 
 pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
                                     utilisation_pct = "Default",

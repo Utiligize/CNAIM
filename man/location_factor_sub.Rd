@@ -24,6 +24,11 @@ Options:
 "Medium Detrimental Topography", "High Detrimental Topography",
 "Very High Detrimental Topography","Default" )}}
 
+\item{situation}{String. Descibes how the submarine cable af fixed to the
+sea floor.
+Options:
+\code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}}
+
 \item{wind_wave}{Numeric.
 Options:
 \code{wind_wave=c(1, 2, 3, "Default")}.
@@ -41,11 +46,6 @@ Options:
 
 \item{landlocked}{String. Options: \code{landlocked = c("yes","no")}. Default
 setting for \code{landlocked = "no"}.}
-
-\item{sitution}{String. Descibes how the submarine cable af fixed to the
-sea floor.
-Options:
-\code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}}
 }
 \value{
 Numeric. Location factor
@@ -56,12 +56,4 @@ submarine cables based in the specific location of the cable.
 See section 6.5 on page 48 in CNAIM (2021). For calculating the location
 factor for all other network assets please see the function
 \code{\link{location_factor}()}.
-}
-\examples{
- # Location factor for a non-landlocked submarine cable
-location_factor_sub(topography = "Default",
-                   situation = "Default",
-                   wind_wave = "Default",
-                   intensity = "Default",
-                   landlocked = "no")
 }
