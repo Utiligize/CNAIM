@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 10kV UG PEX non Pressurised cables
+#' @title Current Probability of Failure for 10kV UG PEX Non Pressurised Cables
 #' @description This function calculates the current
-#' annual probability of failure per kilometer for a 0.4kV PEX non Pressurised cables.
+#' annual probability of failure per kilometer for a 10kV PEX non Pressurised cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.

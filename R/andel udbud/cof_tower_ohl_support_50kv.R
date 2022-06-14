@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for tower ohl support 50 kV
+#' @title Financial cost of Failure for Tower OHL Support 50 kV
 #' @description This function calculates financial consequences of failure
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -66,7 +66,7 @@ financial_cof_tower_ohl_support_50kv <- function(type_financial_factor_criteria,
 }
 
 
-#' @title Safety cost of Failure for tower ohl support 50 kV
+#' @title Safety cost of Failure for Tower OHL Support 50 kV
 #' @description This function calculates safety consequences of failure
 #' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -119,10 +119,11 @@ safety_cof_tower_ohl_support_50kv <- function(location_risk,
 }
 
 
-#' @title Environmental cost of Failure for tower ohl support 50 kV
+#' @title Environmental cost of Failure for Tower OHL Support 50 kV
 #' @description This function calculates environmental consequences of failure
 #' Environmental consequences of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for tower ohl support 50 kV
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @return Numeric. Financial consequences of failure for tower ohl support 50 kV
 #' Outputted in DKK.
 #' @param tower_asset_category String The type of tower
 #' @export
@@ -166,7 +167,7 @@ environmental_cof_tower_ohl_support_50kv <- function(){
 }
 
 
-#' @title Network cost of Failure for tower ohl support 50 kV
+#' @title Network cost of Failure for Tower OHL Support 50 kV
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' Network cost of failure

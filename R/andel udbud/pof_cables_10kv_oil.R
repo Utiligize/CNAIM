@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 10kV UG Oil non Preesurised cables (Armed Paper Lead)
+#' @title Current Probability of Failure for 10kV UG Oil Non Preesurised Cables (Armed Paper Lead)
 #' @description This function calculates the current
 #' annual probability of failure per kilometer for a Oil non Preesurised cables.
 #' The function is a cubic curve that is based on

@@ -5,8 +5,8 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @param asset_category String The type of EHV asset category
-#' can be set to 30kV or 60kV.
+#' @param asset_type String The type of EHV asset type
+#' can be set to 30kV or 60kV. \code{asset_type = c("30kV, "60kV")}
 #' @param number_of_operations The number of operations for duty factor
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for

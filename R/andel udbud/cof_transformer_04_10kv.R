@@ -1,4 +1,4 @@
-#' @title Consequences of Failure for a 0.4/10 kV transformer
+#' @title Consequences of Failure for a 0.4/10 kV Transformer
 #' @description This function calculates consequences of failure
 #' @inheritParams f_cof_transformer_11kv
 #' @inheritParams s_cof_swg_tf_ohl

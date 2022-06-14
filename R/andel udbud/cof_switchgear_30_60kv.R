@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 30kV and 60kV switchgear
+#' @title Financial cost of Failure for 30kV and 60kV Switchgear
 #' @description This function calculates financial consequences of failure
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -75,7 +75,7 @@ financial_cof_switchgear_30_60kv <- function(ehv_asset_category, access_factor_c
 }
 
 
-#' @title Safety cost of Failure for 30kV and 60kV switchgear
+#' @title Safety cost of Failure for 30kV and 60kV Switchgear
 #' @description This function calculates safety consequences of failure
 #' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -136,7 +136,7 @@ safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for 30kV and 60kV switchgear
+#' @title Environmental cost of Failure for 30kV and 60kV Switchgear
 #' @description This function calculates environmental consequences of failure
 #' Environmental consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#'
@@ -240,9 +240,9 @@ environmental_cof_switchgear_30_60kv <- function(ehv_asset_category,
 }
 
 
-#' @title Network cost of Failure for 30kV and 60kV switchgear
+#' @title Network cost of Failure for 30kV and 60kV Switchgear
 #' @description This function calculates network cost of failure for
-#' all asset categories exclusive the assets EHV and 132kV transformers.
+#' 30kV and 60kV switchgear.
 #' Network cost of failureis used in the derivation
 #'  of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.

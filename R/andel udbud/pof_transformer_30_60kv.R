@@ -5,6 +5,15 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
+#' @param placement String. Specify if the asset is located outdoor or indoor.
+#' @param altitude_m Numeric. Specify the altitude location for
+#' the asset measured in meters from sea level.\code{altitude_m}
+#' is used to derive the altitude factor. A setting of \code{"Default"}
+#' will set the altitude factor to 1 independent of \code{asset_type}.
+#' @param distance_from_coast_km Numeric. Specify the distance from the
+#' coast measured in kilometers. \code{distance_from_coast_km} is used
+#' to derive the distance from coast factor. A setting of \code{"Default"} will set the
+#'  distance from coast factor to 1 independent of \code{asset_type}.
 #' @param transformer_type String. A sting that refers to the specific
 #' asset category.
 #' Options:
@@ -80,6 +89,11 @@
 #' selector and diverter braids. Options:
 #' \code{diverter_braids = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
 #' "Substantial Deterioration", "Default")}.
+#' @param corrosion_category_index Integer.
+#' Specify the corrosion index category, 1-5.
+#' @param moisture Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).
+#' @param acidity Numeric. the amount of acidicy given in (mg KOH/g) See page 162, table 204 in CNAIM (2021).
+#' @param bd_strength Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).
 #' @param k_value Numeric. \code{k_value = "0.0454"} by default. This number is
 #' given in a percentage. The default value is accordingly to the CNAIM standard
 #' on p. 110.

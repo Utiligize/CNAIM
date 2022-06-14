@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for Poles OHL support 50 kV
+#' @title Current Probability of Failure for Poles OHL Support 50 kV
 #' @description This function calculates the current
 #' annual probability of failure per kilometer Poles
 #' The function is a cubic curve that is based on
@@ -8,11 +8,7 @@
 #' @param pole_asset_category String The type of asset category
 #' @param sub_division String. Refers to material the pole is
 #' made of. Options:
-#' \code{sub_division = c("Concrete",
-#' "Steel",
-#' "Wood (water soluble copper salt treated; excluding CCA)",
-#' "Wood (other)",
-#' "Other (e.g. fibreglass)")}.
+#' \code{sub_division = c("Concrete", "Steel", "Wood")}.
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
@@ -102,6 +98,13 @@ pof_poles_ohl_support_50kv <-
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
+
+    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+      dplyr::filter(`Asset Register  Category` ==
+                      pole_asset_category,
+                    `Sub-division` == sub_division) %>%
+      dplyr::pull()
+
     if (normal_expected_life == "Default") {
       normal_expected_life_cond <- gb_ref$normal_expected_life %>%
         dplyr::filter(`Asset Register  Category` ==
@@ -111,7 +114,6 @@ pof_poles_ohl_support_50kv <-
     } else {
       normal_expected_life_cond <- normal_expected_life
     }
-
 
     # Constants C and K for PoF function --------------------------------------
 

@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 30-60kV cables
+#' @title Current Probability of Failure for 30-60kV Cables
 #' @description This function calculates the current
 #' annual probability of failure per kilometer for a 30-60kV cables.
 #' The function is a cubic curve that is based on
@@ -17,8 +17,7 @@
 #' made of. Options:
 #' \code{sub_division = c("Aluminium sheath - Aluminium conductor",
 #' "Aluminium sheath - Copper conductor",
-#' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")
-#'}
+#' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")}
 #' @inheritParams duty_factor_cables
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
@@ -51,7 +50,7 @@
 #' @examples
 #' # Current annual probability of failure for
 #' # "60kV UG Cable (Non Pressurised)", 50 years old
-# pof_cables_60_30kV_res <-
+# pof_cables_60_30kv_res <-
 # pof_cables_60_30kv(cable_type = "60kV UG Cable (Non Pressurised)",
 # sub_division = "Lead sheath - Copper conductor",
 # utilisation_pct = 80,
@@ -65,7 +64,7 @@
 # k_value = "Default",
 # c_value = 1.087,
 # normal_expected_life = "Default") * 100
-# paste0(sprintf("Probability of failure %.4f", pof_cables_60_30kV_res),
+# paste0(sprintf("Probability of failure %.4f", pof_cables_60_30kv_res),
 # " percent per annum")
 pof_cables_60_30kv <-
   function(cable_type = "60kV UG Cable (Gas)",

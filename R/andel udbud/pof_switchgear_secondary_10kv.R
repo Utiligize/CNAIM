@@ -1,11 +1,10 @@
 #' @importFrom magrittr %>%
 #' @title Current Probability of Failure for 10kV Switchgear secondary
 #' @description This function calculates the current
-#' annual probability of failure per kilometer 10 kVSwitchgear secondary
+#' annual probability of failure per kilometer 10kV Switchgear secondary
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @param hv_asset_category String The type of LV asset category
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
@@ -76,7 +75,6 @@ pof_switchgear_secondary_10kV <-
            normal_expected_life = 55) {
 
     hv_asset_category <- "6.6/11kV CB (GM) Secondary"
-
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
@@ -111,6 +109,7 @@ pof_switchgear_secondary_10kV <-
                                             distance_from_coast_km,
                                             corrosion_category_index,
                                             asset_type = hv_asset_category)
+
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_cond,

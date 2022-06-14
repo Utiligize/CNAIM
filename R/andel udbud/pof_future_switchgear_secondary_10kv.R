@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 10kV switchgear secondary
+#' @title Future Probability of Failure for 10kV Switchgear Secondary
 #' @description This function calculates the future
 #' annual probability of failure per kilometer 10kV switchgear secondary.
 #' The function is a cubic curve that is based on
@@ -9,7 +9,7 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' per annum
 #' @export
 #' @examples
 #'  # future annual probability of failure for 10kV Switchgear secondary

@@ -12,7 +12,7 @@
 #' per annum per kilometer.
 #' @export
 #' @examples
-#' # Future annual probability of failure for 0.4kV board
+#' # Future annual probability of failure for 0.4kV Pillar
 # pof_future_pillar_04kv(
 # placement = "Default",
 # altitude_m = "Default",

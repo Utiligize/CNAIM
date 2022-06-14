@@ -1,10 +1,19 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for Danish 0.4/10kV Transformers
+#' @title Current Probability of Failure for 0.4/10kV Transformers
 #' @description This function calculates the current
-#' annual probability of failure for Danish 0.4/10kV Transformers.
+#' annual probability of failure for 0.4/10kV Transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
+#' @param placement String. Specify if the asset is located outdoor or indoor.
+#' @param altitude_m Numeric. Specify the altitude location for
+#' the asset measured in meters from sea level.\code{altitude_m}
+#' is used to derive the altitude factor. A setting of \code{"Default"}
+#' will set the altitude factor to 1 independent of \code{asset_type}.
+#' @param distance_from_coast_km Numeric. Specify the distance from the
+#' coast measured in kilometers. \code{distance_from_coast_km} is used
+#' to derive the distance from coast factor. A setting of \code{"Default"} will set the
+#'  distance from coast factor to 1 independent of \code{asset_type}.
 #' @inheritParams duty_factor_transformer_11_20kv # this is the same for 0.4/10kV Transformers
 #' @inheritParams location_factor
 #' @inheritParams current_health
@@ -20,8 +29,13 @@
 #' "Very High", "Default")}.
 #' @param observed_condition String. Indicating the observed condition of the
 #'  transformer. Options for \code{observed_condition}:
-#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
-#'  "Some deterioration", "Substantial deterioration", "Default")}.
+#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight deterioration",
+#'  "Some Deterioration", "Substantial Deterioration", "Default")}.
+#' @param corrosion_category_index Integer.
+#' Specify the corrosion index category, 1-5.
+#' @param moisture Numeric. the amount of moisture given in (ppm)
+#' @param acidity Numeric. the amount of acidicy given in (mg KOH/g)
+#' @param bd_strength Numeric. the amount of breakdown strength given in (kV)
 #' @param k_value Numeric. \code{k_value = 0.0077} by default. This number is
 #' given in a percentage. The default value is accordingly to the standard
 #' "DE-10kV apb kabler CNAIM" on p. 34.
@@ -33,7 +47,7 @@
 #' @return Numeric. Current probability of failure.
 #' @export
 #' @examples
-#' # Current probability of failure for Danish 0.4/10kV Transformers
+#' # Current probability of failure for 0.4/10kV Transformers
 # pof_transformer_04_10kv_res <-
 # pof_transformer_04_10kv(utilisation_pct = "Default",
 # placement = "Default",

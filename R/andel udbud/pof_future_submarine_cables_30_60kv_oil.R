@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 30kV and 60kV Oil submarine cables
+#' @title Future Probability of Failure for 30kV and 60kV Oil Submarine Cables
 #' @description This function calculates the future
 #' annual probability of failure per kilometer for a 30kV and 60kV oil submarine cables
 #' The function is a cubic curve that is based on

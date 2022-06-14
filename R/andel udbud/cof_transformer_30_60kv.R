@@ -109,8 +109,8 @@ financial_cof_transformers_30_60kv <- function(tf_asset_category,
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_transformers_30_60kv <- function(tf_asset_category,
-                                    location_risk,
-                                    type_risk){
+                                            location_risk,
+                                            type_risk){
 
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {
@@ -172,8 +172,8 @@ safety_cof_transformers_30_60kv <- function(tf_asset_category,
 #' environmental_cof_transformers(tf_asset_category = "30kV Transformer (GM)",
 #' prox_water = 95, bunded = "Yes", size_kva_mva = 20)
 environmental_cof_transformers_30_60kv <- function(tf_asset_category,
-                                           prox_water, bunded,
-                                           size_kva_mva = NULL){
+                                                   prox_water, bunded,
+                                                   size_kva_mva = NULL) {
 
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {

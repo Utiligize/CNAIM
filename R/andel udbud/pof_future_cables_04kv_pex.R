@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 0.4kV UG PEX non Pressurised cables
+#' @title Future Probability of Failure for 0.4kV UG PEX Non Pressurised Cables
 #' @description This function calculates the future
-#' #' annual probability of failure per kilometer for a 10kV PEX non Pressurised cables
+#' annual probability of failure per kilometer for a 0.4kV PEX non Pressurised cables
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
@@ -9,10 +9,10 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
-#' per annum for 10 kv oil cables.
+#' per annum for 10 kv pex cables.
 #' @export
 #' @examples
-#' # future annual probability of failure for 10kV cable oil, 50 years old
+#' # future annual probability of failure for 0.4kV cable pex, 50 years old
 #'pof_future_cables_04kV_pex_result <-
 # pof_future_cables_04kv_pex(
 # utilisation_pct = 80,

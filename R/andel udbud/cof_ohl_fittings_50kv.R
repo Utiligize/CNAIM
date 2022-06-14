@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 50kV fittings
+#' @title Financial cost of Failure for 50kV Fittings
 #' @description This function calculates financial consequences of failure.
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -13,7 +13,6 @@
 # financial_cof_ohl_fittings_50kv(
 # type_financial_factor_criteria = "Tension",
 # access_factor_criteria = "Type A")
-
 
 
 financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
@@ -127,10 +126,11 @@ safety_cof_ohl_fittings_50kv <- function(location_risk,
 }
 
 
-#' @title Environmental cost of Failure for 50kV fittings
+#' @title Environmental cost of Failure for 50kV Fittings
 #' @description This function calculates environmental consequences of failure
 #' Environmental consequences of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for 50kv fittings
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @return Numeric. Financial consequences of failure for 50kv fittings
 #' Outputted in DKK.
 #' @param ehv_asset_category String The type of EHV asset category
 #' @export
@@ -177,7 +177,8 @@ environmental_cof_ohl_fittings_50kv <- function(){
 #' @title Network cost of Failure for 50kV Fittings
 #' @description This function calculates network cost of failure for
 #' 50kV fittings
-#' Network cost of failure is used in the derivation of consequences of failure see \code{\link{cof}}().
+#' Network cost of failure is used in the derivation of consequences of failure.
+#' \code{\link{cof}}().
 #' Outputted in DKK.
 #' @param ehv_asset_category String The type of EHV asset category
 #' @param actual_load_mva Numeric. The actual load on the asset

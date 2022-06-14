@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 30-60kV cables
+#' @title Future Probability of Failure for 30-60kV Cables
 #' @description This function calculates the future
 #' annual probability of failure per kilometer for a 30-60kV cables.
 #' The function is a cubic curve that is based on
