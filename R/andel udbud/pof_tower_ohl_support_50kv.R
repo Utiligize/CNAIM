@@ -4,7 +4,6 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @param tower_asset_category String The type of Tower asset category
 #' @param number_of_operations Numeric Number of operations for the tower
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
@@ -19,8 +18,11 @@
 #' @param corrosion_category_index Integer.
 #' Specify the corrosion index category, 1-5.
 #' @param age  Numeric. The current age in years of the conductor.
-#' @param foundation_type String Foundation type of the tower
-#' @param paint_type String Paint type of the tower
+#' @param foundation_type String. Foundation type of the tower
+#' \code{foundation_type = c("Foundation - Fully Encased Concrete",
+#'  "Foundation - Earth Grillage")}
+#' @param paint_type String. Paint type of the tower
+#' \code{foundation_type = c(Paint System - Galvanising, Paint System - Paint )}
 #' @param observed_condition_inputs_steelwork Named list observed_conditions_input
 #' @param observed_condition_inputs_paint Named list observed_conditions_input
 #' @param observed_condition_inputs_foundation Named list observed_conditions_input
@@ -123,7 +125,6 @@ pof_tower_ohl_support_50kv <-
       normal_expected_life_foundation <- normal_expected_life
       normal_expected_life_paint <- normal_expected_life
     }
-
 
     # Constants C and K for PoF function --------------------------------------
 

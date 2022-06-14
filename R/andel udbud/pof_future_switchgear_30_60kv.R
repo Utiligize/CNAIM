@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 30kv and 60kv switchgear
+#' @title Future Probability of Failure for 30kV and 60kV Switchgear
 #' @description This function calculates the future
-#' annual probability of failure per kilometer 30kv and 60kv switchgear .
+#' annual probability of failure per kilometer 30kV and 60kV switchgear .
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
@@ -9,10 +9,10 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' per annum.
 #' @export
 #' @examples
-#' # Future annual probability of failure for EHV Swicthgear
+#' # Future annual probability of failure for 30kV and 60kV Swicthgear
 # pof_future_switchgear_30_60kv(
 # asset_type = "30kV",
 # number_of_operations = "Default",

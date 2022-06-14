@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 0.4kV board
+#' @title Future Probability of Failure for 0.4kV Board
 #' @description This function calculates the future
 #' annual probability of failure per kilometer 0.4kV board.
 #' The function is a cubic curve that is based on

@@ -5,18 +5,21 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @param ohl_conductor String.
-#' A sting that refers to the specific asset category.
 #' @param sub_division String. Refers to material the conductor is
 #' made of. Options:
-#' \code{sub_division = c("ACSR - greased",
-#' "ACSR - non-greased",
-#' "AAAC",
-#' "Cad Cu",
-#' "Cu",
-#' "Other")
-#'}.
+#' \code{sub_division = c("ACSR - greased","ACSR - non-greased", "AAAC",
+#' "Cad Cu", "Cu", "Other")}.
 #' @inheritParams location_factor
+#' @param altitude_m Numeric. Specify the altitude location for
+#' the asset measured in meters from sea level.\code{altitude_m}
+#' is used to derive the altitude factor. A setting of \code{"Default"}
+#' will set the altitude factor to 1 independent of \code{asset_type}.
+#' @param distance_from_coast_km Numeric. Specify the distance from the
+#' coast measured in kilometers. \code{distance_from_coast_km} is used
+#' to derive the distance from coast factor. A setting of \code{"Default"} will set the
+#'  distance from coast factor to 1 independent of \code{asset_type}.
+#' @param corrosion_category_index Integer.
+#' Specify the corrosion index category, 1-5.
 #' @param age  Numeric. The current age in years of the conductor.
 #' @param conductor_samp String. Conductor sampling. Options:
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
@@ -40,7 +43,7 @@
 #' per annum per kilometer.
 #' @export
 #' @examples
-#' # Current annual probability of failure for 66kV OHL (Tower Line) Conductor
+#' # Current annual probability of failure for 50kV OHL (Tower Line) Conductor
 # pof_ohl_cond_50kV_res <-
 # pof_ohl_cond_50kv(
 # sub_division = "Cu",

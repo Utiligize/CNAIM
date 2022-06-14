@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for Danish 0.4/10kV Transformers
+#' @title Future Probability of Failure for 0.4/10kV Transformers
 #' @description This function calculates the future
-#' annual probability of failure for Danish 0.4/10kV Transformers.
+#' annual probability of failure for 0.4/10kV Transformers.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.

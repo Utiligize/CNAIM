@@ -134,7 +134,8 @@ safety_cof_pillar_04kv <- function(location_risk,
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for 0.4kV pillar
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @return Numeric. Financial consequences of failure for 0.4kV pillar
 #' Outputted in DKK.
 #' @param lv_asset_category String The type of LV asset category
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -178,7 +179,7 @@ environmental_cof_pillar_04kv <- function(){
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' Outputted
+#' Outputted in DKK.
 #' @param lv_asset_category String The type of LV asset category
 #' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.

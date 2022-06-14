@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for towers OHL support 50 kV
+#' @title Future Probability of Failure for Towers OHL Support 50 kV
 #' @description This function calculates the future
 #' annual probability of failure per kilometer for a towers OHL support 50 kV.
 #' The function is a cubic curve that is based on
@@ -9,7 +9,7 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
-#' per annum per kilometre for Towers OHL support 50 kV.
+#' per annum for Towers OHL support 50 kV.
 #' @export
 #' @examples
 #' # Future annual probability of failure for Towers

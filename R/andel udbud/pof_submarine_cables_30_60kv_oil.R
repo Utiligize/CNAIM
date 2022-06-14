@@ -7,12 +7,6 @@
 #' exponential function. For more information about the
 #' probability of failure function see section 6
 #' on page 34 in CNAIM (2021).
-#' @param sub_cable_type String.
-#' A sting that refers to the specific asset category.
-#' See See page 17, table 1 in CNAIM (2021).
-#' Options:
-#' \code{sub_cable_type = "EHV Sub Cable"}.
-#' The deafult setting is \code{sub_cable_type = "EHV Sub Cable"}.
 #' @inheritParams duty_factor_cables
 #' @inheritParams location_factor_sub
 #' @param sheath_test String. Indicating the state of the sheath. Options:
@@ -52,7 +46,7 @@
 # utilisation_pct = "Default",
 # operating_voltage_pct = "Default",
 # topography = "Default",
-# sitution = "Default",
+# situation = "Default",
 # wind_wave = "Default",
 # intensity = "Default",
 # landlocked = "no",
@@ -73,7 +67,7 @@ pof_submarine_cables_30_60kv_oil <-
   function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            topography = "Default",
-           sitution = "Default",
+           situation = "Default",
            wind_wave = "Default",
            intensity = "Default",
            landlocked = "no",
@@ -129,7 +123,7 @@ pof_submarine_cables_30_60kv_oil <-
 
     # # Location factor ---------------------------------------------------------
     lf_submarine <- location_factor_sub(topography,
-                                        sitution,
+                                        situation,
                                         wind_wave,
                                         intensity,
                                         landlocked)

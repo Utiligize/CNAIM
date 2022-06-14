@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 30kV and 60kV submarine cables
+#' @title Financial cost of Failure for 30kV and 60kV Submarine Cables
 #' @description This function calculates financial consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 #' of failure is used in
@@ -44,7 +44,7 @@ financial_cof_submarine_cables_30_60kv <- function(){
 }
 
 
-#' @title Safety cost of Failure for 30kV and 60kV submarine cables
+#' @title Safety cost of Failure for 30kV and 60kV Submarine Cables
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
@@ -84,7 +84,7 @@ safety_cof_submarine_cables_30_60kv <- function() {
 }
 
 
-#' @title Environmental cost of Failure for 30kV and 60kV submarine cables
+#' @title Environmental cost of Failure for 30kV and 60kV Submarine Cables
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
@@ -136,7 +136,7 @@ environmental_cof_submarine_30_60kv <- function() {
 }
 
 
-#' @title Network cost of Failure for 30kV and 60kV submarine cables
+#' @title Network cost of Failure for 30kV and 60kV Submarine Cables
 #' @description This function calculates network cost of failure for
 #' Sub cables
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure

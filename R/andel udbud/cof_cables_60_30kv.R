@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 30-60 kV UG cables
+#' @title Financial cost of Failure for 30-60 kV UG Cables
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK
 #' \code{ehv_asset_category = c("30kV UG Cable (Gas)", "60kV UG Cable (Gas)",
@@ -58,7 +58,7 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category){
 }
 
 
-#' @title Safety cost of Failure for 30-60 kV UG cables
+#' @title Safety cost of Failure for 30-60 kV UG Cables
 #' @description This function calculates safety consequences of failure
 #' Outputted in DKK
 #' #' \code{ehv_asset_category = c("30kV UG Cable (Gas)", "60kV UG Cable (Gas)",
@@ -109,7 +109,7 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category){
 }
 
 
-#' @title Environmental cost of Failure for 30-60 kV UG cables
+#' @title Environmental cost of Failure for 30-60 kV UG Cables
 #' @description This function calculates environmental consequences of failure
 #' Outputted in DKK
 #' \code{ehv_asset_category = c("30kV UG Cable (Gas)", "60kV UG Cable (Gas)",
@@ -217,7 +217,7 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
 }
 
 
-#' @title Network cost of Failure for 30-60 kV UG cables
+#' @title Network cost of Failure for 30-60 kV UG Cables
 #' @description This function calculates network cost of failure
 #' Outputted in DKK
 #' \code{ehv_asset_category = c("30kV UG Cable (Gas)", "60kV UG Cable (Gas)",

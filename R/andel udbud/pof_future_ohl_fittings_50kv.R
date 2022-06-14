@@ -1,5 +1,5 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 50 kV fittings
+#' @title Future Probability of Failure for 50 kV Fittings
 #' @description This function calculates the future
 #' annual probability of failure per kilometer for a 50 kV fittings.
 #' The function is a cubic curve that is based on
@@ -9,10 +9,9 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.code
 #' @return Numeric array. Future probability of failure
-#' per annum per kilometre for Poles OHL support 50 kV.
+#' per annum per kilometre for 50 kV fittings.
 #' @export
 #' @examples
-
 #' # Future annual probability of failure for 50kV fittings
 # pof_future_ohl_fittings_50kv(
 # placement = "Default",

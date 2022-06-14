@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 10kV swicthgear primary
+#' @title Financial cost of Failure for 10kV Swicthgear Primary
 #' @description This function calculates financial consequences of failure
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -78,7 +78,7 @@ financial_cof_switchgear_primary_10kv <- function(access_factor_criteria){
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_switchgear_primary_10kv <- function(location_risk,
-                                             type_risk){
+                                               type_risk){
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Primary"
@@ -116,7 +116,7 @@ safety_cof_switchgear_primary_10kv <- function(location_risk,
 }
 
 
-#' @title Environmental cost of Failure for 10kV switchgear primary
+#' @title Environmental cost of Failure for 10kV Switchgear Primary
 #' @description This function calculates environmental consequences of failure
 #' Environmental consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().

@@ -1,14 +1,14 @@
 #' @title Financial cost of Failure for 50kV Overhead Line Conductors
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK
-#' @param ohl_cond_asset_category String The type of Pole asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for Pole
-#' @return Numeric. Financial consequences of failure for Poles
+#' @param ohl_cond_asset_category String. The type of the asset category
+#' @param access_factor_criteria String. Asses Financial factor criteria for
+#' Overhead Line Conductors.
+#' @return Numeric. Financial consequences of failure for Overhead Line Conductors
 #' @export
 #' @examples
 #' financial_cof_ohl_cond_50kv(
 #' access_factor_criteria = "Type A")
-
 
 
 financial_cof_ohl_cond_50kv <- function(access_factor_criteria){
@@ -114,7 +114,7 @@ safety_cof_ohl_cond_50kv <- function(location_risk,
 }
 
 
-#' @title Environmental cost of Failure for 50kV Overhead line conductors
+#' @title Environmental cost of Failure for 50kV Overhead Line Conductors
 #' @description This function calculates environmental consequences of failure
 #' Outputted in DKK
 #' @param ohl_cond_asset_category String The type of Overhead Line Conductors

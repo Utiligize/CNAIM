@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 0.4kV board
+#' @title Financial cost of Failure for 0.4kV Board
 #' @description This function calculates financial consequences of failure
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -74,7 +74,7 @@ financial_cof_board_04kv <- function(type_financial_factor_criteria = "Asbestos 
 }
 
 
-#' @title Safety cost of Failure for 0.4kV board
+#' @title Safety cost of Failure for 0.4kV Board
 #' @description This function calculates safety consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
@@ -177,7 +177,6 @@ environmental_cof_board_04kv <- function(){
 
 #' @title Network cost of Failure for 0.4kV Board
 #' @description This function calculates network cost of failure for 0.4kV board
-#' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' Outputted in DKK
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().

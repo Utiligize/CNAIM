@@ -8,7 +8,7 @@
 #' @inheritParams pof_transformer_30_60kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #' of failure. Default is 100.
-#' @return Numeric. Current probability of failure.
+#' @return Numeric. Future probability of failure.
 #' @examples
 #' # Future probability of failure for a 60/10kV transformer
 # pof_future_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",

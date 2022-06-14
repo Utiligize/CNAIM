@@ -4,15 +4,7 @@
 #' annual probability of failure per kilometer for submarine cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
-#' @param sub_cable_type String.
-#' A sting that refers to the specific asset category.
-#' See See page 17, table 1 in CNAIM (2021).
-#' Options:
-#' \code{sub_cable_type = "HV Sub Cable"}.
-#' The deafult setting is \code{sub_cable_type = "HV Sub Cable"}.
+#' exponential function.
 #' @inheritParams duty_factor_cables
 #' @inheritParams location_factor_sub
 #' @param sheath_test String. Indicating the state of the sheath. Options:
@@ -46,13 +38,13 @@
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' # Current annual probability of failure for 1 km 10kV Sub Cable
+#' # Current annual probability of failure for 1 km 10kV pex Sub Cable
 # pof_submarine_cables_10kv_pex_res <-
 # pof_submarine_cables_10kv_pex(
 # utilisation_pct = "Default",
 # operating_voltage_pct = "Default",
 # topography = "Default",
-# sitution = "Default",
+# situation = "Default",
 # wind_wave = "Default",
 # intensity = "Default",
 # landlocked = "no",
@@ -73,7 +65,7 @@ pof_submarine_cables_10kv_pex <-
   function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            topography = "Default",
-           sitution = "Default",
+           situation = "Default",
            wind_wave = "Default",
            intensity = "Default",
            landlocked = "no",
@@ -128,7 +120,7 @@ pof_submarine_cables_10kv_pex <-
 
     # # Location factor ---------------------------------------------------------
     lf_submarine <- location_factor_sub(topography,
-                                        sitution,
+                                        situation,
                                         wind_wave,
                                         intensity,
                                         landlocked)

@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 10 kV swicthgear secondary
+#' @title Financial cost of Failure for 10 kV Swicthgear Secondary
 #' @description This function calculates financial consequences of failure
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -68,7 +68,7 @@ financial_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 #'Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param hv_asset_category String The type of LV asset category
+#' @param hv_asset_category String The type of HV asset category
 #' @param location_risk String Type Financial factor criteria for 10kV switchgear secondary
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
 #' @param type_risk String. Asses Financial factor criteria for 10kV switchgear secondary
@@ -119,7 +119,7 @@ safety_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for 10kV switchgear secondary
+#' @title Environmental cost of Failure for 10kV Switchgear Secondary
 #' @description This function calculates environmental consequences of failure.
 #' Environmental consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -215,9 +215,9 @@ environmental_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 }
 
 
-#' @title Network cost of Failure for 10kV Switchgear secondary
+#' @title Network cost of Failure for 10kV Switchgear Secondary
 #' @description This function calculates network cost of failure for
-#' all asset categories exclusive the assets EHV and 132kV transformers.
+#' 10kV Switchgear Secondary
 #' Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.

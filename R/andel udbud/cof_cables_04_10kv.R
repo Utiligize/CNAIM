@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for 0.4kV and 10kV UG cables
+#' @title Financial cost of Failure for 0.4kV and 10kV UG Cables
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
@@ -7,8 +7,6 @@
 #' @export
 #' @examples
 #' financial_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)")
-
-
 
 financial_cof_cables_04_10kv <- function(hv_asset_category){
 
@@ -53,7 +51,7 @@ financial_cof_cables_04_10kv <- function(hv_asset_category){
 }
 
 
-#' @title Safety cost of Failure for 0.4kV and 10kV UG cables
+#' @title Safety cost of Failure for 0.4kV and 10kV UG Cables
 #' @description This function calculates safety consequences of failure
 #' Outputted in DKK
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
@@ -100,7 +98,7 @@ safety_cof_cables_04_10kv <- function(hv_asset_category){
 }
 
 
-#' @title Environmental cost of Failure for 0.4kV and 10kV UG cables
+#' @title Environmental cost of Failure for 0.4kV and 10kV UG Cables
 #' @description This function calculates environmental consequences of failure
 #' Outputted in DKK
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
@@ -203,7 +201,7 @@ environmental_cof_cables_04_10kv <- function(hv_asset_category,
 }
 
 
-#' @title Network cost of Failure for 0.4kV and 10kV UG cables
+#' @title Network cost of Failure for 0.4kV and 10kV UG Cables
 #' @description This function calculates network cost of failure for
 #' 0.4kV and 10kV UG cables, outputted in DKK
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",

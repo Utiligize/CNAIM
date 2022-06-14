@@ -1,4 +1,4 @@
-#' @title Financial cost of Failure for Poles OHL support 50kV
+#' @title Financial cost of Failure for Poles OHL Support 50kV
 #' @description This function calculates financial consequences of failure
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -68,7 +68,7 @@ financial_cof_poles_ohl_support_50kv <- function(pole_asset_category,
 }
 
 
-#' @title Safety cost of Failure for Poles OHL support 50kV
+#' @title Safety cost of Failure for Poles OHL Support 50kV
 #' @description This function calculates safety consequences of failure
 #' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
@@ -122,7 +122,7 @@ safety_cof_poles_ohl_support_50kv <- function(pole_asset_category,
 }
 
 
-#' @title Environmental cost of Failure for Poles OHL support 50kV
+#' @title Environmental cost of Failure for Poles OHL Support 50kV
 #' @description This function calculates environmental consequences of failure
 #' Environmental consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric.
@@ -170,7 +170,7 @@ environmental_cof_poles_ohl_support_50kv <- function(){
 }
 
 
-#' @title Network cost of Failure for environmental_cof_poles()
+#' @title Network cost of Failure for Poles OHL Support 50kV
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' Network cost of failure is used in the derivation
