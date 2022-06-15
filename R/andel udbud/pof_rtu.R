@@ -1,18 +1,39 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 10kV Switchgear Secondary
-#' @description This function calculates the future
-#' annual probability of failure 10kV switchgear secondary.
+#' @title Current Probability of Failure for RTU
+#' @description This function calculates the current
+#' annual probability of failure RTU
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @inheritParams pof_switchgear_secondary_10kv
-#' @param simulation_end_year Numeric. The last year of simulating probability
-#'  of failure. Default is 100.
+#' @param placement String. Specify if the asset is located outdoor or indoor.
+#' @param altitude_m Numeric. Specify the altitude location for
+#' the asset measured in meters from sea level.\code{altitude_m}
+#' is used to derive the altitude factor. A setting of \code{"Default"}
+#' will set the altitude factor to 1 independent of \code{asset_type}.
+#' @param distance_from_coast_km Numeric. Specify the distance from the
+#' coast measured in kilometers. \code{distance_from_coast_km} is used
+#' to derive the distance from coast factor. A setting of \code{"Default"} will set the
+#'  distance from coast factor to 1 independent of \code{asset_type}.
+#' @param corrosion_category_index Integer.
+#' Specify the corrosion index category, 1-5.
+#' @param age  Numeric. The current age in years of the conductor.
+#' @param measured_condition_inputs Named list observed_conditions_input
+#' @param observed_condition_inputs Named list observed_conditions_input
+#' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
+#' @inheritParams current_health
+#' @param k_value Numeric. \code{k_value = 0.0128} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 50} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @return Numeric. Current probability of failure per annum.
 #' @export
 #' @examples
-#'  # future annual probability of failure for 10kV Switchgear secondary
-# pof_future_switchgear_secondary_10kv(
+#' # Current annual probability of failure for RTU
+# pof_rtu_res <-
+# pof_rtu(
 # placement = "Default",
 # altitude_m = "Default",
 # distance_from_coast_km = "Default",
@@ -33,12 +54,13 @@
 # "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
 # "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
 # reliability_factor = "Default",
-# k_value = 0.0067,
+# k_value = 0.128,
 # c_value = 1.087,
-# normal_expected_life = 55,
-# simulation_end_year = 100)
+# normal_expected_life = 20) * 100
+# paste0(sprintf("Probability of failure %.4f", pof_rtu_res),
+# " percent per annum")
 
-pof_future_switchgear_secondary_10kv <-
+pof_rtu <-
   function(placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
@@ -47,13 +69,11 @@ pof_future_switchgear_secondary_10kv <-
            measured_condition_inputs,
            observed_condition_inputs,
            reliability_factor = "Default",
-           k_value = 0.0067,
+           k_value = 0.128,
            c_value = 1.087,
-           normal_expected_life = 55,
-           simulation_end_year = 100) {
+           normal_expected_life = 20) {
 
     hv_asset_category <- "6.6/11kV CB (GM) Secondary"
-
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
@@ -75,6 +95,7 @@ pof_future_switchgear_secondary_10kv <-
 
     # Constants C and K for PoF function --------------------------------------
     k <- k_value/100
+
     c <- c_value
 
     # Duty factor -------------------------------------------------------------
@@ -87,6 +108,7 @@ pof_future_switchgear_secondary_10kv <-
                                             distance_from_coast_km,
                                             corrosion_category_index,
                                             asset_type = hv_asset_category)
+
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_cond,
@@ -156,60 +178,5 @@ pof_future_switchgear_secondary_10kv <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-  # Future probability of failure -------------------------------------------
-
-  # the Health Score of a new asset
-  H_new <- 0.5
-
-  # the Health Score of the asset when it reaches its Expected Life
-  b2 <- beta_2(current_health_score, age)
-
-  if (b2 > 2*b1){
-    b2 <- b1
-  } else if (current_health_score == 0.5){
-    b2 <- b1
+    return(probability_of_failure)
   }
-
-  if (current_health_score < 2) {
-    ageing_reduction_factor <- 1
-  } else if (current_health_score <= 5.5) {
-    ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
-  } else {
-    ageing_reduction_factor <- 1.5
-  }
-
-  # Dynamic part
-  pof_year <- list()
-  year <- seq(from=0,to=simulation_end_year,by=1)
-
-  for (y in 1:length(year)){
-    t <- year[y]
-
-    future_health_Score <-
-      current_health_score*exp((b2/ageing_reduction_factor) * t)
-
-    H <- future_health_Score
-
-    future_health_score_limit <- 15
-    if (H > future_health_score_limit){
-      H <- future_health_score_limit
-    }
-
-    pof_year[[paste(y)]] <- k * (1 + (c * H) +
-                                   (((c * H)^2) / factorial(2)) +
-                                   (((c * H)^3) / factorial(3)))
-  }
-
-  pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
-  pof_future$age <- NA
-  pof_future$age[1] <- age
-
-  for(i in 2:nrow(pof_future)) {
-
-    pof_future$age[i] <- age + i -1
-
-  }
-
-  return(pof_future)
-}
-

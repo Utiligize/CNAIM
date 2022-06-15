@@ -1,19 +1,19 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 0.4kV UG PEX Non Pressurised Cables
+#' @title Future Probability of Failure for Service Line
 #' @description This function calculates the future
-#' annual probability of failure per kilometer for a 0.4kV PEX non Pressurised cables
+#' annual probability of failure per kilometer for a service line
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @inheritParams pof_cables_04kv_pex
+#' @inheritParams pof_serviceline
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
-#' per annum for 0.4 kv pex cables.
+#' per annum for service line.
 #' @export
 #' @examples
-#' # future annual probability of failure for 0.4kV cable pex, 50 years old
-# pof_future_cables_04kv_pex(
+#' # future annual probability of failure for service line, 50 years old
+# pof_future_serviceline(
 # utilisation_pct = 80,
 # operating_voltage_pct = 60,
 # sheath_test = "Default",
@@ -21,13 +21,13 @@
 # fault_hist = "Default",
 # reliability_factor = "Default",
 # age = 50,
-# k_value = 0.0658,
+# k_value = 0.0329,
 # c_value = 1.087,
-# normal_expected_life = 80,
+# normal_expected_life = 75,
 # simulation_end_year = 100)
 
 
-pof_future_cables_04kv_pex <-
+pof_future_serviceline <-
   function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            sheath_test = "Default",
@@ -35,9 +35,9 @@ pof_future_cables_04kv_pex <-
            fault_hist = "Default",
            reliability_factor = "Default",
            age,
-           k_value = 0.0658,
+           k_value = 0.0329,
            c_value = 1.087,
-           normal_expected_life = 80,
+           normal_expected_life = 75,
            simulation_end_year = 100) {
 
     `Asset Register Category` = `Health Index Asset Category` =

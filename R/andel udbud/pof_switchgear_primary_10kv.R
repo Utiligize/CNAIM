@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Current Probability of Failure for 10 kV Switchgear (GM) Primary
 #' @description This function calculates the current
-#' annual probability of failure per kilometer 10 kV Switchgear (GM) Primary
+#' annual probability of failure 10 kV Switchgear (GM) Primary
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
@@ -30,8 +30,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 55} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
-#' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' @return Numeric. Current probability of failure per annum.
 #' @export
 #' @examples
 #' # Current annual probability of failure for 10 kV Switchgear (GM) Primary

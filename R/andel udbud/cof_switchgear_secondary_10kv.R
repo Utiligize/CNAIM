@@ -3,15 +3,13 @@
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param hv_asset_category String The type of switchgear secondary asset category
 #' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
 #' setting
 #' @export
 #' @examples
 #' financial_cof_switchgear_secondary_10kv(
 #' access_factor_criteria = "Type A")
-financial_cof_switchgear_secondary_10kv <- function(hv_asset_category,
-                                                     access_factor_criteria){
+financial_cof_switchgear_secondary_10kv <- function(access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"
@@ -68,7 +66,6 @@ financial_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 #'Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param hv_asset_category String The type of HV asset category
 #' @param location_risk String Type Financial factor criteria for 10kV switchgear secondary
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
 #' @param type_risk String. Asses Financial factor criteria for 10kV switchgear secondary
@@ -79,8 +76,7 @@ financial_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 #' safety_cof_switchgear_secondary_10kv(
 #' location_risk = "Default",
 #' type_risk = "Default")
-safety_cof_switchgear_secondary_10kv <- function(hv_asset_category,
-                                                  location_risk,
+safety_cof_switchgear_secondary_10kv <- function(location_risk,
                                                   type_risk){
 
   GBP_to_DKK <- 8.71
@@ -125,7 +121,6 @@ safety_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
 #' Financial consequences of failure for 10 kV switchgear secondary
-#' @param hv_asset_category String The type of HV asset category
 #' @param type_env_factor String The type environment factor of HV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
@@ -137,8 +132,7 @@ safety_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 #' environmental_cof_switchgear_secondary_10kv(
 #' type_env_factor = "Oil", prox_water = 95,
 #' bunded = "Yes")
-environmental_cof_switchgear_secondary_10kv <- function(hv_asset_category,
-                                                         type_env_factor,
+environmental_cof_switchgear_secondary_10kv <- function(type_env_factor,
                                                          prox_water,
                                                          bunded){
 
@@ -221,8 +215,7 @@ environmental_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 #' Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param hv_asset_category String The type of LV asset category
-#' @param no_customers Numeric. The numner of customers
+#' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
@@ -232,8 +225,7 @@ environmental_cof_switchgear_secondary_10kv <- function(hv_asset_category,
 #' @examples
 #' network_cof_switchgear_secondary_10kv(
 #' no_customers = 750, kva_per_customer = 51)
-network_cof_switchgear_secondary_10kv <- function(hv_asset_category,
-                                                   no_customers,
+network_cof_switchgear_secondary_10kv <- function(no_customers,
                                                    kva_per_customer = "Default") {
 
   GBP_to_DKK <- 8.71

@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 0.4kV UG PEX Non Pressurised Cables
+#' @title Current Probability of Failure for Service Lines
 #' @description This function calculates the current
-#' annual probability of failure per kilometer for a 0.4kV Pex non Pressurised cables.
+#' annual probability of failure per kilometer for a Service Line.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
@@ -20,17 +20,17 @@
 #' indicates no fault.
 #' @inheritParams current_health
 #' @param age Numeric. The current age in years of the cable.
-#' @param k_value Numeric. \code{k_value = 0.0658} by default.
+#' @param k_value Numeric. \code{k_value = 0.0329} by default.
 #' @param c_value Numeric. \code{c_value = 1.087} by default.
 #' The default value is accordingly to the CNAIM standard see page 110
-#' @param normal_expected_life Numeric. \code{normal_expected_life = 80} by default.
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 75} by default.
 #' @return Numeric. Current probability of failure
-#' per annum for 0.4 kV pex cables.
+#' per annum for service line.
 #' @export
 #' @examples
-#' # Current annual probability of failure for 0.4kV non pressurised pex cable, 50 years old
-# pof_cables_04kv_pex_res <-
-# pof_cables_04kv_pex(
+#' # Current annual probability of failure for service line, 50 years old
+# pof_serviceline_res <-
+# pof_serviceline(
 # utilisation_pct = 80,
 # operating_voltage_pct = "Default",
 # sheath_test = "Default",
@@ -38,23 +38,23 @@
 # fault_hist = "Default",
 # reliability_factor = "Default",
 # age = 50,
-# k_value = 0.0658,
+# k_value = 0.0329,
 # c_value = 1.087,
-# normal_expected_life = 80)*100
-# paste0(sprintf("Probability of failure %.4f", pof_cables_04kv_pex_res),
+# normal_expected_life = 75)*100
+# paste0(sprintf("Probability of failure %.4f", pof_serviceline_res),
 # " percent per annum")
 
 
-pof_cables_04kv_pex <- function(utilisation_pct = "Default",
+pof_serviceline <- function(utilisation_pct = "Default",
                                 operating_voltage_pct = "Default",
                                 sheath_test = "Default",
                                 partial_discharge = "Default",
                                 fault_hist = "Default",
                                 reliability_factor = "Default",
                                 age,
-                                k_value = 0.0658,
+                                k_value = 0.0329,
                                 c_value = 1.087,
-                                normal_expected_life = 80) {
+                                normal_expected_life = 75) {
 
   # `Asset Register Category` = `Health Index Asset Category` =
   #   `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
