@@ -161,8 +161,8 @@ pof_cables_132kv <-
     # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
-    asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")
-    asset_category_mmi <- stringr::str_squish(asset_category_mmi)
+    asset_category_mmi <- gsub(pattern = "UG", "", asset_category)
+    asset_category_mmi <- gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", asset_category_mmi, perl=TRUE)
 
 
     mcm_mmi_cal_df <-

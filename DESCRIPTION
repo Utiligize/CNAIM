@@ -29,7 +29,6 @@ Imports:
     magrittr,
     r2d3,
     readxl,
-    stringr,
     testthat,
     tibble,
     widgetframe
