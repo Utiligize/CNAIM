@@ -5,11 +5,11 @@
 #' \code{pof_function = c(pof_cables_04kv_pex, pof_cables_10kv_pex, pof_cables_10kv_oil,
 #' pof_cables_60_30kv, pof_ohl_cond_50kv, pof_submarine_cables_10kv_oil,
 #' pof_submarine_cables_10kv_pex, pof_submarine_cables_30_60kv_oil,
-#' pof_submarine_cables_30_60kv_pex, pof_transformer_04_10kv, pof_building, "Default")}.
+#' pof_submarine_cables_30_60kv_pex, pof_transformer_04_10kv, pof_building,
+#' pof_serviceline, "Default")}.
 #' @examples
 #' # probability of failure curve
-# plotplot(
-# pof_function = pof_cables_04kv_pex)
+# plotplot(pof_function = pof_cables_04kv_pex)
 
 
 plotplot <- function(pof_function = "Default") {

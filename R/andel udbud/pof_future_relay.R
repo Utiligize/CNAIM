@@ -1,18 +1,19 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 10kV Switchgear Secondary
+#' @title Future Probability of Failure for Relay
 #' @description This function calculates the future
-#' annual probability of failure 10kV switchgear secondary.
+#' annual probability of failure relay.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @inheritParams pof_switchgear_secondary_10kv
+#' @inheritParams pof_relay
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric. Current probability of failure per annum.
+#' @return Numeric. Current probability of failure
+#' per annum
 #' @export
 #' @examples
-#'  # future annual probability of failure for 10kV Switchgear secondary
-# pof_future_switchgear_secondary_10kv(
+#'  # future annual probability of failure for relay
+# pof_future_relay(
 # placement = "Default",
 # altitude_m = "Default",
 # distance_from_coast_km = "Default",
@@ -33,12 +34,12 @@
 # "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
 # "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
 # reliability_factor = "Default",
-# k_value = 0.0067,
+# k_value = 0.128,
 # c_value = 1.087,
-# normal_expected_life = 55,
+# normal_expected_life = 30,
 # simulation_end_year = 100)
 
-pof_future_switchgear_secondary_10kv <-
+pof_future_relay <-
   function(placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
@@ -47,9 +48,9 @@ pof_future_switchgear_secondary_10kv <-
            measured_condition_inputs,
            observed_condition_inputs,
            reliability_factor = "Default",
-           k_value = 0.0067,
+           k_value = 0.128,
            c_value = 1.087,
-           normal_expected_life = 55,
+           normal_expected_life = 30,
            simulation_end_year = 100) {
 
     hv_asset_category <- "6.6/11kV CB (GM) Secondary"
@@ -156,60 +157,60 @@ pof_future_switchgear_secondary_10kv <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-  # Future probability of failure -------------------------------------------
+    # Future probability of failure -------------------------------------------
 
-  # the Health Score of a new asset
-  H_new <- 0.5
+    # the Health Score of a new asset
+    H_new <- 0.5
 
-  # the Health Score of the asset when it reaches its Expected Life
-  b2 <- beta_2(current_health_score, age)
+    # the Health Score of the asset when it reaches its Expected Life
+    b2 <- beta_2(current_health_score, age)
 
-  if (b2 > 2*b1){
-    b2 <- b1
-  } else if (current_health_score == 0.5){
-    b2 <- b1
-  }
-
-  if (current_health_score < 2) {
-    ageing_reduction_factor <- 1
-  } else if (current_health_score <= 5.5) {
-    ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
-  } else {
-    ageing_reduction_factor <- 1.5
-  }
-
-  # Dynamic part
-  pof_year <- list()
-  year <- seq(from=0,to=simulation_end_year,by=1)
-
-  for (y in 1:length(year)){
-    t <- year[y]
-
-    future_health_Score <-
-      current_health_score*exp((b2/ageing_reduction_factor) * t)
-
-    H <- future_health_Score
-
-    future_health_score_limit <- 15
-    if (H > future_health_score_limit){
-      H <- future_health_score_limit
+    if (b2 > 2*b1){
+      b2 <- b1
+    } else if (current_health_score == 0.5){
+      b2 <- b1
     }
 
-    pof_year[[paste(y)]] <- k * (1 + (c * H) +
-                                   (((c * H)^2) / factorial(2)) +
-                                   (((c * H)^3) / factorial(3)))
+    if (current_health_score < 2) {
+      ageing_reduction_factor <- 1
+    } else if (current_health_score <= 5.5) {
+      ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
+    } else {
+      ageing_reduction_factor <- 1.5
+    }
+
+    # Dynamic part
+    pof_year <- list()
+    year <- seq(from=0,to=simulation_end_year,by=1)
+
+    for (y in 1:length(year)){
+      t <- year[y]
+
+      future_health_Score <-
+        current_health_score*exp((b2/ageing_reduction_factor) * t)
+
+      H <- future_health_Score
+
+      future_health_score_limit <- 15
+      if (H > future_health_score_limit){
+        H <- future_health_score_limit
+      }
+
+      pof_year[[paste(y)]] <- k * (1 + (c * H) +
+                                     (((c * H)^2) / factorial(2)) +
+                                     (((c * H)^3) / factorial(3)))
+    }
+
+    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future$age <- NA
+    pof_future$age[1] <- age
+
+    for(i in 2:nrow(pof_future)) {
+
+      pof_future$age[i] <- age + i -1
+
+    }
+
+    return(pof_future)
   }
-
-  pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
-  pof_future$age <- NA
-  pof_future$age[1] <- age
-
-  for(i in 2:nrow(pof_future)) {
-
-    pof_future$age[i] <- age + i -1
-
-  }
-
-  return(pof_future)
-}
 

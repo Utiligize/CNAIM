@@ -1,18 +1,17 @@
-#' @title Financial cost of Failure for 10kV Swicthgear Primary
+#' @title Financial cost of Failure for Relays
 #' @description This function calculates financial consequences of failure
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param access_factor_criteria String. Asses Financial factor criteria for 10KV switchgear
+#' @param access_factor_criteria String. Asses Financial factor criteria for relay
 #' setting
-#' @return Numeric. Financial consequences of failure for HV switchgear primary
 #' @export
 #' @examples
-#' financial_cof_switchgear_primary_10kv(access_factor_criteria = "Type A")
-financial_cof_switchgear_primary_10kv <- function(access_factor_criteria){
+#' financial_cof_relay(access_factor_criteria = "Type A")
+financial_cof_relay <- function(access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
-  hv_asset_category <- "6.6/11kV CB (GM) Primary"
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -57,29 +56,29 @@ financial_cof_switchgear_primary_10kv <- function(access_factor_criteria){
   fc_factor <- type_financial_factor * access_finacial_factor
 
   # Financial consequences of failure ---------------------------------------
-  return(fc_factor * fcost * GBP_to_DKK)
+  return((fc_factor * fcost * GBP_to_DKK)/2)
 }
 
 
-#' @title Safety cost of Failure for 10kV Switchgear Primary
-#' @description This function calculates safety consequences of failure
-#' Safety consequences of failure is used in
+#' @title Safety cost of Failure for Relays
+#' @description This function calculates safety consequences of failure.
+#'Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param location_risk String Type Financial factor criteria for 10kV switchgear
-#' @param type_risk String. Asses Financial factor criteria for 10kV switchgear
+#' @param location_risk String Type Financial factor criteria for relay
+#' @param type_risk String. Asses Financial factor criteria for relay
 #' setting
-#' @return Numeric. Financial consequences of failure for HV switchgear
+#' @return Numeric. Financial consequences of failure for relay
 #' @export
 #' @examples
-#' safety_cof_switchgear_primary_10kv(
-#' location_risk = "Default",
-#' type_risk = "Default")
-safety_cof_switchgear_primary_10kv <- function(location_risk,
-                                               type_risk){
+# safety_cof_relay(
+# location_risk = "Default",
+# type_risk = "Default")
+safety_cof_relay <- function(location_risk,
+                             type_risk) {
 
   GBP_to_DKK <- 8.71
-  hv_asset_category <- "6.6/11kV CB (GM) Primary"
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -110,16 +109,16 @@ safety_cof_switchgear_primary_10kv <- function(location_risk,
   # Safety consequence of failure -------------------------------------------
   safety_cof <- safety_consequence_factor * scost
 
-  return(safety_cof * GBP_to_DKK)
+  return((safety_cof * GBP_to_DKK)/2)
 }
 
 
-#' @title Environmental cost of Failure for 10kV Switchgear Primary
-#' @description This function calculates environmental consequences of failure
+#' @title Environmental cost of Failure for Relays
+#' @description This function calculates environmental consequences of failure.
 #' Environmental consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @return Numeric. Financial consequences of failure for 10kV switchgear
+#' Financial consequences of failure for relay
 #' @param type_env_factor String The type environment factor of HV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
@@ -128,15 +127,16 @@ safety_cof_switchgear_primary_10kv <- function(location_risk,
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @export
 #' @examples
-#' environmental_cof_switchgear_primary_10kv(
-#' type_env_factor = "Oil",
-#' prox_water = 95, bunded = "Yes")
-environmental_cof_switchgear_primary_10kv <- function(type_env_factor,
-                                                      prox_water,
-                                                      bunded){
+# environmental_cof_relay(
+# type_env_factor = "Oil",
+# prox_water = 95,
+# bunded = "Yes")
+environmental_cof_relay <- function(type_env_factor,
+                                    prox_water,
+                                    bunded) {
 
   GBP_to_DKK <- 8.71
-  hv_asset_category <- "6.6/11kV CB (GM) Primary"
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
@@ -204,29 +204,30 @@ environmental_cof_switchgear_primary_10kv <- function(type_env_factor,
 
   # Environmental consequences ----------------------------------------------
   environmental_cof <- environmental_consequences_factor * ecost
-  return(environmental_cof * GBP_to_DKK)
+  return((environmental_cof * GBP_to_DKK)/2)
 }
 
 
-#' @title Network cost of Failure for 10kV Switchgear Primary
-#' @description This function calculates network cost of failure for
-#' all asset categories exclusive the assets EHV and 132kV transformers.
-#' Network cost of failure is used in the derivation of consequences of failure see \code{\link{cof}}().
+#' @title Network cost of Failure for Relays
+#' @description This function calculates network cost of failure for Relays
+#' Network cost of failure
+#' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param no_customers Numeric. The numner of customers
+#' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
-#' results in a multiplication factor of 1 .
+#' results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).
 #' @return Numeric. Network cost of failure.
+#' @export
 #' @examples
-#' network_cof_switchgear_primary_10kv(
-#' no_customers = 750, kva_per_customer = 51)
-network_cof_switchgear_primary_10kv <- function(no_customers,
-                                                   kva_per_customer = "Default") {
+# network_cof_relay(
+# no_customers = 100, kva_per_customer = 40)
+network_cof_relay <- function(no_customers,
+                              kva_per_customer = "Default") {
 
   GBP_to_DKK <- 8.71
-  hv_asset_category <- "6.6/11kV CB (GM) Primary"
+  hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -286,6 +287,6 @@ network_cof_switchgear_primary_10kv <- function(no_customers,
   # Network performance cost of failure -------------------------------------
   network_cof <- network_performance_consequence_factor * ncost
 
-  return(network_cof * GBP_to_DKK)
+  return((network_cof * GBP_to_DKK)/2)
 
 }
