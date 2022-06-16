@@ -282,8 +282,7 @@ network_cof_hv_switchgear_primary <- function(hv_asset_category,
     }
   }
 
-  adj_cust_no <-
-    adj_cust_no %>% stringr::str_match_all("[0-9]+") %>% unlist %>% as.numeric
+  adj_cust_no <- gsub("([0-9]+).*$", "\\1", adj_cust_no) %>% as.numeric()
 
   customer_factor <- (adj_cust_no * no_customers) / ref_no_cust
 
