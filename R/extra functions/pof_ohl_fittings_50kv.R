@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Current Probability of Failure for 50kV Fittings
 #' @description This function calculates the current
-#' annual probability of failure per kilometer EHV Fittings
+#' annual probability of failure per kilometer 50kV Fittings
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.

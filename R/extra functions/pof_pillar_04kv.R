@@ -5,9 +5,6 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @param lv_asset_category String.
-#' A sting that refers to the specific asset category.
-#' @param lv_asset_category String The type of LV asset category
 #' @param placement String. Specify if the asset is located outdoor or indoor.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
@@ -36,7 +33,7 @@
 #' per annum per kilometer.
 #' @export
 #' @examples
-#' # Current annual probability of failure for 0.4kV board
+#' # Current annual probability of failure for 0.4kV Pillar
 # pof_pillar_04kv_res <-
 # pof_pillar_04kv(
 # placement = "Default",

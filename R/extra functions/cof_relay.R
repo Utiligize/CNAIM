@@ -4,7 +4,7 @@
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
 #' @param access_factor_criteria String. Asses Financial factor criteria for relay
-#' setting
+#' setting. Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @export
 #' @examples
 #' financial_cof_relay(access_factor_criteria = "Type A")
@@ -65,9 +65,15 @@ financial_cof_relay <- function(access_factor_criteria) {
 #'Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param location_risk String Type Financial factor criteria for relay
-#' @param type_risk String. Asses Financial factor criteria for relay
+#' @param location_risk String Type Financial factor criteria for 50kV fittings
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
+#' @param type_risk String. Asses Financial factor criteria for 50kV fittings
 #' setting
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for relay
 #' @export
 #' @examples
@@ -120,6 +126,7 @@ safety_cof_relay <- function(location_risk,
 #' Outputted in DKK.
 #' Financial consequences of failure for relay
 #' @param type_env_factor String The type environment factor of HV asset category
+#' Options: \code{type_env_factor = c("Oil", "SF6", "Neither", "Default")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m

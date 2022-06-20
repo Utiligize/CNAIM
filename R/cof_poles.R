@@ -5,8 +5,11 @@
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param pole_asset_category String The type of Pole asset category
 #' @param type_financial_factor_criteria String. Type Financial factor criteria for Pole
+#' \code{type_financial_factor_criteria = c("Pole (supporting conductor only)",
+#' "Pole (supporting plant or equipment)", "Small footprint steel masts")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for Poles
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -76,8 +79,14 @@ financial_cof_poles <- function(pole_asset_category,
 #' @param pole_asset_category String The type of pole asset category
 #' @param location_risk String Type Financial factor criteria for Pole
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for pole
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for poles
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:

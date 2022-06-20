@@ -67,9 +67,8 @@ pof_future_cables_04kv_pex <-
 
     # Constants C and K for PoF function --------------------------------------
 
-    k <- k_value/100 # see p. 34  "DE-10kV apb kabler CNAIM"
-    c <- c_value # set to the standard accordingly in CNAIM (2021) and in "DE-10kV apb kabler CNAIM"
-
+    k <- k_value/100
+    c <- c_value
     duty_factor_cable <-
       duty_factor_cables(utilisation_pct,
                          operating_voltage_pct,

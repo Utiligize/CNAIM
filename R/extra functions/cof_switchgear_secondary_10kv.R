@@ -3,8 +3,9 @@
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
-#' setting
+#' @param access_factor_criteria String. Asses Financial factor criteria
+#' for 10 kV Swicthgear Secondary setting.
+#' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @export
 #' @examples
 #' financial_cof_switchgear_secondary_10kv(
@@ -68,8 +69,14 @@ financial_cof_switchgear_secondary_10kv <- function(access_factor_criteria) {
 #' Outputted in DKK.
 #' @param location_risk String Type Financial factor criteria for 10kV switchgear secondary
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for 10kV switchgear secondary
-#' setting
+#' setting.
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for 10kV switchgear secondary
 #' @export
 #' @examples
@@ -122,6 +129,7 @@ safety_cof_switchgear_secondary_10kv <- function(location_risk,
 #' Outputted in DKK.
 #' Financial consequences of failure for 10 kV switchgear secondary
 #' @param type_env_factor String The type environment factor of HV asset category
+#' Options: \code{type_env_factor = c("Oil", "SF6", "Niether", "Default")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -129,9 +137,9 @@ safety_cof_switchgear_secondary_10kv <- function(location_risk,
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @export
 #' @examples
-#' environmental_cof_switchgear_secondary_10kv(
-#' type_env_factor = "Oil", prox_water = 95,
-#' bunded = "Yes")
+# environmental_cof_switchgear_secondary_10kv(
+# type_env_factor = "Oil", prox_water = 95,
+# bunded = "Yes")
 environmental_cof_switchgear_secondary_10kv <- function(type_env_factor,
                                                         prox_water,
                                                         bunded) {

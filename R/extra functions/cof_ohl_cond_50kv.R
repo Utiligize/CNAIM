@@ -1,14 +1,14 @@
 #' @title Financial cost of Failure for 50kV Overhead Line Conductors
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK
-#' @param ohl_cond_asset_category String. The type of the asset category
 #' @param access_factor_criteria String. Asses Financial factor criteria for
 #' Overhead Line Conductors.
+#' Options: \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for Overhead Line Conductors
 #' @export
 #' @examples
-#' financial_cof_ohl_cond_50kv(
-#' access_factor_criteria = "Type A")
+# financial_cof_ohl_cond_50kv(
+# access_factor_criteria = "Type A")
 
 
 financial_cof_ohl_cond_50kv <- function(access_factor_criteria) {
@@ -66,15 +66,20 @@ financial_cof_ohl_cond_50kv <- function(access_factor_criteria) {
 #' @title Safety cost of Failure for 50kV Overhead Line Conductors
 #' @description This function calculates safety consequences of failure
 #' Outputted in DKK
-#' @param ohl_cond_asset_category String The type of overhead line conductor asset category
 #' @param location_risk String Type Financial factor criteria for Overhead Line Conductors
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for Overhead Line Conductors
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for Overhead Line Conductors
 #' @export
 #' @examples
-#' safety_cof_ohl_cond_50kv(
-#' location_risk = "Default",
-#' type_risk = "Default")
+# safety_cof_ohl_cond_50kv(
+# location_risk = "Default",
+# type_risk = "Default")
 safety_cof_ohl_cond_50kv <- function(location_risk,
                                      type_risk) {
 
@@ -117,7 +122,6 @@ safety_cof_ohl_cond_50kv <- function(location_risk,
 #' @title Environmental cost of Failure for 50kV Overhead Line Conductors
 #' @description This function calculates environmental consequences of failure
 #' Outputted in DKK
-#' @param ohl_cond_asset_category String The type of Overhead Line Conductors
 #' @export
 #' @examples
 #' environmental_cof_ohl_cond_50kv()
@@ -162,13 +166,12 @@ environmental_cof_ohl_cond_50kv <- function() {
 #' @title Network cost of Failure for 50kV Overhead Line Conductors
 #' @description This function calculates network cost of failure
 #' Outputted in DKK
-#' @param ohl_cond_asset_category String The type of Overhead line conductor
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
 #' @examples
-#' network_cof_ohl_cond_50kv(
-#' actual_load_mva = 15)
+# network_cof_ohl_cond_50kv(
+# actual_load_mva = 15)
 network_cof_ohl_cond_50kv<- function(actual_load_mva,
                                      secure = T) {
 

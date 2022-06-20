@@ -9,7 +9,7 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure
-#' per annum per kilometre for 30kV and 60kV submarine cables
+#' per annum per kilometre for 30kV and 60kV oil submarine cables
 #' @export
 #' @examples
 #' # Future annual probability of failure for 1 km 30kV and 60kV oil Sub Cable

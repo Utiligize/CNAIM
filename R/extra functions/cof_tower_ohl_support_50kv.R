@@ -3,15 +3,17 @@
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param tower_asset_category String The type of Pole asset category
 #' @param type_financial_factor_criteria String The type financial factor for Tower
+#' Options: \code{type_financial_factor_criteria = c("Suspension",
+#' "Tension", "Terminal")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for Tower
+#' Options: \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for tower ohl support 50 kV
 #' @export
 #' @examples
-#' financial_cof_tower_ohl_support_50kv(
-#' type_financial_factor_criteria = "Suspension",
-#' access_factor_criteria = "Type A")
+# financial_cof_tower_ohl_support_50kv(
+# type_financial_factor_criteria = "Suspension",
+# access_factor_criteria = "Type A")
 financial_cof_tower_ohl_support_50kv <- function(type_financial_factor_criteria,
                                                  access_factor_criteria) {
 
@@ -71,9 +73,14 @@ financial_cof_tower_ohl_support_50kv <- function(type_financial_factor_criteria,
 #' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param tower_asset_category String The type of tower asset category
 #' @param location_risk String Type Financial factor criteria for tower
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for tower
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for tower ohl support 50 kV
 #' @export
 #' @examples
@@ -125,7 +132,6 @@ safety_cof_tower_ohl_support_50kv <- function(location_risk,
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @return Numeric. Financial consequences of failure for tower ohl support 50 kV
 #' Outputted in DKK.
-#' @param tower_asset_category String The type of tower
 #' @export
 #' @examples
 #' environmental_cof_tower_ohl_support_50kv()
@@ -173,7 +179,6 @@ environmental_cof_tower_ohl_support_50kv <- function() {
 #' Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param tower_asset_category String The type of Tower
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

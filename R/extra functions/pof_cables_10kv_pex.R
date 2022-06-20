@@ -90,7 +90,7 @@ pof_cables_10kv_pex <- function(utilisation_pct = "Default",
                        operating_voltage_pct,
                        voltage_level = "HV")
 
-  # Expected life ------------------------------ # the expected life set to 80 accordingly to p. 33 in "DE-10kV apb kabler CNAIM"
+  # Expected life ------------------------------
   expected_life_years <- expected_life(normal_expected_life,
                                        duty_factor_cable,
                                        location_factor = 1)
