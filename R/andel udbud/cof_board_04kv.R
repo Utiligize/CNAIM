@@ -95,7 +95,7 @@ financial_cof_board_04kv <- function(type_financial_factor_criteria = "Asbestos 
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_board_04kv <- function(location_risk,
-                                  type_risk){
+                                  type_risk) {
   GBP_to_DKK <- 8.71
   lv_asset_category <- "LV Board (WM)"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
@@ -145,7 +145,7 @@ safety_cof_board_04kv <- function(location_risk,
 #' @export
 #' @examples
 #' environmental_cof_board_04kv()
-environmental_cof_board_04kv <- function(){
+environmental_cof_board_04kv <- function() {
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   GBP_to_DKK <- 8.71
@@ -221,14 +221,14 @@ network_cof_board_04kv <- function(no_customers,
   customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
 
 
-  for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){
+  for (n in 1:nrow(customer_no_adjust_lv_hv_asset)) {
     if (kva_per_customer == 'Default'){
       adj_cust_no <- 1
       break
     } else if (kva_per_customer >= as.numeric(
       customer_no_adjust_lv_hv_asset$Lower[n]) &
       kva_per_customer < as.numeric(
-        customer_no_adjust_lv_hv_asset$Upper[n])){
+        customer_no_adjust_lv_hv_asset$Upper[n])) {
       adj_cust_no <-
         customer_no_adjust_lv_hv_asset$
         `No. of Customers to be used in the derivation of Customer Factor`[n]

@@ -16,7 +16,7 @@
 
 
 financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
-                                       access_factor_criteria){
+                                            access_factor_criteria) {
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` =
@@ -51,7 +51,7 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
 
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 access_category_financial_factor)
+                                               access_category_financial_factor)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -88,7 +88,7 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
 # location_risk = "Default",
 # type_risk = "Default")
 safety_cof_ohl_fittings_50kv <- function(location_risk,
-                                         type_risk){
+                                         type_risk) {
 
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"
@@ -136,7 +136,7 @@ safety_cof_ohl_fittings_50kv <- function(location_risk,
 #' @export
 #' @examples
 #' environmental_cof_ohl_fittings_50kv()
-environmental_cof_ohl_fittings_50kv <- function(){
+environmental_cof_ohl_fittings_50kv <- function() {
 
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"
@@ -188,9 +188,8 @@ environmental_cof_ohl_fittings_50kv <- function(){
 #' @examples
 #' network_cof_ohl_fittings_50kv(
 #' actual_load_mva = 15)
-network_cof_ohl_fittings_50kv<- function(
-                                    actual_load_mva,
-                                    secure = T) {
+network_cof_ohl_fittings_50kv<- function(actual_load_mva,
+                                         secure = T) {
 
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"

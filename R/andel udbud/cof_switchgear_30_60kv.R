@@ -9,8 +9,10 @@
 #' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
 #' @export
 #' @examples
-#' financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV", access_factor_criteria = "Type A")
-financial_cof_switchgear_30_60kv <- function(ehv_asset_category, access_factor_criteria){
+#  financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+#  access_factor_criteria = "Type A")
+financial_cof_switchgear_30_60kv <- function(ehv_asset_category,
+                                             access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
   if (ehv_asset_category == "30kV" ) {
@@ -92,7 +94,7 @@ financial_cof_switchgear_30_60kv <- function(ehv_asset_category, access_factor_c
 #' type_risk = "Default")
 safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
                                           location_risk,
-                                          type_risk){
+                                          type_risk) {
   GBP_to_DKK <- 8.71
   if (ehv_asset_category == "30kV" ) {
     ehv_asset_category <- "33kV CB (Air Insulated Busbars)(ID) (GM)"
@@ -156,9 +158,9 @@ safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
 #' prox_water = 95,
 #' bunded = "Yes")
 environmental_cof_switchgear_30_60kv <- function(ehv_asset_category,
-                                             type_env_factor,
-                                             prox_water,
-                                             bunded){
+                                                 type_env_factor,
+                                                 prox_water,
+                                                 bunded) {
 
   GBP_to_DKK <- 8.71
   if (ehv_asset_category == "30kV" ) {
@@ -231,8 +233,8 @@ environmental_cof_switchgear_30_60kv <- function(ehv_asset_category,
   location_environmental_factor <- prox_factor * bunding_factor
 
   environmental_consequences_factor <- (type_environmental_factor *
-                                          size_environmental_factor *
-                                          location_environmental_factor)
+                                        size_environmental_factor *
+                                        location_environmental_factor)
 
   # Environmental consequences ----------------------------------------------
   environmental_cof <- environmental_consequences_factor * ecost

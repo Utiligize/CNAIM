@@ -1,12 +1,12 @@
 #' @title Financial cost of Failure for Service Lines
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK
-#' @return Numeric. Financial consequences of failure for serviceline
+#' @return Numeric. Financial consequences of failure for service line
 #' @export
 #' @examples
 #' financial_cof_serviceline()
 
-financial_cof_serviceline <- function(){
+financial_cof_serviceline <- function() {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -174,7 +174,7 @@ environmental_cof_serviceline <- function(prox_water,
 #' @examples
 #' network_cof_serviceline(actual_load_mva = 0.5)
 network_cof_serviceline <- function(actual_load_mva,
-                                       secure = T) {
+                                    secure = T) {
   GBP_to_DKK <- 8.71
   hv_asset_category <- "33kV UG Cable (Non Pressurised)"
 

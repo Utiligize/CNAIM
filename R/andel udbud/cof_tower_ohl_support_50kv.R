@@ -13,7 +13,7 @@
 #' type_financial_factor_criteria = "Suspension",
 #' access_factor_criteria = "Type A")
 financial_cof_tower_ohl_support_50kv <- function(type_financial_factor_criteria,
-                                                 access_factor_criteria){
+                                                 access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
   tower_asset_category <- "66kV Tower"
@@ -129,7 +129,7 @@ safety_cof_tower_ohl_support_50kv <- function(location_risk,
 #' @export
 #' @examples
 #' environmental_cof_tower_ohl_support_50kv()
-environmental_cof_tower_ohl_support_50kv <- function(){
+environmental_cof_tower_ohl_support_50kv <- function() {
 
   GBP_to_DKK <- 8.71
   tower_asset_category = "66kV Tower"
@@ -181,8 +181,8 @@ environmental_cof_tower_ohl_support_50kv <- function(){
 #' @examples
 #' network_cof_tower(
 #' actual_load_mva = 15)
-network_cof_tower<- function(actual_load_mva,
-                             secure = T) {
+network_cof_tower_ohl_support_50kv<- function(actual_load_mva,
+                                              secure = T) {
 
   GBP_to_DKK <- 8.71
   tower_asset_category = "66kV Tower"

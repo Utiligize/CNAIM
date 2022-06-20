@@ -11,7 +11,7 @@
 #' access_factor_criteria = "Type A")
 
 
-financial_cof_ohl_cond_50kv <- function(access_factor_criteria){
+financial_cof_ohl_cond_50kv <- function(access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
   ohl_cond_asset_category <- "66kV OHL (Tower Line) Conductor"
@@ -36,13 +36,13 @@ financial_cof_ohl_cond_50kv <- function(access_factor_criteria){
   access_financial_factors <- gb_ref$access_factor_ohl
   access_finacial_factor_asset_category <- "EHV OHL Conductors (Tower Lines)"
 
-  if(asset_category == "132kV OHL Conductor (Tower Lines)"){
+  if(asset_category == "132kV OHL Conductor (Tower Lines)") {
     access_finacial_factor_asset_category <- "132kV OHL Conductors (Tower Lines)"
   }
 
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
-                                                 access_finacial_factor_asset_category)
+                                               access_finacial_factor_asset_category)
 
   if (access_factor_criteria == "Type A") {
     access_finacial_factor <-
@@ -76,7 +76,7 @@ financial_cof_ohl_cond_50kv <- function(access_factor_criteria){
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_ohl_cond_50kv <- function(location_risk,
-                                type_risk){
+                                     type_risk) {
 
   GBP_to_DKK <- 8.71
   ohl_cond_asset_category <- "66kV OHL (Tower Line) Conductor"
@@ -121,7 +121,7 @@ safety_cof_ohl_cond_50kv <- function(location_risk,
 #' @export
 #' @examples
 #' environmental_cof_ohl_cond_50kv()
-environmental_cof_ohl_cond_50kv <- function(){
+environmental_cof_ohl_cond_50kv <- function() {
 
   GBP_to_DKK <- 8.71
   ohl_cond_asset_category <- "66kV OHL (Tower Line) Conductor"
@@ -170,7 +170,7 @@ environmental_cof_ohl_cond_50kv <- function(){
 #' network_cof_ohl_cond_50kv(
 #' actual_load_mva = 15)
 network_cof_ohl_cond_50kv<- function(actual_load_mva,
-                                secure = T) {
+                                     secure = T) {
 
   GBP_to_DKK <- 8.71
   ohl_cond_asset_category <- "33kV OHL (Tower Line) Conductor"

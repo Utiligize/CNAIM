@@ -18,7 +18,7 @@
 #' type_financial_factor_criteria = "Asbestos clad",
 #' access_factor_criteria = "Type A")
 financial_cof_pillar_04kv <- function(type_financial_factor_criteria = "Asbestos clad",
-                                     access_factor_criteria) {
+                                      access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
   lv_asset_category <- "LV Pillar (ID)"
@@ -92,7 +92,7 @@ financial_cof_pillar_04kv <- function(type_financial_factor_criteria = "Asbestos
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_pillar_04kv <- function(location_risk,
-                                  type_risk){
+                                   type_risk) {
 
   GBP_to_DKK <- 8.71
   lv_asset_category <- "LV Pillar (ID)"
@@ -144,7 +144,7 @@ safety_cof_pillar_04kv <- function(location_risk,
 #' @export
 #' @examples
 #' environmental_cof_pillar_04kv()
-environmental_cof_pillar_04kv <- function(){
+environmental_cof_pillar_04kv <- function() {
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   GBP_to_DKK <- 8.71
@@ -194,7 +194,7 @@ environmental_cof_pillar_04kv <- function(){
 #' @examples
 #' network_cof_pillar_04kv(no_customers = 750, kva_per_customer = 51)
 network_cof_pillar_04kv <- function(no_customers,
-                                   kva_per_customer = "Default") {
+                                    kva_per_customer = "Default") {
 
   GBP_to_DKK <- 8.71
   lv_asset_category <- "LV Board (WM)" #this is the same value as for Pillar (ID)
@@ -204,7 +204,7 @@ network_cof_pillar_04kv <- function(no_customers,
 
   reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
                                                  `Asset Register Category` ==
-                                                   lv_asset_category)
+                                                 lv_asset_category)
 
   # Reference financial cost of failure -------------------------------------
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
@@ -213,7 +213,7 @@ network_cof_pillar_04kv <- function(no_customers,
   ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
   ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
                                                   `Asset Category` ==
-                                                    asset_category)
+                                                  asset_category)
 
   ref_no_cust <-
     ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
@@ -221,14 +221,14 @@ network_cof_pillar_04kv <- function(no_customers,
   customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
 
 
-  for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){
+  for (n in 1:nrow(customer_no_adjust_lv_hv_asset)) {
     if (kva_per_customer == 'Default'){
       adj_cust_no <- 1
       break
     } else if (kva_per_customer >= as.numeric(
       customer_no_adjust_lv_hv_asset$Lower[n]) &
       kva_per_customer < as.numeric(
-        customer_no_adjust_lv_hv_asset$Upper[n])){
+        customer_no_adjust_lv_hv_asset$Upper[n])) {
       adj_cust_no <-
         customer_no_adjust_lv_hv_asset$
         `No. of Customers to be used in the derivation of Customer Factor`[n]

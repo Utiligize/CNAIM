@@ -14,8 +14,8 @@
 #' type_financial_factor_criteria = "Small footprint steel masts",
 #' access_factor_criteria = "Type A")
 financial_cof_poles_ohl_support_50kv <- function(pole_asset_category,
-                                type_financial_factor_criteria,
-                                access_factor_criteria){
+                                                 type_financial_factor_criteria,
+                                                 access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
    pole_asset_category <- "66kV Pole"
@@ -84,8 +84,8 @@ financial_cof_poles_ohl_support_50kv <- function(pole_asset_category,
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_poles_ohl_support_50kv <- function(pole_asset_category,
-                             location_risk,
-                             type_risk){
+                                              location_risk,
+                                              type_risk) {
   GBP_to_DKK <- 8.71
   pole_asset_category <- "66kV Pole"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
@@ -132,7 +132,7 @@ safety_cof_poles_ohl_support_50kv <- function(pole_asset_category,
 #' @export
 #' @examples
 #' environmental_cof_poles_ohl_support_50kv()
-environmental_cof_poles_ohl_support_50kv <- function(){
+environmental_cof_poles_ohl_support_50kv <- function() {
 
   GBP_to_DKK <- 8.71
   pole_asset_category <- "66kV Pole"
