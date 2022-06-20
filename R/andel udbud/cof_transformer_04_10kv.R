@@ -13,10 +13,14 @@
 #                      no_customers = 500, kva_per_customer = 1)
 
 
-cof_transformer_04_10kv <- function(kva, type,
-                                 type_risk, location_risk,
-                                 prox_water, bunded,
-                                 no_customers, kva_per_customer) {
+cof_transformer_04_10kv <- function(kva,
+                                    type,
+                                    type_risk,
+                                    location_risk,
+                                    prox_water,
+                                    bunded,
+                                    no_customers,
+                                    kva_per_customer) {
 
   GBP_to_DKK <- 8.71
   finance <- f_cof_transformer_11kv(kva, type)

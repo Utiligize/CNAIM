@@ -9,12 +9,12 @@
 #' @return Numeric. Financial consequences of failure for Transformer
 #' @export
 #' @examples
-#' financial_cof_transformers_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+#' financial_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
 #' type_financial_factor_kva_mva = 20,
 #' access_factor_criteria = "Type A")
-financial_cof_transformers_30_60kv <- function(tf_asset_category,
-                                       type_financial_factor_kva_mva = NULL,
-                                       access_factor_criteria){
+financial_cof_transformer_30_60kv <- function(tf_asset_category,
+                                              type_financial_factor_kva_mva = NULL,
+                                              access_factor_criteria) {
 
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {
@@ -105,12 +105,12 @@ financial_cof_transformers_30_60kv <- function(tf_asset_category,
 #' @return Numeric. Safety consequences of failure for Transformers
 #' @export
 #' @examples
-#' safety_cof_transformers_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+#' safety_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
 #' location_risk = "Default",
 #' type_risk = "Default")
-safety_cof_transformers_30_60kv <- function(tf_asset_category,
-                                            location_risk,
-                                            type_risk){
+safety_cof_transformer_30_60kv <- function(tf_asset_category,
+                                           location_risk,
+                                           type_risk) {
 
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {
@@ -169,11 +169,11 @@ safety_cof_transformers_30_60kv <- function(tf_asset_category,
 #' @param size_conversion String The size conversion for the transformer
 #' @export
 #' @examples
-#' environmental_cof_transformers(tf_asset_category = "30kV Transformer (GM)",
+#' environmental_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
 #' prox_water = 95, bunded = "Yes", size_kva_mva = 20)
-environmental_cof_transformers_30_60kv <- function(tf_asset_category,
-                                                   prox_water, bunded,
-                                                   size_kva_mva = NULL) {
+environmental_cof_transformer_30_60kv <- function(tf_asset_category,
+                                                  prox_water, bunded,
+                                                  size_kva_mva = NULL) {
 
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {
@@ -285,11 +285,11 @@ environmental_cof_transformers_30_60kv <- function(tf_asset_category,
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
 #' @examples
-#' network_cof_transformers_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+#' network_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
 #' actual_load_mva = 15)
-network_cof_transformers_30_60kv<- function(tf_asset_category,
-                                    actual_load_mva,
-                                    secure = T) {
+network_cof_transformer_30_60kv<- function(tf_asset_category,
+                                           actual_load_mva,
+                                           secure = T) {
 
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {

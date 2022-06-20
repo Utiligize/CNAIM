@@ -11,9 +11,9 @@
 #' @examples
 #' financial_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)")
 
-GBP_to_DKK <- 8.71
 
-financial_cof_cables_60_30kv <- function(ehv_asset_category){
+
+financial_cof_cables_60_30kv <- function(ehv_asset_category) {
 
   if (ehv_asset_category == "30kV UG Cable (Non Pressurised)" ) {
     ehv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -29,7 +29,7 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category){
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
 
-
+  GBP_to_DKK <- 8.71
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -70,7 +70,7 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category){
 #' @export
 #' @examples
 #' safety_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)")
-safety_cof_cables_60_30kv <- function(ehv_asset_category){
+safety_cof_cables_60_30kv <- function(ehv_asset_category) {
 
   if (ehv_asset_category == "30kV UG Cable (Non Pressurised)" ) {
     ehv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -86,6 +86,7 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category){
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
 
+  GBP_to_DKK <- 8.71
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -127,8 +128,8 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category){
 #' environmental_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)",
 #' prox_water = 95, bunded = "Yes")
 environmental_cof_cables_60_30kv <- function(ehv_asset_category,
-                                              prox_water,
-                                              bunded){
+                                             prox_water,
+                                             bunded) {
 
   if (ehv_asset_category == "30kV UG Cable (Non Pressurised)" ) {
     ehv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -144,6 +145,7 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
 
+  GBP_to_DKK <- 8.71
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
@@ -171,7 +173,7 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
                                                  `Asset Register Category` ==
                                                    asset_category)
 
-  if(nrow(location_environ_al_factor_tf) == 0){
+  if(nrow(location_environ_al_factor_tf) == 0) {
     location_environmental_factor <- 1
   } else {
     # Bunded "Yes", "No", "Default" ?
@@ -249,7 +251,7 @@ network_cof_cables_60_30kv <- function(ehv_asset_category,
   } else {
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
-
+  GBP_to_DKK <- 8.71
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 

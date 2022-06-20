@@ -77,7 +77,7 @@ financial_cof_switchgear_secondary_10kv <- function(access_factor_criteria) {
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_switchgear_secondary_10kv <- function(location_risk,
-                                                  type_risk){
+                                                 type_risk) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"
@@ -133,8 +133,8 @@ safety_cof_switchgear_secondary_10kv <- function(location_risk,
 #' type_env_factor = "Oil", prox_water = 95,
 #' bunded = "Yes")
 environmental_cof_switchgear_secondary_10kv <- function(type_env_factor,
-                                                         prox_water,
-                                                         bunded){
+                                                        prox_water,
+                                                        bunded) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"
@@ -226,7 +226,7 @@ environmental_cof_switchgear_secondary_10kv <- function(type_env_factor,
 #' network_cof_switchgear_secondary_10kv(
 #' no_customers = 750, kva_per_customer = 51)
 network_cof_switchgear_secondary_10kv <- function(no_customers,
-                                                   kva_per_customer = "Default") {
+                                                  kva_per_customer = "Default") {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"

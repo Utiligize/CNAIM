@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #' financial_cof_submarine_cables_30_60kv()
-financial_cof_submarine_cables_30_60kv <- function(){
+financial_cof_submarine_cables_30_60kv <- function() {
 
   GBP_to_DKK <- 8.71
   sub_cable_asset_category = "EHV Sub Cable"
@@ -127,8 +127,8 @@ environmental_cof_submarine_30_60kv <- function() {
   location_environmental_factor <- 1
 
   environmental_consequences_factor <- (type_environmental_factor *
-                                          size_environmental_factor *
-                                          location_environmental_factor)
+                                        size_environmental_factor *
+                                        location_environmental_factor)
 
   # Environmental consequences ----------------------------------------------
   environmental_cof <- environmental_consequences_factor * ecost

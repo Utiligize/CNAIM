@@ -8,7 +8,7 @@
 #' @examples
 #' financial_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)")
 
-financial_cof_cables_04_10kv <- function(hv_asset_category){
+financial_cof_cables_04_10kv <- function(hv_asset_category) {
 
   GBP_to_DKK <- 8.71
   if (hv_asset_category == "10kV UG Cable (Non Pressurised)" ) {
@@ -60,7 +60,7 @@ financial_cof_cables_04_10kv <- function(hv_asset_category){
 #' @export
 #' @examples
 #' safety_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)")
-safety_cof_cables_04_10kv <- function(hv_asset_category){
+safety_cof_cables_04_10kv <- function(hv_asset_category) {
 
   GBP_to_DKK <- 8.71
   if (hv_asset_category == "10kV UG Cable (Non Pressurised)" ) {
@@ -114,7 +114,7 @@ safety_cof_cables_04_10kv <- function(hv_asset_category){
 #' prox_water = 95, bunded = "Yes")
 environmental_cof_cables_04_10kv <- function(hv_asset_category,
                                              prox_water,
-                                             bunded){
+                                             bunded) {
 
   GBP_to_DKK <- 8.71
   if (hv_asset_category == "10kV UG Cable (Non Pressurised)" ) {

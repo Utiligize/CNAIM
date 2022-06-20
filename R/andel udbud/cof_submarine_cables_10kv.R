@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #' financial_cof_submarine_cables_10kv()
-financial_cof_submarine_cables_10kv <- function(){
+financial_cof_submarine_cables_10kv <- function() {
 
   GBP_to_DKK <- 8.71
   sub_cable_asset_category = "HV Sub Cable"
@@ -157,7 +157,7 @@ environmental_cof_submarine_10kv <- function() {
 #' network_cof_submarine_cables_10kv(
 #' no_customers = 250, kva_per_customer = 51)
 network_cof_submarine_cables_10kv <- function(no_customers,
-                                                 kva_per_customer = "Default") {
+                                              kva_per_customer = "Default") {
 
   GBP_to_DKK <- 8.71
   sub_cable_asset_category = "HV Sub Cable"
