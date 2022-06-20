@@ -5,7 +5,7 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @inheritParams pof_transformer_11_20kv # this is the same for 0.4/10kV Transformers
+#' @inheritParams pof_transformer_14_10kv # this is the same for 0.4/10kV Transformers
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure.
@@ -53,7 +53,8 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     normal_expected_life = 55,
                                     simulation_end_year = 100) {
 
-  hv_transformer_type <- "6.6/11kV Transformer (GM)" # this is in order to access tables the are identical to the ones 0.4/10kV transformer is using
+  hv_transformer_type <- "6.6/11kV Transformer (GM)"
+  # this is in order to access tables which are identical to the ones 0.4/10kV transformer is using
 
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
@@ -73,8 +74,8 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
 
 
   # Constants C and K for PoF function --------------------------------------
-  k <- k_value/100 # see page 31 in DE-10kV apb kabler CNAIM
-  c <- c_value # # see page 31 in DE-10kV apb kabler CNAIM
+  k <- k_value/100
+  c <- c_value
 
   # Duty factor -------------------------------------------------------------
   duty_factor_tf_11kv <- duty_factor_transformer_11_20kv(utilisation_pct)

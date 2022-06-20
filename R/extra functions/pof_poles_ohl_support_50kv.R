@@ -5,7 +5,6 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @param pole_asset_category String The type of asset category
 #' @param sub_division String. Refers to material the pole is
 #' made of. Options:
 #' \code{sub_division = c("Concrete", "Steel", "Wood")}.

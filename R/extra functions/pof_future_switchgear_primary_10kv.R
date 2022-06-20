@@ -5,7 +5,7 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @inheritParams pof_switchgear_secondary_10kv
+#' @inheritParams pof_switchgear_primary_10kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric. Current probability of failure per annum.
@@ -76,12 +76,9 @@ pof_future_switchgear_primary_10kv <-
 
 
     # Constants C and K for PoF function --------------------------------------
-
-    # POF function asset category.
-
     k <- k_value/100
-
     c <- c_value
+
     # Duty factor -------------------------------------------------------------
 
     duty_factor_cond <- get_duty_factor_hv_switchgear_primary(number_of_operations)

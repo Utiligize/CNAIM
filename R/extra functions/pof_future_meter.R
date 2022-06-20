@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Future Probability of Failure for Meters
 #' @description This function calculates the future
-#' annual probability of failure meter.
+#' annual probability of failure meters.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.

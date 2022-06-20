@@ -2,16 +2,18 @@
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK.
 #' @param tf_asset_category String The type of Transformer asset category
+#' Options: \code{tf_asset_category = c("30kV Transformer (GM)",
+#' "60kV Transformer (GM)")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for Transformer
 #' setting (cf. table 221, page 180, CNAIM, 2021).
-#' @param type_financial_factor_size String The type financial factor size for Transformer
+#' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @param type_financial_factor_kva_mva Numeric The type financial factor kVA MVA for Transformer
 #' @return Numeric. Financial consequences of failure for Transformer
 #' @export
 #' @examples
-#' financial_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
-#' type_financial_factor_kva_mva = 20,
-#' access_factor_criteria = "Type A")
+# financial_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+# type_financial_factor_kva_mva = 20,
+# access_factor_criteria = "Type A")
 financial_cof_transformer_30_60kv <- function(tf_asset_category,
                                               type_financial_factor_kva_mva = NULL,
                                               access_factor_criteria) {
@@ -19,10 +21,10 @@ financial_cof_transformer_30_60kv <- function(tf_asset_category,
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {
     tf_asset_category <- "33kV Transformer (GM)"
-    type_financial_factor_size <- "33/20kV, CMR equivalent"
+    type_financial_factor_size <- "33/11 or 6.6kV, CMR equivalent"
   } else if (tf_asset_category == "60kV Transformer (GM)" ) {
     tf_asset_category <- "66kV Transformer (GM)"
-    type_financial_factor_size <- "66/20kV, CMR equivalent"
+    type_financial_factor_size <- "66/11 or 6.6kV, CMR equivalent"
   } else {
     tf_asset_category <- NULL
     warning("Wrong input, please go to CNAIM.io for more documentation")
@@ -98,10 +100,18 @@ financial_cof_transformer_30_60kv <- function(tf_asset_category,
 #' @description This function calculates safety consequences of failure
 #' Outputted in DKK.
 #' @param tf_asset_category String The type of Transformer
+#' Options: \code{tf_asset_category = c("30kV Transformer (GM)",
+#' "60kV Transformer (GM)")}.
 #' @param location_risk String Type Financial factor criteria for Transformer
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for Transformer
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for Transformers
 #' @export
 #' @examples
@@ -160,17 +170,18 @@ safety_cof_transformer_30_60kv <- function(tf_asset_category,
 #' @description This function calculates environmental consequences of failure
 #' Outputted in DKK.
 #' @param tf_asset_category String The type of Transformer
+#' Options: \code{tf_asset_category = c("30kV Transformer (GM)",
+#' "60kV Transformer (GM)")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @param size_kva_mva Numeric The MVA KVA rating for the transformer
-#' @param size_conversion String The size conversion for the transformer
 #' @export
 #' @examples
-#' environmental_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
-#' prox_water = 95, bunded = "Yes", size_kva_mva = 20)
+# environmental_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+# prox_water = 95, bunded = "Yes", size_kva_mva = 20)
 environmental_cof_transformer_30_60kv <- function(tf_asset_category,
                                                   prox_water, bunded,
                                                   size_kva_mva = NULL) {
@@ -178,10 +189,10 @@ environmental_cof_transformer_30_60kv <- function(tf_asset_category,
   GBP_to_DKK <- 8.71
   if (tf_asset_category == "30kV Transformer (GM)" ) {
     tf_asset_category <- "33kV Transformer (GM)"
-    size_conversion <- "33/20kV"
+    size_conversion <- "33/11 or 6.6kV"
   } else if (tf_asset_category == "60kV Transformer (GM)" ) {
     tf_asset_category <- "66kV Transformer (GM)"
-    size_conversion <- NULL
+    size_conversion <- "66/11 or 6.6kV"
   } else {
     size_conversion <- NULL
     tf_asset_category <- NULL
@@ -281,6 +292,8 @@ environmental_cof_transformer_30_60kv <- function(tf_asset_category,
 #' @description This function calculates network cost of failure for
 #' Outputted in DKK.
 #' @param tf_asset_category String The type of Tower
+#' Options: \code{tf_asset_category = c("30kV Transformer (GM)",
+#' "60kV Transformer (GM)")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

@@ -73,8 +73,14 @@ financial_cof_ohl_cond <- function(ohl_cond_asset_category,
 #' @param ohl_cond_asset_category String The type of overhead line conductor asset category
 #' @param location_risk String Type Financial factor criteria for Overhead Line Conductors
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for Overhead Line Conductors
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for Overhead Line Conductors
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:

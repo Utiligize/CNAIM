@@ -48,7 +48,7 @@ pof_future_cables_10kv_oil <-
       `Condition Criteria: Partial Discharge Test Result` =
       NULL
 
-      pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
+      pseudo_cable_type <- "33kV UG Cable (Oil)"
       sub_division <- "Lead sheath - Copper conductor"
 
 
@@ -68,15 +68,15 @@ pof_future_cables_10kv_oil <-
 
     # Constants C and K for PoF function --------------------------------------
 
-    k <- k_value/100 # see p. 34  "DE-10kV apb kabler CNAIM"
-    c <- c_value # set to the standard accordingly in CNAIM (2021) and in "DE-10kV apb kabler CNAIM"
+    k <- k_value/100
+    c <- c_value
 
     duty_factor_cable <-
       duty_factor_cables(utilisation_pct,
                          operating_voltage_pct,
                          voltage_level = "HV")
 
-    # Expected life ------------------------------ # the expected life set to 80 accordingly to p. 33 in "DE-10kV apb kabler CNAIM"
+    # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_cable,
                                          location_factor = 1)

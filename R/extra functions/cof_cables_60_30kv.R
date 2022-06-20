@@ -125,8 +125,8 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category) {
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @export
 #' @examples
-#' environmental_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)",
-#' prox_water = 95, bunded = "Yes")
+# environmental_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)",
+# prox_water = 95, bunded = "Yes")
 environmental_cof_cables_60_30kv <- function(ehv_asset_category,
                                              prox_water,
                                              bunded) {
@@ -232,8 +232,8 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
 #' @return Numeric. Network cost of failure.
 #' @export
 #' @examples
-#' network_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)",
-#' actual_load_mva = 15)
+# network_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)",
+# actual_load_mva = 15)
 network_cof_cables_60_30kv <- function(ehv_asset_category,
                                   actual_load_mva,
                                   secure = T) {

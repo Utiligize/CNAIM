@@ -95,7 +95,6 @@ pof_rtu <-
 
     # Constants C and K for PoF function --------------------------------------
     k <- k_value/100
-
     c <- c_value
 
     # Duty factor -------------------------------------------------------------

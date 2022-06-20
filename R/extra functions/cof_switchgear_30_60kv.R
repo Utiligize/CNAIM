@@ -4,13 +4,14 @@
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
 #' @param ehv_asset_category String The type of 30kV and 60kV switchgear
+#' Options: \code{ehv_asset_category = c("30kV", "60kV")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for 30kV and 60kV switchgear
-#' setting
+#' setting. Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
 #' @export
 #' @examples
-#  financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
-#  access_factor_criteria = "Type A")
+ # financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+ # access_factor_criteria = "Type A")
 financial_cof_switchgear_30_60kv <- function(ehv_asset_category,
                                              access_factor_criteria) {
 
@@ -83,15 +84,22 @@ financial_cof_switchgear_30_60kv <- function(ehv_asset_category,
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
 #' @param ehv_asset_category String The type of 30kV and 60kV switchgear
+#' Options: \code{ehv_asset_category = c("30kV", "60kV")}.
 #' @param location_risk String Type Financial factor criteria for 30kV and 60kV switchgear
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for 30kV and 60kV switchgear
-#' setting
+#' setting.
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
 #' @export
 #' @examples
-#' safety_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
-#' location_risk = "Default",
-#' type_risk = "Default")
+# safety_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+# location_risk = "Default",
+# type_risk = "Default")
 safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
                                           location_risk,
                                           type_risk) {
@@ -145,7 +153,9 @@ safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
 #' Outputted in DKK.
 #' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
 #' @param ehv_asset_category String The type of EHV asset category
+#' Options: \code{ehv_asset_category = c("30kV", "60kV")}.
 #' @param type_env_factor String The type environment factor of 30kV and 60kV switchgear
+#' Options: \code{type_env_factor = c("Oil", "SF6", "Niether", "Default")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -153,10 +163,10 @@ safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @export
 #' @examples
-#' environmental_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
-#' type_env_factor = "Oil",
-#' prox_water = 95,
-#' bunded = "Yes")
+# environmental_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+# type_env_factor = "Oil",
+# prox_water = 95,
+# bunded = "Yes")
 environmental_cof_switchgear_30_60kv <- function(ehv_asset_category,
                                                  type_env_factor,
                                                  prox_water,
@@ -249,6 +259,7 @@ environmental_cof_switchgear_30_60kv <- function(ehv_asset_category,
 #'  of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
 #' @param ehv_asset_category String The type of 30kV and 60kV switchgear category
+#' Options: \code{ehv_asset_category = c("30kV", "60kV")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @title Future Probability of Failure for RTU
 #' @description This function calculates the future
-#' annual probability of failure relay.
+#' annual probability of failure RTU.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.

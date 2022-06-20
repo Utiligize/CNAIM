@@ -4,7 +4,6 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param sub_cable_asset_category String The type of Submarine cable asset category
 #' @return Numeric. Financial consequences of failure for 10kV submarine cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -50,7 +49,6 @@ financial_cof_submarine_cables_10kv <- function() {
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param sub_cable_asset_category String The type of sub cable asset category
 #' @return Numeric. Safety consequences of failure for Sub cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -91,7 +89,6 @@ safety_cof_submarine_cables_10kv <- function() {
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric.
 #' Financial consequences of failure for 10kV submarine cables
 #' Outputted in DKK.
-#' @param sub_cable_asset_category String The type of sub cable asset category
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -142,7 +139,6 @@ environmental_cof_submarine_10kv <- function() {
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param sub_cable_asset_category String The type of sub cable asset category
 #' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high

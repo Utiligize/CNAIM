@@ -3,20 +3,21 @@
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in (DKK).
-#' @param lv_asset_category String The type of LV asset category
 #' @param type_financial_factor_criteria String Type Financial factor criteria for 0.4kV board
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{type_financial_factor_criteria = c("Non Asbestos clad", "Asbestos clad")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for 0.4kV board
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @return Numeric. Financial consequences of failure for 0.4kV board
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' financial_cof_board_04kv(
-#' type_financial_factor_criteria = "Asbestos clad",
-#' access_factor_criteria = "Type A")
+# financial_cof_board_04kv(
+# type_financial_factor_criteria = "Asbestos clad",
+# access_factor_criteria = "Type A")
 
 
 
@@ -80,20 +81,25 @@ financial_cof_board_04kv <- function(type_financial_factor_criteria = "Asbestos 
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in (DKK).
-#' @param lv_asset_category String The type of LV asset category
 #' @param location_risk String Type Financial factor criteria for 0.4kV board
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for 0.4kV board
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for 0.4kV board
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' safety_cof_board_04kv(
-#' location_risk = "Default",
-#' type_risk = "Default")
+# safety_cof_board_04kv(
+# location_risk = "Default",
+# type_risk = "Default")
 safety_cof_board_04kv <- function(location_risk,
                                   type_risk) {
   GBP_to_DKK <- 8.71
@@ -132,13 +138,12 @@ safety_cof_board_04kv <- function(location_risk,
 }
 
 
-#' @title Environmental cost of Failure for 0.4kv Board
+#' @title Environmental cost of Failure for 0.4kV Board
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for 0.4kV board
 #' Outputted in DKK
-#' @param lv_asset_category String The type of LV asset category
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -180,7 +185,6 @@ environmental_cof_board_04kv <- function() {
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' Outputted in DKK
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param lv_asset_category String The type of LV asset category
 #' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high

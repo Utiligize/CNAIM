@@ -3,10 +3,10 @@
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK
-#' @param ehv_asset_category String The type of EHV Fittings asset category
 #' @param type_financial_factor_criteria String. Type Financial factor criteria for EHV fittings
+#' Options: \code{type_financial_factor_criteria = c("Suspension", "Tension")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for EHV fittings
-#' setting
+#' setting. Options: \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
@@ -77,10 +77,15 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
 #' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param ehv_asset_category String The type of EHV asset category
 #' @param location_risk String Type Financial factor criteria for 50kV fittings
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for 50kV fittings
 #' setting
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
@@ -132,7 +137,6 @@ safety_cof_ohl_fittings_50kv <- function(location_risk,
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @return Numeric. Financial consequences of failure for 50kv fittings
 #' Outputted in DKK.
-#' @param ehv_asset_category String The type of EHV asset category
 #' @export
 #' @examples
 #' environmental_cof_ohl_fittings_50kv()

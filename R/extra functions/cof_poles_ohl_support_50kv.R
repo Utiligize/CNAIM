@@ -3,16 +3,18 @@
 #' Financial consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param pole_asset_category String The type of Pole asset category
 #' @param type_financial_factor_criteria String. Type Financial factor criteria for Pole
+#' Options: \code{type_financial_factor_criteria = c("Pole (supporting conductor only)",
+#' "Pole (supporting plant or equipment)", "Small footprint steel masts")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting.
+#' Options: \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for Poles
 #' @export
 #' @examples
-#' financial_cof_poles_ohl_support_50kv(
-#' type_financial_factor_criteria = "Small footprint steel masts",
-#' access_factor_criteria = "Type A")
+# financial_cof_poles_ohl_support_50kv(
+# type_financial_factor_criteria = "Small footprint steel masts",
+# access_factor_criteria = "Type A")
 financial_cof_poles_ohl_support_50kv <- function(pole_asset_category,
                                                  type_financial_factor_criteria,
                                                  access_factor_criteria) {
@@ -73,10 +75,15 @@ financial_cof_poles_ohl_support_50kv <- function(pole_asset_category,
 #' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param pole_asset_category String The type of pole asset category
 #' @param location_risk String Type Financial factor criteria for Pole
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for pole
 #' setting.
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for poles
 #' @export
 #' @examples
@@ -128,7 +135,6 @@ safety_cof_poles_ohl_support_50kv <- function(pole_asset_category,
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric.
 #' Financial consequences of failure for Poles OHL support 50kV
 #' Outputted in DKK.
-#' @param pole_asset_category String The type of Pole
 #' @export
 #' @examples
 #' environmental_cof_poles_ohl_support_50kv()
@@ -176,7 +182,6 @@ environmental_cof_poles_ohl_support_50kv <- function() {
 #' Network cost of failure is used in the derivation
 #'  of consequences of failure see \code{\link{cof}}().
 #'  Outputted in DKK.
-#' @param pole_asset_category String The type of Pole
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
