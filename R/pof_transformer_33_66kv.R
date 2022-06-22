@@ -247,7 +247,6 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
                                                  distance_from_coast_km,
                                                  corrosion_category_index,
                                                  asset_type = transformer_type)
-  print(location_factor_transformer)
 
   # Expected life for transformer ------------------------------
   expected_life_years_tf <- expected_life(normal_expected_life =
@@ -261,19 +260,14 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
                                           duty_factor_tc,
                                           location_factor_transformer)
 
-  print(expected_life_years_tf)
-  print(expected_life_years_tc)
   # b1 (Initial Ageing Rate) ------------------------------------------------
   b1_tf <- beta_1(expected_life_years_tf)
   b1_tc <- beta_1(expected_life_years_tc)
-  print(b1_tf)
-  print(b1_tc)
 
   # Initial health score ----------------------------------------------------
   initial_health_score_tf <- initial_health(b1_tf, age_tf)
   initial_health_score_tc <- initial_health(b1_tc, age_tc)
-  print(initial_health_score_tf)
-  print(initial_health_score_tc)
+
   ## NOTE
   # Typically, the Health Score Collar is 0.5 and
   # Health Score Cap is 10, implying no overriding
@@ -823,7 +817,6 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
                                 factor_divider_1_tf_health,
                                 factor_divider_2_tf_health,
                                 max_no_combined_factors_tf_health)
-  print(health_score_factor_tf)
   # tapchanger
   obs_tc_factor <- observed_condition_modifier_tc$observed_condition_factor_tc
   mea_tc_factor <- measured_condition_modifier_tc$measured_condition_factor_tc
@@ -893,7 +886,6 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
                        health_score_modifier_tc$health_score_cap_tc,
                        health_score_modifier_tc$health_score_collar_tc,
                        reliability_factor = reliability_factor))
-  print(current_health_score)
 
   # Probability of failure for the 6.6/11 kV transformer today -----------------
   probability_of_failure <- k *

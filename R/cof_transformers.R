@@ -14,10 +14,10 @@
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' financial_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-#' type_financial_factor_size = "33/20kV, CMR equivalent",
-#' type_financial_factor_kva_mva = 20,
-#' access_factor_criteria = "Type A")
+# financial_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+# type_financial_factor_size = "33/20kV, CMR equivalent",
+# type_financial_factor_kva_mva = 20,
+# access_factor_criteria = "Type A")
 financial_cof_transformers <- function(tf_asset_category,
                                  type_financial_factor_size = NULL,
                                  type_financial_factor_kva_mva = NULL,
