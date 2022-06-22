@@ -821,6 +821,7 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
     (1 + (c * current_health_score) +
        (((c * current_health_score)^2) / factorial(2)) +
        (((c * current_health_score)^3) / factorial(3)))
+
   # Future probability of failure -------------------------------------------
   # the Health Score of a new asset
   H_new <- 0.5
@@ -848,7 +849,7 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
 
   # Transformer
   if (b2_tf > 2*b1_tf){
-    b2_tf <- b1_tf
+    b2_tf <- b1_tf * 2
   } else if (current_health_score_tf == 0.5){
     b2_tf <- b1_tf
   }
@@ -863,7 +864,7 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
 
   # Tapchanger
   if (b2_tc > 2*b1_tc){
-    b2_tc <- b1_tc
+    b2_tc <- b1_tc*2
   } else if (current_health_score_tc == 0.5){
     b2_tc <- b1_tc
   }
@@ -891,6 +892,8 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
     future_health_score_limit <- 15
     if (H > future_health_score_limit){
       H <- future_health_score_limit
+    } else if (H < 4) {
+      H <- 4
     }
 
     pof_year[[paste(y)]] <- k * (1 + (c * H) +
@@ -910,3 +913,4 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
 
   return(pof_future)
 }
+

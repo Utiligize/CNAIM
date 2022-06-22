@@ -17,45 +17,45 @@
 #' @export
 #' @examples
 #' # Future probability of failure for a 66/10kV transformer
-#' pof_future_transformer_33_66kv(transformer_type = "66kV Transformer (GM)",
-#'year_of_manufacture = 1980,
-#'utilisation_pct = "Default",
-#'no_taps = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age_tf = 43,
-#'age_tc = 43,
-#'partial_discharge_tf = "Default",
-#'partial_discharge_tc = "Default",
-#'temperature_reading = "Default",
-#'main_tank = "Default",
-#'coolers_radiator = "Default",
-#'bushings = "Default",
-#'kiosk = "Default",
-#'cable_boxes = "Default",
-#'external_tap = "Default",
-#'internal_tap = "Default",
-#'mechnism_cond = "Default",
-#'diverter_contacts = "Default",
-#'diverter_braids = "Default",
-#'moisture = "Default",
-#'acidity = "Default",
-#'bd_strength = "Default",
-#'hydrogen = "Default",
-#'methane = "Default",
-#'ethylene = "Default",
-#'ethane = "Default",
-#'acetylene = "Default",
-#'hydrogen_pre = "Default",
-#'methane_pre = "Default",
-#'ethylene_pre = "Default",
-#'ethane_pre = "Default",
-#'acetylene_pre = "Default",
-#'furfuraldehyde = "Default",
-#'reliability_factor = "Default",
-#'simulation_end_year = 100)
+# pof_future_transformer_33_66kv(transformer_type = "66kV Transformer (GM)",
+# year_of_manufacture = 1980,
+# utilisation_pct = "Default",
+# no_taps = "Default",
+# placement = "Default",
+# altitude_m = "Default",
+# distance_from_coast_km = "Default",
+# corrosion_category_index = "Default",
+# age_tf = 43,
+# age_tc = 43,
+# partial_discharge_tf = "Default",
+# partial_discharge_tc = "Default",
+# temperature_reading = "Default",
+# main_tank = "Default",
+# coolers_radiator = "Default",
+# bushings = "Default",
+# kiosk = "Default",
+# cable_boxes = "Default",
+# external_tap = "Default",
+# internal_tap = "Default",
+# mechnism_cond = "Default",
+# diverter_contacts = "Default",
+# diverter_braids = "Default",
+# moisture = "Default",
+# acidity = "Default",
+# bd_strength = "Default",
+# hydrogen = "Default",
+# methane = "Default",
+# ethylene = "Default",
+# ethane = "Default",
+# acetylene = "Default",
+# hydrogen_pre = "Default",
+# methane_pre = "Default",
+# ethylene_pre = "Default",
+# ethane_pre = "Default",
+# acetylene_pre = "Default",
+# furfuraldehyde = "Default",
+# reliability_factor = "Default",
+# simulation_end_year = 100)
 
 pof_future_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
                                            year_of_manufacture = 1980,
@@ -839,7 +839,7 @@ pof_future_transformer_33_66kv <- function(transformer_type = "66kV Transformer 
 
   # Transformer
   if (b2_tf > 2*b1_tf){
-    b2_tf <- b1_tf
+    b2_tf <- b1_tf * 2
   } else if (current_health_score_tf == 0.5){
     b2_tf <- b1_tf
   }
@@ -854,7 +854,7 @@ pof_future_transformer_33_66kv <- function(transformer_type = "66kV Transformer 
 
   # Tapchanger
   if (b2_tc > 2*b1_tc){
-    b2_tc <- b1_tc
+    b2_tc <- b1_tc*2
   } else if (current_health_score_tc == 0.5){
     b2_tc <- b1_tc
   }
@@ -882,6 +882,8 @@ pof_future_transformer_33_66kv <- function(transformer_type = "66kV Transformer 
     future_health_score_limit <- 15
     if (H > future_health_score_limit){
       H <- future_health_score_limit
+    } else if (H < 4) {
+      H <- 4
     }
 
     pof_year[[paste(y)]] <- k * (1 + (c * H) +
