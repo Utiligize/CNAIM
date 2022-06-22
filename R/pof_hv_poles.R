@@ -23,7 +23,9 @@
 #' @param corrosion_category_index Integer.
 #' Specify the corrosion index category, 1-5.
 #' @param age  Numeric. The current age in years of the conductor.
-#' @param measured_condition_inputs Named list observed_conditions_input
+#' @param pole_dacay Degree of decay/Deterioration.
+#' Options: \code{pole_decay = c("None","No Significant Decay/Deterioration",
+#' "High","Very High", Default")}.
 #' @param observed_condition_inputs Named list observed_conditions_input
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 #' See page 161, table 199 and 201 in CNAIM (2021).
@@ -51,9 +53,7 @@
 # "bird_animal_damage" =
 # list("Condition Criteria: Bird/Animal Damage?" = "Default"),
 # "top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
-# measured_condition_inputs =
-# list("pole_decay" =
-# list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
+# pole_decay = "Default",
 # reliability_factor = "Default")
 pof_poles <-
   function(pole_asset_category = "20kV Poles",
@@ -63,7 +63,7 @@ pof_poles <-
            distance_from_coast_km = "Default",
            corrosion_category_index = "Default",
            age,
-           measured_condition_inputs,
+           pole_decay = "Default",
            observed_condition_inputs,
            reliability_factor = "Default") {
 
@@ -130,17 +130,54 @@ pof_poles <-
     # Initial health score ----------------------------------------------------
     initial_health_score <- initial_health(b1, age)
 
-    # Measured conditions
-    # The table data is same for all poles category
-    mci_table_names <- list("pole_decay" = "mci_ehv_pole_pole_decay_deter")
+    # # Measured conditions
+    # # The table data is same for all poles category
+    # mci_table_names <- list("pole_decay" = "mci_ehv_pole_pole_decay_deter")
+
+    # Pole decay ----------------------------------------------------
+    mci_ehv_pole_pole_decay_deter <-
+      gb_ref$mci_ehv_pole_pole_decay_deter
+
+    ci_factor_pole_decay <-
+      mci_ehv_pole_pole_decay_deter$`Condition Input Factor`[which(
+        mci_ehv_pole_pole_decay_deter$
+          `Condition Criteria: Degree of Decay/Deterioration` ==
+          pole_decay)]
+
+    ci_cap_pole_decay <-
+      mci_ehv_pole_pole_decay_deter$`Condition Input Cap`[which(
+        mci_ehv_pole_pole_decay_deter$
+          `Condition Criteria: Degree of Decay/Deterioration` ==
+          pole_decay)]
+
+    ci_collar_pole_decay <-
+      mci_ehv_pole_pole_decay_deter$`Condition Input Collar`[which(
+        mci_ehv_pole_pole_decay_deter$
+          `Condition Criteria: Degree of Decay/Deterioration` ==
+          pole_decay)]
+
+    # measured condition factor -----------------------------------------------
+    measured_condition_factor <- ci_factor_pole_decay
+    print(factors)
+
 
     # The table data is same for all poles category
     asset_category_mmi <- "HV Poles"
 
-    measured_condition_modifier <-
-      get_measured_conditions_modifier_hv_switchgear(asset_category_mmi,
-                                                     mci_table_names,
-                                                     measured_condition_inputs)
+
+
+
+    # Measured condition cap --------------------------------------------------
+    measured_condition_cap <- ci_cap_pole_decay
+
+    # Measured condition collar -----------------------------------------------
+    measured_condition_collar <- ci_collar_pole_decay
+
+    # Measured condition modifier ---------------------------------------------
+    measured_condition_modifier <- data.frame(measured_condition_factor,
+                                              measured_condition_cap,
+                                              measured_condition_collar)
+
 
     # Observed conditions -----------------------------------------------------
 
@@ -157,16 +194,17 @@ pof_poles <-
 
     # Health score factor ---------------------------------------------------
     health_score_factor <-
-      health_score_excl_ehv_132kv_tf(observed_condition_modifier$condition_factor,
-                                     measured_condition_modifier$condition_factor)
+    health_score_excl_ehv_132kv_tf(observed_condition_modifier$condition_factor,
+                                   measured_condition_factor)
+
 
     # Health score cap --------------------------------------------------------
     health_score_cap <- min(observed_condition_modifier$condition_cap,
-                            measured_condition_modifier$condition_cap)
+                            measured_condition_cap)
 
     # Health score collar -----------------------------------------------------
     health_score_collar <-  max(observed_condition_modifier$condition_collar,
-                                measured_condition_modifier$condition_collar)
+                                measured_condition_collar)
 
     # Health score modifier ---------------------------------------------------
     health_score_modifier <- data.frame(health_score_factor,

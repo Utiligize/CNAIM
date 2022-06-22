@@ -167,9 +167,9 @@ pof_future_pillar_04kv <-
 
     # the Health Score of the asset when it reaches its Expected Life
     b2 <- beta_2(current_health_score, age)
-
+    print(b2)
     if (b2 > 2*b1){
-      b2 <- b1
+      b2 <- b1*2
     } else if (current_health_score == 0.5){
       b2 <- b1
     }
@@ -189,16 +189,16 @@ pof_future_pillar_04kv <-
     for (y in 1:length(year)){
       t <- year[y]
 
-      future_health_Score <-
-        current_health_score*exp((b2/ageing_reduction_factor) * t)
+      future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
 
       H <- future_health_Score
 
       future_health_score_limit <- 15
       if (H > future_health_score_limit){
         H <- future_health_score_limit
+      } else if (H < 4) {
+        H <- 4
       }
-
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))

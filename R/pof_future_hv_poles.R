@@ -1,67 +1,63 @@
 #' @importFrom magrittr %>%
-#' @title Future Probability of Failure for 10kV Switchgear Secondary
+#' @title Future Probability of Failure for Poles
 #' @description This function calculates the future
-#' annual probability of failure 10kV switchgear secondary.
+#' annual probability of failure per kilometer for a poles.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function.
-#' @inheritParams pof_switchgear_secondary_10kv
+#' exponential function. For more information about the
+#' probability of failure function see section 6
+#' on page 34 in CNAIM (2021).
+#' @inheritParams pof_hv_poles
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric. Current probability of failure per annum.
+#' @return Numeric array. Future probability of failure
+#' per annum per kilometre for poles.
+#' @source DNO Common Network Asset Indices Methodology (CNAIM),
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#'  # future annual probability of failure for 10kV Switchgear secondary
-# pof_future_switchgear_secondary_10kv(
+#' # Future annual probability of failure for HV Poles
+# pof_future_poles(
+# pole_asset_category = "20kV Poles",
+# sub_division = "Wood",
 # placement = "Default",
 # altitude_m = "Default",
 # distance_from_coast_km = "Default",
 # corrosion_category_index = "Default",
 # age = 10,
 # observed_condition_inputs =
-# list("external_condition" =
-# list("Condition Criteria: Observed Condition" = "Default"),
-# "oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
-# "thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
-# "internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
-# "indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
-# measured_condition_inputs =
-# list("partial_discharge" =
-# list("Condition Criteria: Partial Discharge Test Results" = "Default"),
-# "ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
-# "oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
-# "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
-# "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
+# list("visual_pole_cond" =
+# list("Condition Criteria: Pole Top Rot Present?" = "Default"),
+# "pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
+# "bird_animal_damage" =
+# list("Condition Criteria: Bird/Animal Damage?" = "Default"),
+# "top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
+# pole_decay = "Default",
 # reliability_factor = "Default",
-# k_value = 0.0067,
-# c_value = 1.087,
-# normal_expected_life = 55,
 # simulation_end_year = 100)
-
-pof_future_switchgear_secondary_10kv <-
-  function(placement = "Default",
+pof_future_poles <-
+  function(pole_asset_category = "20kV Poles",
+           sub_division = "Wood",
+           placement = "Default",
            altitude_m = "Default",
            distance_from_coast_km = "Default",
            corrosion_category_index = "Default",
            age,
-           measured_condition_inputs,
+           pole_decay = "default",
            observed_condition_inputs,
            reliability_factor = "Default",
-           k_value = 0.0067,
-           c_value = 1.087,
-           normal_expected_life = 55,
            simulation_end_year = 100) {
 
-    hv_asset_category <- "6.6/11kV CB (GM) Secondary"
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-      `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` = NULL
     # due to NSE notes in R CMD check
 
     asset_category <- gb_ref$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
-                      hv_asset_category) %>%
+                      pole_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
     generic_term_1 <- gb_ref$generic_terms_for_assets %>%
@@ -72,10 +68,28 @@ pof_future_switchgear_secondary_10kv <-
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
+    # Normal expected life  -------------------------
+    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+      dplyr::filter(`Asset Register  Category` ==
+                      pole_asset_category,
+                    `Sub-division` == sub_division) %>%
+      dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    k <- k_value/100
-    c <- c_value
+
+    # POF function asset category.
+
+    pof_asset_category <- "Poles"
+
+    k <- gb_ref$pof_curve_parameters %>%
+      dplyr::filter(`Functional Failure Category` %in% pof_asset_category) %>%
+      dplyr::select(`K-Value (%)`) %>%
+      dplyr::pull()/100
+
+    c <- gb_ref$pof_curve_parameters %>%
+      dplyr::filter(`Functional Failure Category` %in% pof_asset_category) %>%
+      dplyr::select(`C-Value`) %>%
+      dplyr::pull()
 
     # Duty factor -------------------------------------------------------------
 
@@ -86,9 +100,10 @@ pof_future_switchgear_secondary_10kv <-
                                             altitude_m,
                                             distance_from_coast_km,
                                             corrosion_category_index,
-                                            asset_type = hv_asset_category)
+                                            asset_type = pole_asset_category,
+                                            sub_division = sub_division)
     # Expected life ------------------------------
-    expected_life_years <- expected_life(normal_expected_life,
+    expected_life_years <- expected_life(normal_expected_life_cond,
                                          duty_factor_cond,
                                          location_factor_cond)
 
@@ -97,44 +112,80 @@ pof_future_switchgear_secondary_10kv <-
 
     # Initial health score ----------------------------------------------------
     initial_health_score <- initial_health(b1, age)
+    print(initial_health_score)
+    # # Measured conditions
+    # # The table data is same for all poles category
+    # mci_table_names <- list("pole_decay" = "mci_ehv_pole_pole_decay_deter")
 
-    # Measured conditions
-    mci_table_names <- list("partial_discharge" = "mci_hv_swg_distr_prtl_dischrg",
-                            "ductor_test" = "mci_hv_swg_distr_ductor_test",
-                            "oil_test" = "mci_hv_swg_distr_oil_test",
-                            "temp_reading" = "mci_hv_swg_distr_temp_reading",
-                            "trip_test" = "mci_hv_swg_distr_trip_test")
+    # Pole decay ----------------------------------------------------
+    mci_ehv_pole_pole_decay_deter <-
+      gb_ref$mci_ehv_pole_pole_decay_deter
 
-    measured_condition_modifier <-
-      get_measured_conditions_modifier_hv_switchgear(asset_category,
-                                                     mci_table_names,
-                                                     measured_condition_inputs)
+    ci_factor_pole_decay <-
+      mci_ehv_pole_pole_decay_deter$`Condition Input Factor`[which(
+        mci_ehv_pole_pole_decay_deter$
+          `Condition Criteria: Degree of Decay/Deterioration` ==
+          pole_decay)]
+
+    ci_cap_pole_decay <-
+      mci_ehv_pole_pole_decay_deter$`Condition Input Cap`[which(
+        mci_ehv_pole_pole_decay_deter$
+          `Condition Criteria: Degree of Decay/Deterioration` ==
+          pole_decay)]
+
+    ci_collar_pole_decay <-
+      mci_ehv_pole_pole_decay_deter$`Condition Input Collar`[which(
+        mci_ehv_pole_pole_decay_deter$
+          `Condition Criteria: Degree of Decay/Deterioration` ==
+          pole_decay)]
+
+    # measured condition factor -----------------------------------------------
+    measured_condition_factor <- ci_factor_pole_decay
+
+
+    # The table data is same for all poles category
+    asset_category_mmi <- "HV Poles"
+
+    # Measured condition cap --------------------------------------------------
+    measured_condition_cap <- ci_cap_pole_decay
+
+    # Measured condition collar -----------------------------------------------
+    measured_condition_collar <- ci_collar_pole_decay
+
+    # Measured condition modifier ---------------------------------------------
+    measured_condition_modifier <- data.frame(measured_condition_factor,
+                                              measured_condition_cap,
+                                              measured_condition_collar)
+
 
     # Observed conditions -----------------------------------------------------
 
-    oci_table_names <- list("external_condition" = "oci_hv_swg_dist_swg_ext_cond",
-                            "oil_gas" = "oci_hv_swg_dist_oil_lek_gas_pr",
-                            "thermo_assment" = "oci_hv_swg_dist_thermo_assment",
-                            "internal_condition" = "oci_hv_swg_dist_swg_int_cond",
-                            "indoor_env" = "oci_hv_swg_dist_indoor_environ")
+    # The table data is same for all poles category
+    oci_table_names <- list("visual_pole_cond" = "oci_hv_pole_visual_pole_cond",
+                            "pole_leaning" = "oci_ehv_pole_pole_leaning",
+                            "bird_animal_damage" = "oci_ehv_pole_bird_animal_damag",
+                            "top_rot" = "oci_ehv_pole_pole_top_rot")
 
     observed_condition_modifier <-
-      get_observed_conditions_modifier_hv_switchgear(asset_category,
+      get_observed_conditions_modifier_hv_switchgear(asset_category_mmi,
                                                      oci_table_names,
                                                      observed_condition_inputs)
 
     # Health score factor ---------------------------------------------------
     health_score_factor <-
       health_score_excl_ehv_132kv_tf(observed_condition_modifier$condition_factor,
-                                     measured_condition_modifier$condition_factor)
+                                     measured_condition_factor)
+    print(observed_condition_modifier)
+    print(measured_condition_factor)
+
 
     # Health score cap --------------------------------------------------------
     health_score_cap <- min(observed_condition_modifier$condition_cap,
-                            measured_condition_modifier$condition_cap)
+                            measured_condition_cap)
 
     # Health score collar -----------------------------------------------------
     health_score_collar <-  max(observed_condition_modifier$condition_collar,
-                                measured_condition_modifier$condition_collar)
+                                measured_condition_collar)
 
     # Health score modifier ---------------------------------------------------
     health_score_modifier <- data.frame(health_score_factor,
@@ -148,13 +199,12 @@ pof_future_switchgear_secondary_10kv <-
                      health_score_modifier$health_score_cap,
                      health_score_modifier$health_score_collar,
                      reliability_factor = reliability_factor)
-
+    print(current_health_score)
     # Probability of failure ---------------------------------------------------
     probability_of_failure <- k *
       (1 + (c * current_health_score) +
          (((c * current_health_score)^2) / factorial(2)) +
          (((c * current_health_score)^3) / factorial(3)))
-
 
     # Future probability of failure -------------------------------------------
 
@@ -212,4 +262,5 @@ pof_future_switchgear_secondary_10kv <-
 
     return(pof_future)
   }
+
 

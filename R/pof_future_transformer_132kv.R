@@ -814,77 +814,44 @@ pof_future_transformer_132kv <- function(transformer_type = "132kV Transformer (
        (((c * current_health_score)^3) / factorial(3)))
 
   # Future probability of failure -------------------------------------------
+
   # the Health Score of a new asset
   H_new <- 0.5
+
   # the Health Score of the asset when it reaches its Expected Life
-
-  # Transformer
-  current_health_score_tf <-
-    current_health(initial_health_score_tf,
-                   health_score_modifier_tf$health_score_factor_tf,
-                   health_score_modifier_tf$health_score_cap_tf,
-                   health_score_modifier_tf$health_score_collar,
-                   reliability_factor = reliability_factor)
-
-  # Tapchanger
-  current_health_score_tc <-
-    current_health(initial_health_score_tf,
-                   health_score_modifier_tc$health_score_factor_tc,
-                   health_score_modifier_tc$health_score_cap_tc,
-                   health_score_modifier_tc$health_score_collar_tc,
-                   reliability_factor = reliability_factor)
-
-
-  b2_tf <- beta_2(current_health_score_tf, age = age_tf)
-  b2_tc <- beta_2(current_health_score_tc, age = age_tc)
-
-  # Transformer
-  if (b2_tf > 2*b1_tf){
-    b2_tf <- b1_tf
-  } else if (current_health_score_tf == 0.5){
-    b2_tf <- b1_tf
+  b2 <- beta_2(current_health_score, age)
+  print(b2)
+  if (b2 > 2*b1){
+    b2 <- b1*2
+  } else if (current_health_score == 0.5){
+    b2 <- b1
   }
 
-  if (current_health_score_tf < 2) {
-    ageing_reduction_factor_tf <- 1
-  } else if (current_health_score_tf <= 5.5) {
-    ageing_reduction_factor_tf <- ((current_health_score_tf - 2)/7) + 1
+  if (current_health_score < 2) {
+    ageing_reduction_factor <- 1
+  } else if (current_health_score <= 5.5) {
+    ageing_reduction_factor <- ((current_health_score - 2)/7) + 1
   } else {
-    ageing_reduction_factor_tf <- 1.5
+    ageing_reduction_factor <- 1.5
   }
 
-  # Tapchanger
-  if (b2_tc > 2*b1_tc){
-    b2_tc <- b1_tc
-  } else if (current_health_score_tc == 0.5){
-    b2_tc <- b1_tc
-  }
-
-  if (current_health_score_tc < 2) {
-    ageing_reduction_factor_tc <- 1
-  } else if (current_health_score_tc <= 5.5) {
-    ageing_reduction_factor_tc <- ((current_health_score_tc - 2)/7) + 1
-  } else {
-    ageing_reduction_factor_tc <- 1.5
-  }
-
-
-  # Dynamic bit -------------------------------------------------------------
+  # Dynamic part
   pof_year <- list()
   year <- seq(from=0,to=simulation_end_year,by=1)
 
   for (y in 1:length(year)){
     t <- year[y]
 
-    future_health_Score_tf <- current_health_score_tf*exp((b2_tf/ageing_reduction_factor_tf) * t)
-    future_health_Score_tc <- current_health_score_tc*exp((b2_tc/ageing_reduction_factor_tc) * t)
-    H <- max(future_health_Score_tf, future_health_Score_tc)
+    future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
+
+    H <- future_health_Score
 
     future_health_score_limit <- 15
     if (H > future_health_score_limit){
       H <- future_health_score_limit
+    } else if (H < 4) {
+      H <- 4
     }
-
     pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                    (((c * H)^2) / factorial(2)) +
                                    (((c * H)^3) / factorial(3)))
@@ -892,15 +859,14 @@ pof_future_transformer_132kv <- function(transformer_type = "132kV Transformer (
 
   pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
   pof_future$age <- NA
-  pof_future$age[1] <- age_tf
+  pof_future$age[1] <- age
 
   for(i in 2:nrow(pof_future)) {
 
-    pof_future$age[i] <- age_tf + i -1
+    pof_future$age[i] <- age + i -1
 
   }
 
   return(pof_future)
 }
-
 
