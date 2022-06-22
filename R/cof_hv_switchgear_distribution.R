@@ -4,8 +4,12 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param hv_asset_category String The type of HV switchgear distribution asset category
-#' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+#' "6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+#' "20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}
+#' @param access_factor_criteria String. Asses Financial factor criteria for HV switchgear
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -70,11 +74,20 @@ financial_cof_hv_switchgear_distribution <- function(hv_asset_category,
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safetyr consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of LV asset category
-#' @param location_risk String Type Financial factor criteria for LV switchgear
+#' @param hv_asset_category String The type of HV switchgear distribution asset category
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+#' "6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+#' "20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}
+#' @param location_risk String Type Financial factor criteria for HV switchgear
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
-#' @param type_risk String. Asses Financial factor criteria for LV switchgear
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
+#' @param type_risk String. Asses Financial factor criteria for HV switchgear
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -126,9 +139,14 @@ safety_cof_hv_switchgear_distribution <- function(hv_asset_category,
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param hv_asset_category String The type of HV asset category
+#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric.
+#' Financial consequences of failure for HV switchgear
+#' @param hv_asset_category String The type of HV switchgear distribution asset category
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+#' "6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+#' "20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}
 #' @param type_env_factor String The type environment factor of HV asset category
+#' Options: \code{type_env_factor = c("Oil", "SF6", "Niether", "Default")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -224,7 +242,10 @@ environmental_cof_hv_switchgear_distribution <- function(hv_asset_category,
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param hv_asset_category String The type of LV asset category
+#' @param hv_asset_category String The type of HV switchgear distribution asset category
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+#' "6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+#' "20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}
 #' @param no_customers Numeric. The numner of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high

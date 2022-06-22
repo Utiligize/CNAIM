@@ -4,6 +4,9 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param tf_asset_category String The type of Transformer asset category
+#' Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+#' "20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+#' "132kV Transformer (GM) ")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for Transformer
 #' setting (cf. table 221, page 180, CNAIM, 2021).
 #' @param type_financial_factor_size String The type financial factor size for Transformer
@@ -92,11 +95,20 @@ financial_cof_transformers <- function(tf_asset_category,
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tf_asset_category String The type of Transformer
+#' @param tf_asset_category String The type of Transformer asset category
+#' Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+#' "20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+#' "132kV Transformer (GM) ")}.
 #' @param location_risk String Type Financial factor criteria for Transformer
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for Transformer
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for Transformers
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -148,7 +160,10 @@ safety_cof_transformers <- function(tf_asset_category,
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param tf_asset_category String The type of Transformer
+#' @param tf_asset_category String The type of Transformer asset category
+#' Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+#' "20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+#' "132kV Transformer (GM) ")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -262,7 +277,10 @@ environmental_cof_transformers <- function(tf_asset_category,
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tf_asset_category String The type of Tower
+#' @param tf_asset_category String The type of Transformer asset category
+#' Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+#' "20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+#' "132kV Transformer (GM) ")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

@@ -3,10 +3,14 @@
 #' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tower_asset_category String The type of Pole asset category
+#' @param tower_asset_category String The type of tower asset category
+#' Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+#' "132kV Tower")}.
 #' @param type_financial_factor_criteria String The type financial factor for Tower
-#' @param access_factor_criteria String. Asses Financial factor criteria for Pole
+#' \code{type_financial_factor_criteria = c("Suspension", "Tension", "Terminal")}.
+#' @param access_factor_criteria String. Asses Financial factor criteria for Tower
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for Poles
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -74,10 +78,18 @@ financial_cof_towers <- function(tower_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param tower_asset_category String The type of tower asset category
+#' Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+#' "132kV Tower")}.
 #' @param location_risk String Type Financial factor criteria for tower
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for tower
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for towers
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -128,8 +140,11 @@ safety_cof_towers <- function(tower_asset_category,
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param tower_asset_category String The type of tower
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @return Numeric. Financial consequences of failure for towers
+#' @param tower_asset_category String The type of tower asset category
+#' Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+#' "132kV Tower")}.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -176,7 +191,9 @@ environmental_cof_towers <- function(tower_asset_category){
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param tower_asset_category String The type of Tower
+#' @param tower_asset_category String The type of tower asset category
+#' Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+#' "132kV Tower")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

@@ -4,6 +4,10 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV cable distribution asset category
+#' Options: \code{ehv_asset_category =
+#' c("33kV UG Cable (Oil)", "33kV UG Cable (Gas)", "33kV UG Cable (Non Pressurised)",
+#' "66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
+#' "132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV UG Cable (Non Pressurised)")}.
 #' @return Numeric. Financial consequences of failure for EHV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -45,7 +49,11 @@ financial_cof_ehv_cables <- function(ehv_asset_category){
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param ehv_asset_category String The type of EHV cable distribution asset category
+#' Options: \code{ehv_asset_category =
+#' c("33kV UG Cable (Oil)", "33kV UG Cable (Gas)", "33kV UG Cable (Non Pressurised)",
+#' "66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
+#' "132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV UG Cable (Non Pressurised)")}.
 #' @return Numeric. Financial consequences of failure for EEHV UG cabkes & 132 kV UG cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -82,7 +90,11 @@ safety_cof_ehv_cables <- function(ehv_asset_category){
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param ehv_asset_category String The type of EHV cable distribution asset category
+#' Options: \code{ehv_asset_category =
+#' c("33kV UG Cable (Oil)", "33kV UG Cable (Gas)", "33kV UG Cable (Non Pressurised)",
+#' "66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
+#' "132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV UG Cable (Non Pressurised)")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -177,7 +189,11 @@ environmental_cof_ehv_cables <- function(ehv_asset_category,
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param ehv_asset_category String The type of EHV cable distribution asset category
+#' Options: \code{ehv_asset_category =
+#' c("33kV UG Cable (Oil)", "33kV UG Cable (Gas)", "33kV UG Cable (Non Pressurised)",
+#' "66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
+#' "132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV UG Cable (Non Pressurised)")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

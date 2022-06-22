@@ -4,8 +4,20 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV swicthgear & 132kV CB
+#' Options: \code{ehv_asset_category = c(
+#' "33kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(OD)(GM)",
+#' "33kV RMU",
+#' "33kV Switch (GM)",
+#' "66kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(OD)(GM)")}
 #' @param access_factor_criteria String. Asses Financial factor criteria for EHV swicthgear & 132kV CB
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @return Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -73,11 +85,28 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param ehv_asset_category String The type of EHV swicthgear & 132kV CB
+#' Options: \code{ehv_asset_category = c(
+#' "33kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(OD)(GM)",
+#' "33kV RMU",
+#' "33kV Switch (GM)",
+#' "66kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(OD)(GM)")}
 #' @param location_risk String Type Financial factor criteria for EHV swicthgear & 132kV CB
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for EHV swicthgear & 132kV CB
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -129,7 +158,18 @@ safety_cof_ehv_switchgear <- function(ehv_asset_category,
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param ehv_asset_category String The type of EHV swicthgear & 132kV CB
+#' Options: \code{ehv_asset_category = c(
+#' "33kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(OD)(GM)",
+#' "33kV RMU",
+#' "33kV Switch (GM)",
+#' "66kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(OD)(GM)")}
 #' @param type_env_factor String The type environment factor of EHV asset category
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
@@ -226,7 +266,18 @@ environmental_cof_ehv_switchgear <- function(ehv_asset_category,
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV asset category
+#' @param ehv_asset_category String The type of EHV swicthgear & 132kV CB
+#' Options: \code{ehv_asset_category = c(
+#' "33kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "33kV CB (Gas Insulated Busbars)(OD)(GM)",
+#' "33kV RMU",
+#' "33kV Switch (GM)",
+#' "66kV CB (Air Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Air Insulated Busbars)(OD)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(ID)(GM)",
+#' "66kV CB (Gas Insulated Busbars)(OD)(GM)")}
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

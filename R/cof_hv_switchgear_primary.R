@@ -4,8 +4,11 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param hv_asset_category String The type of HV switchgear distribution asset category
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Primary",
+#' "20kV CB (GM) Primary")}
 #' @param access_factor_criteria String. Asses Financial factor criteria for HV switchgear
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @return Numeric. Financial consequences of failure for HV switchgear primary
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -71,10 +74,18 @@ financial_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param hv_asset_category String The type of HV asset category
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Primary",
+#' "20kV CB (GM) Primary")}
 #' @param location_risk String Type Financial factor criteria for HV switchgear
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for HV switchgear
 #' setting (cf. table 218, page 176, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for HV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -128,7 +139,10 @@ safety_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for HV switchgear
 #' @param hv_asset_category String The type of HV asset category
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Primary",
+#' "20kV CB (GM) Primary")}
 #' @param type_env_factor String The type environment factor of HV asset category
+#' Options: \code{type_env_factor = c("Oil", "SF6", "Niether", "Default")}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
@@ -225,6 +239,8 @@ environmental_cof_hv_switchgear_primary <- function(hv_asset_category,
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param hv_asset_category String The type of HV asset category
+#' Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Primary",
+#' "20kV CB (GM) Primary")}
 #' @param no_customers Numeric. The numner of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high

@@ -4,6 +4,7 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
+#' Option: \code{lv_asset_category = "LV UGB"}
 #' @return Numeric. Financial consequences of failure for LV UGB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -47,10 +48,17 @@ financial_cof_lv_ugb <- function(lv_asset_category){
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
+#' Option: \code{lv_asset_category = "LV UGB"}
 #' @param location_risk String Type Financial factor criteria for LV UGB
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for LV UGB
 #' setting (cf. table 221, page 178, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for LV UGB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -101,6 +109,7 @@ safety_cof_lv_ugb <- function(lv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV UGB
 #' @param lv_asset_category String The type of LV asset category
+#' Option: \code{lv_asset_category = "LV UGB"}
 #' @return Numeric. Environmental consequences of failure for LV UGB
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -142,6 +151,7 @@ environmental_cof_lv_ugb <- function(lv_asset_category){
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
+##' Option: \code{lv_asset_category = "LV UGB"}
 #' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high

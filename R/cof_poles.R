@@ -3,13 +3,15 @@
 #' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param pole_asset_category String The type of Pole asset category
+#' @param pole_asset_category String The type of pole asset category
+#' Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+#' "20kV Poles", "33kV Pole", "66kV Pole")}.
 #' @param type_financial_factor_criteria String. Type Financial factor criteria for Pole
-#' \code{type_financial_factor_criteria = c("Pole (supporting conductor only)",
+#' Options: \code{type_financial_factor_criteria = c("Pole (supporting conductor only)",
 #' "Pole (supporting plant or equipment)", "Small footprint steel masts")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting (cf. table 221, page 180, CNAIM, 2021).
-#' \code{access_factor_criteria = c("Type A", "Type B")}.
+#' Options: \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for Poles
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -77,14 +79,16 @@ financial_cof_poles <- function(pole_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param pole_asset_category String The type of pole asset category
+#' Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+#' "20kV Poles", "33kV Pole", "66kV Pole")}.
 #' @param location_risk String Type Financial factor criteria for Pole
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
-#' \code{location_risk = c("Low", "Medium", "High")}.
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
 #' The default setting is
 #' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for pole
 #' setting (cf. table 221, page 180, CNAIM, 2021).
-#' \code{type_risk = c("Low", "Medium", "High")}.
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
 #' The default setting is
 #' \code{type_risk = "Medium"}.
 #' @return Numeric. Safety consequences of failure for poles
@@ -137,8 +141,11 @@ safety_cof_poles <- function(pole_asset_category,
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param pole_asset_category String The type of Pole
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @return Numeric. Financial consequences of failure for Poles
+#' @param pole_asset_category String The type of pole asset category
+#' Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+#' "20kV Poles", "33kV Pole", "66kV Pole")}.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -180,11 +187,13 @@ environmental_cof_poles <- function(pole_asset_category){
 }
 
 
-#' @title Network cost of Failure for LV/HV Poles
+#' @title Network cost of Failure for LV,HV,EHV Poles
 #' @description This function calculates network cost of failure for Poles
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param pole_asset_category String The type of Pole
+#' @param pole_asset_category String The type of pole asset category
+#' Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+#' "20kV Poles", "33kV Pole", "66kV Pole")}.
 #' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
@@ -266,12 +275,14 @@ network_cof_hv_lv_poles<- function(pole_asset_category,
 
 
 
-#' @title Network cost of Failure for EHV Pole
+#' @title Network cost of Failure for Poles
 #' @description This function calculates network cost of failure for
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param pole_asset_category String The type of Pole
+#' @param pole_asset_category String The type of pole asset category
+#' Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+#' "20kV Poles", "33kV Pole", "66kV Pole")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

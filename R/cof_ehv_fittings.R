@@ -3,7 +3,9 @@
 #' (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ehv_asset_category String The type of EHV Fittings asset category
+#' @param ehv_asset_category String The type of EHV asset category
+#' Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+#'  "132kV Fittings")}
 #' @param type_financial_factor_criteria String. Type Financial factor criteria for EHV fittings
 #' \code{type_financial_factor_criteria = c("Suspension", "Tension")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for EHV fittings
@@ -80,6 +82,8 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV asset category
+#' Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+#'  "132kV Fittings")}
 #' @param location_risk String Type Financial factor criteria for EHV fittings
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
 #' \code{location_risk = c("Low", "Medium", "High")}.
@@ -142,6 +146,8 @@ safety_cof_ehv_fittings <- function(ehv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 #' @param ehv_asset_category String The type of EHV asset category
+#' Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+#'  "132kV Fittings")}
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -189,6 +195,8 @@ environmental_cof_ehv_fittings <- function(ehv_asset_category){
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ehv_asset_category String The type of EHV asset category
+#' Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+#'  "132kV Fittings")}
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
