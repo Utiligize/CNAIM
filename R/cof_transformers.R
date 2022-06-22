@@ -103,12 +103,12 @@ financial_cof_transformers <- function(tf_asset_category,
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' safety_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-#' location_risk = "Default",
-#' type_risk = "Default")
+# safety_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+# location_risk = "Default",
+# type_risk = "Default")
 safety_cof_transformers <- function(tf_asset_category,
-                              location_risk,
-                              type_risk){
+                                   location_risk,
+                                   type_risk){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- gb_ref$categorisation_of_assets %>%
@@ -162,8 +162,8 @@ safety_cof_transformers <- function(tf_asset_category,
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' environmental_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-#' prox_water = 95, bunded = "Yes", size_kva_mva = 20, size_conversion = "33/20kV")
+# environmental_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+# prox_water = 95, bunded = "Yes", size_kva_mva = 20, size_conversion = "33/20kV")
 environmental_cof_transformers <- function(tf_asset_category,
                                      prox_water, bunded,
                                      size_kva_mva = NULL,
@@ -271,8 +271,8 @@ environmental_cof_transformers <- function(tf_asset_category,
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#' network_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-#' actual_load_mva = 15)
+# network_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+# actual_load_mva = 15)
 network_cof_transformers<- function(tf_asset_category,
                              actual_load_mva,
                              secure = T) {
