@@ -4,10 +4,16 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
+#' Options: \code{lv_asset_category = c("LV Board (WM)",
+#' "LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+#' "LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}
 #' @param type_financial_factor_criteria String Type Financial factor criteria for LV switchgear
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{type_financial_factor_criteria = c("Non Asbestos clad",
+#' "Asbestos clad")}
 #' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -84,10 +90,19 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
+#' Options: \code{lv_asset_category = c("LV Board (WM)",
+#' "LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+#' "LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}
 #' @param location_risk String Type Financial factor criteria for LV switchgear
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
+#' Options: \code{location_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{location_risk = "Medium"}.
 #' @param type_risk String. Asses Financial factor criteria for LV switchgear
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{type_risk = c("Low", "Medium", "High")}.
+#' The default setting is
+#' \code{type_risk = "Medium"}.
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -140,6 +155,9 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 #' @param lv_asset_category String The type of LV asset category
+#' Options: \code{lv_asset_category = c("LV Board (WM)",
+#' "LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+#' "LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -180,6 +198,9 @@ environmental_cof_lv_switchgear_and_other <- function(lv_asset_category){
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
 #' @param lv_asset_category String The type of LV asset category
+#' Options: \code{lv_asset_category = c("LV Board (WM)",
+#' "LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+#' "LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}
 #' @param no_customers Numeric. The numner of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high

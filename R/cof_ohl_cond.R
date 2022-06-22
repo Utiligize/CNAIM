@@ -4,8 +4,11 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param ohl_cond_asset_category String The type of Pole asset category
+#' Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+#' "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' Options: \code{access_factor_criteria = c("Type A", "Type B")}.
 #' @return Numeric. Financial consequences of failure for Poles
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -70,7 +73,9 @@ financial_cof_ohl_cond <- function(ohl_cond_asset_category,
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ohl_cond_asset_category String The type of overhead line conductor asset category
+#' @param ohl_cond_asset_category String The type of Pole asset category
+#' Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+#' "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.
 #' @param location_risk String Type Financial factor criteria for Overhead Line Conductors
 #' (cf. section D1.2.1, page 178, CNAIM, 2021).
 #' \code{location_risk = c("Low", "Medium", "High")}.
@@ -132,8 +137,11 @@ safety_cof_ohl_cond <- function(ohl_cond_asset_category,
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param ohl_cond_asset_category String The type of Overhead Line Conductors
+#' the derivation of consequences of failure see \code{\link{cof}}().#'
+#' @return Numeric. Financial consequences of failure for LV switchgear
+#' @param ohl_cond_asset_category String The type of Pole asset category
+#' Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+#' "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -180,7 +188,9 @@ environmental_cof_ohl_cond <- function(ohl_cond_asset_category){
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param ohl_cond_asset_category String The type of Overhead line conductor
+#' @param ohl_cond_asset_category String The type of Pole asset category
+#' Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+#' "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
