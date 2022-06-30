@@ -6,14 +6,14 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @inheritParams pof_transformer_11_20kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Future probability of a 6.6/11 kV transformer
@@ -26,10 +26,12 @@
 #'corrosion_category_index = "Default",
 #'age = 20,
 #'partial_discharge = "Default",
-#'oil_acidity = "Default",
 #'temperature_reading = "Default",
 #'observed_condition = "Default",
 #'reliability_factor = "Default",
+#'moisture = "Default",
+#'acidity = "Default",
+#'bd_strength = "Default",
 #'simulation_end_year = 100)
 # # Plot
 #'plot(future_pof_transformer$PoF * 100,
@@ -45,10 +47,12 @@ pof_future_transformer_11_20kv <-
            corrosion_category_index = "Default",
            age,
            partial_discharge = "Default",
-           oil_acidity = "Default",
            temperature_reading = "Default",
            observed_condition = "Default",
            reliability_factor = "Default",
+           moisture = "Default",
+           acidity = "Default",
+           bd_strength = "Default",
            simulation_end_year = 100) {
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -114,8 +118,8 @@ pof_future_transformer_11_20kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 34 to Table 195
-    # and Table 200 in Appendix B.
+    # These overriding values are shown in Table 35 to Table 202
+    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     mcm_mmi_cal_df <-
@@ -160,23 +164,10 @@ pof_future_transformer_11_20kv <-
           partial_discharge)]
 
     # Oil acidity -------------------------------------------------------------
-    mci_hv_tf_oil_acidity <-
-      gb_ref$mci_hv_tf_oil_acidity
+    oil_test_mod <- oil_test_modifier(moisture,
+                                      acidity,
+                                      bd_strength)
 
-    ci_cap_oil_acidity <- 10
-    ci_collar_oil_acidity <- 0.5
-
-    if (oil_acidity == "Default") {
-      ci_factor_oil_acidity <- 1
-    } else if (oil_acidity <= 0.15) {
-      ci_factor_oil_acidity <- 0.9
-    } else if (0.15 < oil_acidity && oil_acidity <= 0.3) {
-      ci_factor_oil_acidity <- 1
-    } else if (0.3 < oil_acidity && oil_acidity <= 0.5) {
-      ci_factor_oil_acidity <- 1.15
-    } else {
-      ci_factor_oil_acidity <- 1.4
-    }
 
     # Temperature readings ----------------------------------------------------
     mci_hv_tf_temp_readings <-
@@ -202,7 +193,7 @@ pof_future_transformer_11_20kv <-
 
     # measured condition factor -----------------------------------------------
     factors <- c(ci_factor_partial_discharge,
-                 ci_factor_oil_acidity,
+                 oil_test_mod$oil_condition_factor,
                  ci_factor_temp_reading)
 
     measured_condition_factor <- mmi(factors,
@@ -212,13 +203,13 @@ pof_future_transformer_11_20kv <-
 
     # Measured condition cap --------------------------------------------------
     caps <- c(ci_cap_partial_discharge,
-              ci_cap_oil_acidity,
+              oil_test_mod$oil_condition_cap,
               ci_cap_temp_reading)
     measured_condition_cap <- min(caps)
 
     # Measured condition collar -----------------------------------------------
     collars <- c(ci_collar_partial_discharge,
-                 ci_collar_oil_acidity,
+                 oil_test_mod$oil_condition_collar,
                  ci_collar_temp_reading)
     measured_condition_collar <- max(collars)
 
@@ -314,14 +305,15 @@ pof_future_transformer_11_20kv <-
          (((c * current_health_score)^3) / factorial(3)))
 
     # Future probability of failure -------------------------------------------
+
     # the Health Score of a new asset
     H_new <- 0.5
+
     # the Health Score of the asset when it reaches its Expected Life
-
     b2 <- beta_2(current_health_score, age)
-
+    print(b2)
     if (b2 > 2*b1){
-      b2 <- b1
+      b2 <- b1*2
     } else if (current_health_score == 0.5){
       b2 <- b1
     }
@@ -341,16 +333,16 @@ pof_future_transformer_11_20kv <-
     for (y in 1:length(year)){
       t <- year[y]
 
-      future_health_Score <-
-        current_health_score*exp((b2/ageing_reduction_factor) * t)
+      future_health_Score <- current_health_score*exp((b2/ageing_reduction_factor) * t)
 
       H <- future_health_Score
 
       future_health_score_limit <- 15
       if (H > future_health_score_limit){
         H <- future_health_score_limit
+      } else if (H < 4) {
+        H <- 4
       }
-
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))

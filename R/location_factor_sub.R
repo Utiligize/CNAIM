@@ -1,7 +1,7 @@
 #' @title Location Factor (Excl.Submarine Cables)
 #' @description This function calculates the location factor for
 #' submarine cables based in the specific location of the cable.
-#' See section 6.5 on page 44 in CNAIM (2017). For calculating the location
+#' See section 6.5 on page 48 in CNAIM (2021). For calculating the location
 #' factor for all other network assets please see the function
 #' \code{\link{location_factor}()}.
 #' @param topography String. Describe the topography around the submarine cable.
@@ -9,7 +9,7 @@
 #' \code{typography = c("Low Detrimental Topography",
 #' "Medium Detrimental Topography", "High Detrimental Topography",
 #' "Very High Detrimental Topography","Default" )}
-#' @param sitution String. Descibes how the submarine cable af fixed to the
+#' @param situation String. Descibes how the submarine cable af fixed to the
 #' sea floor.
 #' Options:
 #' \code{sitution=c("Laid on bed", "Covered", "Buried", "Default")}
@@ -30,20 +30,20 @@
 #' setting for \code{landlocked = "no"}.
 #' @return Numeric. Location factor
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#'\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-#'  # Location factor for a non-landlocked submarine cable
-#'location_factor_sub(topography = "Default",
-#'                    sitution = "Default",
-#'                    wind_wave = "Default",
-#'                    intensity = "Default",
-#'                    landlocked = "no")
+#  # Location factor for a non-landlocked submarine cable
+# location_factor_sub(topography = "Default",
+#                     situation = "Default",
+#                     wind_wave = "Default",
+#                     intensity = "Default",
+#                     landlocked = "no")
 
 
 location_factor_sub <- function(topography = "Default",
-                                sitution = "Default",
+                                situation = "Default",
                                 wind_wave = "Default",
                                 intensity = "Default",
                                 landlocked = "no") {
@@ -57,11 +57,11 @@ location_factor_sub <- function(topography = "Default",
   land_score <- submarin_cable_topog_factor$`Score (Land locked)`
 
 
-  # Sitution
-  submarin_cable_sitution_factor <- gb_ref$submarin_cable_sitution_factor %>%
-    dplyr::filter(Situation == sitution)
+  # Situation
+  submarin_cable_situation_factor <- gb_ref$submarin_cable_sitution_factor %>%
+    dplyr::filter(Situation == situation)
 
-  sit_score <- submarin_cable_sitution_factor$Score
+  sit_score <- submarin_cable_situation_factor$Score
 
 
   # Wave/wind
@@ -91,7 +91,7 @@ location_factor_sub <- function(topography = "Default",
   # INC
   inc_sub <- gb_ref$increment_constants$`Submarine Cables`
 
-  # Submarine Cable Route Topography Factor, Situation Factor, Wind/Wave
+  # Submarine Cable Route Topography Factor, Sitution Factor, Wind/Wave
   # Factor, Combined Wave & Current Energy Factor is greater than 1
 
   if (landlocked == "yes") {

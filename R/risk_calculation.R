@@ -7,11 +7,13 @@
 #' @param id A string that describes the asset
 #' @param pof The probability of failure of the asset
 #' @param cof The consequences of failure of the asset
-#' @param asset_type The asset type to be calculated for
-#' class
+#' @param asset_type The asset type to be calculated for class
+#' @param pof_limit Specific limit for the risk matrix
+#' @param cof_limit Specific limit for the risk matrix
+#' @param asset_type The asset type to be calculated for class
 #' @export
 #'
-risk_calculation <- function(matrix_dimensions,id,pof,cof,asset_type){
+risk_calculation <- function(matrix_dimensions,id,pof,cof,asset_type, pof_limits, cof_limits){
 
   `Asset Register Category` = `Total - (GBP)` = NULL
   # due to NSE notes in R CMD check
@@ -21,15 +23,52 @@ risk_calculation <- function(matrix_dimensions,id,pof,cof,asset_type){
     dplyr::select(`Total - (GBP)`) %>%
     dplyr::pull()
 
-  pof_pct <- 100*pof/0.4 # Criteria for being changed
-  cof_pct <- 100*cof/(reference_cof*4) # Upper band is cof*4
+  for (i in 1:length(pof_limits)) {
 
-  if (pof_pct > 100) pof_pct <- 100
-  if (cof_pct > 100) cof_pct <- 100
+    if(pof < pof_limits[i] && i==1) {
+      pof_pct <- ((pof - 0.5) / (pof_limits[i]-0.5)) * (100/length(pof_limits))
+      break
 
-  dots_vector = data.frame(id = 1:length(pof_pct),
+    } else if (pof < pof_limits[i] ) {
+      pof_pct <- ((pof - pof_limits[i-1]) / (pof_limits[i]-pof_limits[i-1])) * (100/length(pof_limits)) + (100/length(pof_limits))*(i-1)
+      break
+
+    } else if (pof > 15)  {
+      pof_pct <- 100
+    }
+
+  }
+
+  for (i in 1:length(cof_limits)) {
+
+    if(cof < cof_limits[i] && i==1) {
+      cof_pct <- ((cof - 0) / (cof_limits[i]- 0)) * (100/length(cof_limits))
+      break
+
+    } else if (cof < cof_limits[i] ) {
+      cof_pct <- ((cof - cof_limits[i-1]) / (cof_limits[i]-cof_limits[i-1])) * (100/length(cof_limits)) + (100/length(cof_limits))*(i-1)
+      break
+
+    } else if (cof > 250)  {
+      cof_pct <- 100
+    }
+
+  }
+  print(cof_pct)
+
+  # pof_pct <- pof # Criteria for being changed
+  # Upper band is cof*4
+
+  # if (pof_pct > 15) pof_pct <- 15
+  # if (cof_pct > 250) cof_pct <- 250
+
+  dots_vector = data.frame(id = id,
                            point_x = pof_pct,
                            point_y = cof_pct)
 
+  print(pof_pct)
+  print(cof_pct)
+
   return(dots_vector)
 }
+

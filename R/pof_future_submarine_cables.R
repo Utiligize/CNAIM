@@ -6,15 +6,15 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @inheritParams pof_submarine_cables
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometre.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 1 km EHV Sub Cable
@@ -130,8 +130,8 @@ pof_future_submarine_cables <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 34 to Table 195
-    # and Table 200 in Appendix B.
+    # These overriding values are shown in Table 35 to Table 202
+    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     mcm_mmi_cal_df <-
@@ -335,9 +335,9 @@ pof_future_submarine_cables <-
 
     # the Health Score of the asset when it reaches its Expected Life
     b2 <- beta_2(current_health_score, age)
-
+    print(b2)
     if (b2 > 2*b1){
-      b2 <- b1
+      b2 <- b1*2
     } else if (current_health_score == 0.5){
       b2 <- b1
     }
@@ -364,8 +364,9 @@ pof_future_submarine_cables <-
       future_health_score_limit <- 15
       if (H > future_health_score_limit){
         H <- future_health_score_limit
+      } else if (H < 4) {
+        H <- 4
       }
-
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))

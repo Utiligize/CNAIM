@@ -6,10 +6,10 @@
 #' the first three terms of the Taylor series for an
 #' exponential function. For more information about the
 #' probability of failure function see section 6
-#' on page 30 in CNAIM (2017).
+#' on page 34 in CNAIM (2021).
 #' @param cable_type String.
 #' A sting that refers to the specific asset category.
-#' See See page 15, table 1 in CNAIM (2017).
+#' See See page 17, table 1 in CNAIM (2021).
 #' Options:
 #' \code{cable_type = c("33kV UG Cable (Gas)", "66kV UG Cable (Gas)",
 #' "33kV UG Cable (Non Pressurised)", "66kV UG Cable (Non Pressurised)",
@@ -26,42 +26,42 @@
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 141, table 168 in CNAIM (2017).
+#' "Default")}. See page 153, table 168 in CNAIM (2021).
 #' @param partial_discharge String. Only applied for non pressurised cables.
 #' Indicating the level of partial discharge. Options:
 #' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 141, table 169 in CNAIM (2017).
+#'  "Default")}. See page 153, table 169 in CNAIM (2021).
 #' @param fault_hist Numeric. Only applied for non pressurised cables.
 #' The calculated fault rate for the cable in the period per kilometer.
 #' A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 141, table 170 in CNAIM (2017).
+#' indicates no fault. See page 153, table 170 in CNAIM (2021).
 #' @param leakage String. Only applied for oil and gas pressurised cables.
 #' Options:
 #' \code{leakage = c("No (or very low) historic leakage recorded",
 #' "Low/ moderate", "High", "Very High", "Default")}.
-#' See page 142, table 171 (oil) and 172 (gas) in CNAIM (2017).
+#' See page 157, table 182 (oil) and 183 (gas) in CNAIM (2021).
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years of the cable.
 #' @return Numeric. Current probability of failure
-#' per annum per kilometre for 20/10/0.4kV cables.
+#' per annum per kilometre for 66/33kV cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#' \url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for
 #' # "66kV UG Cable (Non Pressurised)", 50 years old
 #'pof_cables_66kV_non <-
-#'pof_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
-#'sub_division = "Lead sheath - Copper conductor",
-#'utilisation_pct = 80,
-#'operating_voltage_pct = 60,
-#'sheath_test = "Default",
-#'partial_discharge = "Default",
-#'fault_hist = "Default",
-#'leakage = "Default",
-#'reliability_factor = "Default",
-#'age = 50) * 100
+# pof_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
+# sub_division = "Lead sheath - Copper conductor",
+# utilisation_pct = 80,
+# operating_voltage_pct = 60,
+# sheath_test = "Default",
+# partial_discharge = "Default",
+# fault_hist = "Default",
+# leakage = "Default",
+# reliability_factor = "Default",
+# age = 50) * 100
 #'
 #'paste0(sprintf("Probability of failure %.4f", pof_cables_66kV_non),
 #'" percent per annum")
@@ -157,8 +157,8 @@ pof_cables_66_33kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 34 to Table 195
-    # and Table 200 in Appendix B.
+    # These overriding values are shown in Table 35 to Table 202
+    # and Table 207 in Appendix B.
 
     # Measured condition inputs ---------------------------------------------
     asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")

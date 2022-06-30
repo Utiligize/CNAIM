@@ -5,8 +5,8 @@
 \title{Maximum and Multiple Increment (MMI) Technique}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
- Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+ Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 mmi(factors, factor_divider_1, factor_divider_2, max_no_combined_factors)
@@ -31,7 +31,7 @@ Numeric. Combined factor.
 \description{
 This function returns a combined factor using a maximum and
  multiple increment (MMI) technique
- (cf. CNAIM, 2017. page 50, section 6.7.2). The function can be used
+ (cf. CNAIM, 2021. page 54, section 6.7.2). The function can be used
 to derive the health score factor for EHV and 132kV transformers.
 For deriviation of the health score factor for all other assets see
 \code{\link{health_score_excl_ehv_132kv_tf}}.
@@ -40,14 +40,14 @@ To derive the health score factor for EHV and 132kV transformers one needs
  the main transformer and for the tapchanger respectively.
  The constants \code{factor_divider_1}, \code{factor_divider_2}
   and \code{max_no_combined_factors} are all available in the lookup
-   table 10 and 11 on page 53 and 54 in CNAIM (2017).
-For an in deph desciption see also section 6.8 on page 53 in CNAIM (2017).
+   table 10 and 11 on page 57 and 58 in CNAIM (2021).
+For an in dept description see also section 6.8 on page 57 in CNAIM (2021).
 The \code{mmi}() can also be used in the derivation of observed and measured
  condition factors for all assets, using measured and observed
  input factors.
 The constants \code{factor_divider_1}, \code{factor_divider_2} and
-\code{max_no_combined_factors} can be found in table 13 on page 59
-(observed condition factors) and in table 15 on page 63
+\code{max_no_combined_factors} can be found in table 13 on page 63
+(observed condition factors) and in table 15 on page 67
 (measured condition factors).
 }
 \examples{

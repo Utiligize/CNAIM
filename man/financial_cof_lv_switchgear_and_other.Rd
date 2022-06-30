@@ -5,8 +5,8 @@
 \title{Financial cost of Failure for LV swicthgear and others}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 financial_cof_lv_switchgear_and_other(
@@ -19,20 +19,22 @@ financial_cof_lv_switchgear_and_other(
 \item{lv_asset_category}{String The type of LV asset category}
 
 \item{type_financial_factor_criteria}{String Type Financial factor criteria for LV switchgear
-(cf. section D1.2.1, page 162, CNAIM, 2017).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).}
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for LV switchgear
-setting (cf. table 214, page 164, CNAIM, 2017).}
+setting (cf. table 221, page 180, CNAIM, 2021).}
 }
 \value{
 Numeric. Financial consequences of failure for LV switchgear
 }
 \description{
 This function calculates financial consequences of failure
-(cf. section 7.3, page 75, CNAIM, 2017). Financial consequences
+(cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
-financial_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)", type_financial_factor_criteria = "Asbestos clad", access_factor_criteria = "Type A")
+financial_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
+type_financial_factor_criteria = "Asbestos clad",
+access_factor_criteria = "Type A")
 }

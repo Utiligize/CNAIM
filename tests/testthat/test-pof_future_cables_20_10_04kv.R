@@ -15,9 +15,10 @@ test_that("pof_future_cables_20_10_04kv", {
                                    fault_hist = "Default",
                                    reliability_factor = "Default",
                                    age = 30,
+                                   normal_expected_life_cable = 40,
                                    simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$year == 65)], 0.029754193)
+  expect_equal(res$PoF[which(res$year == 65)], 0.76563749)
 
 })
 

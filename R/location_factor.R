@@ -1,7 +1,7 @@
 #' @title Location Factor (Excl.Submarine Cables)
 #' @description This function calculates the location factor for
 #' an electric network asset based in the specific location of the asset.
-#' See section 6.4 on page 42 in CNAIM (2017). For calculating the location
+#' See section 6.4 on page 46 in CNAIM (2021). For calculating the location
 #' factor for submarine cables please see the function
 #' \code{\link{location_factor_sub}()}. Note the location factor for all other
 #' cables are always equal to 1 hence the function will return a location
@@ -12,28 +12,28 @@
 #' and a setting of \code{"Indoor"} means the asset is located in an
 #'  indoor environment. A setting of \code{"Default"} will result
 #'   in either an indoor or an outdoor environment setting that depends
-#'   on the specification of \code{asset_type}. See page 107-108,
-#'   table 25A in CNAIM (2017) for default environments.
+#'   on the specification of \code{asset_type}. See page 110-113,
+#'   table 26 in CNAIM (2021) for default environments.
 #' @param altitude_m Numeric. Specify the altitude location for
 #' the asset measured in meters from sea level.\code{altitude_m}
-#' is used to derive the altitude factor. See page 107,
-#' table 23 in CNAIM (2017). A setting of \code{"Default"}
+#' is used to derive the altitude factor. See page 111,
+#' table 23 in CNAIM (2021). A setting of \code{"Default"}
 #' will set the altitude factor to 1 independent of \code{asset_type}.
 #' @param distance_from_coast_km Numeric. Specify the distance from the
 #' coast measured in kilometers. \code{distance_from_coast_km} is used
-#' to derive the distance from coast factor See page 106,
-#' table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+#' to derive the distance from coast factor See page 110,
+#' table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
 #'  distance from coast factor to 1 independent of \code{asset_type}.
 #' @param corrosion_category_index Integer.
 #' Specify the corrosion index category, 1-5.
 #' \code{corrosion_category_index} is used to derive the corrosion
-#' category factor. See page 107, table 24 in CNAIM (2017).
+#' category factor. See page 111, table 24 in CNAIM (2021).
 #' A setting of \code{"Default"} will set the corrosion category factor
 #' to 1 independent of \code{asset_type}.
 #' @param asset_type String.
 #' A sting that refers to the specific asset category.
 #' For LV UGB and non-submarine cables a location factor of 1 is assigned.
-#' See See page 15, table 1 in CNAIM (2017).
+#' See See page 17, table 1 in CNAIM (2021).
 #' Options:
 #' \code{asset_type = c("LV Poles", "LV Circuit Breaker",
 #' "LV Pillar (ID)", "LV Pillar (OD at Substation)",
@@ -65,10 +65,11 @@
 #'"132kV CB (Gas Insulated Busbars)(ID) (GM)",
 #'"132kV CB (Gas Insulated Busbars)(OD) (GM)", "132kV Transformer (GM)")
 #'}
+#' @param sub_division String. Refers to material the sub division in the asset category
 #' @return Numeric. Location factor
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 1.1, 2017:
-#'\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+#' Health & Criticality - Version 2.1, 2021:
+#'\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #'  # Location factor for a 6.6/11 kV Transformer with default values
@@ -81,7 +82,8 @@ location_factor <- function(placement = "Default",
                             altitude_m = "Default",
                             distance_from_coast_km = "Default",
                             corrosion_category_index = "Default",
-                            asset_type = "6.6/11kV Transformer (GM)") {
+                            asset_type = "6.6/11kV Transformer (GM)",
+                            sub_division = NULL) {
 
 
 if (asset_type == "LV UGB" ||
@@ -111,16 +113,33 @@ if (asset_type == "LV UGB" ||
                                `Health Index Asset Category` ==
                                asset_category)]
 
+
+
   if (asset_category == "EHV OHL Conductor (Tower Lines)" ||
       asset_category == "132kV OHL Conductor (Tower Lines)") {
     generic_term_1 <- "Towers (Conductor)"
+  } else if (asset_category == "EHV OHL Fittings" ||
+             asset_category == "132kV OHL Fittings") {
+    generic_term_1 <- "Towers (Fittings)"
+  }else if (asset_category == "HV OHL Support - Poles" ||
+            asset_category == "EHV OHL Support - Poles" ||
+            asset_category == "LV OHL Support" ) {
+    # All the poles
+    if(sub_division %>% is.null())
+      stop("No sub division specified for the pole")
+    if(sub_division == "Steel")
+      generic_term_1 <- "Poles (Steel)"
+    if(sub_division == "Concrete")
+      generic_term_1 <- "Poles (Concrete)"
+    if(sub_division == "Wood")
+      generic_term_1 <- "Poles (Wood)"
+  }else if(asset_category == "EHV OHL Support - Towers" ||
+           asset_category == "132kV OHL Support - Tower"){
+    generic_term_1 <- "Towers (Structure)"
   }
-
   if (asset_category == "Overhead Line") {
     stop(paste0("Asset type not implemented: ", asset_type))
   }
-
-
 
    # Altitude ----------------------------------------------------------------
   altitude_factor_asset_df <- dplyr::select(gb_ref$altitude_factor_lut,

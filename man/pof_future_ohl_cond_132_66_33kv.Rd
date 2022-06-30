@@ -5,8 +5,8 @@
 \title{Future Probability of Failure for 33-132kV OHL Conductors}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
-Health & Criticality - Version 1.1, 2017:
-\url{https://www.ofgem.gov.uk/system/files/docs/2017/05/dno_common_network_asset_indices_methodology_v1.1.pdf}
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
 pof_future_ohl_cond_132_66_33kv(
@@ -28,7 +28,7 @@ pof_future_ohl_cond_132_66_33kv(
 \arguments{
 \item{ohl_conductor}{String.
 A sting that refers to the specific asset category.
-See See page 15, table 1 in CNAIM (2017).
+See See page 17, table 1 in CNAIM (2021).
 Options:
 \code{ohl_conductor = c("33kV OHL (Tower Line) Conductor",
 "66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.
@@ -43,7 +43,7 @@ made of. Options:
 "Cad Cu",
 "Cu",
 "Other")
-}. See page 103, table 20 in CNAIM (2017).}
+}. See page 107, table 20 in CNAIM (2021).}
 
 \item{placement}{String. Specify if the asset is located outdoor or indoor.
 A setting of \code{"Outdoor"} means the asset is
@@ -51,25 +51,25 @@ located in an outside environment,
 and a setting of \code{"Indoor"} means the asset is located in an
  indoor environment. A setting of \code{"Default"} will result
   in either an indoor or an outdoor environment setting that depends
-  on the specification of \code{asset_type}. See page 107-108,
-  table 25A in CNAIM (2017) for default environments.}
+  on the specification of \code{asset_type}. See page 110-113,
+  table 26 in CNAIM (2021) for default environments.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
 the asset measured in meters from sea level.\code{altitude_m}
-is used to derive the altitude factor. See page 107,
-table 23 in CNAIM (2017). A setting of \code{"Default"}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
 will set the altitude factor to 1 independent of \code{asset_type}.}
 
 \item{distance_from_coast_km}{Numeric. Specify the distance from the
 coast measured in kilometers. \code{distance_from_coast_km} is used
-to derive the distance from coast factor See page 106,
-table 22 in CNAIM (2017). A setting of \code{"Default"} will set the
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
 Specify the corrosion index category, 1-5.
 \code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 107, table 24 in CNAIM (2017).
+category factor. See page 111, table 24 in CNAIM (2021).
 A setting of \code{"Default"} will set the corrosion category factor
 to 1 independent of \code{asset_type}.}
 
@@ -77,25 +77,25 @@ to 1 independent of \code{asset_type}.}
 
 \item{conductor_samp}{String. Conductor sampling. Options:
 \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
-See page 146-147, table 192 and 194 in CNAIM (2017).}
+See page 161, table 199 and 201 in CNAIM (2021).}
 
 \item{corr_mon_survey}{String. Corrosion monitoring survey. Options:
 \code{corr_mon_survey = c("Low","Medium/Normal","High","Default")}.
-See page 146-147, table 193 and 195 in CNAIM (2017).}
+See page 161, table 200 and 202 in CNAIM (2021).}
 
 \item{visual_cond}{String. Visual condition. Options:
-\code{visual_cond = c("As New","Normal Wear","Some Deterioration",
+\code{visual_cond = c("No deterioration","Superficial/minor deterioration","Some Deterioration",
 "Substantial Deterioration", "Default")}.
-See page 131-132, table 127 and 129 in CNAIM (2017).}
+See page 146, table 140 and 142 in CNAIM (2021).}
 
 \item{midspan_joints}{Integer. Number of midspan joints on the conductor.
 A span includes all conductors in that span.
-See page 131-132, table 128 and 130 in CNAIM (2017).}
+See page 146, table 141 and 143 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
-See section 6.14 on page 69 in CNAIM (2017).}
+See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
@@ -106,27 +106,13 @@ per annum per kilometer.
 }
 \description{
 This function calculates the future
-annual probability of failure per kilometer 3-132kV OHL conductors.
+annual probability of failure per kilometer 33-132kV OHL conductors.
 The function is a cubic curve that is based on
 the first three terms of the Taylor series for an
 exponential function. For more information about the
 probability of failure function see section 6
-on page 30 in CNAIM (2017).
+on page 34 in CNAIM (2021).
 }
 \examples{
 # Future annual probability of failure for 66kV OHL (Tower Line) Conductor
-pof_future_ohl_cond_132_66_33kv(
-ohl_conductor = "66kV OHL (Tower Line) Conductor",
-sub_division = "Cu",
-placement = "Default",
-altitude_m = "Default",
-distance_from_coast_km = "Default",
-corrosion_category_index = "Default",
-age = 10,
-conductor_samp = "Default",
-corr_mon_survey = "Default",
-visual_cond = "Default",
-midspan_joints = "Default",
-reliability_factor = "Default",
-simulation_end_year = 100)
 }
