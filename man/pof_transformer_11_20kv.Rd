@@ -109,6 +109,7 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Current probability of failure for a 6.6/11 kV transformer
+<<<<<<< HEAD
 pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
 utilisation_pct = "Default",
 placement = "Default",
@@ -123,4 +124,6 @@ reliability_factor = "Default",
 moisture = "Default",
 oil_acidity = "Default",
 bd_strength = "Default")
+=======
+>>>>>>> c3d97ba9ab2aaa89ee21fba2b1a86168ea6d9136
 }
