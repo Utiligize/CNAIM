@@ -66,10 +66,7 @@ export(network_cof_transformers)
 export(oil_test_modifier)
 export(pof_132kv_cb)
 export(pof_cables_132kv)
-<<<<<<< HEAD
 export(pof_cables_60_30kv)
-=======
->>>>>>> c3d97ba9ab2aaa89ee21fba2b1a86168ea6d9136
 export(pof_cables_66_33kv)
 export(pof_ehv_fittings)
 export(pof_ehv_switchgear)

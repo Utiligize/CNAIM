@@ -21,14 +21,7 @@
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
 #'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).
 #' @inheritParams oil_test_modifier
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 #' See page 162, table 204 in CNAIM (2021).
->>>>>>> 6a1fadf (updated - cof in DKK)
-=======
-#' See page 162, table 204 in CNAIM (2021).
->>>>>>> c3d97ba9ab2aaa89ee21fba2b1a86168ea6d9136
 #' @param temperature_reading String. Indicating the criticality.
 #' Options for \code{temperature_reading}:
 #' \code{temperature_reading = c("Normal", "Moderately High",
@@ -49,7 +42,6 @@
 #' @export
 #' @examples
 #' # Current probability of failure for a 6.6/11 kV transformer
-<<<<<<< HEAD
 #' pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
 #' utilisation_pct = "Default",
 #'placement = "Default",
@@ -64,23 +56,6 @@
 #'moisture = "Default",
 #'oil_acidity = "Default",
 #'bd_strength = "Default")
-=======
-# pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
-# utilisation_pct = "Default",
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# partial_discharge = "Default",
-# temperature_reading = "Default",
-# observed_condition = "Default",
-# reliability_factor = "Default",
-# moisture = "Default",
-# acidity = "Default",
-# bd_strength = "Default")
-
->>>>>>> c3d97ba9ab2aaa89ee21fba2b1a86168ea6d9136
 pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
                                     utilisation_pct = "Default",
                                     placement = "Default",
