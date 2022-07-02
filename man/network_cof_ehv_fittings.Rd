@@ -12,7 +12,9 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_ehv_fittings(ehv_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV asset category
+Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+ "132kV Fittings")}}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 

@@ -16,12 +16,16 @@ financial_cof_towers(
 )
 }
 \arguments{
-\item{tower_asset_category}{String The type of Pole asset category}
+\item{tower_asset_category}{String The type of tower asset category
+Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+"132kV Tower")}.}
 
-\item{type_financial_factor_criteria}{String The type financial factor for Tower}
+\item{type_financial_factor_criteria}{String The type financial factor for Tower
+\code{type_financial_factor_criteria = c("Suspension", "Tension", "Terminal")}.}
 
-\item{access_factor_criteria}{String. Asses Financial factor criteria for Pole
-setting (cf. table 221, page 180, CNAIM, 2021).}
+\item{access_factor_criteria}{String. Asses Financial factor criteria for Tower
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{access_factor_criteria = c("Type A", "Type B")}.}
 }
 \value{
 Numeric. Financial consequences of failure for Poles

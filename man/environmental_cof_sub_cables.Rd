@@ -12,13 +12,18 @@ Health & Criticality - Version 2.1, 2017:
 environmental_cof_sub_cables(sub_cable_asset_category)
 }
 \arguments{
-\item{sub_cable_asset_category}{String The type of sub cable asset category}
+\item{sub_cable_asset_category}{String The type of Submarine cable asset category
+Options: \code{sub_cable_asset_category = c("HV Sub Cable",
+"EHV Sub Cable", "132kV Sub Cable")}.}
+}
+\value{
+Numeric. Financial consequences of failure for sub cables
 }
 \description{
 This function calculates environmental consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
-the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
+the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
 environmental_cof_sub_cables(sub_cable_asset_category = "HV Sub Cable")

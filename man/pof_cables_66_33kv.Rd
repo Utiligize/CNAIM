@@ -90,11 +90,4 @@ on page 34 in CNAIM (2021).
 \examples{
 # Current annual probability of failure for
 # "66kV UG Cable (Non Pressurised)", 50 years old
-<<<<<<< HEAD
-=======
-pof_cables_66kV_non <-
-
-paste0(sprintf("Probability of failure \%.4f", pof_cables_66kV_non),
-" percent per annum")
->>>>>>> c3d97ba9ab2aaa89ee21fba2b1a86168ea6d9136
 }

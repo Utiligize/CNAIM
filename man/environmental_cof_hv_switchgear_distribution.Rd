@@ -17,9 +17,13 @@ environmental_cof_hv_switchgear_distribution(
 )
 }
 \arguments{
-\item{hv_asset_category}{String The type of HV asset category}
+\item{hv_asset_category}{String The type of HV switchgear distribution asset category
+Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+"6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+"20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}}
 
-\item{type_env_factor}{String The type environment factor of HV asset category}
+\item{type_env_factor}{String The type environment factor of HV asset category
+Options: \code{type_env_factor = c("Oil", "SF6", "Niether", "Default")}.}
 
 \item{prox_water}{Numeric. Specify the proximity to a water course in meters.
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus
@@ -33,11 +37,6 @@ A setting of \code{"Default"} will result in a bunding factor of 1.}
 This function calculates environmental consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
-the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-}
-\examples{
-environmental_cof_hv_switchgear_distribution(
-hv_asset_category = "6.6/11kV CB (GM) Secondary",
-type_env_factor = "Oil", prox_water = 95,
-bunded = "Yes")
+the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric.
+Financial consequences of failure for HV switchgear
 }

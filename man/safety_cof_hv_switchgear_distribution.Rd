@@ -16,13 +16,22 @@ safety_cof_hv_switchgear_distribution(
 )
 }
 \arguments{
-\item{hv_asset_category}{String The type of LV asset category}
+\item{hv_asset_category}{String The type of HV switchgear distribution asset category
+Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+"6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+"20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}}
 
-\item{location_risk}{String Type Financial factor criteria for LV switchgear
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+\item{location_risk}{String Type Financial factor criteria for HV switchgear
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+Options: \code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
-\item{type_risk}{String. Asses Financial factor criteria for LV switchgear
-setting (cf. table 221, page 180, CNAIM, 2021).}
+\item{type_risk}{String. Asses Financial factor criteria for HV switchgear
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Financial consequences of failure for LV switchgear
@@ -32,10 +41,4 @@ This function calculates safety consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Safetyr consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
-}
-\examples{
-safety_cof_hv_switchgear_distribution(
-hv_asset_category = "6.6/11kV CB (GM) Secondary",
-location_risk = "Default",
-type_risk = "Default")
 }

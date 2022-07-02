@@ -12,7 +12,18 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_ehv_switchgear(ehv_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV swicthgear & 132kV CB
+Options: \code{ehv_asset_category = c(
+"33kV CB (Air Insulated Busbars)(ID)(GM)",
+"33kV CB (Air Insulated Busbars)(OD)(GM)",
+"33kV CB (Gas Insulated Busbars)(ID)(GM)",
+"33kV CB (Gas Insulated Busbars)(OD)(GM)",
+"33kV RMU",
+"33kV Switch (GM)",
+"66kV CB (Air Insulated Busbars)(ID)(GM)",
+"66kV CB (Air Insulated Busbars)(OD)(GM)",
+"66kV CB (Gas Insulated Busbars)(ID)(GM)",
+"66kV CB (Gas Insulated Busbars)(OD)(GM)")}}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 

@@ -18,7 +18,10 @@ environmental_cof_transformers(
 )
 }
 \arguments{
-\item{tf_asset_category}{String The type of Transformer}
+\item{tf_asset_category}{String The type of Transformer asset category
+Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+"20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+"132kV Transformer (GM) ")}.}
 
 \item{prox_water}{Numeric. Specify the proximity to a water course in meters.
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus
@@ -37,8 +40,4 @@ This function calculates environmental consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-}
-\examples{
-environmental_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-prox_water = 95, bunded = "Yes", size_kva_mva = 20, size_conversion = "33/20kV")
 }

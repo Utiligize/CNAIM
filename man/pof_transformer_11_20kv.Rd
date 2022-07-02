@@ -57,11 +57,7 @@ table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
-Specify the corrosion index category, 1-5.
-\code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 111, table 24 in CNAIM (2021).
-A setting of \code{"Default"} will set the corrosion category factor
-to 1 independent of \code{asset_type}.}
+Specify the corrosion index category, 1-5.}
 
 \item{age}{Numeric. The current age in years.}
 
@@ -82,18 +78,16 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
 See section 6.14 on page 73 in CNAIM (2021).}
 
-\item{moisture}{Numeric. Refers to the moisture level in the
-transformer oil. Moisture levels are measured in ppm.
-A setting of \code{"Default"} will result in the best possible result.}
+\item{moisture}{Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).}
 
 \item{oil_acidity}{Oil Acidity
 level of partial discharge. Options for \code{partial_discharge}:
 \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
 
-\item{bd_strength}{Numeric. Refers to the breakdown strength.
-Breakdown strength is measured in kV.
-A setting of \code{"Default"} will result in the best possible result.}
+\item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
+
+\item{acidity}{Numeric. the amount of acidicy given in (mg KOH/g) See page 162, table 204 in CNAIM (2021).}
 }
 \value{
 Numeric. Current probability of failure.
@@ -109,7 +103,6 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Current probability of failure for a 6.6/11 kV transformer
-<<<<<<< HEAD
 pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
 utilisation_pct = "Default",
 placement = "Default",
@@ -124,6 +117,4 @@ reliability_factor = "Default",
 moisture = "Default",
 oil_acidity = "Default",
 bd_strength = "Default")
-=======
->>>>>>> c3d97ba9ab2aaa89ee21fba2b1a86168ea6d9136
 }

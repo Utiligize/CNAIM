@@ -12,7 +12,11 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_ehv_cables(ehv_asset_category)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV cable distribution asset category
+Options: \code{ehv_asset_category =
+c("33kV UG Cable (Oil)", "33kV UG Cable (Gas)", "33kV UG Cable (Non Pressurised)",
+"66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
+"132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV UG Cable (Non Pressurised)")}.}
 }
 \value{
 Numeric. Financial consequences of failure for EEHV UG cabkes & 132 kV UG cables

@@ -12,13 +12,21 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_ohl_cond(ohl_cond_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{ohl_cond_asset_category}{String The type of overhead line conductor asset category}
+\item{ohl_cond_asset_category}{String The type of Pole asset category
+Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+"66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.}
 
 \item{location_risk}{String Type Financial factor criteria for Overhead Line Conductors
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+\code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
 \item{type_risk}{String. Asses Financial factor criteria for Overhead Line Conductors
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+\code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Safety consequences of failure for Overhead Line Conductors

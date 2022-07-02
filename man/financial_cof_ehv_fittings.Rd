@@ -16,12 +16,16 @@ financial_cof_ehv_fittings(
 )
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV Fittings asset category}
+\item{ehv_asset_category}{String The type of EHV asset category
+Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+ "132kV Fittings")}}
 
-\item{type_financial_factor_criteria}{String. Type Financial factor criteria for EHV fittings}
+\item{type_financial_factor_criteria}{String. Type Financial factor criteria for EHV fittings
+\code{type_financial_factor_criteria = c("Suspension", "Tension")}.}
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for EHV fittings
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+\code{access_factor_criteria = c("Type A", "Type B")}.}
 }
 \value{
 Numeric. Financial consequences of failure for EHV fittings

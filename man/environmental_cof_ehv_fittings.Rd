@@ -12,7 +12,9 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_ehv_fittings(ehv_asset_category)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV asset category
+Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+ "132kV Fittings")}}
 }
 \description{
 This function calculates environmental consequences of failure

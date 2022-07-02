@@ -12,13 +12,22 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_lv_switchgear_and_other(lv_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{lv_asset_category}{String The type of LV asset category}
+\item{lv_asset_category}{String The type of LV asset category
+Options: \code{lv_asset_category = c("LV Board (WM)",
+"LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+"LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}}
 
 \item{location_risk}{String Type Financial factor criteria for LV switchgear
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+Options: \code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
 \item{type_risk}{String. Asses Financial factor criteria for LV switchgear
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Financial consequences of failure for LV switchgear

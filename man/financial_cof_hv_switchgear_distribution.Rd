@@ -15,10 +15,14 @@ financial_cof_hv_switchgear_distribution(
 )
 }
 \arguments{
-\item{hv_asset_category}{String The type of HV switchgear distribution asset category}
+\item{hv_asset_category}{String The type of HV switchgear distribution asset category
+Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+"6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+"20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}}
 
-\item{access_factor_criteria}{String. Asses Financial factor criteria for LV switchgear
-setting (cf. table 221, page 180, CNAIM, 2021).}
+\item{access_factor_criteria}{String. Asses Financial factor criteria for HV switchgear
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.}
 }
 \value{
 Numeric. Financial consequences of failure for LV switchgear
@@ -28,9 +32,4 @@ This function calculates financial consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
-}
-\examples{
-financial_cof_hv_switchgear_distribution(
-hv_asset_category = "6.6/11kV CB (GM) Secondary",
-access_factor_criteria = "Type A")
 }

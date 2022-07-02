@@ -17,7 +17,10 @@ financial_cof_transformers(
 )
 }
 \arguments{
-\item{tf_asset_category}{String The type of Transformer asset category}
+\item{tf_asset_category}{String The type of Transformer asset category
+Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+"20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+"132kV Transformer (GM) ")}.}
 
 \item{type_financial_factor_size}{String The type financial factor size for Transformer}
 
@@ -34,10 +37,4 @@ This function calculates financial consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Financial consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
-}
-\examples{
-financial_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-type_financial_factor_size = "33/20kV, CMR equivalent",
-type_financial_factor_kva_mva = 20,
-access_factor_criteria = "Type A")
 }

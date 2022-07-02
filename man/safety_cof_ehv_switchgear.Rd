@@ -12,13 +12,30 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_ehv_switchgear(ehv_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV swicthgear & 132kV CB
+Options: \code{ehv_asset_category = c(
+"33kV CB (Air Insulated Busbars)(ID)(GM)",
+"33kV CB (Air Insulated Busbars)(OD)(GM)",
+"33kV CB (Gas Insulated Busbars)(ID)(GM)",
+"33kV CB (Gas Insulated Busbars)(OD)(GM)",
+"33kV RMU",
+"33kV Switch (GM)",
+"66kV CB (Air Insulated Busbars)(ID)(GM)",
+"66kV CB (Air Insulated Busbars)(OD)(GM)",
+"66kV CB (Gas Insulated Busbars)(ID)(GM)",
+"66kV CB (Gas Insulated Busbars)(OD)(GM)")}}
 
 \item{location_risk}{String Type Financial factor criteria for EHV swicthgear & 132kV CB
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+Options: \code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
 \item{type_risk}{String. Asses Financial factor criteria for EHV swicthgear & 132kV CB
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB

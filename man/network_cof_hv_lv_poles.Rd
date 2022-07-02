@@ -2,7 +2,7 @@
 % Please edit documentation in R/cof_poles.R
 \name{network_cof_hv_lv_poles}
 \alias{network_cof_hv_lv_poles}
-\title{Network cost of Failure for LV/HV Poles}
+\title{Network cost of Failure for LV,HV,EHV Poles}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 2.1, 2021:
@@ -16,7 +16,9 @@ network_cof_hv_lv_poles(
 )
 }
 \arguments{
-\item{pole_asset_category}{String The type of Pole}
+\item{pole_asset_category}{String The type of pole asset category
+Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+"20kV Poles", "33kV Pole", "66kV Pole")}.}
 
 \item{no_customers}{Numeric. The number of customers
 fed by an individual asset.}

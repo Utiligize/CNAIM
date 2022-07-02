@@ -12,7 +12,10 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_transformers(tf_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{tf_asset_category}{String The type of Tower}
+\item{tf_asset_category}{String The type of Transformer asset category
+Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+"20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+"132kV Transformer (GM) ")}.}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
@@ -26,8 +29,4 @@ This function calculates network cost of failure for
 all asset categories exclusive the assets EHV and 132kV transformers.
 (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 is used in the derivation of consequences of failure see \code{\link{cof}}().
-}
-\examples{
-network_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-actual_load_mva = 15)
 }

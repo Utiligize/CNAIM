@@ -12,13 +12,18 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_towers(tower_asset_category)
 }
 \arguments{
-\item{tower_asset_category}{String The type of tower}
+\item{tower_asset_category}{String The type of tower asset category
+Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+"132kV Tower")}.}
+}
+\value{
+Numeric. Financial consequences of failure for towers
 }
 \description{
 This function calculates environmental consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
-the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
+the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
 environmental_cof_towers(tower_asset_category = "33kV Tower")

@@ -16,13 +16,19 @@ financial_cof_lv_switchgear_and_other(
 )
 }
 \arguments{
-\item{lv_asset_category}{String The type of LV asset category}
+\item{lv_asset_category}{String The type of LV asset category
+Options: \code{lv_asset_category = c("LV Board (WM)",
+"LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+"LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}}
 
 \item{type_financial_factor_criteria}{String Type Financial factor criteria for LV switchgear
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+Options: \code{type_financial_factor_criteria = c("Non Asbestos clad",
+"Asbestos clad")}}
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for LV switchgear
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.}
 }
 \value{
 Numeric. Financial consequences of failure for LV switchgear

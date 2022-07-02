@@ -12,13 +12,21 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_ehv_fittings(ehv_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV asset category
+Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
+ "132kV Fittings")}}
 
 \item{location_risk}{String Type Financial factor criteria for EHV fittings
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+\code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
 \item{type_risk}{String. Asses Financial factor criteria for EHV fittings
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+\code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Financial consequences of failure for EHV fittings

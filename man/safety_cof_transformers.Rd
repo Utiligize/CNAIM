@@ -12,13 +12,22 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_transformers(tf_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{tf_asset_category}{String The type of Transformer}
+\item{tf_asset_category}{String The type of Transformer asset category
+Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+"20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+"132kV Transformer (GM) ")}.}
 
 \item{location_risk}{String Type Financial factor criteria for Transformer
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+Options: \code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
 \item{type_risk}{String. Asses Financial factor criteria for Transformer
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Safety consequences of failure for Transformers
@@ -28,9 +37,4 @@ This function calculates safety consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
-}
-\examples{
-safety_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
-location_risk = "Default",
-type_risk = "Default")
 }

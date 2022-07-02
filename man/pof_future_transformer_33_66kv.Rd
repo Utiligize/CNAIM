@@ -89,11 +89,7 @@ table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
-Specify the corrosion index category, 1-5.
-\code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 111, table 24 in CNAIM (2021).
-A setting of \code{"Default"} will set the corrosion category factor
-to 1 independent of \code{asset_type}.}
+Specify the corrosion index category, 1-5.}
 
 \item{age_tf}{Numeric. The current age in years
 of the transformer.}
@@ -178,17 +174,11 @@ selector and diverter braids. Options:
 "Substantial Deterioration", "Default")}. See page 134, table 92
 in CNAIM (2021)}
 
-\item{moisture}{Numeric. Refers to the moisture level in the
-transformer oil. Moisture levels are measured in ppm.
-A setting of \code{"Default"} will result in the best possible result.}
+\item{moisture}{Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).}
 
-\item{acidity}{Numeric. Refers to the acidity level in the
-transformer oil. Acidity levels are measured in  (mgKOH/g).
-A setting of \code{"Default"} will result in the best possible result.}
+\item{acidity}{Numeric. the amount of acidicy given in (mg KOH/g) See page 162, table 204 in CNAIM (2021).}
 
-\item{bd_strength}{Numeric. Refers to the breakdown strength.
-Breakdown strength is measured in kV.
-A setting of \code{"Default"} will result in the best possible result.}
+\item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
 
 \item{hydrogen}{Numeric. Refers to the hydrogen level in the
 transformer oil. Hydrogen levels are measured in ppm.
@@ -251,43 +241,4 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Future probability of failure for a 66/10kV transformer
-pof_future_transformer_33_66kv(transformer_type = "66kV Transformer (GM)",
-year_of_manufacture = 1980,
-utilisation_pct = "Default",
-no_taps = "Default",
-placement = "Default",
-altitude_m = "Default",
-distance_from_coast_km = "Default",
-corrosion_category_index = "Default",
-age_tf = 43,
-age_tc = 43,
-partial_discharge_tf = "Default",
-partial_discharge_tc = "Default",
-temperature_reading = "Default",
-main_tank = "Default",
-coolers_radiator = "Default",
-bushings = "Default",
-kiosk = "Default",
-cable_boxes = "Default",
-external_tap = "Default",
-internal_tap = "Default",
-mechnism_cond = "Default",
-diverter_contacts = "Default",
-diverter_braids = "Default",
-moisture = "Default",
-acidity = "Default",
-bd_strength = "Default",
-hydrogen = "Default",
-methane = "Default",
-ethylene = "Default",
-ethane = "Default",
-acetylene = "Default",
-hydrogen_pre = "Default",
-methane_pre = "Default",
-ethylene_pre = "Default",
-ethane_pre = "Default",
-acetylene_pre = "Default",
-furfuraldehyde = "Default",
-reliability_factor = "Default",
-simulation_end_year = 100)
 }

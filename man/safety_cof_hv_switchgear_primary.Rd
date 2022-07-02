@@ -12,13 +12,21 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_hv_switchgear_primary(hv_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{hv_asset_category}{String The type of HV asset category}
+\item{hv_asset_category}{String The type of HV asset category
+Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Primary",
+"20kV CB (GM) Primary")}}
 
 \item{location_risk}{String Type Financial factor criteria for HV switchgear
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+Options: \code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
 \item{type_risk}{String. Asses Financial factor criteria for HV switchgear
-setting (cf. table 218, page 176, CNAIM, 2021).}
+setting (cf. table 218, page 176, CNAIM, 2021).
+Options: \code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Financial consequences of failure for HV switchgear

@@ -48,14 +48,8 @@ Options:
 "Medium Detrimental Topography", "High Detrimental Topography",
 "Very High Detrimental Topography","Default" )}}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 \item{situation}{Situation of the cable}
 
-=======
->>>>>>> 6a1fadf (updated - cof in DKK)
-=======
->>>>>>> c3d97ba9ab2aaa89ee21fba2b1a86168ea6d9136
 \item{wind_wave}{Numeric.
 Options:
 \code{wind_wave=c(1, 2, 3, "Default")}.

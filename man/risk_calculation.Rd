@@ -4,7 +4,15 @@
 \alias{risk_calculation}
 \title{Calculates risk and converts to matrix coordinates}
 \usage{
-risk_calculation(matrix_dimensions, id, pof, cof, asset_type)
+risk_calculation(
+  matrix_dimensions,
+  id,
+  pof,
+  cof,
+  asset_type,
+  pof_limits,
+  cof_limits
+)
 }
 \arguments{
 \item{matrix_dimensions}{A data frame with the dimensions of the desired risk
@@ -16,8 +24,11 @@ matrix}
 
 \item{cof}{The consequences of failure of the asset}
 
-\item{asset_type}{The asset type to be calculated for
-class}
+\item{asset_type}{The asset type to be calculated for class}
+
+\item{pof_limit}{Specific limit for the risk matrix}
+
+\item{cof_limit}{Specific limit for the risk matrix}
 }
 \description{
 This function calculates monetary risk, given probability of

@@ -16,7 +16,10 @@ network_cof_hv_switchgear_distribution(
 )
 }
 \arguments{
-\item{hv_asset_category}{String The type of LV asset category}
+\item{hv_asset_category}{String The type of HV switchgear distribution asset category
+Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+"6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+"20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}}
 
 \item{no_customers}{Numeric. The numner of customers
 fed by an individual asset.}
@@ -33,8 +36,4 @@ This function calculates network cost of failure for
 all asset categories exclusive the assets EHV and 132kV transformers.
 (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 is used in the derivation of consequences of failure see \code{\link{cof}}().
-}
-\examples{
-network_cof_hv_switchgear_distribution(hv_asset_category = "LV Board (WM)",
-no_customers = 750, kva_per_customer = 51)
 }
