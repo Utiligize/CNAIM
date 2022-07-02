@@ -25,7 +25,7 @@
 #' @param age  Numeric. The current age in years of the conductor.
 #' @param pole_dacay Degree of decay/Deterioration.
 #' Options: \code{pole_decay = c("None","No Significant Decay/Deterioration",
-#' "High","Very High", Default")}.
+#' "High","Very High", "Default")}.
 #' @param observed_condition_inputs Named list observed_conditions_input
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 #' See page 161, table 199 and 201 in CNAIM (2021).
