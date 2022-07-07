@@ -26,3 +26,8 @@ Financial consequences of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 }
+\examples{
+financial_cof_tower_ohl_support_50kv(
+type_financial_factor_criteria = "Suspension",
+access_factor_criteria = "Type A")
+}

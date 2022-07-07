@@ -7,8 +7,8 @@
 #' @return Numeric. Financial consequences of failure for Overhead Line Conductors
 #' @export
 #' @examples
-# financial_cof_ohl_cond_50kv(
-# access_factor_criteria = "Type A")
+#' financial_cof_ohl_cond_50kv(
+#' access_factor_criteria = "Type A")
 
 
 financial_cof_ohl_cond_50kv <- function(access_factor_criteria) {
@@ -77,9 +77,9 @@ financial_cof_ohl_cond_50kv <- function(access_factor_criteria) {
 #' @return Numeric. Safety consequences of failure for Overhead Line Conductors
 #' @export
 #' @examples
-# safety_cof_ohl_cond_50kv(
-# location_risk = "Default",
-# type_risk = "Default")
+#' safety_cof_ohl_cond_50kv(
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_ohl_cond_50kv <- function(location_risk,
                                      type_risk) {
 
@@ -169,9 +169,10 @@ environmental_cof_ohl_cond_50kv <- function() {
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
+#' @export
 #' @examples
-# network_cof_ohl_cond_50kv(
-# actual_load_mva = 15)
+#' network_cof_ohl_cond_50kv(
+#' actual_load_mva = 15)
 network_cof_ohl_cond_50kv<- function(actual_load_mva,
                                      secure = T) {
 

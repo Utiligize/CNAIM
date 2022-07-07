@@ -20,3 +20,7 @@ This function calculates network cost of failure for
 \code{hv_asset_category = c("10kV UG Cable (Oil)",
 "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
 }
+\examples{
+network_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)",
+actual_load_mva = 15)
+}

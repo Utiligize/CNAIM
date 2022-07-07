@@ -11,9 +11,9 @@
 #' @return Numeric. Financial consequences of failure for Transformer
 #' @export
 #' @examples
-# financial_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
-# type_financial_factor_kva_mva = 20,
-# access_factor_criteria = "Type A")
+#' financial_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+#' type_financial_factor_kva_mva = 20,
+#' access_factor_criteria = "Type A")
 financial_cof_transformer_30_60kv <- function(tf_asset_category,
                                               type_financial_factor_kva_mva = NULL,
                                               access_factor_criteria) {
@@ -180,8 +180,8 @@ safety_cof_transformer_30_60kv <- function(tf_asset_category,
 #' @param size_kva_mva Numeric The MVA KVA rating for the transformer
 #' @export
 #' @examples
-# environmental_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
-# prox_water = 95, bunded = "Yes", size_kva_mva = 20)
+#' environmental_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+#' prox_water = 95, bunded = "Yes", size_kva_mva = 20)
 environmental_cof_transformer_30_60kv <- function(tf_asset_category,
                                                   prox_water, bunded,
                                                   size_kva_mva = NULL) {

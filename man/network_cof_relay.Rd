@@ -23,3 +23,7 @@ Network cost of failure
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 }
+\examples{
+network_cof_relay(
+no_customers = 100, kva_per_customer = 40)
+}

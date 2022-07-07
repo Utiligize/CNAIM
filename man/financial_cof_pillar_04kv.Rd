@@ -33,5 +33,7 @@ the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 }
 \examples{
-financial_cof_pillar_04kv(type_financial_factor_criteria = "Asbestos clad", access_factor_criteria = "Type A")
+financial_cof_pillar_04kv(
+type_financial_factor_criteria = "Asbestos clad",
+ access_factor_criteria = "Type A")
 }

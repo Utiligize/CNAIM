@@ -28,3 +28,8 @@ Numeric. Financial consequences of failure for Transformer
 This function calculates financial consequences of failure
 Outputted in DKK.
 }
+\examples{
+financial_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+type_financial_factor_kva_mva = 20,
+access_factor_criteria = "Type A")
+}

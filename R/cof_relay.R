@@ -77,9 +77,9 @@ financial_cof_relay <- function(access_factor_criteria) {
 #' @return Numeric. Financial consequences of failure for relay
 #' @export
 #' @examples
-# safety_cof_relay(
-# location_risk = "Default",
-# type_risk = "Default")
+#' safety_cof_relay(
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_relay <- function(location_risk,
                              type_risk) {
 
@@ -134,10 +134,10 @@ safety_cof_relay <- function(location_risk,
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @export
 #' @examples
-# environmental_cof_relay(
-# type_env_factor = "Oil",
-# prox_water = 95,
-# bunded = "Yes")
+#' environmental_cof_relay(
+#' type_env_factor = "Oil",
+#' prox_water = 95,
+#' bunded = "Yes")
 environmental_cof_relay <- function(type_env_factor,
                                     prox_water,
                                     bunded) {
@@ -228,8 +228,8 @@ environmental_cof_relay <- function(type_env_factor,
 #' @return Numeric. Network cost of failure.
 #' @export
 #' @examples
-# network_cof_relay(
-# no_customers = 100, kva_per_customer = 40)
+#' network_cof_relay(
+#' no_customers = 100, kva_per_customer = 40)
 network_cof_relay <- function(no_customers,
                               kva_per_customer = "Default") {
 

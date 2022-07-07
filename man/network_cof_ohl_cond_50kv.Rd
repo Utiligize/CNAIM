@@ -18,3 +18,7 @@ Numeric. Network cost of failure.
 This function calculates network cost of failure
 Outputted in DKK
 }
+\examples{
+network_cof_ohl_cond_50kv(
+actual_load_mva = 15)
+}

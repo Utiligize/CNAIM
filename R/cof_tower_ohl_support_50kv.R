@@ -11,9 +11,9 @@
 #' @return Numeric. Financial consequences of failure for tower ohl support 50 kV
 #' @export
 #' @examples
-# financial_cof_tower_ohl_support_50kv(
-# type_financial_factor_criteria = "Suspension",
-# access_factor_criteria = "Type A")
+#' financial_cof_tower_ohl_support_50kv(
+#' type_financial_factor_criteria = "Suspension",
+#' access_factor_criteria = "Type A")
 financial_cof_tower_ohl_support_50kv <- function(type_financial_factor_criteria,
                                                  access_factor_criteria) {
 

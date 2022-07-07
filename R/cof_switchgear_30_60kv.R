@@ -10,8 +10,8 @@
 #' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
 #' @export
 #' @examples
- # financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
- # access_factor_criteria = "Type A")
+#' financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+#' access_factor_criteria = "Type A")
 financial_cof_switchgear_30_60kv <- function(ehv_asset_category,
                                              access_factor_criteria) {
 
@@ -97,9 +97,9 @@ financial_cof_switchgear_30_60kv <- function(ehv_asset_category,
 #' @return Numeric. Financial consequences of failure for 30kV and 60kV switchgear
 #' @export
 #' @examples
-# safety_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
-# location_risk = "Default",
-# type_risk = "Default")
+#' safety_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
                                           location_risk,
                                           type_risk) {
@@ -163,10 +163,10 @@ safety_cof_switchgear_30_60kv <- function(ehv_asset_category,
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @export
 #' @examples
-# environmental_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
-# type_env_factor = "Oil",
-# prox_water = 95,
-# bunded = "Yes")
+#' environmental_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+#' type_env_factor = "Oil",
+#' prox_water = 95,
+#' bunded = "Yes")
 environmental_cof_switchgear_30_60kv <- function(ehv_asset_category,
                                                  type_env_factor,
                                                  prox_water,

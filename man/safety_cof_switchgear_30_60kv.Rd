@@ -30,3 +30,8 @@ Safety consequences of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 }
+\examples{
+safety_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+location_risk = "Default",
+type_risk = "Default")
+}

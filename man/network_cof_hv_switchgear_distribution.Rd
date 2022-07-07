@@ -37,3 +37,7 @@ all asset categories exclusive the assets EHV and 132kV transformers.
 (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
+\examples{
+network_cof_hv_switchgear_distribution(hv_asset_category = "LV Board (WM)",
+no_customers = 750, kva_per_customer = 51)
+}

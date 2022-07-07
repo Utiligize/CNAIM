@@ -30,3 +30,7 @@ all asset categories exclusive the assets EHV and 132kV transformers.
 (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 is used in the derivation of consequences of failure see \code{\link{cof}}().
 }
+\examples{
+network_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+actual_load_mva = 15)
+}

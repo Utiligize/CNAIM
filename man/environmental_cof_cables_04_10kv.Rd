@@ -20,3 +20,7 @@ Outputted in DKK
 \code{hv_asset_category = c("10kV UG Cable (Oil)",
 "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
 }
+\examples{
+environmental_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)",
+prox_water = 95, bunded = "Yes")
+}

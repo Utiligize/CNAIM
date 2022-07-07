@@ -26,3 +26,8 @@ Environmental consequences of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 }
+\examples{
+environmental_cof_switchgear_primary_10kv(
+type_env_factor = "Oil",
+prox_water = 95, bunded = "Yes")
+}

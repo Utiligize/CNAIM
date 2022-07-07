@@ -135,9 +135,9 @@ safety_cof_switchgear_primary_10kv <- function(location_risk,
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
 #' @export
 #' @examples
-# environmental_cof_switchgear_primary_10kv(
-# type_env_factor = "Oil",
-# prox_water = 95, bunded = "Yes")
+#' environmental_cof_switchgear_primary_10kv(
+#' type_env_factor = "Oil",
+#' prox_water = 95, bunded = "Yes")
 environmental_cof_switchgear_primary_10kv <- function(type_env_factor,
                                                       prox_water,
                                                       bunded) {

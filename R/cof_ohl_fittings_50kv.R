@@ -10,9 +10,9 @@
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
-# financial_cof_ohl_fittings_50kv(
-# type_financial_factor_criteria = "Tension",
-# access_factor_criteria = "Type A")
+#' financial_cof_ohl_fittings_50kv(
+#' type_financial_factor_criteria = "Tension",
+#' access_factor_criteria = "Type A")
 
 
 financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
@@ -89,9 +89,9 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
-# safety_cof_ohl_fittings_50kv(
-# location_risk = "Default",
-# type_risk = "Default")
+#' safety_cof_ohl_fittings_50kv(
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_ohl_fittings_50kv <- function(location_risk,
                                          type_risk) {
 

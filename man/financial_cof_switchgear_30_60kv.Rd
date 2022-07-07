@@ -22,3 +22,7 @@ Financial consequences of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 }
+\examples{
+financial_cof_switchgear_30_60kv(ehv_asset_category = "30kV",
+access_factor_criteria = "Type A")
+}

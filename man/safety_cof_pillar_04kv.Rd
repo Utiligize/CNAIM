@@ -34,3 +34,8 @@ of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK
 }
+\examples{
+safety_cof_pillar_04kv(
+location_risk = "Default",
+type_risk = "Default")
+}

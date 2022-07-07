@@ -28,3 +28,8 @@ the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 Financial consequences of failure for 10 kV switchgear secondary
 }
+\examples{
+environmental_cof_switchgear_secondary_10kv(
+type_env_factor = "Oil", prox_water = 95,
+bunded = "Yes")
+}

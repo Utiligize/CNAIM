@@ -12,9 +12,9 @@
 #' @return Numeric. Financial consequences of failure for Poles
 #' @export
 #' @examples
-# financial_cof_poles_ohl_support_50kv(
-# type_financial_factor_criteria = "Small footprint steel masts",
-# access_factor_criteria = "Type A")
+#' financial_cof_poles_ohl_support_50kv(
+#' type_financial_factor_criteria = "Small footprint steel masts",
+#' access_factor_criteria = "Type A")
 financial_cof_poles_ohl_support_50kv <- function(pole_asset_category,
                                                  type_financial_factor_criteria,
                                                  access_factor_criteria) {

@@ -29,3 +29,7 @@ A setting of \code{"Default"} will result in a bunding factor of 1.}
 This function calculates environmental consequences of failure
 Outputted in DKK.
 }
+\examples{
+environmental_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
+prox_water = 95, bunded = "Yes", size_kva_mva = 20)
+}

@@ -41,3 +41,7 @@ This function calculates environmental consequences of failure
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
 }
+\examples{
+environmental_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+prox_water = 95, bunded = "Yes", size_kva_mva = 20, size_conversion = "33/20kV")
+}

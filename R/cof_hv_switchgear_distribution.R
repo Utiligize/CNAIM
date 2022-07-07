@@ -16,9 +16,9 @@
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-# financial_cof_hv_switchgear_distribution(
-# hv_asset_category = "6.6/11kV CB (GM) Secondary",
-# access_factor_criteria = "Type A")
+#' financial_cof_hv_switchgear_distribution(
+#' hv_asset_category = "6.6/11kV CB (GM) Secondary",
+#' access_factor_criteria = "Type A")
 financial_cof_hv_switchgear_distribution <- function(hv_asset_category,
                                                   access_factor_criteria){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
@@ -94,10 +94,10 @@ financial_cof_hv_switchgear_distribution <- function(hv_asset_category,
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-# safety_cof_hv_switchgear_distribution(
-# hv_asset_category = "6.6/11kV CB (GM) Secondary",
-# location_risk = "Default",
-# type_risk = "Default")
+#' safety_cof_hv_switchgear_distribution(
+#' hv_asset_category = "6.6/11kV CB (GM) Secondary",
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_hv_switchgear_distribution <- function(hv_asset_category,
                                                location_risk,
                                                type_risk){
@@ -158,10 +158,10 @@ safety_cof_hv_switchgear_distribution <- function(hv_asset_category,
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-# environmental_cof_hv_switchgear_distribution(
-# hv_asset_category = "6.6/11kV CB (GM) Secondary",
-# type_env_factor = "Oil", prox_water = 95,
-# bunded = "Yes")
+#' environmental_cof_hv_switchgear_distribution(
+#' hv_asset_category = "6.6/11kV CB (GM) Secondary",
+#' type_env_factor = "Oil", prox_water = 95,
+#' bunded = "Yes")
 environmental_cof_hv_switchgear_distribution <- function(hv_asset_category,
                                                          type_env_factor,
                                                          prox_water,
@@ -257,8 +257,8 @@ environmental_cof_hv_switchgear_distribution <- function(hv_asset_category,
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-# network_cof_hv_switchgear_distribution(hv_asset_category = "LV Board (WM)",
-# no_customers = 750, kva_per_customer = 51)
+#' network_cof_hv_switchgear_distribution(hv_asset_category = "LV Board (WM)",
+#' no_customers = 750, kva_per_customer = 51)
 network_cof_hv_switchgear_distribution <- function(hv_asset_category,
                                                 no_customers,
                                                 kva_per_customer = "Default") {

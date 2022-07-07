@@ -15,12 +15,9 @@
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-# financial_cof_board_04kv(
-# type_financial_factor_criteria = "Asbestos clad",
-# access_factor_criteria = "Type A")
-
-
-
+#' financial_cof_board_04kv(
+#' type_financial_factor_criteria = "Asbestos clad",
+#' access_factor_criteria = "Type A")
 financial_cof_board_04kv <- function(type_financial_factor_criteria = "Asbestos clad",
                                      access_factor_criteria) {
 
@@ -97,9 +94,9 @@ financial_cof_board_04kv <- function(type_financial_factor_criteria = "Asbestos 
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
-# safety_cof_board_04kv(
-# location_risk = "Default",
-# type_risk = "Default")
+#' safety_cof_board_04kv(
+#' location_risk = "Default",
+#' type_risk = "Default")
 safety_cof_board_04kv <- function(location_risk,
                                   type_risk) {
   GBP_to_DKK <- 8.71

@@ -24,3 +24,9 @@ the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 Financial consequences of failure for relay
 }
+\examples{
+environmental_cof_relay(
+type_env_factor = "Oil",
+prox_water = 95,
+bunded = "Yes")
+}

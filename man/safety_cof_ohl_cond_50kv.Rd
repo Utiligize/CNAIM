@@ -24,3 +24,8 @@ Numeric. Safety consequences of failure for Overhead Line Conductors
 This function calculates safety consequences of failure
 Outputted in DKK
 }
+\examples{
+safety_cof_ohl_cond_50kv(
+location_risk = "Default",
+type_risk = "Default")
+}

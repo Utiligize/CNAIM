@@ -18,3 +18,7 @@ Numeric. Financial consequences of failure for Overhead Line Conductors
 This function calculates financial consequences of failure
 Outputted in DKK
 }
+\examples{
+financial_cof_ohl_cond_50kv(
+access_factor_criteria = "Type A")
+}

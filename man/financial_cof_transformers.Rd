@@ -38,3 +38,9 @@ This function calculates financial consequences of failure
 of failure is used in
 the derivation of consequences of failure see \code{\link{cof}}().
 }
+\examples{
+financial_cof_transformers(tf_asset_category = "33kV Transformer (GM)",
+type_financial_factor_size = "33/20kV, CMR equivalent",
+type_financial_factor_kva_mva = 20,
+access_factor_criteria = "Type A")
+}
