@@ -54,7 +54,6 @@ risk_calculation <- function(matrix_dimensions,id,pof,cof,asset_type, pof_limits
     }
 
   }
-  print(cof_pct)
 
   # pof_pct <- pof # Criteria for being changed
   # Upper band is cof*4
@@ -66,8 +65,6 @@ risk_calculation <- function(matrix_dimensions,id,pof,cof,asset_type, pof_limits
                            point_x = pof_pct,
                            point_y = cof_pct)
 
-  print(pof_pct)
-  print(cof_pct)
 
   return(dots_vector)
 }

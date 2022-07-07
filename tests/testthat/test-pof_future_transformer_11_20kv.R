@@ -4,7 +4,6 @@ library(CNAIM)
 context("Future Probability of Failure for a Transformer")
 
 test_that("pof_future_transformer_11_20kv", {
-  # TODO: verify correctness
 
   res <-
     pof_future_transformer_11_20kv(
@@ -22,6 +21,6 @@ test_that("pof_future_transformer_11_20kv", {
       reliability_factor = "Default",
       simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$year == 50)], 0.0013459025)
+  expect_equal(res$PoF[which(res$year == 50)], 0.002223035)
 
 })

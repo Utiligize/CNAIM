@@ -4,7 +4,6 @@ library(CNAIM)
 context("Future Probability of Failure for 66kV UG Cable (Non Pressurised)")
 
 test_that("pof_future_cables_66_33kv", {
-  # TODO: verify correctness
 
 res <- pof_future_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
                                  sub_division = "Aluminium sheath - Aluminium conductor",
@@ -18,6 +17,6 @@ res <- pof_future_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
                                  age = 10,
                                  simulation_end_year = 100)
 
-expect_equal(res$PoF[which(res$year == 50)], 0.006732092)
+expect_equal(res$PoF[which(res$year == 50)], 0.0187533)
 
 })

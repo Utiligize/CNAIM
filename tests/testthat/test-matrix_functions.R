@@ -34,9 +34,11 @@ test_that("Default case", {
   matrix_structure <- risk_matrix_structure(2,1,NA)
 
   risk_coordinates <- risk_calculation(matrix_dimensions = matrix_structure,
-                                       id = "Transformer1",
+                                       id = 1,
                                        pof = 0.08,
                                        cof = 18232,
+                                       pof_limits = c(0,1),
+                                       cof_limits = c(0,1),
                                        asset_type = "6.6/11kV Transformer (GM)")
   res <- matrix_adjusted_circles(matrix_structure,
                           dots_vector = risk_coordinates,
@@ -49,8 +51,8 @@ test_that("Default case", {
                             y = c(1,1),
                             value = c("na", "na"),
                             id = c(1,2),
-                            point_x = c("20", "na"),
-                            point_y = c("20.4660769610704", "na"),
+                            point_x = c("54", "na"),
+                            point_y = c("100", "na"),
                             dot_radius = c("4", "na"))
 
   expect_equal(res, expected_df)
