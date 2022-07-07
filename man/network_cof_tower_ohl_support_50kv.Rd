@@ -22,6 +22,6 @@ is used in the derivation of consequences of failure see \code{\link{cof}}().
 Outputted in DKK.
 }
 \examples{
-network_cof_tower(
+network_cof_tower_ohl_support_50kv(
 actual_load_mva = 15)
 }

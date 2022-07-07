@@ -226,6 +226,7 @@ environmental_cof_switchgear_primary_10kv <- function(type_env_factor,
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
 #' results in a multiplication factor of 1 .
 #' @return Numeric. Network cost of failure.
+#' @export
 #' @examples
 #' network_cof_switchgear_primary_10kv(
 #' no_customers = 750, kva_per_customer = 51)

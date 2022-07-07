@@ -184,7 +184,7 @@ environmental_cof_tower_ohl_support_50kv <- function() {
 #' @return Numeric. Network cost of failure.
 #' @export
 #' @examples
-#' network_cof_tower(
+#' network_cof_tower_ohl_support_50kv(
 #' actual_load_mva = 15)
 network_cof_tower_ohl_support_50kv<- function(actual_load_mva,
                                               secure = T) {

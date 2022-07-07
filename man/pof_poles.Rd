@@ -17,7 +17,7 @@ pof_poles(
   distance_from_coast_km = "Default",
   corrosion_category_index = "Default",
   age,
-  pole_decay = "Default",
+  measured_condition_inputs,
   observed_condition_inputs,
   reliability_factor = "Default"
 )
@@ -46,6 +46,8 @@ Specify the corrosion index category, 1-5.}
 
 \item{age}{Numeric. The current age in years of the conductor.}
 
+\item{measured_condition_inputs}{Named list observed_conditions_input}
+
 \item{observed_condition_inputs}{Named list observed_conditions_input
 \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 See page 161, table 199 and 201 in CNAIM (2021).}
@@ -54,10 +56,6 @@ See page 161, table 199 and 201 in CNAIM (2021).}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
 See section 6.14 on page 73 in CNAIM (2021).}
-
-\item{pole_dacay}{Degree of decay/Deterioration.
-Options: \code{pole_decay = c("None","No Significant Decay/Deterioration",
-"High","Very High", "Default")}.}
 }
 \value{
 Numeric. Current probability of failure

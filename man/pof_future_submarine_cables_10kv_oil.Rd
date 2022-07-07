@@ -41,7 +41,22 @@ exponential function.
 }
 \examples{
 # Future annual probability of failure for 1 km 10kV Oil Sub Cable
-paste0(sprintf("Probability of failure \%.4f", pof_future_submarine_cables_10kv_oil),
-" percent per annum")
-
+pof_future_submarine_cables_10kv_oil(
+utilisation_pct = "Default",
+operating_voltage_pct = "Default",
+topography = "Default",
+sitution = "Default",
+wind_wave = "Default",
+intensity = "Default",
+landlocked = "no",
+sheath_test = "Default",
+partial_discharge = "Default",
+fault_hist = "Default",
+condition_armour = "Default",
+age = 10,
+reliability_factor = "Default",
+k_value = 0.0202,
+c_value = 1.087,
+normal_expected_life = 60,
+simulation_end_year = 100)
 }

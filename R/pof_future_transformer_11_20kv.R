@@ -33,10 +33,6 @@
 #'oil_acidity = "Default",
 #'bd_strength = "Default",
 #'simulation_end_year = 100)
-# # Plot
-#'plot(future_pof_transformer$PoF * 100,
-#'type = "line", ylab = "%", xlab = "years",
-#'main = "PoF")
 
 pof_future_transformer_11_20kv <-
   function(hv_transformer_type = "6.6/11kV Transformer (GM)",

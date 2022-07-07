@@ -121,7 +121,4 @@ moisture = "Default",
 oil_acidity = "Default",
 bd_strength = "Default",
 simulation_end_year = 100)
-plot(future_pof_transformer$PoF * 100,
-type = "line", ylab = "\%", xlab = "years",
-main = "PoF")
 }

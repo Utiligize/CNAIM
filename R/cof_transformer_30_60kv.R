@@ -297,6 +297,7 @@ environmental_cof_transformer_30_60kv <- function(tf_asset_category,
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.
+#' @export
 #' @examples
 #' network_cof_transformer_30_60kv(tf_asset_category = "30kV Transformer (GM)",
 #' actual_load_mva = 15)
