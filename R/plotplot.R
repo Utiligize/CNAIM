@@ -1,6 +1,7 @@
 #' @title Plot of probability of failure
 #' @description This function is plotting the probability of failure for an
 #' electric network asset in a percentage.
+#' @import ggplot2
 #' @param pof_function String. Choosing an pof function,  Options:
 #' \code{pof_function = c(pof_cables_04kv_pex, pof_cables_10kv_pex, pof_cables_10kv_oil,
 #' pof_cables_60_30kv, pof_ohl_cond_50kv, pof_submarine_cables_10kv_oil,
@@ -25,7 +26,6 @@ plot_pof <- function(pof_function = "Default") {
     dat$pof[i] <-  res*100
   }
 
-  library(ggplot2)
   ggplot(dat, aes(x=age, y=pof)) +
      geom_line(colour="red") + ggtitle("Plotting PoF of default settings for chosen asset" ) # for the main title
 }

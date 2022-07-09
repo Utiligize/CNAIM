@@ -23,6 +23,68 @@ pof_future_ohl_cond_50kv(
 )
 }
 \arguments{
+\item{sub_division}{String. Refers to material the conductor is
+made of. Options:
+\code{sub_division = c("ACSR - greased",
+"ACSR - non-greased",
+"AAAC",
+"Cad Cu",
+"Cu",
+"Other")
+}. See page 107, table 20 in CNAIM (2021).}
+
+\item{placement}{String. Specify if the asset is located outdoor or indoor.
+A setting of \code{"Outdoor"} means the asset is
+located in an outside environment,
+and a setting of \code{"Indoor"} means the asset is located in an
+ indoor environment. A setting of \code{"Default"} will result
+  in either an indoor or an outdoor environment setting that depends
+  on the specification of \code{asset_type}. See page 110-113,
+  table 26 in CNAIM (2021) for default environments.}
+
+\item{altitude_m}{Numeric. Specify the altitude location for
+the asset measured in meters from sea level.\code{altitude_m}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
+will set the altitude factor to 1 independent of \code{asset_type}.}
+
+\item{distance_from_coast_km}{Numeric. Specify the distance from the
+coast measured in kilometers. \code{distance_from_coast_km} is used
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
+ distance from coast factor to 1 independent of \code{asset_type}.}
+
+\item{corrosion_category_index}{Integer.
+Specify the corrosion index category, 1-5.
+\code{corrosion_category_index} is used to derive the corrosion
+category factor. See page 111, table 24 in CNAIM (2021).
+A setting of \code{"Default"} will set the corrosion category factor
+to 1 independent of \code{asset_type}.}
+
+\item{age}{Numeric. The current age in years of the conductor.}
+
+\item{conductor_samp}{String. Conductor sampling. Options:
+\code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
+See page 161, table 199 and 201 in CNAIM (2021).}
+
+\item{corr_mon_survey}{String. Corrosion monitoring survey. Options:
+\code{corr_mon_survey = c("Low","Medium/Normal","High","Default")}.
+See page 161, table 200 and 202 in CNAIM (2021).}
+
+\item{visual_cond}{String. Visual condition. Options:
+\code{visual_cond = c("No deterioration","Superficial/minor deterioration","Some Deterioration",
+"Substantial Deterioration", "Default")}.
+See page 146, table 140 and 142 in CNAIM (2021).}
+
+\item{midspan_joints}{Integer. Number of midspan joints on the conductor.
+A span includes all conductors in that span.
+See page 146, table 141 and 143 in CNAIM (2021).}
+
+\item{reliability_factor}{Numeric. \code{reliability_factor}
+shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
+ sets the \code{reliability_factor} to 1.
+See section 6.14 on page 73 in CNAIM (2021).}
+
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
 }

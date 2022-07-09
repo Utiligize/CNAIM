@@ -24,6 +24,38 @@ pof_future_poles(
 )
 }
 \arguments{
+\item{pole_asset_category}{String The type of asset category}
+
+\item{sub_division}{String. Refers to material the pole is made of.}
+
+\item{placement}{String. Specify if the asset is located outdoor or indoor.}
+
+\item{altitude_m}{Numeric. Specify the altitude location for
+the asset measured in meters from sea level.\code{altitude_m}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
+will set the altitude factor to 1 independent of \code{asset_type}.}
+
+\item{distance_from_coast_km}{Numeric. Specify the distance from the
+coast measured in kilometers. \code{distance_from_coast_km} is used
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
+ distance from coast factor to 1 independent of \code{asset_type}.}
+
+\item{corrosion_category_index}{Integer.
+Specify the corrosion index category, 1-5.}
+
+\item{age}{Numeric. The current age in years of the conductor.}
+
+\item{observed_condition_inputs}{Named list observed_conditions_input
+\code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
+See page 161, table 199 and 201 in CNAIM (2021).}
+
+\item{reliability_factor}{Numeric. \code{reliability_factor}
+shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
+ sets the \code{reliability_factor} to 1.
+See section 6.14 on page 73 in CNAIM (2021).}
+
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
 }
