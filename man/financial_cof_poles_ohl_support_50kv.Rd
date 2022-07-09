@@ -11,6 +11,8 @@ financial_cof_poles_ohl_support_50kv(
 )
 }
 \arguments{
+\item{pole_asset_category}{String The type of Pole asset category}
+
 \item{type_financial_factor_criteria}{String. Type Financial factor criteria for Pole
 Options: \code{type_financial_factor_criteria = c("Pole (supporting conductor only)",
 "Pole (supporting plant or equipment)", "Small footprint steel masts")}.}

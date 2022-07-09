@@ -7,6 +7,8 @@
 network_cof_cables_04_10kv(hv_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
+\item{hv_asset_category}{String The type of HV asset category}
+
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}

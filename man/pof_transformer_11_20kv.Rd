@@ -86,8 +86,6 @@ level of partial discharge. Options for \code{partial_discharge}:
  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
 
 \item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
-
-\item{acidity}{Numeric. the amount of acidicy given in (mg KOH/g) See page 162, table 204 in CNAIM (2021).}
 }
 \value{
 Numeric. Current probability of failure.

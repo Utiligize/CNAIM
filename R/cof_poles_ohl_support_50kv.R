@@ -6,6 +6,7 @@
 #' @param type_financial_factor_criteria String. Type Financial factor criteria for Pole
 #' Options: \code{type_financial_factor_criteria = c("Pole (supporting conductor only)",
 #' "Pole (supporting plant or equipment)", "Small footprint steel masts")}.
+#' @param pole_asset_category String The type of Pole asset category
 #' @param access_factor_criteria String. Asses Financial factor criteria for Pole
 #' setting.
 #' Options: \code{access_factor_criteria = c("Type A", "Type B")}.
@@ -75,6 +76,7 @@ financial_cof_poles_ohl_support_50kv <- function(pole_asset_category,
 #' Safety consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' Outputted in DKK.
+#' @param pole_asset_category String The type of Pole asset category
 #' @param location_risk String Type Financial factor criteria for Pole
 #' Options: \code{location_risk = c("Low", "Medium", "High")}.
 #' The default setting is
@@ -182,6 +184,7 @@ environmental_cof_poles_ohl_support_50kv <- function() {
 #' Network cost of failure is used in the derivation
 #'  of consequences of failure see \code{\link{cof}}().
 #'  Outputted in DKK.
+#' @param pole_asset_category String The type of Pole asset category
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

@@ -57,7 +57,8 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
-of failure. Default is 100.}
+of failure. Default is 100.
+@param pole_decay Numeric Pole Decay}
 }
 \value{
 Numeric array. Future probability of failure

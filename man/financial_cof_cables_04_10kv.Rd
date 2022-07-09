@@ -6,14 +6,17 @@
 \usage{
 financial_cof_cables_04_10kv(hv_asset_category)
 }
+\arguments{
+\item{hv_asset_category}{String The type of HV asset category
+\code{hv_asset_category = c("10kV UG Cable (Oil)",
+"10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.}
+}
 \value{
 Numeric. Financial consequences of failure for 0.4kV and 10kV UG cables
 }
 \description{
 This function calculates financial consequences of failure
 Outputted in DKK
-\code{hv_asset_category = c("10kV UG Cable (Oil)",
-"10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
 }
 \examples{
 financial_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)")

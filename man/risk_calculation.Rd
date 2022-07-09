@@ -26,9 +26,9 @@ matrix}
 
 \item{asset_type}{The asset type to be calculated for class}
 
-\item{pof_limit}{Specific limit for the risk matrix}
+\item{pof_limits}{Specific limit for the risk matrix}
 
-\item{cof_limit}{Specific limit for the risk matrix}
+\item{cof_limits}{Specific limit for the risk matrix}
 }
 \description{
 This function calculates monetary risk, given probability of

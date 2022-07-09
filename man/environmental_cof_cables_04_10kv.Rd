@@ -7,9 +7,11 @@
 environmental_cof_cables_04_10kv(hv_asset_category, prox_water, bunded)
 }
 \arguments{
-\item{prox_water}{Numeric. Specify the proximity to a water course in meters.
+\item{hv_asset_category}{String The type of HV asset category
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 assume the proximity to a water course is between 80m and 120m}
+
+\item{prox_water}{Numeric. Specify the proximity to a water course in meters.}
 
 \item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
 A setting of \code{"Default"} will result in a bunding factor of 1.}

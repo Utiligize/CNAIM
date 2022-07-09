@@ -5,7 +5,7 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
-#' @inheritParams pof_transformer_14_10kv # this is the same for 0.4/10kV Transformers
+#' @inheritParams pof_transformer_11_20kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure.
@@ -48,6 +48,13 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     c_value = 1.087,
                                     normal_expected_life = 55,
                                     simulation_end_year = 100) {
+
+  `Asset Register Category` = `Health Index Asset Category` =
+    `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
+    `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
+    `Condition Criteria: Sheath Test Result` =
+    `Condition Criteria: Partial Discharge Test Result` =
+    NULL
 
   hv_transformer_type <- "6.6/11kV Transformer (GM)"
   # this is in order to access tables which are identical to the ones 0.4/10kV transformer is using

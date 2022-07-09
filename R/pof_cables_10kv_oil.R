@@ -56,12 +56,12 @@ pof_cables_10kv_oil <- function(utilisation_pct = "Default",
            c_value = 1.087,
            normal_expected_life = 80) {
 
-    # `Asset Register Category` = `Health Index Asset Category` =
-    #   `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
-    #   `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
-    #   `Condition Criteria: Sheath Test Result` =
-    #   `Condition Criteria: Partial Discharge Test Result` =
-    #   NULL
+    `Asset Register Category` = `Health Index Asset Category` =
+      `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
+      `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
+      `Condition Criteria: Sheath Test Result` =
+      `Condition Criteria: Partial Discharge Test Result` =
+      NULL
 
       cable_type <- "33kV UG Cable (Oil)"
       sub_division <- "Lead sheath - Copper conductor"

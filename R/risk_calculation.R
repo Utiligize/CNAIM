@@ -8,8 +8,8 @@
 #' @param pof The probability of failure of the asset
 #' @param cof The consequences of failure of the asset
 #' @param asset_type The asset type to be calculated for class
-#' @param pof_limit Specific limit for the risk matrix
-#' @param cof_limit Specific limit for the risk matrix
+#' @param pof_limits Specific limit for the risk matrix
+#' @param cof_limits Specific limit for the risk matrix
 #' @param asset_type The asset type to be calculated for class
 #' @export
 #'

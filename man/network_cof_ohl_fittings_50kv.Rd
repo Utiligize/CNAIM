@@ -10,8 +10,6 @@ network_cof_ohl_fittings_50kv(actual_load_mva, secure = T)
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}
-
-\item{ehv_asset_category}{String The type of EHV asset category}
 }
 \value{
 Numeric. Network cost of failure.

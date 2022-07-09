@@ -25,6 +25,56 @@ pof_future_transformer_04_10kv(
 )
 }
 \arguments{
+\item{utilisation_pct}{Numeric. The max percentage of utilisation
+under normal operating conditions.}
+
+\item{placement}{String. Specify if the asset is located outdoor or indoor.
+A setting of \code{"Outdoor"} means the asset is
+located in an outside environment,
+and a setting of \code{"Indoor"} means the asset is located in an
+ indoor environment. A setting of \code{"Default"} will result
+  in either an indoor or an outdoor environment setting that depends
+  on the specification of \code{asset_type}. See page 110-113,
+  table 26 in CNAIM (2021) for default environments.}
+
+\item{altitude_m}{Numeric. Specify the altitude location for
+the asset measured in meters from sea level.\code{altitude_m}
+is used to derive the altitude factor. See page 111,
+table 23 in CNAIM (2021). A setting of \code{"Default"}
+will set the altitude factor to 1 independent of \code{asset_type}.}
+
+\item{distance_from_coast_km}{Numeric. Specify the distance from the
+coast measured in kilometers. \code{distance_from_coast_km} is used
+to derive the distance from coast factor See page 110,
+table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
+ distance from coast factor to 1 independent of \code{asset_type}.}
+
+\item{corrosion_category_index}{Integer.
+Specify the corrosion index category, 1-5.}
+
+\item{age}{Numeric. The current age in years.}
+
+\item{partial_discharge}{String. Indicating the}
+
+\item{temperature_reading}{String. Indicating the criticality.
+Options for \code{temperature_reading}:
+\code{temperature_reading = c("Normal", "Moderately High",
+"Very High", "Default")}. See page 153, table 172 in CNAIM (2021).}
+
+\item{observed_condition}{String. Indicating the observed condition of the
+ transformer. Options for \code{observed_condition}:
+\code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight deterioration",
+ "Some Deterioration", "Substantial Deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).}
+
+\item{reliability_factor}{Numeric. \code{reliability_factor}
+shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
+ sets the \code{reliability_factor} to 1.
+See section 6.14 on page 73 in CNAIM (2021).}
+
+\item{moisture}{Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).}
+
+\item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
+
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
 }

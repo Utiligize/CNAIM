@@ -1,6 +1,7 @@
 #' @title Financial cost of Failure for 0.4kV and 10kV UG Cables
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK
+#' @param hv_asset_category String The type of HV asset category
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
 #' "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
 #' @return Numeric. Financial consequences of failure for 0.4kV and 10kV UG cables
@@ -53,6 +54,7 @@ financial_cof_cables_04_10kv <- function(hv_asset_category) {
 #' @title Safety cost of Failure for 0.4kV and 10kV UG Cables
 #' @description This function calculates safety consequences of failure
 #' Outputted in DKK
+#' @param hv_asset_category String The type of HV asset category
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
 #' "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
 #' @return Numeric. Financial consequences of failure for 0.4kV and 10kV UG cables
@@ -103,6 +105,7 @@ safety_cof_cables_04_10kv <- function(hv_asset_category) {
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
 #' "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
 #' @param prox_water Numeric. Specify the proximity to a water course in meters.
+#' @param hv_asset_category String The type of HV asset category
 #' A setting of \code{"Default"} will result in a proximity factor of 1. Thus
 #' assume the proximity to a water course is between 80m and 120m
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
@@ -205,6 +208,7 @@ environmental_cof_cables_04_10kv <- function(hv_asset_category,
 #' 0.4kV and 10kV UG cables, outputted in DKK
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
 #' "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
+#' @param hv_asset_category String The type of HV asset category
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

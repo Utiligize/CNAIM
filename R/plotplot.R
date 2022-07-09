@@ -15,6 +15,8 @@
 
 plot_pof <- function(pof_function = "Default") {
 
+    age = pof = NULL
+
   dat <- data.frame(matrix(ncol=2, nrow = 100))
   names(dat) <- c("age", "pof")
   dat$age <- 1:100

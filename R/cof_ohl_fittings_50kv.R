@@ -184,7 +184,6 @@ environmental_cof_ohl_fittings_50kv <- function() {
 #' Network cost of failure is used in the derivation of consequences of failure.
 #' \code{\link{cof}}().
 #' Outputted in DKK.
-#' @param ehv_asset_category String The type of EHV asset category
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

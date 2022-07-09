@@ -11,6 +11,8 @@ network_cof_poles_ohl_support_50kv(
 )
 }
 \arguments{
+\item{pole_asset_category}{String The type of Pole asset category}
+
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}

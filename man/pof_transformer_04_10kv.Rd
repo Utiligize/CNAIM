@@ -24,6 +24,8 @@ pof_transformer_04_10kv(
 )
 }
 \arguments{
+\item{utilisation_pct}{Numeric Utilisation percentage}
+
 \item{placement}{String. Specify if the asset is located outdoor or indoor.}
 
 \item{altitude_m}{Numeric. Specify the altitude location for
@@ -63,7 +65,7 @@ See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{moisture}{Numeric. the amount of moisture given in (ppm)}
 
-\item{acidity}{Numeric. the amount of acidicy given in (mg KOH/g)}
+\item{acidity}{Oil Acidity}
 
 \item{bd_strength}{Numeric. the amount of breakdown strength given in (kV)}
 

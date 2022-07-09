@@ -11,6 +11,8 @@ safety_cof_poles_ohl_support_50kv(
 )
 }
 \arguments{
+\item{pole_asset_category}{String The type of Pole asset category}
+
 \item{location_risk}{String Type Financial factor criteria for Pole
 Options: \code{location_risk = c("Low", "Medium", "High")}.
 The default setting is

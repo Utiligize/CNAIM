@@ -14,7 +14,6 @@
 #' coast measured in kilometers. \code{distance_from_coast_km} is used
 #' to derive the distance from coast factor. A setting of \code{"Default"} will set the
 #'  distance from coast factor to 1 independent of \code{asset_type}.
-#' @inheritParams duty_factor_transformer_11_20kv # this is the same for 0.4/10kV Transformers
 #' @inheritParams location_factor
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years.
@@ -36,6 +35,8 @@
 #' @param moisture Numeric. the amount of moisture given in (ppm)
 #' @param acidity Numeric. the amount of acidicy given in (mg KOH/g)
 #' @param bd_strength Numeric. the amount of breakdown strength given in (kV)
+#' @param utilisation_pct Numeric Utilisation percentage
+#' @param acidity Oil Acidity
 #' @param k_value Numeric. \code{k_value = 0.0077} by default. This number is
 #' given in a percentage. The default value is accordingly to the standard
 #' "DE-10kV apb kabler CNAIM" on p. 34.
@@ -67,7 +68,6 @@
 # normal_expected_life = 55) * 100
 # paste0(sprintf("Probability of failure %.4f", pof_transformer_04_10kv_res),
 # " percent per annum")
-
 pof_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     placement = "Default",
                                     altitude_m = "Default",
@@ -84,6 +84,13 @@ pof_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     k_value = 0.0077,
                                     c_value = 1.087,
                                     normal_expected_life = 55) {
+
+  `Asset Register Category` = `Health Index Asset Category` =
+    `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
+    `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
+    `Condition Criteria: Sheath Test Result` =
+    `Condition Criteria: Partial Discharge Test Result` =
+    NULL
 
   hv_transformer_type <- "6.6/11kV Transformer (GM)"
   # this is in order to access tables the are identical to the ones 0.4/10kV transformer is using
