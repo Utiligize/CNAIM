@@ -10,7 +10,7 @@
 #' @inheritParams pof_poles
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#'  @param pole_decay Numeric Pole Decay
+#' @param pole_decay Numeric Pole Decay
 #' @return Numeric array. Future probability of failure
 #' per annum per kilometre for poles.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),

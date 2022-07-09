@@ -47,6 +47,8 @@ Specify the corrosion index category, 1-5.}
 
 \item{age}{Numeric. The current age in years of the conductor.}
 
+\item{pole_decay}{Numeric Pole Decay}
+
 \item{observed_condition_inputs}{Named list observed_conditions_input
 \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 See page 161, table 199 and 201 in CNAIM (2021).}
@@ -57,8 +59,7 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
-of failure. Default is 100.
-@param pole_decay Numeric Pole Decay}
+of failure. Default is 100.}
 }
 \value{
 Numeric array. Future probability of failure

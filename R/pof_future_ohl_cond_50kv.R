@@ -8,6 +8,13 @@
 #' @inheritParams pof_ohl_cond_132_66_33kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param k_value Numeric. \code{k_value = 0.0069} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 60} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @return Numeric. Future probability of failure
 #' per annum per kilometer.
 #' @export

@@ -73,7 +73,19 @@ See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{moisture}{Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).}
 
+\item{acidity}{String Acidity}
+
 \item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
+
+\item{k_value}{Numeric. \code{k_value = 0.0069} by default. This number is
+given in a percentage. The default value is accordingly to the CNAIM standard
+on p. 110.}
+
+\item{c_value}{Numeric. \code{c_value = 1.087} by default.
+The default value is accordingly to the CNAIM standard see page 110}
+
+\item{normal_expected_life}{Numeric. \code{normal_expected_life = 60} by default.
+The default value is accordingly to the CNAIM standard on page 107.}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
