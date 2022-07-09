@@ -12,7 +12,11 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_ehv_cables(ehv_asset_category, prox_water, bunded)
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV cable distribution asset category
+Options: \code{ehv_asset_category =
+c("33kV UG Cable (Oil)", "33kV UG Cable (Gas)", "33kV UG Cable (Non Pressurised)",
+"66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
+"132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV UG Cable (Non Pressurised)")}.}
 
 \item{prox_water}{Numeric. Specify the proximity to a water course in meters.
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus

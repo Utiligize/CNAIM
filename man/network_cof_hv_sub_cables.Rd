@@ -16,7 +16,8 @@ network_cof_hv_sub_cables(
 )
 }
 \arguments{
-\item{sub_cable_asset_category}{String The type of sub cable asset category}
+\item{sub_cable_asset_category}{String The type of Submarine cable asset category
+Option: \code{sub_cable_asset_category = "HV Sub Cable"}.}
 
 \item{no_customers}{Numeric. The number of customers
 fed by an individual asset.}

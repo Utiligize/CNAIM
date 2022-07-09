@@ -12,13 +12,18 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_poles(pole_asset_category)
 }
 \arguments{
-\item{pole_asset_category}{String The type of Pole}
+\item{pole_asset_category}{String The type of pole asset category
+Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+"20kV Poles", "33kV Pole", "66kV Pole")}.}
+}
+\value{
+Numeric. Financial consequences of failure for Poles
 }
 \description{
 This function calculates environmental consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
-the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
+the derivation of consequences of failure see \code{\link{cof}}().
 }
 \examples{
 environmental_cof_poles(pole_asset_category = "33kV Pole")

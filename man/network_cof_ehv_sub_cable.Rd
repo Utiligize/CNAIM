@@ -16,7 +16,8 @@ network_cof_ehv_sub_cable(
 )
 }
 \arguments{
-\item{sub_cable_asset_category}{String The type of sub cable asset category}
+\item{sub_cable_asset_category}{String The type of Submarine cable asset category
+Options: \code{sub_cable_asset_category = c( "EHV Sub Cable", "132kV Sub Cable")}.}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 

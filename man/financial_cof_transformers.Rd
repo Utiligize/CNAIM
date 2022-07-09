@@ -17,7 +17,10 @@ financial_cof_transformers(
 )
 }
 \arguments{
-\item{tf_asset_category}{String The type of Transformer asset category}
+\item{tf_asset_category}{String The type of Transformer asset category
+Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+"20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+"132kV Transformer (GM) ")}.}
 
 \item{type_financial_factor_size}{String The type financial factor size for Transformer}
 

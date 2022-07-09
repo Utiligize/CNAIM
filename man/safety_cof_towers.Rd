@@ -12,13 +12,21 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_towers(tower_asset_category, location_risk, type_risk)
 }
 \arguments{
-\item{tower_asset_category}{String The type of tower asset category}
+\item{tower_asset_category}{String The type of tower asset category
+Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+"132kV Tower")}.}
 
 \item{location_risk}{String Type Financial factor criteria for tower
-(cf. section D1.2.1, page 178, CNAIM, 2021).}
+(cf. section D1.2.1, page 178, CNAIM, 2021).
+Options: \code{location_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{location_risk = "Medium"}.}
 
 \item{type_risk}{String. Asses Financial factor criteria for tower
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{type_risk = c("Low", "Medium", "High")}.
+The default setting is
+\code{type_risk = "Medium"}.}
 }
 \value{
 Numeric. Safety consequences of failure for towers

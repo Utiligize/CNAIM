@@ -18,7 +18,10 @@ environmental_cof_transformers(
 )
 }
 \arguments{
-\item{tf_asset_category}{String The type of Transformer}
+\item{tf_asset_category}{String The type of Transformer asset category
+Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
+"20kV Transformer (GM)", "33kV Transformer (GM)", "66kV Transformer (GM) "
+"132kV Transformer (GM) ")}.}
 
 \item{prox_water}{Numeric. Specify the proximity to a water course in meters.
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus

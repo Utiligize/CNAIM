@@ -85,6 +85,11 @@
 #' \code{diverter_braids = c("No deterioration", "Superficial/minor deterioration", "Some Deterioration",
 #' "Substantial Deterioration", "Default")}. See page 136, table 102
 #' in CNAIM (2021)
+#' @param corrosion_category_index Integer.
+#' Specify the corrosion index category, 1-5.
+#' @param moisture Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).
+#' @param acidity Numeric. the amount of acidicy given in (mg KOH/g) See page 162, table 204 in CNAIM (2021).
+#' @param bd_strength Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).
 #' @inheritParams oil_test_modifier
 #' @inheritParams dga_test_modifier
 #' @inheritParams ffa_test_modifier

@@ -58,11 +58,7 @@ table 22 in CNAIM (2021). A setting of \code{"Default"} will set the
  distance from coast factor to 1 independent of \code{asset_type}.}
 
 \item{corrosion_category_index}{Integer.
-Specify the corrosion index category, 1-5.
-\code{corrosion_category_index} is used to derive the corrosion
-category factor. See page 111, table 24 in CNAIM (2021).
-A setting of \code{"Default"} will set the corrosion category factor
-to 1 independent of \code{asset_type}.}
+Specify the corrosion index category, 1-5.}
 
 \item{age}{Numeric. The current age in years.}
 
@@ -75,26 +71,22 @@ Options for \code{temperature_reading}:
 
 \item{observed_condition}{String. Indicating the observed condition of the
  transformer. Options for \code{observed_condition}:
-\code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
- "Some deterioration", "Substantial deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).}
+\code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight deterioration",
+ "Some Deterioration", "Substantial Deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).}
 
 \item{reliability_factor}{Numeric. \code{reliability_factor}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
 See section 6.14 on page 73 in CNAIM (2021).}
 
-\item{moisture}{Numeric. Refers to the moisture level in the
-transformer oil. Moisture levels are measured in ppm.
-A setting of \code{"Default"} will result in the best possible result.}
+\item{moisture}{Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).}
 
 \item{oil_acidity}{Oil Acidity
 level of partial discharge. Options for \code{partial_discharge}:
 \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
 
-\item{bd_strength}{Numeric. Refers to the breakdown strength.
-Breakdown strength is measured in kV.
-A setting of \code{"Default"} will result in the best possible result.}
+\item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
@@ -129,7 +121,4 @@ moisture = "Default",
 oil_acidity = "Default",
 bd_strength = "Default",
 simulation_end_year = 100)
-plot(future_pof_transformer$PoF * 100,
-type = "line", ylab = "\%", xlab = "years",
-main = "PoF")
 }

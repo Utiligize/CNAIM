@@ -12,10 +12,13 @@ Health & Criticality - Version 2.1, 2021:
 financial_cof_ohl_cond(ohl_cond_asset_category, access_factor_criteria)
 }
 \arguments{
-\item{ohl_cond_asset_category}{String The type of Pole asset category}
+\item{ohl_cond_asset_category}{String The type of Pole asset category
+Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+"66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.}
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for Pole
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{access_factor_criteria = c("Type A", "Type B")}.}
 }
 \value{
 Numeric. Financial consequences of failure for Poles

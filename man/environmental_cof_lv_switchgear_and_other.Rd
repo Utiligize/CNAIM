@@ -12,7 +12,10 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_lv_switchgear_and_other(lv_asset_category)
 }
 \arguments{
-\item{lv_asset_category}{String The type of LV asset category}
+\item{lv_asset_category}{String The type of LV asset category
+Options: \code{lv_asset_category = c("LV Board (WM)",
+"LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+"LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}}
 }
 \description{
 This function calculates environmental consequences of failure

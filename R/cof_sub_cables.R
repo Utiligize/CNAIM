@@ -4,6 +4,8 @@
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
 #' @param sub_cable_asset_category String The type of Submarine cable asset category
+#' Options: \code{sub_cable_asset_category = c("HV Sub Cable",
+#' "EHV Sub Cable", "132kV Sub Cable")}.
 #' @return Numeric. Financial consequences of failure for Sub cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -45,7 +47,9 @@ financial_cof_sub_cables <- function(sub_cable_asset_category){
 #' (cf. section 7.3, page 79, CNAIM, 2021). Safety consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
-#' @param sub_cable_asset_category String The type of sub cable asset category
+#' @param sub_cable_asset_category String The type of Submarine cable asset category
+#' Options: \code{sub_cable_asset_category = c("HV Sub Cable",
+#' "EHV Sub Cable", "132kV Sub Cable")}.
 #' @return Numeric. Safety consequences of failure for Sub cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -80,8 +84,11 @@ safety_cof_sub_cables <- function(sub_cable_asset_category){
 #' @description This function calculates environmental consequences of failure
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
-#' the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
-#' @param sub_cable_asset_category String The type of sub cable asset category
+#' the derivation of consequences of failure see \code{\link{cof}}().
+#' @return Numeric. Financial consequences of failure for sub cables
+#' @param sub_cable_asset_category String The type of Submarine cable asset category
+#' Options: \code{sub_cable_asset_category = c("HV Sub Cable",
+#' "EHV Sub Cable", "132kV Sub Cable")}.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2017:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -128,7 +135,8 @@ environmental_cof_sub_cables <- function(sub_cable_asset_category){
 #' Sub cables
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param sub_cable_asset_category String The type of sub cable asset category
+#' @param sub_cable_asset_category String The type of Submarine cable asset category
+#' Option: \code{sub_cable_asset_category = "HV Sub Cable"}.
 #' @param no_customers Numeric. The number of customers
 #' fed by an individual asset.
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
@@ -215,7 +223,8 @@ network_cof_hv_sub_cables<- function(sub_cable_asset_category,
 #' all asset categories exclusive the assets EHV and 132kV transformers.
 #' (cf. section 7.6, page 87, CNAIM, 2021). Network cost of failure
 #' is used in the derivation of consequences of failure see \code{\link{cof}}().
-#' @param sub_cable_asset_category String The type of sub cable asset category
+#' @param sub_cable_asset_category String The type of Submarine cable asset category
+#' Options: \code{sub_cable_asset_category = c( "EHV Sub Cable", "132kV Sub Cable")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
 #' @return Numeric. Network cost of failure.

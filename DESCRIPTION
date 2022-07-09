@@ -24,17 +24,18 @@ Depends:
 Imports:
     plyr,
     dplyr,
-    htmlwidgets (>= 1.2),
     jsonlite,
     magrittr,
     r2d3,
-    readxl,
-    testthat,
-    tibble,
-    widgetframe
+    ggplot2,
+    stringr,
+    tibble
 RoxygenNote: 7.2.0
 Suggests: 
     knitr,
     htmltools,
-    rmarkdown
+    readxl,
+    testthat,
+    rmarkdown,
+    widgetframe
 VignetteBuilder: knitr

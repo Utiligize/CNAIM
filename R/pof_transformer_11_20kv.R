@@ -21,14 +21,19 @@
 #' \code{partial_discharge = c("Low", "Medium", "High (Not Confirmed)",
 #'  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).
 #' @inheritParams oil_test_modifier
+#' See page 162, table 204 in CNAIM (2021).
 #' @param temperature_reading String. Indicating the criticality.
 #' Options for \code{temperature_reading}:
 #' \code{temperature_reading = c("Normal", "Moderately High",
 #' "Very High", "Default")}. See page 153, table 172 in CNAIM (2021).
 #' @param observed_condition String. Indicating the observed condition of the
 #'  transformer. Options for \code{observed_condition}:
-#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight Deterioration",
-#'  "Some deterioration", "Substantial deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).
+#' \code{observed_condition = c("No deterioration", "Superficial/minor deterioration", "Slight deterioration",
+#'  "Some Deterioration", "Substantial Deterioration", "Default")}. See page 130, table 81 in CNAIM (2021).
+#' @param moisture Numeric. the amount of moisture given in (ppm) See page 162, table 203 in CNAIM (2021).
+#' @param bd_strength Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).
+#' @param corrosion_category_index Integer.
+#' Specify the corrosion index category, 1-5.
 #' @return Numeric. Current probability of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:

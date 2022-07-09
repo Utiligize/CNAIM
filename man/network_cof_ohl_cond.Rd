@@ -12,7 +12,9 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_ohl_cond(ohl_cond_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{ohl_cond_asset_category}{String The type of Overhead line conductor}
+\item{ohl_cond_asset_category}{String The type of Pole asset category
+Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+"66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 

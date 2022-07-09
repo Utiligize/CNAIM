@@ -12,7 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 financial_cof_lv_ugb(lv_asset_category)
 }
 \arguments{
-\item{lv_asset_category}{String The type of LV asset category}
+\item{lv_asset_category}{String The type of LV asset category
+Option: \code{lv_asset_category = "LV UGB"}}
 }
 \value{
 Numeric. Financial consequences of failure for LV UGB

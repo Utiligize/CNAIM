@@ -12,7 +12,9 @@ Health & Criticality - Version 2.1, 2021:
 financial_cof_sub_cables(sub_cable_asset_category)
 }
 \arguments{
-\item{sub_cable_asset_category}{String The type of Submarine cable asset category}
+\item{sub_cable_asset_category}{String The type of Submarine cable asset category
+Options: \code{sub_cable_asset_category = c("HV Sub Cable",
+"EHV Sub Cable", "132kV Sub Cable")}.}
 }
 \value{
 Numeric. Financial consequences of failure for Sub cables

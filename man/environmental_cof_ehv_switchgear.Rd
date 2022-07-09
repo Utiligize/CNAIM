@@ -17,7 +17,18 @@ environmental_cof_ehv_switchgear(
 )
 }
 \arguments{
-\item{ehv_asset_category}{String The type of EHV asset category}
+\item{ehv_asset_category}{String The type of EHV swicthgear & 132kV CB
+Options: \code{ehv_asset_category = c(
+"33kV CB (Air Insulated Busbars)(ID)(GM)",
+"33kV CB (Air Insulated Busbars)(OD)(GM)",
+"33kV CB (Gas Insulated Busbars)(ID)(GM)",
+"33kV CB (Gas Insulated Busbars)(OD)(GM)",
+"33kV RMU",
+"33kV Switch (GM)",
+"66kV CB (Air Insulated Busbars)(ID)(GM)",
+"66kV CB (Air Insulated Busbars)(OD)(GM)",
+"66kV CB (Gas Insulated Busbars)(ID)(GM)",
+"66kV CB (Gas Insulated Busbars)(OD)(GM)")}}
 
 \item{type_env_factor}{String The type environment factor of EHV asset category}
 

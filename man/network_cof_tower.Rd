@@ -12,7 +12,9 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_tower(tower_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{tower_asset_category}{String The type of Tower}
+\item{tower_asset_category}{String The type of tower asset category
+Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
+"132kV Tower")}.}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 

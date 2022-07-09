@@ -16,12 +16,17 @@ financial_cof_poles(
 )
 }
 \arguments{
-\item{pole_asset_category}{String The type of Pole asset category}
+\item{pole_asset_category}{String The type of pole asset category
+Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+"20kV Poles", "33kV Pole", "66kV Pole")}.}
 
-\item{type_financial_factor_criteria}{String. Type Financial factor criteria for Pole}
+\item{type_financial_factor_criteria}{String. Type Financial factor criteria for Pole
+Options: \code{type_financial_factor_criteria = c("Pole (supporting conductor only)",
+"Pole (supporting plant or equipment)", "Small footprint steel masts")}.}
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for Pole
-setting (cf. table 221, page 180, CNAIM, 2021).}
+setting (cf. table 221, page 180, CNAIM, 2021).
+Options: \code{access_factor_criteria = c("Type A", "Type B")}.}
 }
 \value{
 Numeric. Financial consequences of failure for Poles

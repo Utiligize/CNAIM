@@ -12,13 +12,18 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_ohl_cond(ohl_cond_asset_category)
 }
 \arguments{
-\item{ohl_cond_asset_category}{String The type of Overhead Line Conductors}
+\item{ohl_cond_asset_category}{String The type of Pole asset category
+Options: \code{ohl_cond_asset_category = c("33kV OHL (Tower Line) Conductor",
+"66kV OHL (Tower Line) Conductor", "132kV OHL (Tower Line) Conductor")}.}
+}
+\value{
+Numeric. Financial consequences of failure for LV switchgear
 }
 \description{
 This function calculates environmental consequences of failure
 (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 of failure is used in
-the derivation of consequences of failure see \code{\link{cof}}().#' @return Numeric. Financial consequences of failure for LV switchgear
+the derivation of consequences of failure see \code{\link{cof}}().#'
 }
 \examples{
 environmental_cof_ohl_cond(ohl_cond_asset_category = "33kV OHL (Tower Line) Conductor")

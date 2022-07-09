@@ -190,4 +190,3 @@ pof_poles <-
 
     return(probability_of_failure)
   }
-

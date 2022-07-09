@@ -2,7 +2,7 @@
 % Please edit documentation in R/cof_poles.R
 \name{network_cof_ehv_pole}
 \alias{network_cof_ehv_pole}
-\title{Network cost of Failure for EHV Pole}
+\title{Network cost of Failure for Poles}
 \source{
 DNO Common Network Asset Indices Methodology (CNAIM),
 Health & Criticality - Version 2.1, 2021:
@@ -12,7 +12,9 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_ehv_pole(pole_asset_category, actual_load_mva, secure = T)
 }
 \arguments{
-\item{pole_asset_category}{String The type of Pole}
+\item{pole_asset_category}{String The type of pole asset category
+Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
+"20kV Poles", "33kV Pole", "66kV Pole")}.}
 
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 

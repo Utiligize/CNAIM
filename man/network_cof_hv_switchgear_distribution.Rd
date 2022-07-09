@@ -16,7 +16,10 @@ network_cof_hv_switchgear_distribution(
 )
 }
 \arguments{
-\item{hv_asset_category}{String The type of LV asset category}
+\item{hv_asset_category}{String The type of HV switchgear distribution asset category
+Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Secondary",
+"6.6/11kV RMU", "6.6/11kV X-type RMU", "6.6/11kV Switch (GM)",
+"20kV CB (GM) Secondary", "20kV RMU", "20kV Switch (GM)")}}
 
 \item{no_customers}{Numeric. The numner of customers
 fed by an individual asset.}

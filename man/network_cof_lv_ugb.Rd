@@ -16,7 +16,8 @@ network_cof_lv_ugb(
 )
 }
 \arguments{
-\item{lv_asset_category}{String The type of LV asset category}
+\item{lv_asset_category}{String The type of LV asset category
+Option: \code{lv_asset_category = "LV UGB"}}
 
 \item{no_customers}{Numeric. The number of customers
 fed by an individual asset.}

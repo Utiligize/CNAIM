@@ -16,7 +16,10 @@ network_cof_lv_switchgear_and_other(
 )
 }
 \arguments{
-\item{lv_asset_category}{String The type of LV asset category}
+\item{lv_asset_category}{String The type of LV asset category
+Options: \code{lv_asset_category = c("LV Board (WM)",
+"LV Board (X-type Network) (WM)", "LV Circuit Breaker",
+"LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}}
 
 \item{no_customers}{Numeric. The numner of customers
 fed by an individual asset.}

@@ -17,9 +17,12 @@ environmental_cof_hv_switchgear_primary(
 )
 }
 \arguments{
-\item{hv_asset_category}{String The type of HV asset category}
+\item{hv_asset_category}{String The type of HV asset category
+Options: \code{hv_asset_category = c("6.6/11kV CB (GM) Primary",
+"20kV CB (GM) Primary")}}
 
-\item{type_env_factor}{String The type environment factor of HV asset category}
+\item{type_env_factor}{String The type environment factor of HV asset category
+Options: \code{type_env_factor = c("Oil", "SF6", "Niether", "Default")}.}
 
 \item{prox_water}{Numeric. Specify the proximity to a water course in meters.
 A setting of \code{"Default"} will result in a proximity factor of 1. Thus
