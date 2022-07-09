@@ -5,6 +5,24 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
+#' @param asset_type String Asset Type
+#' @param placement String Placement
+#' @param number_of_operations String Number of Operations
+#' @param altitude_m String Altitude
+#' @param distance_from_coast_km String Distance from coast
+#' @param corrosion_category_index String Corrosion Category Index
+#' @param measured_condition_inputs Named list observed_conditions_input
+#' @param observed_condition_inputs Named list observed_conditions_input
+#' @param age Numeric Age
+#' @param reliability_factor String Reliability Factor
+#' @param k_value Numeric. \code{k_value = 0.0077} by default. This number is
+#' given in a percentage. The default value is accordingly to the standard
+#' "DE-10kV apb kabler CNAIM" on p. 34.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 55} by default.
+#' The default value is accordingly to the standard
+#' "DE-10kV apb kabler CNAIM" on p. 33.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric. Current probability of failure

@@ -5,6 +5,19 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
+#' @inheritParams pof_ehv_fittings
+#' @param utilisation_pct Numeric Utilisation Percentage
+#' @param operating_voltage_pct Numeric Operating Voltage Percentage
+#' @param sheath_test String Sheath Test
+#' @param partial_discharge String Partial Discharge
+#' @param fault_hist String Fault Histogram
+#' @param k_value Numeric. \code{k_value = 0.0069} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = 60} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return Numeric array. Future probability of failure

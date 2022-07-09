@@ -25,6 +25,53 @@ pof_future_submarine_cables_10kv_pex(
 )
 }
 \arguments{
+\item{utilisation_pct}{Numeric. The max percentage of utilisation
+under normal operating conditions.}
+
+\item{operating_voltage_pct}{Numeric. The ratio in percent of
+operating/design voltage.}
+
+\item{topography}{String Topography}
+
+\item{sitution}{String Situation}
+
+\item{wind_wave}{String Wind Wave}
+
+\item{intensity}{String Intensity}
+
+\item{landlocked}{String Land Locked}
+
+\item{sheath_test}{String. Only applied for non pressurised cables.
+Indicating the state of the sheath. Options:
+\code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
+"Default")}.}
+
+\item{partial_discharge}{String. Only applied for non pressurised cables.
+Indicating the level of partial discharge. Options:
+\code{partial_discharge = c("Low", "Medium", "High",
+ "Default")}.}
+
+\item{fault_hist}{Numeric. Only applied for non pressurised cables.
+The calculated fault rate for the cable in the period per kilometer.
+A setting of \code{"No historic faults recorded"}
+indicates no fault.}
+
+\item{condition_armour}{String Condition Armour}
+
+\item{age}{Numeric. The current age in years of the cable.}
+
+\item{reliability_factor}{Numeric. \code{reliability_factor}
+shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
+ sets the \code{reliability_factor} to 1.
+See section 6.14 on page 73 in CNAIM (2021).}
+
+\item{k_value}{Numeric. \code{k_value = 0.0658} by default.}
+
+\item{c_value}{Numeric. \code{c_value = 1.087} by default.
+The default value is accordingly to the CNAIM standard see page 110}
+
+\item{normal_expected_life}{Numeric. \code{normal_expected_life = 80} by default.}
+
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
 }

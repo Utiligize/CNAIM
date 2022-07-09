@@ -5,8 +5,15 @@
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
 #' exponential function.
+#' @inheritParams pof_cables_10kv_pex
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param topography String Topography
+#' @param sitution String Situation
+#' @param wind_wave String Wind Wave
+#' @param intensity String Intensity
+#' @param landlocked String Land Locked
+#' @param condition_armour String Condition Armour
 #' @return Numeric array. Future probability of failure
 #' per annum per kilometre for 30kV and 60kV oil submarine cables
 #' @export

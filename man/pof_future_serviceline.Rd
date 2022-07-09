@@ -19,6 +19,33 @@ pof_future_serviceline(
 )
 }
 \arguments{
+\item{utilisation_pct}{Numeric Utilisation Percentage}
+
+\item{operating_voltage_pct}{Numeric Operating Voltage Percentage}
+
+\item{sheath_test}{String Sheath Test}
+
+\item{partial_discharge}{String Partial Discharge}
+
+\item{fault_hist}{String Fault Histogram}
+
+\item{reliability_factor}{Numeric. \code{reliability_factor}
+shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
+ sets the \code{reliability_factor} to 1.
+See section 6.14 on page 73 in CNAIM (2021).}
+
+\item{age}{Numeric. The current age in years of the conductor.}
+
+\item{k_value}{Numeric. \code{k_value = 0.0069} by default. This number is
+given in a percentage. The default value is accordingly to the CNAIM standard
+on p. 110.}
+
+\item{c_value}{Numeric. \code{c_value = 1.087} by default.
+The default value is accordingly to the CNAIM standard see page 110}
+
+\item{normal_expected_life}{Numeric. \code{normal_expected_life = 60} by default.
+The default value is accordingly to the CNAIM standard on page 107.}
+
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
 }

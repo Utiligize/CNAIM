@@ -22,6 +22,37 @@ pof_future_switchgear_30_60kv(
 )
 }
 \arguments{
+\item{asset_type}{String Asset Type}
+
+\item{placement}{String Placement}
+
+\item{number_of_operations}{String Number of Operations}
+
+\item{altitude_m}{String Altitude}
+
+\item{distance_from_coast_km}{String Distance from coast}
+
+\item{corrosion_category_index}{String Corrosion Category Index}
+
+\item{age}{Numeric Age}
+
+\item{measured_condition_inputs}{Named list observed_conditions_input}
+
+\item{observed_condition_inputs}{Named list observed_conditions_input}
+
+\item{reliability_factor}{String Reliability Factor}
+
+\item{k_value}{Numeric. \code{k_value = 0.0077} by default. This number is
+given in a percentage. The default value is accordingly to the standard
+"DE-10kV apb kabler CNAIM" on p. 34.}
+
+\item{c_value}{Numeric. \code{c_value = 1.087} by default.
+The default value is accordingly to the CNAIM standard see page 110}
+
+\item{normal_expected_life}{Numeric. \code{normal_expected_life = 55} by default.
+The default value is accordingly to the standard
+"DE-10kV apb kabler CNAIM" on p. 33.}
+
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
 }
