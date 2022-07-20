@@ -97,8 +97,8 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
-Numeric. Current probability of failure
-per annum per kilometer.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current
@@ -111,4 +111,17 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Current annual probability of failure for 66kV OHL (Tower Line) Conductor
+pof_ohl_cond_132_66_33kv(
+ohl_conductor = "66kV OHL (Tower Line) Conductor",
+sub_division = "Cu",
+placement = "Default",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 10,
+conductor_samp = "Default",
+corr_mon_survey = "Default",
+visual_cond = "Default",
+midspan_joints = "Default",
+reliability_factor = "Default")
 }
