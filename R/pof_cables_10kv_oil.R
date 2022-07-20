@@ -24,27 +24,22 @@
 #' @param c_value Numeric. \code{c_value = 1.087} by default.
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 80} by default.
-#' @return Numeric. Current probability of failure
-#' per annum for 10 kV oil cables.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @export
 #' @examples
 #' # Current annual probability of failure for 10kV oil cable, 50 years old
-# pof_cables_10kv_oil_res <-
-# pof_cables_10kv_oil(
-# utilisation_pct = 80,
-# operating_voltage_pct = "Default",
-# sheath_test = "Default",
-# partial_discharge = "Default",
-# fault_hist = "Default",
-# reliability_factor = "Default",
-# age = 50,
-# k_value = 0.24,
-# c_value = 1.087,
-# normal_expected_life = 80) * 100
-# paste0(sprintf("Probability of failure %.4f", pof_cables_10kv_oil_res),
-# " percent per annum")
-
-
+#' pof_cables_10kv_oil(
+#' utilisation_pct = 80,
+#' operating_voltage_pct = "Default",
+#' sheath_test = "Default",
+#' partial_discharge = "Default",
+#' fault_hist = "Default",
+#' reliability_factor = "Default",
+#' age = 50,
+#' k_value = 0.24,
+#' c_value = 1.087,
+#' normal_expected_life = 80)
 pof_cables_10kv_oil <- function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
            sheath_test = "Default",
@@ -258,7 +253,7 @@ pof_cables_10kv_oil <- function(utilisation_pct = "Default",
          (((c * current_health_score)^2) / factorial(2)) +
          (((c * current_health_score)^3) / factorial(3)))
 
-    return(probability_of_failure)
+    return(data.frame(pof = probability_of_failure, chs = current_health_score))
   }
 
 
