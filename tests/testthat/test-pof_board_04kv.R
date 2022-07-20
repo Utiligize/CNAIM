@@ -1,9 +1,9 @@
 library(testthat)
 library(CNAIM)
 
-context("POF 132kV CB")
+context("POF Board 04KV")
 
-test_that("132kV CB", {
+test_that("Board 04KV", {
   res <- pof_board_04kv(
      placement = "Default",
      altitude_m = "Default",
