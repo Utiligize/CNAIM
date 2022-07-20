@@ -15,9 +15,9 @@ test_that("Circuit breaker", {
     measured_condition_inputs = list("operational_adequacy" = list("Condition Criteria: Operational Adequacy" = "Default")),
     reliability_factor = "Default") %>% round(5)
 
-  expected_value <- 0.00007
+  expected_val <- data.frame(pof = 0.00007, chs = 0.5)
 
-  expect_equal(res, expected_value)
+  expect_equal(res, expected_val)
 })
 
 
@@ -38,9 +38,9 @@ test_that("LV Pillars", {
     measured_condition_inputs = list("operational_adequacy" = list("Condition Criteria: Operational Adequacy" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_value <- 0.000079
+  expected_val <- data.frame(pof = 0.000079, chs = 0.5)
 
-  expect_equal(res, expected_value)
+  expect_equal(res, expected_val)
 })
 
 
