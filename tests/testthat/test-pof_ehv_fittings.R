@@ -19,9 +19,10 @@ test_that("33kV Fittings", {
                                      "ductor_test" = list("Condition Criteria: Ductor Test Result" = "Default")),
     reliability_factor = "Default") %>% round(5)
 
-  expected_val <- 0.00025
+  expected_val <- data.frame(pof = 0.00025, chs = 0.91058)
 
   expect_equal(res, expected_val)
+
 })
 
 
@@ -43,8 +44,9 @@ test_that("132kV Fittings", {
                                      "ductor_test" = list("Condition Criteria: Ductor Test Result" = "Default")),
     reliability_factor = "Default") %>% round(5)
 
-  expected_val <- 0.00025
+  expected_val <- data.frame(pof = 0.00025, chs = 0.91058)
 
   expect_equal(res, expected_val)
+
 })
 

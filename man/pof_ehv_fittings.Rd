@@ -55,8 +55,8 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
-Numeric. Current probability of failure
-per annum per kilometer.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current
@@ -69,4 +69,25 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Current annual probability of failure for EHV Swicthgear
+pof_ehv_fittings(
+ehv_asset_category = "33kV Fittings",
+placement = "Default",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 10,
+observed_condition_inputs =
+list("insulator_elec_cond" =
+list("Condition Criteria: Observed Condition" = "Default"),
+"insulator_mech_cond" =
+list("Condition Criteria: Observed Condition" = "Default"),
+"conductor_fitting_cond" =
+list("Condition Criteria: Observed Condition" = "Default"),
+"tower_fitting_cond" =
+list("Condition Criteria: Observed Condition" = "Default")),
+measured_condition_inputs =
+list("thermal_imaging" =
+list("Condition Criteria: Thermal Imaging Result" = "Default"),
+"ductor_test" = list("Condition Criteria: Ductor Test Result" = "Default")),
+reliability_factor = "Default")
 }
