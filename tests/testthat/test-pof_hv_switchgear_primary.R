@@ -25,7 +25,7 @@ test_that("Default case", {
                                      "ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
     reliability_factor = "Default") %>% round(5)
 
-  expected_val <- 0.00012
+  expected_val <- data.frame(pof = 0.00012, chs = 0.74836)
 
   expect_equal(res, expected_val)
 })
