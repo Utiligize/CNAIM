@@ -18,9 +18,11 @@ test_that("pof_submarine_cables", {
                                fault_hist = "Default",
                                condition_armour = "Good",
                                age = 30,
-                               reliability_factor = "Default")
+                               reliability_factor = "Default") %>% round(6)
 
-  expect_equal(res, 0.02870892)
+  expected_val <- data.frame(pof = 0.028709, chs = 7.7)
+
+  expect_equal(res, expected_val)
 
 })
 

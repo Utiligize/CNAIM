@@ -32,30 +32,30 @@
 #' @inheritParams current_health
 #' @param situation Situation of the cable
 #' @param age Numeric. The current age in years of the cable.
-#' @return Numeric. Current probability of failure
-#' per annum per kilometre.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 1 km EHV Sub Cable
-#  pof_submarine_cables(
-#  sub_cable_type = "EHV Sub Cable",
-#  utilisation_pct = "Default",
-#  operating_voltage_pct = "Default",
-#  topography = "Default",
-#  situation = "Default",
-#  wind_wave = "Default",
-#  intensity = "Default",
-#  landlocked = "no",
-#  sheath_test = "Default",
-#  partial_discharge = "Default",
-#  fault_hist = "Default",
-#  condition_armour = "Default",
-#  age = 10,
-#  reliability_factor = "Default"
-# )
+#'  pof_submarine_cables(
+#'  sub_cable_type = "EHV Sub Cable",
+#'  utilisation_pct = "Default",
+#'  operating_voltage_pct = "Default",
+#'  topography = "Default",
+#'  situation = "Default",
+#'  wind_wave = "Default",
+#'  intensity = "Default",
+#'  landlocked = "no",
+#'  sheath_test = "Default",
+#'  partial_discharge = "Default",
+#'  fault_hist = "Default",
+#'  condition_armour = "Default",
+#'  age = 10,
+#'  reliability_factor = "Default"
+#' )
 pof_submarine_cables <-
   function(sub_cable_type = "EHV Sub Cable",
            utilisation_pct = "Default",
@@ -349,5 +349,5 @@ pof_submarine_cables <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-    return(probability_of_failure)
+    return(data.frame(pof = probability_of_failure, chs = current_health_score))
   }
