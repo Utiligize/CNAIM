@@ -26,7 +26,7 @@ test_that("33 KV category", {
                                      "ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
     reliability_factor = "Default") %>% round(5)
 
-  expected_val <- 0.0005
+  expected_val <- data.frame(pof = 0.0005, chs = 0.74836)
 
   expect_equal(res, expected_val)
 })
@@ -56,7 +56,7 @@ test_that("66 KV category", {
                                      "ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
     reliability_factor = "Default") %>% round(5)
 
-  expected_val <- 0.00118
+  expected_val <- data.frame(pof = 0.00118, chs = 0.77916)
 
   expect_equal(res, expected_val)
 })
