@@ -54,8 +54,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 \item{normal_expected_life}{Numeric. \code{normal_expected_life = 80} by default.}
 }
 \value{
-Numeric. Current probability of failure
-per annum for 10 kV pex cables.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current
@@ -66,4 +66,15 @@ exponential function.
 }
 \examples{
 # Current annual probability of failure for 10kV pex cable, 50 years old
+pof_cables_10kv_pex(
+utilisation_pct = 80,
+operating_voltage_pct = "Default",
+sheath_test = "Default",
+partial_discharge = "Default",
+fault_hist = "Default",
+reliability_factor = "Default",
+age = 50,
+k_value = 0.0658,
+c_value = 1.087,
+normal_expected_life = 80)
 }
