@@ -41,8 +41,8 @@
 #' See page 158, table 187 (oil) and 188 (gas) in CNAIM (2021).
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years of the cable.
-#' @return Numeric. Current probability of failure
-#' per annum per kilometre for 132kV cables.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -359,5 +359,5 @@ pof_cables_132kv <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-    return(probability_of_failure)
+    return(data.frame(pof = probability_of_failure, chs = current_health_score))
   }
