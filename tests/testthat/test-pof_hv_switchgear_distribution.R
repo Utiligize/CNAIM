@@ -23,7 +23,7 @@ test_that("Default case", {
                                      "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
     reliability_factor = "Default") %>% round(5)
 
-  expected_val <- 0.00015
+  expected_val <- data.frame(pof = 0.00015, chs = 0.74836)
 
   expect_equal(res, expected_val)
 })
