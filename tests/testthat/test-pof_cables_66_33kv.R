@@ -14,8 +14,9 @@ test_that("pof_cables_66_33kv", {
                                      fault_hist = "Default",
                                      leakage = "Default",
                                      reliability_factor = "Default",
-                                     age = 40)
+                                     age = 40) %>% round(6)
 
-  expect_equal(res, 0.08815061)
+  expected_val <- data.frame(pof = 0.088151, chs = 1.385358)
 
+  expect_equal(res, expected_val)
 })
