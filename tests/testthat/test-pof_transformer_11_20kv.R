@@ -4,7 +4,7 @@ library(CNAIM)
 context("Current Probability of Failure for a Transformer")
 
 test_that("pof_transformer_11_20kv", {
-  expect_equal(pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
+  res <- pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
                                        utilisation_pct = "Default",
                                        placement = "Default",
                                        altitude_m = "Default",
@@ -15,7 +15,11 @@ test_that("pof_transformer_11_20kv", {
                                        oil_acidity = "Default",
                                        temperature_reading = "Default",
                                        observed_condition = "Default",
-                                       reliability_factor = "Default"), 0.0001340004)
+                                       reliability_factor = "Default") %>% round(5)
+
+  expected_val <- data.frame(pof = 0.00013, chs = 0.5)
+
+  expect_equal(res, expected_val)
 })
 
 
