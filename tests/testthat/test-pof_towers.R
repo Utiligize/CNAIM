@@ -22,7 +22,7 @@ test_that("33kV case", {
     observed_condition_inputs_foundation = list("foundation_cond" = list("Condition Criteria: Observed Condition" = "Default")),
   reliability_factor = "Default") %>% round(6)
 
-  expected_val <- 0.001127
+  expected_val <- data.frame(pof = 0.001127, chs = 0.674752)
 
   expect_equal(res, expected_val)
 })
@@ -49,7 +49,7 @@ test_that("132kV case", {
     observed_condition_inputs_foundation = list("foundation_cond" = list("Condition Criteria: Observed Condition" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_val <- 0.001127
+  expected_val <- data.frame(pof = 0.001127, chs = 0.674752)
 
   expect_equal(res, expected_val)
 })
