@@ -81,7 +81,8 @@ The default value is accordingly to the standard
 "DE-10kV apb kabler CNAIM" on p. 33.}
 }
 \value{
-Numeric. Current probability of failure.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current
@@ -92,4 +93,20 @@ exponential function.
 }
 \examples{
 # Current probability of failure for 0.4/10kV Transformers
+pof_transformer_04_10kv(utilisation_pct = "Default",
+placement = "Default",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 10,
+partial_discharge = "Default",
+temperature_reading = "Default",
+observed_condition = "Default",
+reliability_factor = "Default",
+moisture = "Default",
+acidity = "Default",
+bd_strength = "Default",
+k_value = 0.0077,
+c_value = 1.087,
+normal_expected_life = 55)
 }

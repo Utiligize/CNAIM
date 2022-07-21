@@ -45,29 +45,27 @@
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 55} by default.
 #' The default value is accordingly to the standard
 #' "DE-10kV apb kabler CNAIM" on p. 33.
-#' @return Numeric. Current probability of failure.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @export
 #' @examples
 #' # Current probability of failure for 0.4/10kV Transformers
-# pof_transformer_04_10kv_res <-
-# pof_transformer_04_10kv(utilisation_pct = "Default",
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# partial_discharge = "Default",
-# temperature_reading = "Default",
-# observed_condition = "Default",
-# reliability_factor = "Default",
-# moisture = "Default",
-# acidity = "Default",
-# bd_strength = "Default",
-# k_value = 0.0077,
-# c_value = 1.087,
-# normal_expected_life = 55) * 100
-# paste0(sprintf("Probability of failure %.4f", pof_transformer_04_10kv_res),
-# " percent per annum")
+#' pof_transformer_04_10kv(utilisation_pct = "Default",
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' partial_discharge = "Default",
+#' temperature_reading = "Default",
+#' observed_condition = "Default",
+#' reliability_factor = "Default",
+#' moisture = "Default",
+#' acidity = "Default",
+#' bd_strength = "Default",
+#' k_value = 0.0077,
+#' c_value = 1.087,
+#' normal_expected_life = 55)
 pof_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     placement = "Default",
                                     altitude_m = "Default",
@@ -326,5 +324,5 @@ pof_transformer_04_10kv <- function(utilisation_pct = "Default",
        (((c * current_health_score)^2) / factorial(2)) +
        (((c * current_health_score)^3) / factorial(3)))
 
-  return(probability_of_failure)
+  return(data.frame(pof = probability_of_failure, chs = current_health_score))
 }
