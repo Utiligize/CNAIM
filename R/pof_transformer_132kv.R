@@ -93,7 +93,8 @@
 #' @inheritParams oil_test_modifier
 #' @inheritParams dga_test_modifier
 #' @inheritParams ffa_test_modifier
-#' @return Numeric. Current probability of failure.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -101,44 +102,43 @@
 #' @examples
 #' # Current probability of failure for a 132kV transformer
 #' pof_transformer_132kv(transformer_type = "132kV Transformer (GM)",
-#'year_of_manufacture = 1980,
-#'utilisation_pct = "Default",
-#'no_taps = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age_tf = 43,
-#'age_tc = 43,
-#'partial_discharge_tf = "Default",
-#'partial_discharge_tc = "Default",
-#'temperature_reading = "Default",
-#'main_tank = "Default",
-#'coolers_radiator = "Default",
-#'bushings = "Default",
-#'kiosk = "Default",
-#'cable_boxes = "Default",
-#'external_tap = "Default",
-#'internal_tap = "Default",
-#'mechnism_cond = "Default",
-#'diverter_contacts = "Default",
-#'diverter_braids = "Default",
-#'moisture = "Default",
-#'acidity = "Default",
-#'bd_strength = "Default",
-#'hydrogen = "Default",
-#'methane = "Default",
-#'ethylene = "Default",
-#'ethane = "Default",
-#'acetylene = "Default",
-#'hydrogen_pre = "Default",
-#'methane_pre = "Default",
-#'ethylene_pre = "Default",
-#'ethane_pre = "Default",
-#'acetylene_pre = "Default",
-#'furfuraldehyde = "Default",
-#'reliability_factor = "Default")
-
+#' year_of_manufacture = 1980,
+#' utilisation_pct = "Default",
+#' no_taps = "Default",
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age_tf = 43,
+#' age_tc = 43,
+#' partial_discharge_tf = "Default",
+#' partial_discharge_tc = "Default",
+#' temperature_reading = "Default",
+#' main_tank = "Default",
+#' coolers_radiator = "Default",
+#' bushings = "Default",
+#' kiosk = "Default",
+#' cable_boxes = "Default",
+#' external_tap = "Default",
+#' internal_tap = "Default",
+#' mechnism_cond = "Default",
+#' diverter_contacts = "Default",
+#' diverter_braids = "Default",
+#' moisture = "Default",
+#' acidity = "Default",
+#' bd_strength = "Default",
+#' hydrogen = "Default",
+#' methane = "Default",
+#' ethylene = "Default",
+#' ethane = "Default",
+#' acetylene = "Default",
+#' hydrogen_pre = "Default",
+#' methane_pre = "Default",
+#' ethylene_pre = "Default",
+#' ethane_pre = "Default",
+#' acetylene_pre = "Default",
+#' furfuraldehyde = "Default",
+#' reliability_factor = "Default")
 pof_transformer_132kv <- function(transformer_type = "132kV Transformer (GM)",
                                     year_of_manufacture,
                                     utilisation_pct = "Default",
@@ -893,5 +893,5 @@ pof_transformer_132kv <- function(transformer_type = "132kV Transformer (GM)",
        (((c * current_health_score)^2) / factorial(2)) +
        (((c * current_health_score)^3) / factorial(3)))
 
-  return(probability_of_failure)
+  return(data.frame(pof = probability_of_failure, chs = current_health_score))
 }
