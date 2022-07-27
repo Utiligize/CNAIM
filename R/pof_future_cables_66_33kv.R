@@ -10,8 +10,8 @@
 #' @inheritParams pof_cables_66_33kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric array. Future probability of failure
-#' per annum per kilometre for 33-66kV cables.
+#' @return Data FRAME. Future probability of failure
+#' per annum per kilometre for 33-66kV cables along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -328,7 +328,9 @@ pof_future_cables_66_33kv <-
 
     # Dynamic part
     pof_year <- list()
+    future_health_score <- list()
     year <- seq(from=0,to=simulation_end_year,by=1)
+    future_health_score_list <- list()
 
     for (y in 1:length(year)){
       t <- year[y]
@@ -343,12 +345,15 @@ pof_future_cables_66_33kv <-
       } else if (H < 4) {
         H <- 4
       }
+      future_health_score_list[[paste(y)]] <- future_health_Score
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))
     }
 
-    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future <- data.frame(year=year,
+                             PoF=as.numeric(unlist(pof_year)),
+                             future_health_score = as.numeric(unlist(future_health_score_list)))
     pof_future$age <- NA
     pof_future$age[1] <- age
 

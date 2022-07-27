@@ -79,8 +79,8 @@ See section 6.14 on page 73 in CNAIM (2021).}
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure
-per annum per kilometre for 33-66kV cables.
+Data FRAME. Future probability of failure
+per annum per kilometre for 33-66kV cables along with future health score
 }
 \description{
 This function calculates the future
