@@ -10,31 +10,25 @@
 #' @inheritParams pof_cables_60_30kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric array. Future probability of failure
-#' per annum per kilometre for 30-60kV cables.
+#' @return DataFrame. Future probability of failure
+#' along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Future probability of failure for 60kV UG Cable (Non Pressurised)
-#' pof_60kV_non_pressurised <-
 #' pof_future_cables_60_30kv(cable_type = "60kV UG Cable (Non Pressurised)",
-#'sub_division = "Aluminium sheath - Aluminium conductor",
-#'utilisation_pct = 75,
-#'operating_voltage_pct = 50,
-#'sheath_test = "Default",
-#'partial_discharge = "Default",
-#'fault_hist = "Default",
-#'leakage = "Default",
-#'reliability_factor = "Default",
-#'age = 1,
-#'simulation_end_year = 100)
-#' # Plot
-#'plot(pof_60kV_non_pressurised$PoF * 100,
-#'type = "line", ylab = "%", xlab = "years",
-#'main = "PoF per kilometre - 66kV UG Cable (Non Pressurised)")
-
+#' sub_division = "Aluminium sheath - Aluminium conductor",
+#' utilisation_pct = 75,
+#' operating_voltage_pct = 50,
+#' sheath_test = "Default",
+#' partial_discharge = "Default",
+#' fault_hist = "Default",
+#' leakage = "Default",
+#' reliability_factor = "Default",
+#' age = 1,
+#' simulation_end_year = 100)
 pof_future_cables_60_30kv <-
   function(cable_type = "60kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",
@@ -369,6 +363,7 @@ pof_future_cables_60_30kv <-
 
     # Dynamic part
     pof_year <- list()
+    future_health_score_list <- list()
     year <- seq(from=0,to=simulation_end_year,by=1)
 
     for (y in 1:length(year)){
@@ -383,12 +378,16 @@ pof_future_cables_60_30kv <-
         H <- future_health_score_limit
       }
 
+      future_health_score_list[[paste(y)]] <- future_health_Score
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))
     }
 
-    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future <- data.frame(
+      year=year,
+      PoF=as.numeric(unlist(pof_year)),
+      future_health_score = as.numeric(unlist(future_health_score_list)))
     pof_future$age <- NA
     pof_future$age[1] <- age
 
