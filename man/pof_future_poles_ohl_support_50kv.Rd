@@ -67,8 +67,8 @@ The default value is accordingly to the CNAIM standard on page 107.}
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure
-per annum per kilometre for Poles OHL support 50 kV.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
@@ -79,4 +79,26 @@ exponential function.
 }
 \examples{
 # Future annual probability of failure for Poles OHL support 50 kV
+pof_future_poles_ohl_support_50kv(
+sub_division = "Wood",
+placement = "Default",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 10,
+observed_condition_inputs =
+list("visual_pole_cond" =
+list("Condition Criteria: Pole Top Rot Present?" = "Default"),
+"pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
+"bird_animal_damage" =
+list("Condition Criteria: Bird/Animal Damage?" = "Default"),
+"top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
+measured_condition_inputs =
+list("pole_decay" =
+list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
+reliability_factor = "Default",
+k_value = 0.0285,
+c_value = 1.087,
+normal_expected_life = "Default",
+simulation_end_year = 100)
 }
