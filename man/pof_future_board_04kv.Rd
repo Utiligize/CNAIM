@@ -62,8 +62,8 @@ The default value is accordingly to the CNAIM standard on page 107.}
 of failure. Default is 100.}
 }
 \value{
-Numeric. Current probability of failure
-per annum per kilometer.
+DataFrame. Future probability of failure
+per annum per kilometre for 33-66kV cables along with future health score
 }
 \description{
 This function calculates the future
@@ -74,4 +74,26 @@ exponential function.
 }
 \examples{
 # Future annual probability of failure for 0.4kV board
+pof_future_board_04kv(
+placement = "Default",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 10,
+observed_condition_inputs =
+list("external_cond" =
+list("Condition Criteria: Observed Condition" = "Default"),
+"compound_leaks" = list("Condition Criteria: Observed Condition" = "Default"),
+"internal_cond" = list("Condition Criteria: Observed Condition" = "Default"),
+"insulation" = list("Condition Criteria: Observed Condition" = "Default"),
+"signs_heating" = list("Condition Criteria: Observed Condition" = "Default"),
+"phase_barriers" = list("Condition Criteria: Observed Condition" = "Default")),
+measured_condition_inputs =
+list("opsal_adequacy" =
+list("Condition Criteria: Operational Adequacy" = "Default")),
+reliability_factor = "Default",
+k_value = 0.0069,
+c_value = 1.087,
+normal_expected_life = 60,
+simulation_end_year = 100)
 }

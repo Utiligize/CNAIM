@@ -8,33 +8,33 @@
 #' @inheritParams pof_board_04kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' @return DataFrame. Future probability of failure
+#' per annum per kilometre for 33-66kV cables along with future health score
 #' @export
 #' @examples
 #' # Future annual probability of failure for 0.4kV board
-# pof_future_board_04kv(
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# observed_condition_inputs =
-# list("external_cond" =
-# list("Condition Criteria: Observed Condition" = "Default"),
-# "compound_leaks" = list("Condition Criteria: Observed Condition" = "Default"),
-# "internal_cond" = list("Condition Criteria: Observed Condition" = "Default"),
-# "insulation" = list("Condition Criteria: Observed Condition" = "Default"),
-# "signs_heating" = list("Condition Criteria: Observed Condition" = "Default"),
-# "phase_barriers" = list("Condition Criteria: Observed Condition" = "Default")),
-# measured_condition_inputs =
-# list("opsal_adequacy" =
-# list("Condition Criteria: Operational Adequacy" = "Default")),
-# reliability_factor = "Default",
-# k_value = 0.0069,
-# c_value = 1.087,
-# normal_expected_life = 60,
-# simulation_end_year = 100)
+#' pof_future_board_04kv(
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' observed_condition_inputs =
+#' list("external_cond" =
+#' list("Condition Criteria: Observed Condition" = "Default"),
+#' "compound_leaks" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "internal_cond" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "insulation" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "signs_heating" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "phase_barriers" = list("Condition Criteria: Observed Condition" = "Default")),
+#' measured_condition_inputs =
+#' list("opsal_adequacy" =
+#' list("Condition Criteria: Operational Adequacy" = "Default")),
+#' reliability_factor = "Default",
+#' k_value = 0.0069,
+#' c_value = 1.087,
+#' normal_expected_life = 60,
+#' simulation_end_year = 100)
 
 pof_future_board_04kv <-
   function(placement = "Default",
@@ -180,6 +180,7 @@ pof_future_board_04kv <-
 
     # Dynamic part
     pof_year <- list()
+    future_health_score_list <- list()
     year <- seq(from=0,to=simulation_end_year,by=1)
 
     for (y in 1:length(year)){
@@ -195,12 +196,17 @@ pof_future_board_04kv <-
       } else if (H < 4) {
         H <- 4
       }
+
+      future_health_score_list[[paste(y)]] <- future_health_Score
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))
     }
 
-    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future <- data.frame(
+      year=year,
+      PoF=as.numeric(unlist(pof_year)),
+      future_health_score = as.numeric(unlist(future_health_score_list)))
     pof_future$age <- NA
     pof_future$age[1] <- age
 
