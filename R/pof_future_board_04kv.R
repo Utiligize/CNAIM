@@ -9,7 +9,7 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @return DataFrame. Future probability of failure
-#' per annum per kilometre for 33-66kV cables along with future health score
+#' along with future health score
 #' @export
 #' @examples
 #' # Future annual probability of failure for 0.4kV board

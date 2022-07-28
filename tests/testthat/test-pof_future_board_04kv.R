@@ -3,7 +3,7 @@ library(CNAIM)
 
 context("Future Probability of Failure for Board 04 KV")
 
-test_that("pof_future_cables_66_33kv", {
+test_that("pof_future_coard_04kv", {
 
   res <-  pof_future_board_04kv(
     placement = "Default",

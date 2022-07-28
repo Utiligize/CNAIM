@@ -63,7 +63,7 @@ of failure. Default is 100.}
 }
 \value{
 DataFrame. Future probability of failure
-per annum per kilometre for 33-66kV cables along with future health score
+along with future health score
 }
 \description{
 This function calculates the future
