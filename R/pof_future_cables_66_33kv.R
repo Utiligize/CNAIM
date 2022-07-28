@@ -10,7 +10,7 @@
 #' @inheritParams pof_cables_66_33kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Data FRAME. Future probability of failure
+#' @return DataFrame. Future probability of failure
 #' per annum per kilometre for 33-66kV cables along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -18,24 +18,17 @@
 #' @export
 #' @examples
 #' # Future probability of failure for 66kV UG Cable (Non Pressurised)
-#' pof_66kV_non_pressurised <-
 #' pof_future_cables_66_33kv(cable_type = "66kV UG Cable (Non Pressurised)",
-#'sub_division = "Aluminium sheath - Aluminium conductor",
-#'utilisation_pct = 75,
-#'operating_voltage_pct = 50,
-#'sheath_test = "Default",
-#'partial_discharge = "Default",
-#'fault_hist = "Default",
-#'leakage = "Default",
-#'reliability_factor = "Default",
-#'age = 1,
-#'simulation_end_year = 100)
-#' # Plot
-#'plot(pof_66kV_non_pressurised$PoF * 100,
-#'type = "line", ylab = "%", xlab = "years",
-#'main = "PoF per kilometre - 66kV UG Cable (Non Pressurised)")
-
-
+#' sub_division = "Aluminium sheath - Aluminium conductor",
+#' utilisation_pct = 75,
+#' operating_voltage_pct = 50,
+#' sheath_test = "Default",
+#' partial_discharge = "Default",
+#' fault_hist = "Default",
+#' leakage = "Default",
+#' reliability_factor = "Default",
+#' age = 1,
+#' simulation_end_year = 100)
 pof_future_cables_66_33kv <-
   function(cable_type = "66kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",
