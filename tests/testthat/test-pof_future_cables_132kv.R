@@ -17,6 +17,9 @@ test_that("pof_future_cables_132kv", {
                                                age = 1,
                                                simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$year == 12)], 0.0187533)
+  expected_value <- readRDS(system.file("testdata/pof_future_cables_132kv.rds", package =
+                                          "CNAIM"))
+
+  expect_equal(res, expected_value)
 
 })
