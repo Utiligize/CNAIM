@@ -8,25 +8,23 @@
 #' @inheritParams pof_cables_04kv_pex
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric array. Future probability of failure
-#' per annum for 0.4 kv pex cables.
+#' @return DataFrame. Future probability of failure
+#' along with future health score
 #' @export
 #' @examples
 #' # future annual probability of failure for 0.4kV cable pex, 50 years old
-# pof_future_cables_04kv_pex(
-# utilisation_pct = 80,
-# operating_voltage_pct = 60,
-# sheath_test = "Default",
-# partial_discharge = "Default",
-# fault_hist = "Default",
-# reliability_factor = "Default",
-# age = 50,
-# k_value = 0.0658,
-# c_value = 1.087,
-# normal_expected_life = 80,
-# simulation_end_year = 100)
-
-
+#' pof_future_cables_04kv_pex(
+#' utilisation_pct = 80,
+#' operating_voltage_pct = 60,
+#' sheath_test = "Default",
+#' partial_discharge = "Default",
+#' fault_hist = "Default",
+#' reliability_factor = "Default",
+#' age = 50,
+#' k_value = 0.0658,
+#' c_value = 1.087,
+#' normal_expected_life = 80,
+#' simulation_end_year = 100)
 pof_future_cables_04kv_pex <-
   function(utilisation_pct = "Default",
            operating_voltage_pct = "Default",
@@ -266,6 +264,7 @@ pof_future_cables_04kv_pex <-
 
     # Dynamic part
     pof_year <- list()
+    future_health_score_list <- list()
     year <- seq(from=0,to=simulation_end_year,by=1)
 
     for (y in 1:length(year)){
@@ -281,12 +280,17 @@ pof_future_cables_04kv_pex <-
       } else if (H < 4) {
         H <- 4
       }
+
+      future_health_score_list[[paste(y)]] <- future_health_Score
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))
     }
 
-    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future <- data.frame(
+      year=year,
+      PoF=as.numeric(unlist(pof_year)),
+      future_health_score = as.numeric(unlist(future_health_score_list)))
     pof_future$age <- NA
     pof_future$age[1] <- age
 
