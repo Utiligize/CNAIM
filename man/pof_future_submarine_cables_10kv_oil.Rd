@@ -76,8 +76,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure
-per annum per kilometre for 10kV submarine cables
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
