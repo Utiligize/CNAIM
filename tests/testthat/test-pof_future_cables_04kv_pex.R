@@ -20,7 +20,7 @@ test_that("pof_future_cables_04kv_pex", {
 
 
 
-  expected_value <- readRDS(system.file("testdata/pof_future_board_04kv.rds", package =
+  expected_value <- readRDS(system.file("testdata/pof_future_cables_04kv_pex.rds", package =
                                           "CNAIM"))
 
   expect_equal(res, expected_value)
