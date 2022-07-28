@@ -21,6 +21,10 @@ test_that("pof_future_submarine_cables", {
                                      reliability_factor = "Default",
                                      simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$year == 1)], 0.03367656)
+  expected_value <- readRDS(system.file("testdata/pof_future_submarine_cables.rds", package =
+                                          "CNAIM"))
+
+  expect_equal(res, expected_value)
+
 
 })
