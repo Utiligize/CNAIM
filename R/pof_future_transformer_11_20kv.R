@@ -10,7 +10,8 @@
 #' @inheritParams pof_transformer_11_20kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
-#' @return Numeric array. Future probability of failure.
+#' @return DataFrame. Future probability of failure
+#' along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -20,20 +21,19 @@
 #' future_pof_transformer <-
 #' pof_future_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
 #' utilisation_pct = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age = 20,
-#'partial_discharge = "Default",
-#'temperature_reading = "Default",
-#'observed_condition = "Default",
-#'reliability_factor = "Default",
-#'moisture = "Default",
-#'oil_acidity = "Default",
-#'bd_strength = "Default",
-#'simulation_end_year = 100)
-
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 20,
+#' partial_discharge = "Default",
+#' temperature_reading = "Default",
+#' observed_condition = "Default",
+#' reliability_factor = "Default",
+#' moisture = "Default",
+#' oil_acidity = "Default",
+#' bd_strength = "Default",
+#' simulation_end_year = 100)
 pof_future_transformer_11_20kv <-
   function(hv_transformer_type = "6.6/11kV Transformer (GM)",
            utilisation_pct = "Default",
@@ -323,6 +323,7 @@ pof_future_transformer_11_20kv <-
 
     # Dynamic part
     pof_year <- list()
+    future_health_score_list <- list()
     year <- seq(from=0,to=simulation_end_year,by=1)
 
     for (y in 1:length(year)){
@@ -338,12 +339,17 @@ pof_future_transformer_11_20kv <-
       } else if (H < 4) {
         H <- 4
       }
+
+      future_health_score_list[[paste(y)]] <- future_health_Score
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))
     }
 
-    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future <- data.frame(
+      year=year,
+      PoF=as.numeric(unlist(pof_year)),
+      future_health_score = as.numeric(unlist(future_health_score_list)))
     pof_future$age <- NA
     pof_future$age[1] <- age
 
