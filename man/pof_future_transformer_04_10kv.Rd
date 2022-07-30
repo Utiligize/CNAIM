@@ -91,7 +91,8 @@ The default value is accordingly to the CNAIM standard on page 107.}
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
@@ -101,8 +102,6 @@ the first three terms of the Taylor series for an
 exponential function.
 }
 \examples{
-# Future probability of a 0.4/10 kV transformer
-future_pof_transformer <-
 pof_future_transformer_04_10kv(utilisation_pct = "Default",
 placement = "Default",
 altitude_m = "Default",
