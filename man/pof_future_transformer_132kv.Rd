@@ -227,7 +227,8 @@ See section 6.14 on page 73 in CNAIM (2021).}
 of failure. Default is 100.}
 }
 \value{
-Numeric. Current probability of failure.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future

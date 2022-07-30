@@ -17,7 +17,10 @@ test_that("pof_future_transformer_132kv", {
                                  age_tf = 43,
                                  age_tc = 43,simulation_end_year = 100)
 
-  expect_equal(res$PoF[which(res$year == 12)], 0.03657150)
+  expected_value <- readRDS(system.file("testdata/pof_future_transformer_132kv.rds", package =
+                                          "CNAIM"))
+
+  expect_equal(res, expected_value)
 
 })
 
