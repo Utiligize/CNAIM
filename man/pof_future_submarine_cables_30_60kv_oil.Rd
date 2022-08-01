@@ -76,8 +76,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure
-per annum per kilometre for 30kV and 60kV oil submarine cables
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
@@ -87,5 +87,22 @@ the first three terms of the Taylor series for an
 exponential function.
 }
 \examples{
-# Future annual probability of failure for 1 km 30kV and 60kV oil Sub Cable
+pof_future_submarine_cables_30_60kv_oil(
+utilisation_pct = "Default",
+operating_voltage_pct = "Default",
+topography = "Default",
+sitution = "Default",
+wind_wave = "Default",
+intensity = "Default",
+landlocked = "no",
+sheath_test = "Default",
+partial_discharge = "Default",
+fault_hist = "Default",
+condition_armour = "Default",
+age = 10,
+reliability_factor = "Default",
+k_value = 0.0202,
+c_value = 1.087,
+normal_expected_life = 60,
+simulation_end_year = 100)
 }

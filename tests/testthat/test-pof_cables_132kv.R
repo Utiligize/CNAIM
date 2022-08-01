@@ -4,7 +4,6 @@ library(CNAIM)
 context("Current Probability of Failure for 132kV UG Cable (Non Pressurised)")
 
 test_that("pof_cables_123kv", {
-  # TODO: verify correctness
 
   res <- pof_cables_132kv(cable_type = "132kV UG Cable (Non Pressurised)",
                                     sub_division = "Lead sheath - Copper conductor",
@@ -15,8 +14,10 @@ test_that("pof_cables_123kv", {
                                     fault_hist = "Default",
                                     leakage = "Default",
                                     reliability_factor = "Default",
-                                    age = 50) * 100
+                                    age = 50) %>% round(5)
 
-  expect_equal(res, 0.4274284)
+  expected_val <- data.frame(pof = 0.00427, chs = 1.86955)
+
+  expect_equal(res, expected_val)
 
 })

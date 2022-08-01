@@ -28,33 +28,33 @@
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 #' See page 161, table 199 and 201 in CNAIM (2021).
 #' @inheritParams current_health
-#' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for HV Poles
-# pof_poles(
-# pole_asset_category = "20kV Poles",
-# sub_division = "Wood",
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# observed_condition_inputs =
-# list("visual_pole_cond" =
-# list("Condition Criteria: Pole Top Rot Present?" = "Default"),
-# "pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
-# "bird_animal_damage" =
-# list("Condition Criteria: Bird/Animal Damage?" = "Default"),
-# "top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
-# measured_condition_inputs =
-# list("pole_decay" =
-# list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
-# reliability_factor = "Default")
+#' pof_poles(
+#' pole_asset_category = "20kV Poles",
+#' sub_division = "Wood",
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' observed_condition_inputs =
+#' list("visual_pole_cond" =
+#' list("Condition Criteria: Pole Top Rot Present?" = "Default"),
+#' "pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
+#' "bird_animal_damage" =
+#' list("Condition Criteria: Bird/Animal Damage?" = "Default"),
+#' "top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
+#' measured_condition_inputs =
+#' list("pole_decay" =
+#' list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
+#' reliability_factor = "Default")
 pof_poles <-
   function(pole_asset_category = "20kV Poles",
            sub_division = "Wood",
@@ -188,5 +188,5 @@ pof_poles <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-    return(probability_of_failure)
+    return(data.frame(pof = probability_of_failure, chs = current_health_score))
   }

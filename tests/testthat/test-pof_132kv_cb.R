@@ -27,7 +27,7 @@ test_that("132kV CB", {
                                      "ir_test" = list("Condition Criteria: IR Test Results" = "Default" )),
     reliability_factor = "Default") %>% round(5)
 
-  expected_val <- 0.00094
+  expected_val <- data.frame(pof = 0.00094, chs = 0.72363)
 
   expect_equal(res, expected_val)
 })

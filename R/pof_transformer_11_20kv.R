@@ -34,7 +34,8 @@
 #' @param bd_strength Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).
 #' @param corrosion_category_index Integer.
 #' Specify the corrosion index category, 1-5.
-#' @return Numeric. Current probability of failure.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -43,18 +44,18 @@
 #' # Current probability of failure for a 6.6/11 kV transformer
 #' pof_transformer_11_20kv(hv_transformer_type = "6.6/11kV Transformer (GM)",
 #' utilisation_pct = "Default",
-#'placement = "Default",
-#'altitude_m = "Default",
-#'distance_from_coast_km = "Default",
-#'corrosion_category_index = "Default",
-#'age = 10,
-#'partial_discharge = "Default",
-#'temperature_reading = "Default",
-#'observed_condition = "Default",
-#'reliability_factor = "Default",
-#'moisture = "Default",
-#'oil_acidity = "Default",
-#'bd_strength = "Default")
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' partial_discharge = "Default",
+#' temperature_reading = "Default",
+#' observed_condition = "Default",
+#' reliability_factor = "Default",
+#' moisture = "Default",
+#' oil_acidity = "Default",
+#' bd_strength = "Default")
 pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer (GM)",
                                     utilisation_pct = "Default",
                                     placement = "Default",
@@ -318,5 +319,5 @@ pof_transformer_11_20kv <- function(hv_transformer_type = "6.6/11kV Transformer 
        (((c * current_health_score)^2) / factorial(2)) +
        (((c * current_health_score)^3) / factorial(3)))
 
-  return(probability_of_failure)
+  return(data.frame(pof = probability_of_failure, chs = current_health_score))
 }

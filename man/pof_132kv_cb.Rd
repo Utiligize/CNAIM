@@ -58,8 +58,8 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
-Numeric. Current probability of failure
-per annum per kilometer.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current

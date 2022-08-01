@@ -92,8 +92,8 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 73 in CNAIM (2021).}
 }
 \value{
-Numeric. Current probability of failure
-per annum per kilometre.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current
@@ -106,4 +106,20 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Current annual probability of failure for 1 km EHV Sub Cable
+ pof_submarine_cables(
+ sub_cable_type = "EHV Sub Cable",
+ utilisation_pct = "Default",
+ operating_voltage_pct = "Default",
+ topography = "Default",
+ situation = "Default",
+ wind_wave = "Default",
+ intensity = "Default",
+ landlocked = "no",
+ sheath_test = "Default",
+ partial_discharge = "Default",
+ fault_hist = "Default",
+ condition_armour = "Default",
+ age = 10,
+ reliability_factor = "Default"
+)
 }

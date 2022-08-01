@@ -75,8 +75,8 @@ See section 6.14 on page 73 in CNAIM (2021).}
 \item{age}{Numeric. The current age in years of the cable.}
 }
 \value{
-Numeric. Current probability of failure
-per annum per kilometre for 60/30kV cables.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current
@@ -99,5 +99,5 @@ partial_discharge = "Default",
 fault_hist = "Default",
 leakage = "Default",
 reliability_factor = "Default",
-age = 50) * 100
+age = 50)
 }

@@ -8,54 +8,54 @@
 #' @inheritParams pof_transformer_30_60kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #' of failure. Default is 100.
-#' @return Numeric. Future probability of failure.
+#' @return DataFrame. Future probability of failure
+#' along with future health score
+#' @export
 #' @examples
 #' # Future probability of failure for a 60/10kV transformer
-# pof_future_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
-# year_of_manufacture = 1980,
-# utilisation_pct = "Default",
-# no_taps = "Default",
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age_tf = 43,
-# age_tc = 43,
-# partial_discharge_tf = "Default",
-# partial_discharge_tc = "Default",
-# temperature_reading = "Default",
-# main_tank = "Default",
-# coolers_radiator = "Default",
-# bushings = "Default",
-# kiosk = "Default",
-# cable_boxes = "Default",
-# external_tap = "Default",
-# internal_tap = "Default",
-# mechnism_cond = "Default",
-# diverter_contacts = "Default",
-# diverter_braids = "Default",
-# moisture = "Default",
-# acidity = "Default",
-# bd_strength = "Default",
-# hydrogen = "Default",
-# methane = "Default",
-# ethylene = "Default",
-# ethane = "Default",
-# acetylene = "Default",
-# hydrogen_pre = "Default",
-# methane_pre = "Default",
-# ethylene_pre = "Default",
-# ethane_pre = "Default",
-# acetylene_pre = "Default",
-# furfuraldehyde = "Default",
-# reliability_factor = "Default",
-# k_value = 0.454,
-# c_value = 1.087,
-# normal_expected_life_tf = "Default",
-# normal_expected_life_tc = "Default",
-# simulation_end_year = 100)
-
-
+#' pof_future_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
+#' year_of_manufacture = 1980,
+#' utilisation_pct = "Default",
+#' no_taps = "Default",
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age_tf = 43,
+#' age_tc = 43,
+#' partial_discharge_tf = "Default",
+#' partial_discharge_tc = "Default",
+#' temperature_reading = "Default",
+#' main_tank = "Default",
+#' coolers_radiator = "Default",
+#' bushings = "Default",
+#' kiosk = "Default",
+#' cable_boxes = "Default",
+#' external_tap = "Default",
+#' internal_tap = "Default",
+#' mechnism_cond = "Default",
+#' diverter_contacts = "Default",
+#' diverter_braids = "Default",
+#' moisture = "Default",
+#' acidity = "Default",
+#' bd_strength = "Default",
+#' hydrogen = "Default",
+#' methane = "Default",
+#' ethylene = "Default",
+#' ethane = "Default",
+#' acetylene = "Default",
+#' hydrogen_pre = "Default",
+#' methane_pre = "Default",
+#' ethylene_pre = "Default",
+#' ethane_pre = "Default",
+#' acetylene_pre = "Default",
+#' furfuraldehyde = "Default",
+#' reliability_factor = "Default",
+#' k_value = 0.454,
+#' c_value = 1.087,
+#' normal_expected_life_tf = "Default",
+#' normal_expected_life_tc = "Default",
+#' simulation_end_year = 100)
 pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer (GM)",
                                     year_of_manufacture,
                                     utilisation_pct = "Default",
@@ -880,6 +880,7 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
 
   # Dynamic bit -------------------------------------------------------------
   pof_year <- list()
+  future_health_score_list <- list()
   year <- seq(from=0,to=simulation_end_year,by=1)
 
   for (y in 1:length(year)){
@@ -896,12 +897,16 @@ pof_future_transformer_30_60kv <- function(transformer_type = "60kV Transformer 
       H <- 4
     }
 
+    future_health_score_list[[paste(y)]] <- max(future_health_Score_tf, future_health_Score_tc)
     pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                    (((c * H)^2) / factorial(2)) +
                                    (((c * H)^3) / factorial(3)))
   }
 
-  pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+  pof_future <- data.frame(
+    year=year,
+    PoF=as.numeric(unlist(pof_year)),
+    future_health_score = as.numeric(unlist(future_health_score_list)))
   pof_future$age <- NA
   pof_future$age[1] <- age_tf
 

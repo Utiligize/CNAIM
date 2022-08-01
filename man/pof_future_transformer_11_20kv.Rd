@@ -92,7 +92,8 @@ level of partial discharge. Options for \code{partial_discharge}:
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future

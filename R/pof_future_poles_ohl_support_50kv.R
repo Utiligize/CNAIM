@@ -16,34 +16,33 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @param sub_division String Sub Division
-#' @return Numeric array. Future probability of failure
-#' per annum per kilometre for Poles OHL support 50 kV.
+#' @return DataFrame. Future probability of failure
+#' along with future health score
 #' @export
 #' @examples
 #' # Future annual probability of failure for Poles OHL support 50 kV
-# pof_future_poles_ohl_support_50kv(
-# sub_division = "Wood",
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# observed_condition_inputs =
-# list("visual_pole_cond" =
-# list("Condition Criteria: Pole Top Rot Present?" = "Default"),
-# "pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
-# "bird_animal_damage" =
-# list("Condition Criteria: Bird/Animal Damage?" = "Default"),
-# "top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
-# measured_condition_inputs =
-# list("pole_decay" =
-# list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
-# reliability_factor = "Default",
-# k_value = 0.0285,
-# c_value = 1.087,
-# normal_expected_life = "Default",
-# simulation_end_year = 100)
-
+#' pof_future_poles_ohl_support_50kv(
+#' sub_division = "Wood",
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' observed_condition_inputs =
+#' list("visual_pole_cond" =
+#' list("Condition Criteria: Pole Top Rot Present?" = "Default"),
+#' "pole_leaning" = list("Condition Criteria: Pole Leaning?" = "Default"),
+#' "bird_animal_damage" =
+#' list("Condition Criteria: Bird/Animal Damage?" = "Default"),
+#' "top_rot"  = list("Condition Criteria: Pole Top Rot Present?" = "Default")),
+#' measured_condition_inputs =
+#' list("pole_decay" =
+#' list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
+#' reliability_factor = "Default",
+#' k_value = 0.0285,
+#' c_value = 1.087,
+#' normal_expected_life = "Default",
+#' simulation_end_year = 100)
 pof_future_poles_ohl_support_50kv <-
   function(sub_division = "Wood",
            placement = "Default",
@@ -201,6 +200,7 @@ pof_future_poles_ohl_support_50kv <-
 
     # Dynamic part
     pof_year <- list()
+    future_health_score_list <- list()
     year <- seq(from=0,to=simulation_end_year,by=1)
 
     for (y in 1:length(year)){
@@ -216,12 +216,16 @@ pof_future_poles_ohl_support_50kv <-
       } else if (H < 4) {
         H <- 4
       }
+      future_health_score_list[[paste(y)]] <- future_health_Score
       pof_year[[paste(y)]] <- k * (1 + (c * H) +
                                      (((c * H)^2) / factorial(2)) +
                                      (((c * H)^3) / factorial(3)))
     }
 
-    pof_future <- data.frame(year=year, PoF=as.numeric(unlist(pof_year)))
+    pof_future <- data.frame(
+      year=year,
+      PoF=as.numeric(unlist(pof_year)),
+      future_health_score = as.numeric(unlist(future_health_score_list)))
     pof_future$age <- NA
     pof_future$age[1] <- age
 

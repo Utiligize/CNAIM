@@ -79,8 +79,8 @@ See section 6.14 on page 73 in CNAIM (2021).}
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure
-per annum per kilometre for 30-60kV cables.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
@@ -93,7 +93,6 @@ on page 34 in CNAIM (2021).
 }
 \examples{
 # Future probability of failure for 60kV UG Cable (Non Pressurised)
-pof_60kV_non_pressurised <-
 pof_future_cables_60_30kv(cable_type = "60kV UG Cable (Non Pressurised)",
 sub_division = "Aluminium sheath - Aluminium conductor",
 utilisation_pct = 75,
@@ -105,8 +104,4 @@ leakage = "Default",
 reliability_factor = "Default",
 age = 1,
 simulation_end_year = 100)
-# Plot
-plot(pof_60kV_non_pressurised$PoF * 100,
-type = "line", ylab = "\%", xlab = "years",
-main = "PoF per kilometre - 66kV UG Cable (Non Pressurised)")
 }

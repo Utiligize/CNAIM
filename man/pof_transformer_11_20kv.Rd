@@ -88,7 +88,8 @@ level of partial discharge. Options for \code{partial_discharge}:
 \item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
 }
 \value{
-Numeric. Current probability of failure.
+DataFrame Current probability of failure
+per annum per kilometer along with current health score.
 }
 \description{
 This function calculates the current

@@ -27,37 +27,36 @@
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 #' See page 161, table 199 and 201 in CNAIM (2021).
 #' @inheritParams current_health
-#' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for HV Swicthgear distribution
-# pof_hv_switchgear_distribution(
-# hv_asset_category = "6.6/11kV CB (GM) Secondary",
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# observed_condition_inputs =
-# list("external_condition" =
-# list("Condition Criteria: Observed Condition" = "Default"),
-# "oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
-# "thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
-# "internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
-# "indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
-# measured_condition_inputs =
-# list("partial_discharge" =
-# list("Condition Criteria: Partial Discharge Test Results" = "Default"),
-# "ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
-# "oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
-# "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
-# "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
-# reliability_factor = "Default")
-
+#' pof_hv_switchgear_distribution(
+#' hv_asset_category = "6.6/11kV CB (GM) Secondary",
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' observed_condition_inputs =
+#' list("external_condition" =
+#' list("Condition Criteria: Observed Condition" = "Default"),
+#' "oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
+#' measured_condition_inputs =
+#' list("partial_discharge" =
+#' list("Condition Criteria: Partial Discharge Test Results" = "Default"),
+#' "ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
+#' "oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
+#' "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
+#' "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
+#' reliability_factor = "Default")
 pof_hv_switchgear_distribution <-
   function(hv_asset_category = "6.6/11kV CB (GM) Secondary",
            placement = "Default",
@@ -187,7 +186,7 @@ pof_hv_switchgear_distribution <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-    return(probability_of_failure)
+    return(data.frame(pof = probability_of_failure, chs = current_health_score))
   }
 
 

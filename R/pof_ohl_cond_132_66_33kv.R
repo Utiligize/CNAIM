@@ -40,28 +40,27 @@
 #' A span includes all conductors in that span.
 #' See page 146, table 141 and 143 in CNAIM (2021).
 #' @inheritParams current_health
-#' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for 66kV OHL (Tower Line) Conductor
-# pof_ohl_cond_132_66_33kv(
-# ohl_conductor = "66kV OHL (Tower Line) Conductor",
-# sub_division = "Cu",
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# conductor_samp = "Default",
-# corr_mon_survey = "Default",
-# visual_cond = "Default",
-# midspan_joints = "Default",
-# reliability_factor = "Default")
-
+#' pof_ohl_cond_132_66_33kv(
+#' ohl_conductor = "66kV OHL (Tower Line) Conductor",
+#' sub_division = "Cu",
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' conductor_samp = "Default",
+#' corr_mon_survey = "Default",
+#' visual_cond = "Default",
+#' midspan_joints = "Default",
+#' reliability_factor = "Default")
 pof_ohl_cond_132_66_33kv <-
   function(ohl_conductor = "66kV OHL (Tower Line) Conductor",
            sub_division = "Cu",
@@ -434,5 +433,5 @@ pof_ohl_cond_132_66_33kv <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-    return(probability_of_failure)
+    return(data.frame(pof = probability_of_failure, chs = current_health_score))
   }

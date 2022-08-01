@@ -19,7 +19,7 @@ test_that("20kV case", {
     measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_val <- 0.00049
+  expected_val <- data.frame(pof = 0.00049, chs = 0.5)
 
   expect_equal(res, expected_val)
 })
@@ -41,7 +41,7 @@ test_that("6.6/11kV case", {
     measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_val <- 0.00049
+  expected_val <- data.frame(pof = 0.00049, chs = 0.5)
 
   expect_equal(res, expected_val)
 })
@@ -65,7 +65,7 @@ test_that("33kV case", {
     measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_val <- 0.00049
+  expected_val <- data.frame(pof = 0.00049, chs = 0.5)
 
   expect_equal(res, expected_val)
 })
@@ -87,7 +87,7 @@ test_that("66kV case", {
     measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_val <- 0.00049
+  expected_val <- data.frame(pof = 0.00049, chs = 0.5)
 
   expect_equal(res, expected_val)
 })
@@ -111,7 +111,7 @@ test_that("LV case", {
     measured_condition_inputs = list("pole_decay" = list("Condition Criteria: Degree of Decay/Deterioration" = "Default")),
     reliability_factor = "Default") %>% round(6)
 
-  expected_val <- 0.00049
+  expected_val <- data.frame(pof = 0.00049, chs = 0.5)
 
   expect_equal(res, expected_val)
 })

@@ -64,8 +64,8 @@ The default value is accordingly to the CNAIM standard on page 107.}
 of failure. Default is 100.code}
 }
 \value{
-Numeric array. Future probability of failure
-per annum per kilometre for 50 kV fittings.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
@@ -76,4 +76,28 @@ exponential function.
 }
 \examples{
 # Future annual probability of failure for 50kV fittings
+pof_future_ohl_fittings_50kv(
+placement = "Default",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 10,
+observed_condition_inputs =
+list("insulator_elec_cond" =
+list("Condition Criteria: Observed Condition" = "Default"),
+"insulator_mech_cond" =
+list("Condition Criteria: Observed Condition" = "Default"),
+"conductor_fitting_cond" =
+list("Condition Criteria: Observed Condition" = "Default"),
+"tower_fitting_cond" =
+list("Condition Criteria: Observed Condition" = "Default")),
+measured_condition_inputs =
+list("thermal_imaging" =
+list("Condition Criteria: Thermal Imaging Result" = "Default"),
+"ductor_test" = list("Condition Criteria: Ductor Test Result" = "Default")),
+reliability_factor = "Default",
+k_value = 0.0096,
+c_value = 1.087,
+normal_expected_life = 40,
+simulation_end_year = 100)
 }

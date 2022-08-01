@@ -19,7 +19,11 @@ test_that("pof_future_ohl_cond_132_66_33kv", {
                                   reliability_factor = "Default",
                                   simulation_end_year = 100)
 
-  expect_equal(res$PoF[6], 0.008342919)
+  expected_value <- readRDS(system.file("testdata/pof_future_ohl_cond_132_66_33kv.rds", package =
+                                          "CNAIM"))
+
+  expect_equal(res, expected_value)
+
 
 })
 

@@ -58,8 +58,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 of failure. Default is 100.}
 }
 \value{
-Numeric array. Future probability of failure
-per annum for 10 kv pex cables.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
@@ -70,5 +70,16 @@ exponential function.
 }
 \examples{
 # future annual probability of failure for 10kV cable pex, 50 years old
-pof_future_cables_10kV_pex_result <-
+pof_future_cables_10kv_pex(
+utilisation_pct = 80,
+operating_voltage_pct = 60,
+sheath_test = "Default",
+partial_discharge = "Default",
+fault_hist = "Default",
+reliability_factor = "Default",
+age = 50,
+k_value = 0.0658,
+c_value = 1.087,
+normal_expected_life = 80,
+simulation_end_year = 100)
 }

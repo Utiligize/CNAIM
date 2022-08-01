@@ -30,36 +30,32 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 60} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
-#' @return Numeric. Current probability of failure
-#' per annum per kilometer.
+#' @return DataFrame Current probability of failure
+#' per annum per kilometer along with current health score.
 #' @export
 #' @examples
 #' # Current annual probability of failure for 0.4kV board
-# pof_board_04kV_res <-
-# pof_board_04kv(
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# observed_condition_inputs =
-# list("external_cond" =
-# list("Condition Criteria: Observed Condition" = "Default"),
-# "compound_leaks" = list("Condition Criteria: Observed Condition" = "Default"),
-# "internal_cond" = list("Condition Criteria: Observed Condition" = "Default"),
-# "insulation" = list("Condition Criteria: Observed Condition" = "Default"),
-# "signs_heating" = list("Condition Criteria: Observed Condition" = "Default"),
-# "phase_barriers" = list("Condition Criteria: Observed Condition" = "Default")),
-# measured_condition_inputs =
-# list("opsal_adequacy" =
-# list("Condition Criteria: Operational Adequacy" = "Default")),
-# reliability_factor = "Default",
-# k_value = 0.0069,
-# c_value = 1.087,
-# normal_expected_life = 60)*100
-# paste0(sprintf("Probability of failure %.4f", pof_board_04kV_res),
-# " percent per annum")
-
+#' pof_board_04kv(
+#' placement = "Default",
+#' altitude_m = "Default",
+#' distance_from_coast_km = "Default",
+#' corrosion_category_index = "Default",
+#' age = 10,
+#' observed_condition_inputs =
+#' list("external_cond" =
+#' list("Condition Criteria: Observed Condition" = "Default"),
+#' "compound_leaks" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "internal_cond" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "insulation" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "signs_heating" = list("Condition Criteria: Observed Condition" = "Default"),
+#' "phase_barriers" = list("Condition Criteria: Observed Condition" = "Default")),
+#' measured_condition_inputs =
+#' list("opsal_adequacy" =
+#' list("Condition Criteria: Operational Adequacy" = "Default")),
+#' reliability_factor = "Default",
+#' k_value = 0.0069,
+#' c_value = 1.087,
+#' normal_expected_life = 60)
 pof_board_04kv <-
   function(placement = "Default",
            altitude_m = "Default",
@@ -180,7 +176,7 @@ pof_board_04kv <-
          (((c * current_health_score)^3) / factorial(3)))
 
 
-    return(probability_of_failure)
+    return(data.frame(pof = probability_of_failure, chs = current_health_score))
   }
 
 

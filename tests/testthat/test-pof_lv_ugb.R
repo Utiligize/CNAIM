@@ -21,8 +21,8 @@ test_that("LV UGB", {
     measured_condition_inputs = list("opsal_adequacy" = list("Condition Criteria: Operational Adequacy" = "Default")),
     reliability_factor = "Default") %>% round(5)
 
-  expected_value <- 0.00013
+  expected_val <- data.frame(pof = 0.00013, chs = 0.5)
 
-  expect_equal(res, expected_value)
+  expect_equal(res, expected_val)
 })
 

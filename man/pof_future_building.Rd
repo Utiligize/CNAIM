@@ -96,7 +96,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 of failure. Default is 100.}
 }
 \value{
-Numeric. Future probability of failure.
+DataFrame. Future probability of failure
+along with future health score
 }
 \description{
 This function calculates the future
@@ -108,4 +109,20 @@ exponential function.
 }
 \examples{
 # Future probability of failure for a Secondary substation Building
+pof_future_building(substation_type = "Secondary",
+material_type = "Wood",
+placement = "Outdoor",
+altitude_m = "Default",
+distance_from_coast_km = "Default",
+corrosion_category_index = "Default",
+age = 1,
+temperature_reading = "Default",
+coolers_radiator = "Default",
+kiosk = "Default",
+cable_boxes = "Default",
+reliability_factor = "Default",
+k_value = "Default",
+c_value = 1.087,
+normal_expected_life_building = "Default",
+simulation_end_year = 100)
 }
