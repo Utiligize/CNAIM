@@ -25,15 +25,21 @@
 #' @export
 #' @examples
 #' financial_cof_ehv_switchgear(ehv_asset_category = "33kV RMU", access_factor_criteria = "Type A")
-financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_criteria){
+financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_criteria, gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -49,7 +55,7 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
     access_financial_factor_category <- "132kV CBs"
   }
 
-  access_financial_factors <- gb_ref$access_factor_swg_tf_asset
+  access_financial_factors <- gb_ref_taken$access_factor_swg_tf_asset
 
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
