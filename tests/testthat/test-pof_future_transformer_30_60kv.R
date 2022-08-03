@@ -48,7 +48,7 @@ test_that("pof_future_transformer_30_60kv", {
                                    c_value = 1.087,
                                    normal_expected_life_tf = "Default",
                                    normal_expected_life_tc = "Default",
-                                   simulation_end_year = 100)
+                                   simulation_end_year = 100) %>% round(7)
 
   expect_equal(res$PoF[which(res$year == 12)], 0.3657150)
 
