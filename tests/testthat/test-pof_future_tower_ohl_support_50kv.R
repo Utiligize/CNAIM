@@ -28,8 +28,8 @@ test_that("pof_future_tower_ohl_support_50kv", {
       k_value = 0.0545,
       c_value = 1.087,
       normal_expected_life = "Default",
-      simulation_end_year = 100)
+      simulation_end_year = 100) %>% round(4)
 
-  expect_equal(res$PoF[which(res$year == 25)], 0.01553275)
+  expect_equal(res$PoF[which(res$year == 25)], 0.0155)
 
 })

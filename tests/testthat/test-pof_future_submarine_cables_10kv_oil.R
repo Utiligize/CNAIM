@@ -21,7 +21,7 @@ test_that("pof_future_submarine_cables_10kv_oil", {
                                               k_value = 2.0944,
                                               c_value = 1.087,
                                               normal_expected_life = 60,
-                                              simulation_end_year = 100)
+                                              simulation_end_year = 100) %>% round(7)
 
   expect_equal(res$PoF[which(res$year == 1)], 0.5969134)
 

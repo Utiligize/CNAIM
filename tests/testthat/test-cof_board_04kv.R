@@ -34,12 +34,14 @@ test_that("LV Board(WM)", {
 })
 
 
+#something wrong with the network cof
 context("COF:Network Board 0.4 kV")
 
 test_that("LV Board(WM)", {
   res <- network_cof_board_04kv(no_customers = 750,
                                 kva_per_customer = 51)
-  expected_value <- 6730924
+  expected_value <- 6730924.69 %>% round(2)
 
   expect_equal(res, expected_value)
 })
+

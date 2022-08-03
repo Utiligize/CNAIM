@@ -41,7 +41,7 @@ test_that("50kV OHL (Tower Line) Conductor", {
 context("COF:Network Overhead Line conductor: 50 kV")
 
 test_that("50kV OHL (Tower Line) Conductor", {
-  res <- network_cof_ohl_cond_50kv(actual_load_mva = 15)
+  res <- network_cof_ohl_cond_50kv(actual_load_mva = 15) %>% round(2)
   expected_value <- 14513.04
 
   expect_equal(res, expected_value)

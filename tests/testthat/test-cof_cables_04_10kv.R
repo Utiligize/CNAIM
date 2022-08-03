@@ -14,9 +14,9 @@ test_that("10kV UG Cable (Oil)", {
 context("COF:Financial Cables: 10 kV UG Cable PEX")
 
 test_that("10kV UG Cable (Non Pressurised)", {
-  res <- financial_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Non Pressurised)")
+  res <- round(financial_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Non Pressurised)"), digits=0)
 
-  expected_value <- 275619.2
+  expected_value <- 275619
 
   expect_equal(res, expected_value)
 })
@@ -24,9 +24,9 @@ test_that("10kV UG Cable (Non Pressurised)", {
 context("COF:Financial Cables: 0.4 kV UG Cable PEX")
 
 test_that("0.4kV UG Cable (Non Pressurised)", {
-  res <- financial_cof_cables_04_10kv(hv_asset_category = "0.4kV UG Cable (Non Pressurised)")
+  res <- round(financial_cof_cables_04_10kv(hv_asset_category = "0.4kV UG Cable (Non Pressurised)"), digits=0)
 
-  expected_value <- 275619.2
+  expected_value <- 275619
 
   expect_equal(res, expected_value)
 })
@@ -69,11 +69,11 @@ test_that("0.4kV UG Cable (Non Pressurised)", {
 context("COF:Env Cables: 10 kV UG Cable Oil")
 
 test_that("10kV UG Cable (Oil)", {
-  res <- environmental_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)",
+  res <- round(environmental_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)",
                                           prox_water = 95,
-                                          bunded = "Yes")
+                                          bunded = "Yes"), digits=1)
 
-  expected_value <- 25629.18
+  expected_value <- 25629.2
 
   expect_equal(res, expected_value)
 })
@@ -129,8 +129,8 @@ test_that("10kV UG Cable (Non Pressurised)", {
 context("COF:Network Cables: 0.4 kV UG Cable PEX")
 
 test_that("0.4kV UG Cable (Non Pressurised)", {
-  res <- network_cof_cof_cables_04_10kv(hv_asset_category = "0.4kV UG Cable (Non Pressurised)",
-                                        actual_load_mva = 15, secure = T) %>% round(2)
+  res <- network_cof_cables_04_10kv(hv_asset_category = "0.4kV UG Cable (Non Pressurised)",
+                                    actual_load_mva = 15, secure = T) %>% round(2)
 
   expected_value <- 38432.88
 

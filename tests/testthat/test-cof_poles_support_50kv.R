@@ -44,9 +44,9 @@ test_that("50kV pole", {
 context("COF:Network Poles: 50 kV")
 
 test_that("50kV Pole", {
-  res <- network_cof_poles_ohl_support_50kv(actual_load_mva = 15)
+  res <- network_cof_poles_ohl_support_50kv(actual_load_mva = 15) %>% round(2)
 
-  expected_value <- 996.2063
+  expected_value <- 996.21
 
   expect_equal(res, expected_value)
 })

@@ -51,9 +51,9 @@ context("COF:Env Cables: 30 kV")
 test_that("30kV UG Cable (Oil)", {
   res <- environmental_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)",
                                           prox_water = 95,
-                                          bunded = "Yes")
+                                          bunded = "Yes") %>% round(0)
 
-  expected_value <- 25629.18
+  expected_value <- 25629
 
   expect_equal(res, expected_value)
 })

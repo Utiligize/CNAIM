@@ -27,7 +27,7 @@ test_that("Default case", {
     reliability_factor = "Default",
     k_value = 0.0067,
     c_value = 1.087,
-    normal_expected_life = 55) * 100
+    normal_expected_life = 55)
 
   expected_val <- 0.0001496819
 

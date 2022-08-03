@@ -37,8 +37,8 @@ test_that("50kV Fittings", {
 context("COF:Network 50 kV OHL Fittings")
 
 test_that("50kV Fittings", {
-  res <- network_cof_ohl_fittings_50kv(actual_load_mva = 15)
-  expected_value <- 2901.519
+  res <- network_cof_ohl_fittings_50kv(actual_load_mva = 15) %>% round(2)
+  expected_value <- 2901.52
 
   expect_equal(res, expected_value)
 })

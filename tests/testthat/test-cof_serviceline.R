@@ -4,7 +4,7 @@ library(CNAIM)
 context("COF:Financial Cables: Serviceline")
 
 test_that("serviceline" , {
-  res <- financial_cof_serviceline()
+  res <- financial_cof_serviceline() %>% round(1)
 
   expected_value <- 137809.6
 

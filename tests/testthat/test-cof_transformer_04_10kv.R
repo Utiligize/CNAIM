@@ -10,6 +10,6 @@ test_that("cof_transformer_04_10kv", {
                                        location_risk = "High",
                                        prox_water = 50, bunded = "No",
                                        no_customers = 500,
-                                       kva_per_customer = 1), 373500.5)
+                                       kva_per_customer = 1) %>% round(1), 373500.5)
 
 })

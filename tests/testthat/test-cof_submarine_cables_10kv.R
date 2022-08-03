@@ -4,7 +4,7 @@ library(CNAIM)
 context("COF:Financial Sub Cables: 10kV")
 
 test_that("HV Sub Cable", {
-  res <- financial_cof_submarine_cables_10kv()
+  res <- financial_cof_submarine_cables_10kv() %>% round(0)
   expected_value <- 1585185
 
   expect_equal(res, expected_value)
@@ -29,7 +29,7 @@ test_that("HV Sub Cable", {
 context("COF:Env Sub Cables: 10kV")
 
 test_that("HV Sub Cable", {
-  res <- environmental_cof_submarine_cables_10kv()
+  res <- environmental_cof_submarine_10kv()
   expected_value <- 31356
 
   expect_equal(res, expected_value)

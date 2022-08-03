@@ -4,7 +4,7 @@ library(CNAIM)
 context("Current Probability of Failure for a 60kV Transformer (GM)")
 
 test_that("pof_transformer_30_60kv", {
-  expect_equel(pof_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
+  expect_equal(pof_transformer_30_60kv(transformer_type = "60kV Transformer (GM)",
                           year_of_manufacture = 1980,
                           utilisation_pct = "Default",
                           no_taps = "Default",
@@ -45,7 +45,7 @@ test_that("pof_transformer_30_60kv", {
                           k_value = 0.454,
                           c_value = 1.087,
                           normal_expected_life_tf = "Default",
-                          normal_expected_life_tc = "Default")   ,0.1244618)
+                          normal_expected_life_tc = "Default") %>% round(7)   ,0.1244618)
 
   })
 

@@ -38,8 +38,8 @@ context("COF:Network Pillar 0.4 kV")
 
 test_that("LV Pillar (ID)", {
   res <- network_cof_pillar_04kv(no_customers = 750,
-                                 kva_per_customer = 51)
-  expected_value <- 6730924
+                                 kva_per_customer = 51) %>% round(2)
+  expected_value <- 6730924.69
 
   expect_equal(res, expected_value)
 })

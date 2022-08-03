@@ -263,6 +263,7 @@ pof_future_tower_ohl_support_50kv <-
 
     # the Health Score of a new asset
     H_new <- 0.5
+    b1 <- 0.5
 
     # the Health Score of the asset when it reaches its Expected Life
     b2 <- beta_2(current_health_score, age)
