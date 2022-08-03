@@ -1,15 +1,12 @@
 #' @importFrom magrittr %>%
-#' @title Current Probability of Failure for 30-60kV cables
+#' @title Current Probability of Failure for 30-60kV Cables
 #' @description This function calculates the current
 #' annual probability of failure per kilometer for a 30-60kV cables.
 #' The function is a cubic curve that is based on
 #' the first three terms of the Taylor series for an
-#' exponential function. For more information about the
-#' probability of failure function see section 6
-#' on page 34 in CNAIM (2021).
+#' exponential function.
 #' @param cable_type String.
 #' A sting that refers to the specific asset category.
-#' See See page 17, table 1 in CNAIM (2021).
 #' Options:
 #' \code{cable_type = c("30kV UG Cable (Gas)", "60kV UG Cable (Gas)",
 #' "30kV UG Cable (Non Pressurised)", "60kV UG Cable (Non Pressurised)",
@@ -20,47 +17,55 @@
 #' made of. Options:
 #' \code{sub_division = c("Aluminium sheath - Aluminium conductor",
 #' "Aluminium sheath - Copper conductor",
-#' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")
-#'}
+#' "Lead sheath - Aluminium conductor", "Lead sheath - Copper conductor")}
 #' @inheritParams duty_factor_cables
 #' @param sheath_test String. Only applied for non pressurised cables.
 #' Indicating the state of the sheath. Options:
 #' \code{sheath_test = c("Pass", "Failed Minor", "Failed Major",
-#' "Default")}. See page 153, table 168 in CNAIM (2021).
+#' "Default")}.
 #' @param partial_discharge String. Only applied for non pressurised cables.
 #' Indicating the level of partial discharge. Options:
 #' \code{partial_discharge = c("Low", "Medium", "High",
-#'  "Default")}. See page 153, table 169 in CNAIM (2021).
+#'  "Default")}.
 #' @param fault_hist Numeric. Only applied for non pressurised cables.
 #' The calculated fault rate for the cable in the period per kilometer.
 #' A setting of \code{"No historic faults recorded"}
-#' indicates no fault. See page 153, table 170 in CNAIM (2021).
+#' indicates no fault.
 #' @param leakage String. Only applied for oil and gas pressurised cables.
 #' Options:
 #' \code{leakage = c("No (or very low) historic leakage recorded",
 #' "Low/ moderate", "High", "Very High", "Default")}.
-#' See page 157, table 182 (oil) and 183 (gas) in CNAIM (2021).
 #' @inheritParams current_health
 #' @param age  Numeric. The current age in years of the cable.
+#' @param k_value Numeric. \code{k_value = "Default"} by default. This number is
+#' given in a percentage. The default value is accordingly to the CNAIM standard
+#' on p. 110.
+#' @param c_value Numeric. \code{c_value = 1.087} by default.
+#' The default value is accordingly to the CNAIM standard see page 110
+#' @param normal_expected_life Numeric. \code{normal_expected_life = "Default"} by default.
+#' The default value is accordingly to the CNAIM standard on page 107.
 #' @return Numeric. Current probability of failure
 #' per annum per kilometre for 60/30kV cables.
-#' @source DNO Common Network Asset Indices Methodology (CNAIM),
-#' Health & Criticality - Version 2.1, 2021:
-#' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' # Current annual probability of failure for
 #' # "60kV UG Cable (Non Pressurised)", 50 years old
-#'pof_cables_60_30kv(cable_type = "66kV UG Cable (Non Pressurised)",
-#'sub_division = "Lead sheath - Copper conductor",
-#'utilisation_pct = 80,
-#'operating_voltage_pct = 60,
-#'sheath_test = "Default",
-#'partial_discharge = "Default",
-#'fault_hist = "Default",
-#'leakage = "Default",
-#'reliability_factor = "Default",
-#'age = 50) * 100
+# pof_cables_60_30kv_res <-
+# pof_cables_60_30kv(cable_type = "60kV UG Cable (Non Pressurised)",
+# sub_division = "Lead sheath - Copper conductor",
+# utilisation_pct = 80,
+# operating_voltage_pct = 60,
+# sheath_test = "Default",
+# partial_discharge = "Default",
+# fault_hist = "Default",
+# leakage = "Default",
+# reliability_factor = "Default",
+# age = 50,
+# k_value = "Default",
+# c_value = 1.087,
+# normal_expected_life = "Default") * 100
+# paste0(sprintf("Probability of failure %.4f", pof_cables_60_30kv_res),
+# " percent per annum")
 pof_cables_60_30kv <-
   function(cable_type = "60kV UG Cable (Gas)",
            sub_division = "Aluminium sheath - Aluminium conductor",
@@ -71,7 +76,10 @@ pof_cables_60_30kv <-
            fault_hist = "Default",
            leakage = "Default",
            reliability_factor = "Default",
-           age) {
+           age,
+           k_value = "Default",
+           c_value = 1.087,
+           normal_expected_life = "Default") {
 
     if (cable_type == "30kV UG Cable (Non Pressurised)" ) {
       cable_type <- "33kV UG Cable (Non Pressurised)"
@@ -112,12 +120,21 @@ pof_cables_60_30kv <-
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cable <- gb_ref$normal_expected_life %>%
-      dplyr::filter(`Asset Register  Category` == cable_type &
-                      `Sub-division` == sub_division) %>%
-      dplyr::pull()
+
+
+    if (normal_expected_life == "Default") {
+      normal_expected_life_cable <- gb_ref$normal_expected_life %>%
+        dplyr::filter(`Asset Register  Category` == cable_type &
+                        `Sub-division` == sub_division) %>%
+        dplyr::pull()
+    } else {
+      normal_expected_life_cable <- normal_expected_life
+    }
+
+
 
     # Constants C and K for PoF function --------------------------------------
+
     if (asset_category == "EHV UG Cable (Non Pressurised)") {
       type_k_c <-
         gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
@@ -135,16 +152,16 @@ pof_cables_60_30kv <-
         )]
     }
 
-    k <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
-      dplyr::pull()/100
+    if (k_value == "Default") {
+      k <- gb_ref$pof_curve_parameters %>%
+        dplyr::filter(`Functional Failure Category` ==
+                        type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
+        dplyr::pull()/100
+    } else {
+      k <- k_value/100
+    }
 
-    c <- gb_ref$pof_curve_parameters %>%
-      dplyr::filter(`Functional Failure Category` ==
-                      type_k_c) %>% dplyr::select(`C-Value`) %>%
-      dplyr::pull()
-
+    c <- c_value
     # Duty factor -------------------------------------------------------------
 
     duty_factor_cable <-
@@ -169,12 +186,11 @@ pof_cables_60_30kv <-
     # of the Health Score. However, in some instances
     # these parameters are set to other values in the
     # Health Score Modifier calibration tables.
-    # These overriding values are shown in Table 35 to Table 202
-    # and Table 207 in Appendix B.
+
 
     # Measured condition inputs ---------------------------------------------
-    asset_category_mmi <- gsub(pattern = "UG", "", asset_category)
-    asset_category_mmi <- gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", asset_category_mmi, perl=TRUE)
+    asset_category_mmi <- stringr::str_remove(asset_category, pattern = "UG")
+    asset_category_mmi <- stringr::str_squish(asset_category_mmi)
 
 
     mcm_mmi_cal_df <-
