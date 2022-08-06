@@ -31,6 +31,7 @@ financial_cof_ehv_switchgear <- function(ehv_asset_category, access_factor_crite
   if(is.null(gb_ref_given)){
     gb_ref_taken <- gb_ref
   }else{
+    check_gb_ref_given(gb_ref_given)
     gb_ref_taken <- gb_ref_given
   }
 
