@@ -33,7 +33,7 @@ Options: \code{ehv_asset_category = c(
 setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.}
 
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB

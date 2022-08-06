@@ -30,6 +30,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 55} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
+#' @param gb_ref_given optional parameter to use custo,e reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @export
@@ -73,7 +74,8 @@ pof_switchgear_primary_10kv <-
            reliability_factor = "Default",
            k_value = 0.0052,
            c_value = 1.087,
-           normal_expected_life = 55) {
+           normal_expected_life = 55,
+           gb_ref_given = NULL) {
 
     hv_asset_category <- "6.6/11kV CB (GM) Primary"
     `Asset Register Category` = `Health Index Asset Category` =
@@ -81,16 +83,23 @@ pof_switchgear_primary_10kv <-
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
                       hv_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -104,7 +113,8 @@ pof_switchgear_primary_10kv <-
     c <- c_value
     # Duty factor -------------------------------------------------------------
 
-    duty_factor_cond <- get_duty_factor_hv_switchgear_primary(number_of_operations)
+    duty_factor_cond <- get_duty_factor_hv_switchgear_primary(number_of_operations,
+                                                              gb_ref_taken)
 
     # Location factor ----------------------------------------------------
     location_factor_cond <- location_factor(placement,

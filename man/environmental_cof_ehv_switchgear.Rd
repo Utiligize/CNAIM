@@ -41,7 +41,7 @@ assume the proximity to a water course is between 80m and 120m
 \item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
 A setting of \code{"Default"} will result in a bunding factor of 1.}
 
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure
