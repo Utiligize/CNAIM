@@ -9,7 +9,11 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-financial_cof_ehv_switchgear(ehv_asset_category, access_factor_criteria)
+financial_cof_ehv_switchgear(
+  ehv_asset_category,
+  access_factor_criteria,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{ehv_asset_category}{String The type of EHV swicthgear & 132kV CB
@@ -28,6 +32,8 @@ Options: \code{ehv_asset_category = c(
 \item{access_factor_criteria}{String. Asses Financial factor criteria for EHV swicthgear & 132kV CB
 setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.}
+
+\item{gb_ref_given}{optional parameter to use custo,e reference values}
 }
 \value{
 Numeric. Financial consequences of failure for EHV swicthgear & 132kV CB
