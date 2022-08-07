@@ -38,12 +38,12 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
     gb_ref_taken <- gb_ref_given
   }
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == lv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -54,7 +54,7 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
   if(lv_asset_category == "LV Board (WM)" || lv_asset_category == "LV Board (X-type Network) (WM)"){
     type_financial_factor <- 1
   }else{
-    type_financial_factors <- gb_ref$type_financial_factors
+    type_financial_factors <- gb_ref_taken$type_financial_factors
     type_financial_factors_tf <- dplyr::filter(type_financial_factors,
                                                `Asset Register Category` == lv_asset_category,
                                                `Type Financial Factor Criteria` == type_financial_factor_criteria)
@@ -63,7 +63,7 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
   }
 
   # Access financial factor -------------------------------------------------
-  access_financial_factors <- gb_ref$access_factor_swg_tf_asset
+  access_financial_factors <- gb_ref_taken$access_factor_swg_tf_asset
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
                                                  "LV Switchgear")
@@ -135,11 +135,11 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
     gb_ref_taken <- gb_ref_given
   }
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == lv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -150,7 +150,7 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
   if (location_risk == "Medium") location_risk <- "Medium (Default)"
   if (type_risk == "Default") type_risk <- "Medium"
 
-  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
+  safety_conseq_factor_sg_tf_oh <- gb_ref_taken$safety_conseq_factor_sg_tf_oh
 
   row_no <- which(safety_conseq_factor_sg_tf_oh$
                     `Safety Consequence Factor - Switchgear, Transformers & Overhead Lines...2` ==
@@ -194,11 +194,11 @@ environmental_cof_lv_switchgear_and_other <- function(lv_asset_category,
     gb_ref_taken <- gb_ref_given
   }
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == lv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -258,7 +258,7 @@ network_cof_lv_switchgear_and_other <- function(lv_asset_category,
     gb_ref_taken <- gb_ref_given
   }
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -266,7 +266,7 @@ network_cof_lv_switchgear_and_other <- function(lv_asset_category,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Customer factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
+  ref_nw_perf_cost_fail_lv_hv <- gb_ref_taken$ref_nw_perf_cost_fail_lv_hv
   ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
                                                   `Asset Category` ==
                                                     asset_category)
@@ -274,7 +274,7 @@ network_cof_lv_switchgear_and_other <- function(lv_asset_category,
   ref_no_cust <-
     ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
 
-  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+  customer_no_adjust_lv_hv_asset <- gb_ref_taken$customer_no_adjust_lv_hv_asset
 
 
   for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){
