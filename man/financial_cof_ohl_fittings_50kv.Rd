@@ -6,7 +6,8 @@
 \usage{
 financial_cof_ohl_fittings_50kv(
   type_financial_factor_criteria,
-  access_factor_criteria
+  access_factor_criteria,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -15,6 +16,8 @@ Options: \code{type_financial_factor_criteria = c("Suspension", "Tension")}.}
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for EHV fittings
 setting. Options: \code{access_factor_criteria = c("Type A", "Type B")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for EHV fittings
