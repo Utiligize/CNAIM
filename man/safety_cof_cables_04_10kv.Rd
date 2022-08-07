@@ -4,12 +4,14 @@
 \alias{safety_cof_cables_04_10kv}
 \title{Safety cost of Failure for 0.4kV and 10kV UG Cables}
 \usage{
-safety_cof_cables_04_10kv(hv_asset_category)
+safety_cof_cables_04_10kv(hv_asset_category, gb_ref_given = NULL)
 }
 \arguments{
 \item{hv_asset_category}{String The type of HV asset category
 \code{hv_asset_category = c("10kV UG Cable (Oil)",
 "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.}
+
+\item{gb_ref_given}{optional parameter to use custo,e reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 0.4kV and 10kV UG cables
