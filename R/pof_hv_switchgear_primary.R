@@ -28,7 +28,7 @@
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 #' See page 161, table 199 and 201 in CNAIM (2021).
 #' @inheritParams current_health
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),

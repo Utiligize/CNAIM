@@ -24,7 +24,7 @@ Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
 
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 0.4kV board

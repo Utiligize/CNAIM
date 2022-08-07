@@ -14,7 +14,7 @@ safety_cof_cables_60_30kv(ehv_asset_category, gb_ref_given = NULL)
 \arguments{
 \item{ehv_asset_category}{Asset category for analysis}
 
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 30-60 kV UG cables

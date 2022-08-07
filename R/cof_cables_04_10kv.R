@@ -4,7 +4,7 @@
 #' @param hv_asset_category String The type of HV asset category
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
 #' "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for 0.4kV and 10kV UG cables
 #' @export
 #' @examples
@@ -65,7 +65,7 @@ financial_cof_cables_04_10kv <- function(hv_asset_category,
 #' @param hv_asset_category String The type of HV asset category
 #' \code{hv_asset_category = c("10kV UG Cable (Oil)",
 #' "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for 0.4kV and 10kV UG cables
 #' @export
 #' @examples
@@ -126,7 +126,7 @@ safety_cof_cables_04_10kv <- function(hv_asset_category,
 #' assume the proximity to a water course is between 80m and 120m
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @export
 #' @examples
 #' environmental_cof_cables_04_10kv(hv_asset_category = "10kV UG Cable (Oil)",
@@ -236,7 +236,7 @@ environmental_cof_cables_04_10kv <- function(hv_asset_category,
 #' @param hv_asset_category String The type of HV asset category
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @export
 #' @examples

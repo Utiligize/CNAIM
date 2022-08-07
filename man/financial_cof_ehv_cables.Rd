@@ -17,6 +17,8 @@ Options: \code{ehv_asset_category =
 c("33kV UG Cable (Oil)", "33kV UG Cable (Gas)", "33kV UG Cable (Non Pressurised)",
 "66kV UG Cable (Oil)", "66kV UG Cable (Gas)", "66kV UG Cable (Non Pressurised)",
 "132kV UG Cable (Oil)", "132kV UG Cable (Gas)", "132kV UG Cable (Non Pressurised)")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for EHV switchgear

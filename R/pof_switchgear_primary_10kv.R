@@ -30,7 +30,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 55} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @export

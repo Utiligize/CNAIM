@@ -23,7 +23,7 @@ network_cof_cables_60_30kv(
 
 \item{secure}{Boolean If the asset is in a secure network or not}
 
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

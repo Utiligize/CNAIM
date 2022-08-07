@@ -11,7 +11,7 @@ financial_cof_cables_04_10kv(hv_asset_category, gb_ref_given = NULL)
 \code{hv_asset_category = c("10kV UG Cable (Oil)",
 "10kV UG Cable (Non Pressurised)", "0.4kV UG Cable (Non Pressurised)"}.}
 
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 0.4kV and 10kV UG cables

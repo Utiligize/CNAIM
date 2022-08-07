@@ -12,7 +12,7 @@ Health & Criticality - Version 2.1, 2021:
 environmental_cof_board_04kv(gb_ref_given = NULL)
 }
 \arguments{
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure

@@ -23,7 +23,7 @@ fed by an individual asset.}
 demand per customer type in kVA per customer. A setting of \code{"Default"}
 results in a multiplication factor of 1 (cf. table 18, page 89, CNAIM, 2021).}
 
-\item{gb_ref_given}{optional parameter to use custo,e reference values}
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

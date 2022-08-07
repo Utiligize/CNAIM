@@ -9,7 +9,7 @@
 #' @param access_factor_criteria String. Asses Financial factor criteria for 0.4kV board
 #' setting (cf. table 221, page 180, CNAIM, 2021).
 #' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for 0.4kV board
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -97,7 +97,7 @@ financial_cof_board_04kv <- function(type_financial_factor_criteria = "Asbestos 
 #' Options: \code{type_risk = c("Low", "Medium", "High")}.
 #' The default setting is
 #' \code{type_risk = "Medium"}.
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for 0.4kV board
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -162,7 +162,7 @@ safety_cof_board_04kv <- function(location_risk,
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @export
 #' @examples
 #' environmental_cof_board_04kv()
@@ -214,7 +214,7 @@ environmental_cof_board_04kv <- function(gb_ref_given = NULL) {
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
 #' results in a multiplication factor of 1 (cf. table 18, page 89, CNAIM, 2021).
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:

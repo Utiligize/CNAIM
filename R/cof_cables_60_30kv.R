@@ -9,7 +9,7 @@
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
 #' @param ehv_asset_category Asset category for the analysis
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for EHV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -80,7 +80,7 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category,
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
 #' @param ehv_asset_category Asset category for analysis
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for 30-60 kV UG cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -152,7 +152,7 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category,
 #' (cf. table 231, page 188, CNAIM, 2021).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -272,7 +272,7 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
 #' @param ehv_asset_category Asset category for the analysis
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
-#' @param gb_ref_given optional parameter to use custo,e reference values
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
