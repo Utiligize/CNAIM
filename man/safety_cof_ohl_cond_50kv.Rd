@@ -4,7 +4,7 @@
 \alias{safety_cof_ohl_cond_50kv}
 \title{Safety cost of Failure for 50kV Overhead Line Conductors}
 \usage{
-safety_cof_ohl_cond_50kv(location_risk, type_risk)
+safety_cof_ohl_cond_50kv(location_risk, type_risk, gb_ref_given = NULL)
 }
 \arguments{
 \item{location_risk}{String Type Financial factor criteria for Overhead Line Conductors
@@ -16,6 +16,8 @@ The default setting is
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Safety consequences of failure for Overhead Line Conductors
