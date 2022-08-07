@@ -9,12 +9,14 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-environmental_cof_ehv_fittings(ehv_asset_category)
+environmental_cof_ehv_fittings(ehv_asset_category, gb_ref_given = NULL)
 }
 \arguments{
 \item{ehv_asset_category}{String The type of EHV asset category
 Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
  "132kV Fittings")}}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure

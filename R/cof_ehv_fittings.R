@@ -11,6 +11,7 @@
 #' @param access_factor_criteria String. Asses Financial factor criteria for EHV fittings
 #' setting (cf. table 221, page 180, CNAIM, 2021).
 #' \code{access_factor_criteria = c("Type A", "Type B")}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -22,16 +23,24 @@
 #' access_factor_criteria = "Type A")
 financial_cof_ehv_fittings <- function(ehv_asset_category,
                                        type_financial_factor_criteria,
-                                       access_factor_criteria){
+                                       access_factor_criteria,
+                                       gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` =
     `Type Financial Factor Criteria` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -39,7 +48,7 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
   fcost <- reference_costs_of_failure_tf$`Financial - (GBP)`
 
   # Type financial factor ---------------------------------------------------
-  type_financial_factors <- gb_ref$type_financial_factors
+  type_financial_factors <- gb_ref_taken$type_financial_factors
   type_financial_factors_tf <- dplyr::filter(type_financial_factors,
                                              `Asset Register Category` == ehv_asset_category,
                                              `Type Financial Factor Criteria` == type_financial_factor_criteria)
@@ -47,7 +56,7 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
   type_financial_factor <- type_financial_factors_tf$`Type Financial Factor`[1]
 
   # Access financial factor -------------------------------------------------
-  access_financial_factors <- gb_ref$access_factor_ohl
+  access_financial_factors <- gb_ref_taken$access_factor_ohl
   access_category_financial_factor <- "EHV OHL Fittings (Tower Lines)"
   if(ehv_asset_category == "132kV Fittings"){
     access_category_financial_factor <- "132kV OHL Fittings (Tower Lines)"
@@ -94,6 +103,7 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
 #' \code{type_risk = c("Low", "Medium", "High")}.
 #' The default setting is
 #' \code{type_risk = "Medium"}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -105,14 +115,22 @@ financial_cof_ehv_fittings <- function(ehv_asset_category,
 #' type_risk = "Default")
 safety_cof_ehv_fittings <- function(ehv_asset_category,
                                     location_risk,
-                                    type_risk){
+                                    type_risk,
+                                    gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -123,7 +141,7 @@ safety_cof_ehv_fittings <- function(ehv_asset_category,
   if (location_risk == "Medium") location_risk <- "Medium (Default)"
   if (type_risk == "Default") type_risk <- "Medium"
 
-  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
+  safety_conseq_factor_sg_tf_oh <- gb_ref_taken$safety_conseq_factor_sg_tf_oh
 
   row_no <- which(safety_conseq_factor_sg_tf_oh$
                     `Safety Consequence Factor - Switchgear, Transformers & Overhead Lines...2` ==
@@ -148,21 +166,30 @@ safety_cof_ehv_fittings <- function(ehv_asset_category,
 #' @param ehv_asset_category String The type of EHV asset category
 #' Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
 #'  "132kV Fittings")}
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' environmental_cof_ehv_fittings(ehv_asset_category = "33kV Fittings")
-environmental_cof_ehv_fittings <- function(ehv_asset_category){
+environmental_cof_ehv_fittings <- function(ehv_asset_category,
+                                           gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -199,6 +226,7 @@ environmental_cof_ehv_fittings <- function(ehv_asset_category){
 #'  "132kV Fittings")}
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -209,12 +237,20 @@ environmental_cof_ehv_fittings <- function(ehv_asset_category){
 #' actual_load_mva = 15)
 network_cof_ehv_fittings<- function(ehv_asset_category,
                                       actual_load_mva,
-                                      secure = T) {
+                                      secure = T,
+                                    gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -222,7 +258,7 @@ network_cof_ehv_fittings<- function(ehv_asset_category,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Load factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
+  ref_nw_perf_cost_fail_ehv_df <- gb_ref_taken$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
                                                              ehv_asset_category)
