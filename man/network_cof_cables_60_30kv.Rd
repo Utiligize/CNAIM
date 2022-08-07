@@ -9,7 +9,12 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-network_cof_cables_60_30kv(ehv_asset_category, actual_load_mva, secure = T)
+network_cof_cables_60_30kv(
+  ehv_asset_category,
+  actual_load_mva,
+  secure = T,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{ehv_asset_category}{Asset category for the analysis}
@@ -17,6 +22,8 @@ network_cof_cables_60_30kv(ehv_asset_category, actual_load_mva, secure = T)
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}
+
+\item{gb_ref_given}{optional parameter to use custo,e reference values}
 }
 \value{
 Numeric. Network cost of failure.

@@ -9,6 +9,7 @@
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
 #' @param ehv_asset_category Asset category for the analysis
+#' @param gb_ref_given optional parameter to use custo,e reference values
 #' @return Numeric. Financial consequences of failure for EHV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -16,7 +17,8 @@
 #' @export
 #' @examples
 #' financial_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)")
-financial_cof_cables_60_30kv <- function(ehv_asset_category){
+financial_cof_cables_60_30kv <- function(ehv_asset_category,
+                                         gb_ref_given = NULL){
 
   if (ehv_asset_category == "30kV UG Cable (Non Pressurised)" ) {
     ehv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -32,15 +34,21 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category){
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -72,6 +80,7 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category){
 #'}. The default setting is
 #' \code{ehv_asset_category = "60kV UG Cable (Gas)"}.
 #' @param ehv_asset_category Asset category for analysis
+#' @param gb_ref_given optional parameter to use custo,e reference values
 #' @return Numeric. Financial consequences of failure for 30-60 kV UG cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -79,7 +88,8 @@ financial_cof_cables_60_30kv <- function(ehv_asset_category){
 #' @export
 #' @examples
 #' safety_cof_cables_60_30kv(ehv_asset_category = "30kV UG Cable (Oil)")
-safety_cof_cables_60_30kv <- function(ehv_asset_category){
+safety_cof_cables_60_30kv <- function(ehv_asset_category,
+                                      gb_ref_given = NULL){
 
   if (ehv_asset_category == "30kV UG Cable (Non Pressurised)" ) {
     ehv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -95,13 +105,20 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category){
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -135,6 +152,7 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category){
 #' (cf. table 231, page 188, CNAIM, 2021).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
+#' @param gb_ref_given optional parameter to use custo,e reference values
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
@@ -144,7 +162,8 @@ safety_cof_cables_60_30kv <- function(ehv_asset_category){
 #' prox_water = 95, bunded = "Yes")
 environmental_cof_cables_60_30kv <- function(ehv_asset_category,
                                               prox_water,
-                                              bunded){
+                                              bunded,
+                                              gb_ref_given = NULL){
 
   if (ehv_asset_category == "30kV UG Cable (Non Pressurised)" ) {
     ehv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -160,14 +179,21 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -181,7 +207,7 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
   size_environmental_factor <- 1
 
   # Location environmetal factor table 222 ----------------------------------
-  location_environ_al_factor <- gb_ref$location_environ_al_factor
+  location_environ_al_factor <- gb_ref_taken$location_environ_al_factor
 
   location_environ_al_factor_tf <- dplyr::filter(location_environ_al_factor,
                                                  `Asset Register Category` ==
@@ -246,6 +272,7 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
 #' @param ehv_asset_category Asset category for the analysis
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
+#' @param gb_ref_given optional parameter to use custo,e reference values
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -256,7 +283,8 @@ environmental_cof_cables_60_30kv <- function(ehv_asset_category,
 #' actual_load_mva = 15)
 network_cof_cables_60_30kv <- function(ehv_asset_category,
                                   actual_load_mva,
-                                  secure = T) {
+                                  secure = T,
+                                  gb_ref_given = NULL) {
 
   if (ehv_asset_category == "30kV UG Cable (Non Pressurised)" ) {
     ehv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -272,10 +300,17 @@ network_cof_cables_60_30kv <- function(ehv_asset_category,
     ehv_asset_category <- "66kV UG Cable (Gas)"
   }
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -283,7 +318,7 @@ network_cof_cables_60_30kv <- function(ehv_asset_category,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Load factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
+  ref_nw_perf_cost_fail_ehv_df <- gb_ref_taken$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
                                                              ehv_asset_category)
