@@ -9,13 +9,18 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-environmental_cof_lv_switchgear_and_other(lv_asset_category)
+environmental_cof_lv_switchgear_and_other(
+  lv_asset_category,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{lv_asset_category}{String The type of LV asset category
 Options: \code{lv_asset_category = c("LV Board (WM)",
 "LV Board (X-type Network) (WM)", "LV Circuit Breaker",
 "LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure
