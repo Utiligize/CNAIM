@@ -11,7 +11,8 @@ Health & Criticality - Version 2.1, 2021:
 \usage{
 financial_cof_board_04kv(
   type_financial_factor_criteria = "Asbestos clad",
-  access_factor_criteria
+  access_factor_criteria,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Options: \code{type_financial_factor_criteria = c("Non Asbestos clad", "Asbestos
 \item{access_factor_criteria}{String. Asses Financial factor criteria for 0.4kV board
 setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.}
+
+\item{gb_ref_given}{optional parameter to use custo,e reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 0.4kV board
