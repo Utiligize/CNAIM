@@ -4,7 +4,10 @@
 \alias{financial_cof_serviceline}
 \title{Financial cost of Failure for Service Lines}
 \usage{
-financial_cof_serviceline()
+financial_cof_serviceline(gb_ref_given = NULL)
+}
+\arguments{
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for service line
