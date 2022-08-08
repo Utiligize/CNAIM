@@ -9,12 +9,14 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-environmental_cof_poles(pole_asset_category)
+environmental_cof_poles(pole_asset_category, gb_ref_given = NULL)
 }
 \arguments{
 \item{pole_asset_category}{String The type of pole asset category
 Options: \code{pole_asset_category = c("LV Poles", "6.6/11kV Poles",
 "20kV Poles", "33kV Pole", "66kV Pole")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for Poles
