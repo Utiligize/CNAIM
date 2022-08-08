@@ -9,7 +9,7 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-safety_cof_pillar_04kv(location_risk, type_risk)
+safety_cof_pillar_04kv(location_risk, type_risk, gb_ref_given = NULL)
 }
 \arguments{
 \item{location_risk}{String Type Financial factor criteria for 0.4kV Pillar
@@ -23,6 +23,8 @@ setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 0.4kV Pillar
