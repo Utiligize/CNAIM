@@ -4,7 +4,11 @@
 \alias{network_cof_relay}
 \title{Network cost of Failure for Relays}
 \usage{
-network_cof_relay(no_customers, kva_per_customer = "Default")
+network_cof_relay(
+  no_customers,
+  kva_per_customer = "Default",
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{no_customers}{Numeric. The number of customers
@@ -13,6 +17,8 @@ fed by an individual asset.}
 \item{kva_per_customer}{Numeric. If the asset have an exceptionally high
 demand per customer type in kVA per customer. A setting of \code{"Default"}
 results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

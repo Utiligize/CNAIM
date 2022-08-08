@@ -4,7 +4,7 @@
 \alias{safety_cof_relay}
 \title{Safety cost of Failure for Relays}
 \usage{
-safety_cof_relay(location_risk, type_risk)
+safety_cof_relay(location_risk, type_risk, gb_ref_given = NULL)
 }
 \arguments{
 \item{location_risk}{String Type Financial factor criteria for 50kV fittings
@@ -17,6 +17,8 @@ setting
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for relay

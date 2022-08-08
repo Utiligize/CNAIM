@@ -4,7 +4,12 @@
 \alias{environmental_cof_relay}
 \title{Environmental cost of Failure for Relays}
 \usage{
-environmental_cof_relay(type_env_factor, prox_water, bunded)
+environmental_cof_relay(
+  type_env_factor,
+  prox_water,
+  bunded,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{type_env_factor}{String The type environment factor of HV asset category
@@ -16,6 +21,8 @@ assume the proximity to a water course is between 80m and 120m}
 
 \item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
 A setting of \code{"Default"} will result in a bunding factor of 1.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure.
