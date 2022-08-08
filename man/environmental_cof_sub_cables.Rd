@@ -9,12 +9,14 @@ Health & Criticality - Version 2.1, 2017:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-environmental_cof_sub_cables(sub_cable_asset_category)
+environmental_cof_sub_cables(sub_cable_asset_category, gb_ref_given = NULL)
 }
 \arguments{
 \item{sub_cable_asset_category}{String The type of Submarine cable asset category
 Options: \code{sub_cable_asset_category = c("HV Sub Cable",
 "EHV Sub Cable", "132kV Sub Cable")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for sub cables
