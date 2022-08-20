@@ -9,7 +9,11 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-network_cof_submarine_cables_10kv(no_customers, kva_per_customer = "Default")
+network_cof_submarine_cables_10kv(
+  no_customers,
+  kva_per_customer = "Default",
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{no_customers}{Numeric. The number of customers
@@ -18,6 +22,8 @@ fed by an individual asset.}
 \item{kva_per_customer}{Numeric. If the asset have an exceptionally high
 demand per customer type in kVA per customer. A setting of \code{"Default"}
 results in a multiplication factor of 1 (cf. table 18, page 89, CNAIM, 2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

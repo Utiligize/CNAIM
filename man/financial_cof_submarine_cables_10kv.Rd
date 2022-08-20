@@ -9,7 +9,10 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-financial_cof_submarine_cables_10kv()
+financial_cof_submarine_cables_10kv(gb_ref_given = NULL)
+}
+\arguments{
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 10kV submarine cables
