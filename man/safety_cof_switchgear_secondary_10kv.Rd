@@ -4,7 +4,11 @@
 \alias{safety_cof_switchgear_secondary_10kv}
 \title{Safety cost of Failure for 10 kV Switchgear Secondary}
 \usage{
-safety_cof_switchgear_secondary_10kv(location_risk, type_risk)
+safety_cof_switchgear_secondary_10kv(
+  location_risk,
+  type_risk,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{location_risk}{String Type Financial factor criteria for 10kV switchgear secondary
@@ -18,6 +22,8 @@ setting.
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 10kV switchgear secondary
