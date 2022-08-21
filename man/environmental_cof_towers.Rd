@@ -9,12 +9,14 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-environmental_cof_towers(tower_asset_category)
+environmental_cof_towers(tower_asset_category, gb_ref_given = NULL)
 }
 \arguments{
 \item{tower_asset_category}{String The type of tower asset category
 Options: \code{tower_asset_category = c("33kV Tower", "66kV Tower",
 "132kV Tower")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for towers
