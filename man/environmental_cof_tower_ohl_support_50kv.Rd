@@ -4,7 +4,10 @@
 \alias{environmental_cof_tower_ohl_support_50kv}
 \title{Environmental cost of Failure for Tower OHL Support 50 kV}
 \usage{
-environmental_cof_tower_ohl_support_50kv()
+environmental_cof_tower_ohl_support_50kv(gb_ref_given = NULL)
+}
+\arguments{
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for tower ohl support 50 kV
