@@ -5,6 +5,7 @@
 #' @inheritParams s_cof_swg_tf_ohl
 #' @inheritParams e_cof_tf
 #' @inheritParams n_cof_excl_ehv_132kv_tf
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Consequences of failure for a 0.4/10 kV transformer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -21,20 +22,23 @@
 cof_transformer_04_10kv <- function(kva, type,
                                  type_risk, location_risk,
                                  prox_water, bunded,
-                                 no_customers, kva_per_customer) {
+                                 no_customers, kva_per_customer,
+                                 gb_ref_given = NULL) {
 
-  finance <- f_cof_transformer_11kv(kva, type)
+  finance <- f_cof_transformer_11kv(kva, type, gb_ref_given)
 
   safety <- s_cof_swg_tf_ohl(type_risk, location_risk,
-                             asset_type_scf = "6.6/11kV Transformer (GM)")
+                             asset_type_scf = "6.6/11kV Transformer (GM)",
+                             gb_ref_given)
 
   environmental <-  e_cof_tf(asset_type_tf = "6.6/11kV Transformer (GM)",
                              rated_capacity = kva,
-                             prox_water, bunded)
+                             prox_water, bunded,
+                             gb_ref_given)
 
   network <-
     n_cof_excl_ehv_132kv_tf(asset_type_ncf = "6.6/11kV Transformer (GM)",
-                            no_customers, kva_per_customer)
+                            no_customers, kva_per_customer, gb_ref_given)
 
   return(finance + safety + environmental + network)
 }

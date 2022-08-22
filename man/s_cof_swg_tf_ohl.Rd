@@ -13,7 +13,8 @@ Health & Criticality - Version 2.1, 2021:
 s_cof_swg_tf_ohl(
   type_risk = "Default",
   location_risk = "Default",
-  asset_type_scf
+  asset_type_scf,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -57,6 +58,8 @@ Options:
 "132kV CB (Gas Insulated Busbars)(ID) (GM)",
 "132kV CB (Gas Insulated Busbars)(OD) (GM)", "132kV Transformer (GM)")
 }}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Safety consequences of failure for

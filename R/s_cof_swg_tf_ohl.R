@@ -42,6 +42,7 @@
 #' "132kV CB (Gas Insulated Busbars)(ID) (GM)",
 #' "132kV CB (Gas Insulated Busbars)(OD) (GM)", "132kV Transformer (GM)")
 #'}
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Safety consequences of failure for
 #' switchgear, transformers and overhead lines.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -55,14 +56,22 @@
 
 s_cof_swg_tf_ohl <- function(type_risk = "Default",
                             location_risk = "Default",
-                            asset_type_scf) {
+                            asset_type_scf,
+                            gb_ref_given = NULL) {
 
   `Asset Register Category` = NULL
   # due to NSE notes in R CMD check
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   # Get category ------------------------------------------------------------
   reference_costs_of_failure_tf <-
-    dplyr::filter(gb_ref$reference_costs_of_failure,
+    dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    asset_type_scf)
 
@@ -71,7 +80,7 @@ s_cof_swg_tf_ohl <- function(type_risk = "Default",
 
 
   #  Safety Consequence factor ----------------------------------------------
-  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
+  safety_conseq_factor_sg_tf_oh <- gb_ref_taken$safety_conseq_factor_sg_tf_oh
 
   if (location_risk == "Default") location_risk <- "Medium (Default)"
   if (location_risk == "Medium") location_risk <- "Medium (Default)"

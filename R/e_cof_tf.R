@@ -22,6 +22,7 @@
 #' (cf. table 231, page 188, CNAIM, 2021).
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial cost of failure for a 10kV transformer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -33,20 +34,28 @@
 #' rated_capacity = 750, prox_water = 100, bunded = "Yes")
 
 e_cof_tf <- function(asset_type_tf, rated_capacity = "Default",
-                     prox_water = "Default", bunded = "Default") {
+                     prox_water = "Default", bunded = "Default",
+                     gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Lower` = NULL
   # due to NSE notes in R CMD check
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   # Get category ------------------------------------------------------------
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == asset_type_tf) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
   reference_costs_of_failure <-
-    gb_ref$reference_costs_of_failure
+    gb_ref_taken$reference_costs_of_failure
 
 
     reference_costs_of_failure_tf <- dplyr::filter(reference_costs_of_failure,
@@ -63,7 +72,7 @@ e_cof_tf <- function(asset_type_tf, rated_capacity = "Default",
   # Size environmetal factor table 222 --------------------------------------
   if (asset_type_tf == "132kV Transformer (GM)") {
     size_enviromental_factor_tf <- dplyr::filter(
-      gb_ref$size_enviromental_factor,
+      gb_ref_taken$size_enviromental_factor,
       `Asset Register Category` ==
         asset_type_tf)
 
@@ -73,7 +82,7 @@ e_cof_tf <- function(asset_type_tf, rated_capacity = "Default",
   } else {
 
     size_enviromental_factor_tf <- dplyr::filter(
-      gb_ref$size_enviromental_factor,
+      gb_ref_taken$size_enviromental_factor,
       `Asset Register Category` ==
         asset_type_tf)
   }
@@ -94,7 +103,7 @@ e_cof_tf <- function(asset_type_tf, rated_capacity = "Default",
 
 
   # Location environmetal factor table 222 ----------------------------------
-  location_environ_al_factor <- gb_ref$location_environ_al_factor
+  location_environ_al_factor <- gb_ref_taken$location_environ_al_factor
 
   location_environ_al_factor_tf <- dplyr::filter(location_environ_al_factor,
                                                  `Asset Register Category` ==
