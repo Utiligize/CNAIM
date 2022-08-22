@@ -8,7 +8,8 @@ environmental_cof_transformer_30_60kv(
   tf_asset_category,
   prox_water,
   bunded,
-  size_kva_mva = NULL
+  size_kva_mva = NULL,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ assume the proximity to a water course is between 80m and 120m}
 A setting of \code{"Default"} will result in a bunding factor of 1.}
 
 \item{size_kva_mva}{Numeric The MVA KVA rating for the transformer}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure

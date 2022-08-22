@@ -4,7 +4,12 @@
 \alias{safety_cof_transformer_30_60kv}
 \title{Safety cost of Failure for 30/10kv and 60/10kv Transformer}
 \usage{
-safety_cof_transformer_30_60kv(tf_asset_category, location_risk, type_risk)
+safety_cof_transformer_30_60kv(
+  tf_asset_category,
+  location_risk,
+  type_risk,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{tf_asset_category}{String The type of Transformer
@@ -22,6 +27,8 @@ setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Safety consequences of failure for Transformers
