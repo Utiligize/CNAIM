@@ -19,7 +19,8 @@ dga_test_modifier(
   methane_pre = "Default",
   ethylene_pre = "Default",
   ethane_pre = "Default",
-  acetylene_pre = "Default"
+  acetylene_pre = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -57,6 +58,8 @@ A setting of \code{"Default"} will result in the best possible result.}
 
 \item{acetylene_pre}{Numeric. Previous results.
 A setting of \code{"Default"} will result in the best possible result.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Data table.

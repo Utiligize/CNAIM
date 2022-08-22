@@ -28,6 +28,7 @@
 #' A setting of \code{"Default"} will result in the best possible result.
 #' @param acetylene_pre Numeric. Previous results.
 #' A setting of \code{"Default"} will result in the best possible result.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Data table.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -57,7 +58,8 @@ dga_test_modifier <- function(hydrogen = "Default",
                               methane_pre = "Default",
                               ethylene_pre = "Default",
                               ethane_pre = "Default",
-                              acetylene_pre = "Default") {
+                              acetylene_pre = "Default",
+                              gb_ref_given = NULL) {
 
   # Previous results -----------------------------------------------------------
   if(hydrogen_pre == "Default") hydrogen_pre <- -0.1
@@ -66,9 +68,16 @@ dga_test_modifier <- function(hydrogen = "Default",
   if(ethane_pre == "Default") ethane_pre <- -0.1
   if(acetylene_pre == "Default") acetylene_pre <- -0.1
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   # Hydrogen
   hydrogen_cond_state_calib <-
-    gb_ref$hydrogen_cond_state_calib
+    gb_ref_taken$hydrogen_cond_state_calib
   hydrogen_cond_state_calib$Lower[1] <- -Inf
   hydrogen_cond_state_calib$Upper[5] <- Inf
 
@@ -85,7 +94,7 @@ dga_test_modifier <- function(hydrogen = "Default",
   # Methane
 
   methane_cond_state_calib <-
-    gb_ref$methane_cond_state_calib
+    gb_ref_taken$methane_cond_state_calib
   methane_cond_state_calib$Lower[1] <- -Inf
   methane_cond_state_calib$Upper[5] <- Inf
 
@@ -102,7 +111,7 @@ dga_test_modifier <- function(hydrogen = "Default",
   # Ethylene
 
   ethylene_cond_state_calib <-
-    gb_ref$ethylene_cond_state_calib
+    gb_ref_taken$ethylene_cond_state_calib
   ethylene_cond_state_calib$Lower[1] <- -Inf
   ethylene_cond_state_calib$Upper[5] <- Inf
 
@@ -119,7 +128,7 @@ dga_test_modifier <- function(hydrogen = "Default",
 
   # Ethane
   ethane_cond_state_calib <-
-    gb_ref$ethane_cond_state_calib
+    gb_ref_taken$ethane_cond_state_calib
   ethane_cond_state_calib$Lower[1] <- -Inf
   ethane_cond_state_calib$Upper[5] <- Inf
 
@@ -136,7 +145,7 @@ dga_test_modifier <- function(hydrogen = "Default",
 
   # Acetyle
   acetylene_cond_state_calib <-
-    gb_ref$acetylene_cond_state_calib
+    gb_ref_taken$acetylene_cond_state_calib
   acetylene_cond_state_calib$Lower[1] <- -Inf
   acetylene_cond_state_calib$Upper[5] <- Inf
 
@@ -247,12 +256,12 @@ dga_test_modifier <- function(hydrogen = "Default",
   dga_test_cap <- 10
 
   dga_test_factor_calib <-
-    gb_ref$dga_test_factor_calib
+    gb_ref_taken$dga_test_factor_calib
 
   names(dga_test_factor_calib)[1] <- "Change Category"
 
   dga_change_category_calib <-
-    gb_ref$dga_change_category_calib
+    gb_ref_taken$dga_change_category_calib
 
   dga_table_calib <- dplyr::left_join(dga_change_category_calib,
                                       dga_test_factor_calib, by = "Change Category")
