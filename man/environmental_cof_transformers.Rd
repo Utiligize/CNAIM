@@ -14,7 +14,8 @@ environmental_cof_transformers(
   prox_water,
   bunded,
   size_kva_mva = NULL,
-  size_conversion = NULL
+  size_conversion = NULL,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ A setting of \code{"Default"} will result in a bunding factor of 1.}
 \item{size_kva_mva}{Numeric The MVA KVA rating for the transformer}
 
 \item{size_conversion}{String The size conversion for the transformer}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure
