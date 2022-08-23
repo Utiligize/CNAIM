@@ -13,7 +13,8 @@ oil_test_modifier(
   moisture = "Default",
   acidity = "Default",
   bd_strength = "Default",
-  transformer_type_all = "20kV Transformer (GM)"
+  transformer_type_all = "20kV Transformer (GM)",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ c("6.6/11kV Transformer (GM)", "20kV Transformer (GM)",
 "33kV Transformer (GM)", "66kV Transformer (GM)",
 "132kV Transformer (GM)" )}. The default setting is
 \code{transformer_type = "66kV Transformer (GM)"}}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Data table.

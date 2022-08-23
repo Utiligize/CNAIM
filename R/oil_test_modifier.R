@@ -20,6 +20,7 @@
 #' "33kV Transformer (GM)", "66kV Transformer (GM)",
 #' "132kV Transformer (GM)" )}. The default setting is
 #' \code{transformer_type = "66kV Transformer (GM)"}
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Data table.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -35,9 +36,15 @@
 oil_test_modifier <- function(moisture = "Default",
                               acidity = "Default",
                               bd_strength = "Default",
-                              transformer_type_all = "20kV Transformer (GM)") {
+                              transformer_type_all = "20kV Transformer (GM)",
+                              gb_ref_given = NULL) {
 
-
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
 
   if (transformer_type_all == "20kV Transformer (GM)" ||
       transformer_type_all == "6.6/11kV Transformer (GM)") {
@@ -55,7 +62,7 @@ oil_test_modifier <- function(moisture = "Default",
   if (acidity == "Default") acidity <- -0.1
   if (bd_strength == "Default") bd_strength <- 10000
 
-  moisture_df <- gb_ref$moisture_cond_state_calib
+  moisture_df <- gb_ref_taken$moisture_cond_state_calib
   moisture_df <- moisture_df[moisture_df$Type == type_tf,]
 
   moisture_df$Lower[1] <- -Inf
@@ -72,7 +79,7 @@ oil_test_modifier <- function(moisture = "Default",
   }
 
 
-  acidity_df <- gb_ref$acidity_cond_state_calib
+  acidity_df <- gb_ref_taken$acidity_cond_state_calib
   acidity_df <- acidity_df[acidity_df$Type == type_tf, ]
   acidity_df <- acidity_df[!is.na(acidity_df$Lower), ]
 
@@ -90,7 +97,7 @@ oil_test_modifier <- function(moisture = "Default",
   }
 
 
-  bd_strength_df <- gb_ref$bd_strength_cond_state_calib
+  bd_strength_df <- gb_ref_taken$bd_strength_cond_state_calib
   bd_strength_df <- bd_strength_df[bd_strength_df$Type == type_tf,]
 
   bd_strength_df$Lower[1] <- -Inf
@@ -114,7 +121,7 @@ oil_test_modifier <- function(moisture = "Default",
     80 * bd_strength_score
 
   # Oil condition factor
-  oil_cond_factor_df <- gb_ref$oil_test_factor_calib
+  oil_cond_factor_df <- gb_ref_taken$oil_test_factor_calib
   oil_cond_factor_df <- oil_cond_factor_df[oil_cond_factor_df$Type == type_tf, ]
   oil_cond_factor_df <- oil_cond_factor_df[!is.na(oil_cond_factor_df$Lower), ]
 
@@ -133,7 +140,7 @@ oil_test_modifier <- function(moisture = "Default",
 
   # Oil condition collar
 
-  oil_cond_collar_df <- gb_ref$oil_test_collar_calib
+  oil_cond_collar_df <- gb_ref_taken$oil_test_collar_calib
   oil_cond_collar_df <- oil_cond_collar_df[oil_cond_collar_df$Type == type_tf, ]
   oil_cond_collar_df <- oil_cond_collar_df[!is.na(oil_cond_collar_df$Lower), ]
 
