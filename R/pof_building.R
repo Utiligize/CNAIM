@@ -58,6 +58,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life_building Numeric.
 #' \code{normal_expected_life_building = "Default"} by default.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @export
@@ -92,7 +93,8 @@ pof_building <- function(substation_type = "Secondary",
                          reliability_factor = "Default",
                          k_value = "Default",
                          c_value = 1.087,
-                         normal_expected_life_building = "Default") {
+                         normal_expected_life_building = "Default",
+                         gb_ref_given = NULL) {
 
   transformer_type <- "66kV Transformer (GM)" # This is done to use some of CNAIM's tables
   `Asset Register Category` = `Health Index Asset Category` =
@@ -101,17 +103,24 @@ pof_building <- function(substation_type = "Secondary",
     `Asset Category` = NULL
   # due to NSE notes in R CMD check
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == transformer_type) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-  generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -183,7 +192,7 @@ pof_building <- function(substation_type = "Secondary",
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-
-    gb_ref$measured_cond_modifier_mmi_cal
+    gb_ref_taken$measured_cond_modifier_mmi_cal
 
   mcm_mmi_cal_df <-
     mcm_mmi_cal_df[which(mcm_mmi_cal_df$`Asset Category` == "EHV Transformer (GM)"), ]
@@ -209,7 +218,7 @@ pof_building <- function(substation_type = "Secondary",
 
   # Temperature readings ----------------------------------------------------
   mci_temp_readings <-
-    gb_ref$mci_ehv_tf_temp_readings
+    gb_ref_taken$mci_ehv_tf_temp_readings
 
   ci_factor_temp_reading <-
     mci_temp_readings$`Condition Input Factor`[which(
@@ -250,7 +259,7 @@ pof_building <- function(substation_type = "Secondary",
 
   # Observed condition inputs ---------------------------------------------
   oci_mmi_cal_df <-
-    gb_ref$observed_cond_modifier_mmi_cal %>%
+    gb_ref_taken$observed_cond_modifier_mmi_cal %>%
     dplyr::filter(`Asset Category` == "EHV Transformer (GM)")
 
   factor_divider_1_obs <-
@@ -276,7 +285,7 @@ pof_building <- function(substation_type = "Secondary",
   # Coolers/Radiator condition
 
   oci_cooler_radiatr_cond <-
-    gb_ref$oci_ehv_tf_cooler_radiatr_cond
+    gb_ref_taken$oci_ehv_tf_cooler_radiatr_cond
 
   Oi_collar_coolers_radiator <-
     oci_cooler_radiatr_cond$`Condition Input Collar`[which(
@@ -297,7 +306,7 @@ pof_building <- function(substation_type = "Secondary",
   # Kiosk
 
   oci_kiosk_cond <-
-    gb_ref$oci_ehv_tf_kiosk_cond
+    gb_ref_taken$oci_ehv_tf_kiosk_cond
 
   Oi_collar_kiosk <-
     oci_kiosk_cond$`Condition Input Collar`[which(
@@ -317,7 +326,7 @@ pof_building <- function(substation_type = "Secondary",
 
   # Cable box
   oci_cable_boxes_cond <-
-    gb_ref$oci_ehv_tf_cable_boxes_cond
+    gb_ref_taken$oci_ehv_tf_cable_boxes_cond
 
   Oi_collar_cable_boxes <-
     oci_cable_boxes_cond$`Condition Input Collar`[which(
@@ -370,7 +379,7 @@ pof_building <- function(substation_type = "Secondary",
 
   # Health score factor ---------------------------------------------------
 
-  health_score_factor <-  gb_ref$health_score_factor_for_tf
+  health_score_factor <-  gb_ref_taken$health_score_factor_for_tf
 
 
   factor_divider_1_health <-

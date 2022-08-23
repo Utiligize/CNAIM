@@ -20,7 +20,8 @@ pof_building(
   reliability_factor = "Default",
   k_value = "Default",
   c_value = 1.087,
-  normal_expected_life_building = "Default"
+  normal_expected_life_building = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -90,6 +91,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 
 \item{normal_expected_life_building}{Numeric.
 \code{normal_expected_life_building = "Default"} by default.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure
