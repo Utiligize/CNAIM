@@ -24,6 +24,7 @@
 #' @param c_value Numeric. \code{c_value = 1.087} by default.
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 80} by default.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @export
@@ -49,7 +50,8 @@ pof_cables_10kv_pex <- function(utilisation_pct = "Default",
                                 age,
                                 k_value = 0.0658,
                                 c_value = 1.087,
-                                normal_expected_life = 80) {
+                                normal_expected_life = 80,
+                                gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -58,20 +60,27 @@ pof_cables_10kv_pex <- function(utilisation_pct = "Default",
     `Condition Criteria: Partial Discharge Test Result` =
     NULL
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   cable_type <- "33kV UG Cable (Non Pressurised)"
   sub_division <- "Lead sheath - Copper conductor"
 
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == cable_type) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-  generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -109,7 +118,7 @@ pof_cables_10kv_pex <- function(utilisation_pct = "Default",
   asset_category_mmi <- stringr::str_squish(asset_category_mmi)
 
   mcm_mmi_cal_df <-
-    gb_ref$measured_cond_modifier_mmi_cal
+    gb_ref_taken$measured_cond_modifier_mmi_cal
 
   mmi_type <- mcm_mmi_cal_df$`Asset Category`[which(
     grepl(asset_category_mmi,
@@ -141,7 +150,7 @@ pof_cables_10kv_pex <- function(utilisation_pct = "Default",
 
   # Sheath test -------------------------------------------------------------
   mci_ehv_cbl_non_pr_sheath_test <-
-    gb_ref$mci_ehv_cbl_non_pr_sheath_test %>% dplyr::filter(
+    gb_ref_taken$mci_ehv_cbl_non_pr_sheath_test %>% dplyr::filter(
       `Condition Criteria: Sheath Test Result` == sheath_test
     )
 
@@ -152,7 +161,7 @@ pof_cables_10kv_pex <- function(utilisation_pct = "Default",
   # Partial discharge-------------------------------------------------------
 
   mci_ehv_cbl_non_pr_prtl_disch <-
-    gb_ref$mci_ehv_cbl_non_pr_prtl_disch %>% dplyr::filter(
+    gb_ref_taken$mci_ehv_cbl_non_pr_prtl_disch %>% dplyr::filter(
       `Condition Criteria: Partial Discharge Test Result` == partial_discharge
     )
 
@@ -165,7 +174,7 @@ pof_cables_10kv_pex <- function(utilisation_pct = "Default",
   # Fault -------------------------------------------------------
 
   mci_ehv_cbl_non_pr_fault_hist <-
-    gb_ref$mci_ehv_cbl_non_pr_fault_hist
+    gb_ref_taken$mci_ehv_cbl_non_pr_fault_hist
 
   for (n in 2:4) {
     if (fault_hist == 'Default' || fault_hist ==
