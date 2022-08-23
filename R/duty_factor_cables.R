@@ -13,6 +13,7 @@
 #' \code{voltage_level = c("EHV", "HV")}.
 #' Choose \code{"EHV"} for cables \code{>= 33kV}  and \code{"HV"}
 #' for cables \code{< 33kV} .
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Duty factor for cables.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -25,17 +26,26 @@
 
 duty_factor_cables <- function(utilisation_pct = "Default",
                                operating_voltage_pct = "Default",
-                               voltage_level = "EHV") {
+                               voltage_level = "EHV",
+                               gb_ref_given = NULL) {
 
   `Duty Factor (HV)` = `Duty Factor (EHV & 132kV)` = NULL
+
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   if (voltage_level == "EHV") {
-    duty_factor_table1 <- gb_ref$duty_factor_lut_cables_df1 %>% dplyr::select(
+    duty_factor_table1 <- gb_ref_taken$duty_factor_lut_cables_df1 %>% dplyr::select(
       !`Duty Factor (HV)`)
     duty_factor_table1$`Duty Factor` <-
       duty_factor_table1$`Duty Factor (EHV & 132kV)`
 
   } else if(voltage_level == "HV") {
-    duty_factor_table1 <- gb_ref$duty_factor_lut_cables_df1 %>% dplyr::select(
+    duty_factor_table1 <- gb_ref_taken$duty_factor_lut_cables_df1 %>% dplyr::select(
       !`Duty Factor (EHV & 132kV)`)
     duty_factor_table1$`Duty Factor` <-
       duty_factor_table1$`Duty Factor (HV)`
@@ -53,7 +63,7 @@ duty_factor_cables <- function(utilisation_pct = "Default",
     }
   }
 
-  duty_factor_table2 <- gb_ref$duty_factor_lut_cables_df2
+  duty_factor_table2 <- gb_ref_taken$duty_factor_lut_cables_df2
 
   for (n in 1:nrow(duty_factor_table2)){
     if (operating_voltage_pct == 'Default'){

@@ -12,7 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 duty_factor_cables(
   utilisation_pct = "Default",
   operating_voltage_pct = "Default",
-  voltage_level = "EHV"
+  voltage_level = "EHV",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ operating/design voltage.}
 \code{voltage_level = c("EHV", "HV")}.
 Choose \code{"EHV"} for cables \code{>= 33kV}  and \code{"HV"}
 for cables \code{< 33kV} .}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Duty factor for cables.
