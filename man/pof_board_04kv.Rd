@@ -15,7 +15,8 @@ pof_board_04kv(
   reliability_factor = "Default",
   k_value = 0.0069,
   c_value = 1.087,
-  normal_expected_life = 60
+  normal_expected_life = 60,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -56,6 +57,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 
 \item{normal_expected_life}{Numeric. \code{normal_expected_life = 60} by default.
 The default value is accordingly to the CNAIM standard on page 107.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure
