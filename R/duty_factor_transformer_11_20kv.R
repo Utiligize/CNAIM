@@ -7,6 +7,7 @@
 #' the derivation of the duty factor see section 6.6 on page 51 in CNAIM (2021)
 #' @param utilisation_pct Numeric. The max percentage of utilisation
 #' under normal operating conditions.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Duty factor for 6.6/11kV or 20kV transformer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -15,9 +16,17 @@
 #' @examples
 #' duty_factor_transformer_11_20kv(utilisation_pct = 95)
 
-duty_factor_transformer_11_20kv <- function(utilisation_pct = "Default") {
+duty_factor_transformer_11_20kv <- function(utilisation_pct = "Default",
+                                            gb_ref_given = NULL) {
 
-  duty_factor_table <- gb_ref$duty_factor_lut_distrib_tf
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  duty_factor_table <- gb_ref_taken$duty_factor_lut_distrib_tf
 
   for (n in 1:nrow(duty_factor_table)){
     if (utilisation_pct == 'Default'){
