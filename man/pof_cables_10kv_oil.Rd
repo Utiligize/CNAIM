@@ -14,7 +14,8 @@ pof_cables_10kv_oil(
   age,
   k_value = 0.24,
   c_value = 1.087,
-  normal_expected_life = 80
+  normal_expected_life = 80,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -52,6 +53,8 @@ See section 6.14 on page 73 in CNAIM (2021).}
 The default value is accordingly to the CNAIM standard see page 110}
 
 \item{normal_expected_life}{Numeric. \code{normal_expected_life = 80} by default.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure
