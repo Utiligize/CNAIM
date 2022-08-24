@@ -3,8 +3,9 @@ Type: Package
 Title: Common Network Asset Indices Methodology (CNAIM)
 Version: 2.1.2
 Authors@R: c(
-    person("Emil", "Larsen", , "mohsin@utiligize.com", role = "aut"),
-    person("Kalle", "Hansen", , "kalle@utiligize.com", role = "aut"),
+    person("Emil", "Larsen", , "mohsin@utiligize.com", role = c("aut", "cre")),
+    person("Kalle", "Hansen", , "kalle@utiligize.com", role = c("aut", "cph")),
+    person("Kenneth", "Rosenorn", , "kalle@utiligize.com", role = "aut"),
     person("Peter", "Larsen", , "peter@utiligize.com", role = "aut"),
     person("Mohsin", "Vindhani", , "mohsin@utiligize.com", role = c("aut", "cre"))
   )
