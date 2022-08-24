@@ -3,35 +3,55 @@
 \name{risk_calculation}
 \alias{risk_calculation}
 \title{Calculates risk and converts to matrix coordinates}
+\source{
+DNO Common Network Asset Indices Methodology (CNAIM),
+Health & Criticality - Version 2.1, 2021:
+\url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+}
 \usage{
 risk_calculation(
   matrix_dimensions,
   id,
-  pof,
+  chs,
   cof,
   asset_type,
-  pof_limits,
-  cof_limits
+  hi_bands = NULL,
+  ci_bands = NULL
 )
 }
 \arguments{
 \item{matrix_dimensions}{A data frame with the dimensions of the desired risk
-matrix}
+matrix.}
 
-\item{id}{A string that describes the asset}
+\item{id}{An integer that identifies the asset}
 
-\item{pof}{The probability of failure of the asset}
+\item{chs}{The Current Health Score (CHS) of the asset}
 
-\item{cof}{The consequences of failure of the asset}
+\item{cof}{The Consequence of Failure of the asset}
 
 \item{asset_type}{The asset type to be calculated for class}
 
-\item{pof_limits}{Specific limit for the risk matrix}
+\item{hi_bands}{Specific Health Index (HI) bands for risk matrix. Default
+values are the same as defined in the CNAIM v2.1 standard}
 
-\item{cof_limits}{Specific limit for the risk matrix}
+\item{ci_bands}{Specific Criticality Index (CI) bands for the risk matrix.
+Default values are the same as defined in the CNAIM v.2.1 standard.}
 }
 \description{
-This function calculates monetary risk, given probability of
-failure and consequence of failure inputs, as well as the desired risk matrix
+This function calculates risk matrix coordinates
 dimensions.
+}
+\examples{
+# Calculate risk matrix coordinates for an asset
+# 1. Make the risk matrix structure
+matrix_structure <- risk_matrix_structure(5,4,NA)
+
+# 2. Calculate risk matrix coordinates
+risk_calculation(matrix_dimensions = matrix_structure,
+id = 1,
+chs = 4,
+cof = 15000,
+asset_type = "6.6/11kV Transformer (GM)")
+
+
 }
