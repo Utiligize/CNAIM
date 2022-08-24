@@ -1,6 +1,6 @@
 ## Re submission
 
-In this version, I have updated tests for many functions and have added more details to the results returned by the functions
+In this version, I have updated functions for matrix analysis
 
 ## Test environments
 * local OS X(10.15.4) install, R 4.2.0
