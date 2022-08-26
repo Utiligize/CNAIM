@@ -10,6 +10,7 @@
 #' @inheritParams pof_ohl_cond_132_66_33kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame. Future probability of failure
 #' along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -45,7 +46,8 @@ pof_future_ohl_cond_132_66_33kv <-
            visual_cond = "Default",
            midspan_joints = "Default",
            reliability_factor = "Default",
-           simulation_end_year = 100) {
+           simulation_end_year = 100,
+           gb_ref_given = NULL) {
 
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -56,35 +58,41 @@ pof_future_ohl_cond_132_66_33kv <-
       `Condition Criteria: Conductor Sampling Result` =
       `Condition Criteria: No. of Midspan Joints` = NULL
     # due to NSE notes in R CMD check
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` == ohl_conductor) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+    normal_expected_life_cond <- gb_ref_taken$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` == ohl_conductor &
                       `Sub-division` == sub_division) %>%
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
 
-    k <- gb_ref$pof_curve_parameters %>%
+    k <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       generic_term_2) %>% dplyr::select(`K-Value (%)`) %>%
       dplyr::pull()/100
 
-    c <- gb_ref$pof_curve_parameters %>%
+    c <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       generic_term_2) %>% dplyr::select(`C-Value`) %>%
       dplyr::pull()
@@ -128,7 +136,7 @@ pof_future_ohl_cond_132_66_33kv <-
     }
 
     mcm_mmi_cal_df <-
-      gb_ref$measured_cond_modifier_mmi_cal
+      gb_ref_taken$measured_cond_modifier_mmi_cal
 
     mcm_mmi_cal_df <-
       mcm_mmi_cal_df[which(
@@ -157,7 +165,7 @@ pof_future_ohl_cond_132_66_33kv <-
     if (asset_category == "132kV OHL Conductor (Tower Lines)") {
 
       mci_132kv_twr_line_cond_sampl <-
-        gb_ref$mci_132kv_twr_line_cond_sampl %>% dplyr::filter(
+        gb_ref_taken$mci_132kv_twr_line_cond_sampl %>% dplyr::filter(
           `Condition Criteria: Conductor Sampling Result` == conductor_samp
         )
 
@@ -171,7 +179,7 @@ pof_future_ohl_cond_132_66_33kv <-
 
       # Corrosion monitoring survey
       mci_132kv_twr_line_cond_srvy <-
-        gb_ref$mci_132kv_twr_line_cond_srvy %>% dplyr::filter(
+        gb_ref_taken$mci_132kv_twr_line_cond_srvy %>% dplyr::filter(
           `Condition Criteria: Corrosion Monitoring Survey Result` ==
             corr_mon_survey
         )
@@ -186,7 +194,7 @@ pof_future_ohl_cond_132_66_33kv <-
     } else {
 
       mci_ehv_twr_line_cond_sampl <-
-        gb_ref$mci_ehv_twr_line_cond_sampl %>% dplyr::filter(
+        gb_ref_taken$mci_ehv_twr_line_cond_sampl %>% dplyr::filter(
           `Condition Criteria: Conductor Sampling Result` == conductor_samp
         )
 
@@ -200,7 +208,7 @@ pof_future_ohl_cond_132_66_33kv <-
 
       # Corrosion monitoring survey
       mci_ehv_twr_line_cond_srvy <-
-        gb_ref$mci_ehv_twr_line_cond_srvy %>% dplyr::filter(
+        gb_ref_taken$mci_ehv_twr_line_cond_srvy %>% dplyr::filter(
           `Condition Criteria: Corrosion Monitoring Survey Result` ==
             corr_mon_survey
         )
@@ -247,7 +255,7 @@ pof_future_ohl_cond_132_66_33kv <-
 
 
     oci_mmi_cal_df <-
-      gb_ref$observed_cond_modifier_mmi_cal
+      gb_ref_taken$observed_cond_modifier_mmi_cal
 
     oci_mmi_cal_df <-
       oci_mmi_cal_df[which(
@@ -274,7 +282,7 @@ pof_future_ohl_cond_132_66_33kv <-
     if (asset_category == "132kV OHL Conductor (Tower Lines)") {
 
       oci_132kv_twr_line_visual_cond <-
-        gb_ref$oci_132kv_twr_line_visual_cond %>% dplyr::filter(
+        gb_ref_taken$oci_132kv_twr_line_visual_cond %>% dplyr::filter(
           `Condition Criteria: Observed Condition` == visual_cond
         )
 
@@ -298,7 +306,7 @@ pof_future_ohl_cond_132_66_33kv <-
       }
 
       oci_132kv_twr_line_cond_midspn <-
-        gb_ref$oci_132kv_twr_line_cond_midspn %>% dplyr::filter(
+        gb_ref_taken$oci_132kv_twr_line_cond_midspn %>% dplyr::filter(
           `Condition Criteria: No. of Midspan Joints` == midspan_joints
         )
 
@@ -311,7 +319,7 @@ pof_future_ohl_cond_132_66_33kv <-
     } else {
 
       oci_ehv_twr_line_visal_cond <-
-        gb_ref$oci_ehv_twr_line_visal_cond %>% dplyr::filter(
+        gb_ref_taken$oci_ehv_twr_line_visal_cond %>% dplyr::filter(
           `Condition Criteria: Observed Condition` == visual_cond
         )
 
@@ -335,7 +343,7 @@ pof_future_ohl_cond_132_66_33kv <-
       }
 
       oci_ehv_twr_cond_midspan_joint <-
-        gb_ref$oci_ehv_twr_cond_midspan_joint %>% dplyr::filter(
+        gb_ref_taken$oci_ehv_twr_cond_midspan_joint %>% dplyr::filter(
           `Condition Criteria: No. of Midspan Joints` == midspan_joints
         )
 
