@@ -11,6 +11,7 @@
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
 #' @param pole_decay Numeric Pole Decay
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric array. Future probability of failure
 #' per annum per kilometre for poles.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -48,7 +49,8 @@ pof_future_poles <-
            pole_decay = "default",
            observed_condition_inputs,
            reliability_factor = "Default",
-           simulation_end_year = 100) {
+           simulation_end_year = 100,
+           gb_ref_given = NULL) {
 
 
     `Asset Register Category` = `Health Index Asset Category` =
@@ -56,21 +58,28 @@ pof_future_poles <-
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` = NULL
     # due to NSE notes in R CMD check
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
                       pole_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+    normal_expected_life_cond <- gb_ref_taken$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` ==
                       pole_asset_category,
                     `Sub-division` == sub_division) %>%
@@ -82,12 +91,12 @@ pof_future_poles <-
 
     pof_asset_category <- "Poles"
 
-    k <- gb_ref$pof_curve_parameters %>%
+    k <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` %in% pof_asset_category) %>%
       dplyr::select(`K-Value (%)`) %>%
       dplyr::pull()/100
 
-    c <- gb_ref$pof_curve_parameters %>%
+    c <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` %in% pof_asset_category) %>%
       dplyr::select(`C-Value`) %>%
       dplyr::pull()
@@ -120,7 +129,7 @@ pof_future_poles <-
 
     # Pole decay ----------------------------------------------------
     mci_ehv_pole_pole_decay_deter <-
-      gb_ref$mci_ehv_pole_pole_decay_deter
+      gb_ref_taken$mci_ehv_pole_pole_decay_deter
 
     ci_factor_pole_decay <-
       mci_ehv_pole_pole_decay_deter$`Condition Input Factor`[which(
