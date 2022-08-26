@@ -15,6 +15,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 60} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame. Future probability of failure
 #' along with future health score
 #' @export
@@ -51,7 +52,8 @@ pof_future_ohl_cond_50kv <-
            k_value = 0.0080,
            c_value = 1.087,
            normal_expected_life = "Default",
-           simulation_end_year = 100) {
+           simulation_end_year = 100,
+           gb_ref_given = NULL) {
 
     ohl_conductor <- "66kV OHL (Tower Line) Conductor"
 
@@ -64,28 +66,35 @@ pof_future_ohl_cond_50kv <-
       `Condition Criteria: No. of Midspan Joints` = NULL
     # due to NSE notes in R CMD check
 
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` == ohl_conductor) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+    normal_expected_life_cond <- gb_ref_taken$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` == ohl_conductor &
                       `Sub-division` == sub_division) %>%
       dplyr::pull()
 
     if (normal_expected_life == "Default") {
-      normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+      normal_expected_life_cond <- gb_ref_taken$normal_expected_life %>%
         dplyr::filter(`Asset Register  Category` == ohl_conductor &
                         `Sub-division` == sub_division) %>%
         dplyr::pull()
@@ -135,7 +144,7 @@ pof_future_ohl_cond_50kv <-
     }
 
     mcm_mmi_cal_df <-
-      gb_ref$measured_cond_modifier_mmi_cal
+      gb_ref_taken$measured_cond_modifier_mmi_cal
 
     mcm_mmi_cal_df <-
       mcm_mmi_cal_df[which(
@@ -164,7 +173,7 @@ pof_future_ohl_cond_50kv <-
     if (asset_category == "132kV OHL Conductor (Tower Lines)") {
 
       mci_132kv_twr_line_cond_sampl <-
-        gb_ref$mci_132kv_twr_line_cond_sampl %>% dplyr::filter(
+        gb_ref_taken$mci_132kv_twr_line_cond_sampl %>% dplyr::filter(
           `Condition Criteria: Conductor Sampling Result` == conductor_samp
         )
 
@@ -178,7 +187,7 @@ pof_future_ohl_cond_50kv <-
 
       # Corrosion monitoring survey
       mci_132kv_twr_line_cond_srvy <-
-        gb_ref$mci_132kv_twr_line_cond_srvy %>% dplyr::filter(
+        gb_ref_taken$mci_132kv_twr_line_cond_srvy %>% dplyr::filter(
           `Condition Criteria: Corrosion Monitoring Survey Result` ==
             corr_mon_survey
         )
@@ -193,7 +202,7 @@ pof_future_ohl_cond_50kv <-
     } else {
 
       mci_ehv_twr_line_cond_sampl <-
-        gb_ref$mci_ehv_twr_line_cond_sampl %>% dplyr::filter(
+        gb_ref_taken$mci_ehv_twr_line_cond_sampl %>% dplyr::filter(
           `Condition Criteria: Conductor Sampling Result` == conductor_samp
         )
 
@@ -207,7 +216,7 @@ pof_future_ohl_cond_50kv <-
 
       # Corrosion monitoring survey
       mci_ehv_twr_line_cond_srvy <-
-        gb_ref$mci_ehv_twr_line_cond_srvy %>% dplyr::filter(
+        gb_ref_taken$mci_ehv_twr_line_cond_srvy %>% dplyr::filter(
           `Condition Criteria: Corrosion Monitoring Survey Result` ==
             corr_mon_survey
         )
@@ -253,7 +262,7 @@ pof_future_ohl_cond_50kv <-
     # Observed conditions -----------------------------------------------------
 
     oci_mmi_cal_df <-
-      gb_ref$observed_cond_modifier_mmi_cal
+      gb_ref_taken$observed_cond_modifier_mmi_cal
 
     oci_mmi_cal_df <-
       oci_mmi_cal_df[which(
@@ -280,7 +289,7 @@ pof_future_ohl_cond_50kv <-
     if (asset_category == "132kV OHL Conductor (Tower Lines)") {
 
       oci_132kv_twr_line_visual_cond <-
-        gb_ref$oci_132kv_twr_line_visual_cond %>% dplyr::filter(
+        gb_ref_taken$oci_132kv_twr_line_visual_cond %>% dplyr::filter(
           `Condition Criteria: Observed Condition` == visual_cond
         )
 
@@ -304,7 +313,7 @@ pof_future_ohl_cond_50kv <-
       }
 
       oci_132kv_twr_line_cond_midspn <-
-        gb_ref$oci_132kv_twr_line_cond_midspn %>% dplyr::filter(
+        gb_ref_taken$oci_132kv_twr_line_cond_midspn %>% dplyr::filter(
           `Condition Criteria: No. of Midspan Joints` == midspan_joints
         )
 
@@ -317,7 +326,7 @@ pof_future_ohl_cond_50kv <-
     } else {
 
       oci_ehv_twr_line_visal_cond <-
-        gb_ref$oci_ehv_twr_line_visal_cond %>% dplyr::filter(
+        gb_ref_taken$oci_ehv_twr_line_visal_cond %>% dplyr::filter(
           `Condition Criteria: Observed Condition` == visual_cond
         )
 
@@ -341,7 +350,7 @@ pof_future_ohl_cond_50kv <-
       }
 
       oci_ehv_twr_cond_midspan_joint <-
-        gb_ref$oci_ehv_twr_cond_midspan_joint %>% dplyr::filter(
+        gb_ref_taken$oci_ehv_twr_cond_midspan_joint %>% dplyr::filter(
           `Condition Criteria: No. of Midspan Joints` == midspan_joints
         )
 
