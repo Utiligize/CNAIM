@@ -24,7 +24,8 @@ pof_future_transformer_11_20kv(
   moisture = "Default",
   oil_acidity = "Default",
   bd_strength = "Default",
-  simulation_end_year = 100
+  simulation_end_year = 100,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -90,6 +91,8 @@ level of partial discharge. Options for \code{partial_discharge}:
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame. Future probability of failure
