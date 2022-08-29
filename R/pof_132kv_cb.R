@@ -155,7 +155,8 @@ pof_132kv_cb <-
     measured_condition_modifier <-
       get_measured_conditions_modifier_hv_switchgear("132kV Switchgear (GM)",
                                                      mci_table_names,
-                                                     measured_condition_inputs)
+                                                     measured_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Observed conditions -----------------------------------------------------
 

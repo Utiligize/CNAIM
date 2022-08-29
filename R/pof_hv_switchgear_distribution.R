@@ -27,6 +27,7 @@
 #' \code{conductor_samp = c("Low","Medium/Normal","High","Default")}.
 #' See page 161, table 199 and 201 in CNAIM (2021).
 #' @inheritParams current_health
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -66,28 +67,35 @@ pof_hv_switchgear_distribution <-
            age,
            measured_condition_inputs,
            observed_condition_inputs,
-           reliability_factor = "Default") {
+           reliability_factor = "Default",
+           gb_ref_given = NULL) {
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
                       hv_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cond <- gb_ref$normal_expected_life %>%
+    normal_expected_life_cond <- gb_ref_taken$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` ==
                       hv_asset_category) %>%
       dplyr::pull()
@@ -97,12 +105,12 @@ pof_hv_switchgear_distribution <-
     # POF function asset category. This is bit different from other tables
     kc_hv_asset_category <- "HV Switchgear (GM) - Distribution (GM)"
 
-    k <- gb_ref$pof_curve_parameters %>%
+    k <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` %in% kc_hv_asset_category) %>%
       dplyr::select(`K-Value (%)`) %>%
       dplyr::pull()/100
 
-    c <- gb_ref$pof_curve_parameters %>%
+    c <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` %in% kc_hv_asset_category) %>%
       dplyr::select(`C-Value`) %>%
       dplyr::pull()
@@ -191,9 +199,10 @@ pof_hv_switchgear_distribution <-
 
 
 get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names,
-                                                           measured_condition_inputs, sub_component = NULL){
+                                                           measured_condition_inputs, sub_component = NULL,
+                                                           gb_ref_taken = NULL){
   mcm_mmi_cal_df <-
-    gb_ref$measured_cond_modifier_mmi_cal
+    gb_ref_taken$measured_cond_modifier_mmi_cal
 
   mcm_mmi_cal_df <-
     mcm_mmi_cal_df[which(
@@ -253,7 +262,7 @@ get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, t
 get_observed_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names,
                                                            observed_condition_inputs, sub_component = NULL){
   oci_mmi_cal_df <-
-    gb_ref$observed_cond_modifier_mmi_cal
+    gb_ref_taken$observed_cond_modifier_mmi_cal
 
   oci_mmi_cal_df <-
     oci_mmi_cal_df[which(
