@@ -19,7 +19,8 @@ pof_tower_ohl_support_50kv(
   reliability_factor = "Default",
   k_value = 0.0545,
   c_value = 1.087,
-  normal_expected_life = "Default"
+  normal_expected_life = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -71,6 +72,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 
 \item{normal_expected_life}{Numeric. \code{normal_expected_life = "Default"} by default.
 The default value is accordingly to the CNAIM standard on page 107.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

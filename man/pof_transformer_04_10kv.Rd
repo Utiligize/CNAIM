@@ -20,7 +20,8 @@ pof_transformer_04_10kv(
   bd_strength = "Default",
   k_value = 0.0077,
   c_value = 1.087,
-  normal_expected_life = 55
+  normal_expected_life = 55,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -79,6 +80,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 \item{normal_expected_life}{Numeric. \code{normal_expected_life = 55} by default.
 The default value is accordingly to the standard
 "DE-10kV apb kabler CNAIM" on p. 33.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

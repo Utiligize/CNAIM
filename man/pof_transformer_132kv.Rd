@@ -47,7 +47,8 @@ pof_transformer_132kv(
   ethane_pre = "Default",
   acetylene_pre = "Default",
   furfuraldehyde = "Default",
-  reliability_factor = "Default"
+  reliability_factor = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -221,6 +222,8 @@ A setting of \code{"Default"} will result in the best possible result.}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
 See section 6.14 on page 73 in CNAIM (2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure
