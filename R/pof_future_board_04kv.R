@@ -114,7 +114,8 @@ pof_future_board_04kv <-
     measured_condition_modifier <-
       get_measured_conditions_modifier_lv_switchgear(asset_category_mmi,
                                                      mci_table_names,
-                                                     measured_condition_inputs)
+                                                     measured_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Observed conditions -----------------------------------------------------
 
@@ -130,7 +131,8 @@ pof_future_board_04kv <-
     observed_condition_modifier <-
       get_observed_conditions_modifier_lv_switchgear(asset_category_mmi,
                                                      oci_table_names,
-                                                     observed_condition_inputs)
+                                                     observed_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
 
     # Health score factor ---------------------------------------------------

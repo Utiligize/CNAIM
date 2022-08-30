@@ -124,7 +124,8 @@ pof_future_rtu <-
     measured_condition_modifier <-
       get_measured_conditions_modifier_hv_switchgear(asset_category,
                                                      mci_table_names,
-                                                     measured_condition_inputs)
+                                                     measured_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Observed conditions -----------------------------------------------------
 
@@ -137,7 +138,8 @@ pof_future_rtu <-
     observed_condition_modifier <-
       get_observed_conditions_modifier_hv_switchgear(asset_category,
                                                      oci_table_names,
-                                                     observed_condition_inputs)
+                                                     observed_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Health score factor ---------------------------------------------------
     health_score_factor <-

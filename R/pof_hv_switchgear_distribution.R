@@ -160,7 +160,8 @@ pof_hv_switchgear_distribution <-
     observed_condition_modifier <-
       get_observed_conditions_modifier_hv_switchgear(asset_category,
                                                      oci_table_names,
-                                                     observed_condition_inputs)
+                                                     observed_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Health score factor ---------------------------------------------------
     health_score_factor <-
