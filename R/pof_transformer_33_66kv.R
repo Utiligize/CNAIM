@@ -94,6 +94,7 @@
 #' @inheritParams oil_test_modifier
 #' @inheritParams dga_test_modifier
 #' @inheritParams ffa_test_modifier
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -178,25 +179,32 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
                                     ethane_pre = "Default",
                                     acetylene_pre = "Default",
                                     furfuraldehyde = "Default",
-                                    reliability_factor = "Default") {
+                                    reliability_factor = "Default",
+                                    gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
     `K-Value (%)` = `C-Value` = `Asset Register  Category` = `Sub-division` =
     `Asset Category` = NULL
   # due to NSE notes in R CMD check
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == transformer_type) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-  generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -209,25 +217,25 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   }
 
-  normal_expected_life_tf <- gb_ref$normal_expected_life %>%
+  normal_expected_life_tf <- gb_ref_taken$normal_expected_life %>%
     dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
                     sub_division) %>%
     dplyr::pull()
 
   # Normal expected life for tapchanger -----------------------------
 
-  normal_expected_life_tc <- gb_ref$normal_expected_life %>%
+  normal_expected_life_tc <- gb_ref_taken$normal_expected_life %>%
     dplyr::filter(`Asset Register  Category` == transformer_type & `Sub-division` ==
                     "Tapchanger") %>%
     dplyr::pull()
 
   # Constants C and K for PoF function --------------------------------------
-  k <- gb_ref$pof_curve_parameters %>%
+  k <- gb_ref_taken$pof_curve_parameters %>%
     dplyr::filter(`Functional Failure Category` ==
                     'EHV Transformer/ 132kV Transformer') %>% dplyr::select(`K-Value (%)`) %>%
     dplyr::pull()/100
 
-  c <- gb_ref$pof_curve_parameters %>%
+  c <- gb_ref_taken$pof_curve_parameters %>%
     dplyr::filter(`Functional Failure Category` ==
                     'EHV Transformer/ 132kV Transformer') %>% dplyr::select(`C-Value`) %>% dplyr::pull()
 
@@ -280,7 +288,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-
-    gb_ref$measured_cond_modifier_mmi_cal
+    gb_ref_taken$measured_cond_modifier_mmi_cal
 
   mcm_mmi_cal_df <-
     mcm_mmi_cal_df[which(mcm_mmi_cal_df$`Asset Category` == "EHV Transformer (GM)"), ]
@@ -320,7 +328,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Partial discharge transformer ----------------------------------------------
   mci_hv_tf_partial_discharge <-
-    gb_ref$mci_ehv_tf_main_tf_prtl_dis
+    gb_ref_taken$mci_ehv_tf_main_tf_prtl_dis
 
   ci_factor_partial_discharge_tf <-
     mci_hv_tf_partial_discharge$`Condition Input Factor`[which(
@@ -343,7 +351,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Partial discharge tapchanger ------------------------------------------------
   mci_hv_tf_partial_discharge_tc <-
-    gb_ref$mci_ehv_tf_tapchngr_prtl_dis
+    gb_ref_taken$mci_ehv_tf_tapchngr_prtl_dis
 
   ci_factor_partial_discharge_tc <-
     mci_hv_tf_partial_discharge_tc$`Condition Input Factor`[which(
@@ -366,7 +374,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Temperature readings ----------------------------------------------------
   mci_hv_tf_temp_readings <-
-    gb_ref$mci_ehv_tf_temp_readings
+    gb_ref_taken$mci_ehv_tf_temp_readings
 
   ci_factor_temp_reading <-
     mci_hv_tf_temp_readings$`Condition Input Factor`[which(
@@ -427,7 +435,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Observed condition inputs ---------------------------------------------
   oci_mmi_cal_df <-
-    gb_ref$observed_cond_modifier_mmi_cal %>%
+    gb_ref_taken$observed_cond_modifier_mmi_cal %>%
     dplyr::filter(`Asset Category` == "EHV Transformer (GM)")
 
   factor_divider_1_tf_obs <-
@@ -466,7 +474,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Main tank condition
   oci_ehv_tf_main_tank_cond <-
-    gb_ref$oci_ehv_tf_main_tank_cond
+    gb_ref_taken$oci_ehv_tf_main_tank_cond
 
   Oi_collar_main_tank <-
     oci_ehv_tf_main_tank_cond$`Condition Input Collar`[which(
@@ -486,7 +494,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
   # Coolers/Radiator condition
 
   oci_ehv_tf_cooler_radiatr_cond <-
-    gb_ref$oci_ehv_tf_cooler_radiatr_cond
+    gb_ref_taken$oci_ehv_tf_cooler_radiatr_cond
 
   Oi_collar_coolers_radiator <-
     oci_ehv_tf_cooler_radiatr_cond$`Condition Input Collar`[which(
@@ -507,7 +515,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
   # Bushings
 
   oci_ehv_tf_bushings_cond <-
-    gb_ref$oci_ehv_tf_bushings_cond
+    gb_ref_taken$oci_ehv_tf_bushings_cond
 
   Oi_collar_bushings <-
     oci_ehv_tf_bushings_cond$`Condition Input Collar`[which(
@@ -527,7 +535,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
   # Kiosk
 
   oci_ehv_tf_kiosk_cond <-
-    gb_ref$oci_ehv_tf_kiosk_cond
+    gb_ref_taken$oci_ehv_tf_kiosk_cond
 
   Oi_collar_kiosk <-
     oci_ehv_tf_kiosk_cond$`Condition Input Collar`[which(
@@ -547,7 +555,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Cable box
   oci_ehv_tf_cable_boxes_cond <-
-    gb_ref$oci_ehv_tf_cable_boxes_cond
+    gb_ref_taken$oci_ehv_tf_cable_boxes_cond
 
   Oi_collar_cable_boxes <-
     oci_ehv_tf_cable_boxes_cond$`Condition Input Collar`[which(
@@ -569,7 +577,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # External condition
   oci_ehv_tf_tapchanger_ext_cond <-
-    gb_ref$oci_ehv_tf_tapchanger_ext_cond
+    gb_ref_taken$oci_ehv_tf_tapchanger_ext_cond
 
   Oi_collar_external_tap <-
     oci_ehv_tf_tapchanger_ext_cond$`Condition Input Collar`[which(
@@ -589,7 +597,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Internal condition
   oci_ehv_tf_int_cond <-
-    gb_ref$oci_ehv_tf_int_cond
+    gb_ref_taken$oci_ehv_tf_int_cond
 
   Oi_collar_internal_tap <-
     oci_ehv_tf_int_cond$`Condition Input Collar`[which(
@@ -608,7 +616,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Drive mechanism
   oci_ehv_tf_drive_mechnism_cond <-
-    gb_ref$oci_ehv_tf_drive_mechnism_cond
+    gb_ref_taken$oci_ehv_tf_drive_mechnism_cond
 
   Oi_collar_mechnism_cond <-
     oci_ehv_tf_drive_mechnism_cond$`Condition Input Collar`[which(
@@ -627,7 +635,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Selecter diverter contacts
   oci_ehv_tf_cond_select_divrter_cst <-
-    gb_ref$oci_ehv_tf_cond_select_div_cts
+    gb_ref_taken$oci_ehv_tf_cond_select_div_cts
 
   Oi_collar_diverter_contacts <-
     oci_ehv_tf_cond_select_divrter_cst$`Condition Input Collar`[which(
@@ -647,7 +655,7 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Selecter diverter braids
   oci_ehv_tf_cond_select_divrter_brd <-
-    gb_ref$oci_ehv_tf_cond_select_div_brd
+    gb_ref_taken$oci_ehv_tf_cond_select_div_brd
 
   Oi_collar_diverter_braids <-
     oci_ehv_tf_cond_select_divrter_brd$`Condition Input Collar`[which(
@@ -773,8 +781,8 @@ pof_transformer_33_66kv <- function(transformer_type = "66kV Transformer (GM)",
 
   # Health score factor ---------------------------------------------------
 
-  health_score_factor_for_tf <-  gb_ref$health_score_factor_for_tf
-  health_score_factor_tapchanger <-  gb_ref$health_score_factor_tapchanger
+  health_score_factor_for_tf <-  gb_ref_taken$health_score_factor_for_tf
+  health_score_factor_tapchanger <-  gb_ref_taken$health_score_factor_tapchanger
 
 
   # Transformer
