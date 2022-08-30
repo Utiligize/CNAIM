@@ -146,7 +146,8 @@ pof_hv_switchgear_distribution <-
     measured_condition_modifier <-
       get_measured_conditions_modifier_hv_switchgear(asset_category,
                                                      mci_table_names,
-                                                     measured_condition_inputs)
+                                                     measured_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Observed conditions -----------------------------------------------------
 
@@ -260,7 +261,8 @@ get_measured_conditions_modifier_hv_switchgear <- function(asset_category_mmi, t
 
 
 get_observed_conditions_modifier_hv_switchgear <- function(asset_category_mmi, table_names,
-                                                           observed_condition_inputs, sub_component = NULL){
+                                                           observed_condition_inputs, sub_component = NULL,
+                                                           gb_ref_taken = NULL){
   oci_mmi_cal_df <-
     gb_ref_taken$observed_cond_modifier_mmi_cal
 
