@@ -17,6 +17,7 @@
 #' A setting of \code{"Type C"} - Underground substation.
 #' A setting of \code{"Default"} - Normal access thus same as \code{"Type A"}
 #' setting (cf. table 221, page 180, CNAIM, 2021).
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for a 6.6/11 kV transformer.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -27,20 +28,28 @@
 #' f_cof_transformer_11kv(kva = 700, type = "Default")
 
 f_cof_transformer_11kv <- function(kva = "Default",
-                                   type = "Default") {
+                                   type = "Default",
+                                   gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
   # due to NSE notes in R CMD check
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   # Get category ------------------------------------------------------------
   asset_type <- "6.6/11kV Transformer (GM)"
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == asset_type) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    asset_type)
 
@@ -48,7 +57,7 @@ f_cof_transformer_11kv <- function(kva = "Default",
   fcost <- reference_costs_of_failure_tf$`Financial - (GBP)`
 
   # Type financial factor ---------------------------------------------------
-  type_financial_factors <- gb_ref$type_financial_factors
+  type_financial_factors <- gb_ref_taken$type_financial_factors
   type_financial_factors_tf <- dplyr::filter(type_financial_factors,
                                              `Asset Register Category` ==
                                                asset_type)
@@ -67,7 +76,7 @@ f_cof_transformer_11kv <- function(kva = "Default",
   }
 
   # Access financial factor -------------------------------------------------
-  access_financial_factors <- gb_ref$access_factor_swg_tf_asset
+  access_financial_factors <- gb_ref_taken$access_factor_swg_tf_asset
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                              `Asset Category` ==
                                                asset_category)

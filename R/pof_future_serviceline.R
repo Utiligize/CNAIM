@@ -20,6 +20,7 @@
 #' The default value is accordingly to the CNAIM standard on page 107.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame. Future probability of failure
 #' along with future health score
 #' @export
@@ -48,7 +49,8 @@ pof_future_serviceline <-
            k_value = 0.0329,
            c_value = 1.087,
            normal_expected_life = 75,
-           simulation_end_year = 100) {
+           simulation_end_year = 100,
+           gb_ref_given = NULL) {
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -57,20 +59,27 @@ pof_future_serviceline <-
       `Condition Criteria: Partial Discharge Test Result` =
       NULL
 
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
     pseudo_cable_type <- "33kV UG Cable (Non Pressurised)"
     sub_division <- "Lead sheath - Copper conductor"
 
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` == pseudo_cable_type) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -108,7 +117,7 @@ pof_future_serviceline <-
     asset_category_mmi <- stringr::str_squish(asset_category_mmi)
 
     mcm_mmi_cal_df <-
-      gb_ref$measured_cond_modifier_mmi_cal
+      gb_ref_taken$measured_cond_modifier_mmi_cal
 
     mmi_type <- mcm_mmi_cal_df$`Asset Category`[which(
       grepl(asset_category_mmi,
@@ -140,7 +149,7 @@ pof_future_serviceline <-
 
     # Sheath test -------------------------------------------------------------
     mci_ehv_cbl_non_pr_sheath_test <-
-      gb_ref$mci_ehv_cbl_non_pr_sheath_test %>% dplyr::filter(
+      gb_ref_taken$mci_ehv_cbl_non_pr_sheath_test %>% dplyr::filter(
         `Condition Criteria: Sheath Test Result` == sheath_test
       )
 
@@ -151,7 +160,7 @@ pof_future_serviceline <-
     # Partial discharge-------------------------------------------------------
 
     mci_ehv_cbl_non_pr_prtl_disch <-
-      gb_ref$mci_ehv_cbl_non_pr_prtl_disch %>% dplyr::filter(
+      gb_ref_taken$mci_ehv_cbl_non_pr_prtl_disch %>% dplyr::filter(
         `Condition Criteria: Partial Discharge Test Result` == partial_discharge
       )
 
@@ -164,7 +173,7 @@ pof_future_serviceline <-
     # Fault -------------------------------------------------------
 
     mci_ehv_cbl_non_pr_fault_hist <-
-      gb_ref$mci_ehv_cbl_non_pr_fault_hist
+      gb_ref_taken$mci_ehv_cbl_non_pr_fault_hist
 
     for (n in 2:4) {
       if (fault_hist == 'Default' || fault_hist ==

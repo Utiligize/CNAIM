@@ -9,7 +9,7 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-f_cof_transformer_11kv(kva = "Default", type = "Default")
+f_cof_transformer_11kv(kva = "Default", type = "Default", gb_ref_given = NULL)
 }
 \arguments{
 \item{kva}{Numeric. The rated transformer capacity measured in kVA
@@ -26,6 +26,8 @@ A setting of \code{"Type B"} - Constrained access or confined working space.
 A setting of \code{"Type C"} - Underground substation.
 A setting of \code{"Default"} - Normal access thus same as \code{"Type A"}
 setting (cf. table 221, page 180, CNAIM, 2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for a 6.6/11 kV transformer.

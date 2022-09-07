@@ -5,21 +5,30 @@
 #' Outputted in DKK.
 #' @param access_factor_criteria String. Asses Financial factor criteria for relay
 #' setting. Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @export
 #' @examples
 #' financial_cof_relay(access_factor_criteria = "Type A")
-financial_cof_relay <- function(access_factor_criteria) {
+financial_cof_relay <- function(access_factor_criteria,
+                                gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -30,7 +39,7 @@ financial_cof_relay <- function(access_factor_criteria) {
   type_financial_factor <- 1
 
   # Access financial factor -------------------------------------------------
-  access_financial_factors <- gb_ref$access_factor_swg_tf_asset
+  access_financial_factors <- gb_ref_taken$access_factor_swg_tf_asset
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
                                                  "HV Switchgear (GM) - Distribution")
@@ -74,6 +83,7 @@ financial_cof_relay <- function(access_factor_criteria) {
 #' Options: \code{type_risk = c("Low", "Medium", "High")}.
 #' The default setting is
 #' \code{type_risk = "Medium"}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for relay
 #' @export
 #' @examples
@@ -81,17 +91,25 @@ financial_cof_relay <- function(access_factor_criteria) {
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_relay <- function(location_risk,
-                             type_risk) {
+                             type_risk,
+                             gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -102,7 +120,7 @@ safety_cof_relay <- function(location_risk,
   if (location_risk == "Medium") location_risk <- "Medium (Default)"
   if (type_risk == "Default") type_risk <- "Medium"
 
-  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
+  safety_conseq_factor_sg_tf_oh <- gb_ref_taken$safety_conseq_factor_sg_tf_oh
 
   row_no <- which(safety_conseq_factor_sg_tf_oh$
                     `Safety Consequence Factor - Switchgear, Transformers & Overhead Lines...2` ==
@@ -132,6 +150,7 @@ safety_cof_relay <- function(location_risk,
 #' assume the proximity to a water course is between 80m and 120m
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @export
 #' @examples
 #' environmental_cof_relay(
@@ -140,18 +159,26 @@ safety_cof_relay <- function(location_risk,
 #' bunded = "Yes")
 environmental_cof_relay <- function(type_env_factor,
                                     prox_water,
-                                    bunded) {
+                                    bunded,
+                                    gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -159,7 +186,7 @@ environmental_cof_relay <- function(type_env_factor,
   ecost <- reference_costs_of_failure_tf$`Environmental - (GBP)`
 
   # Type env factor -------------------------------------
-  asset_type_env_factor <- gb_ref$type_enviromental_factor %>%
+  asset_type_env_factor <- gb_ref_taken$type_enviromental_factor %>%
     dplyr::filter(`Type environment factor` == asset_category)
 
   type_environmental_factor <- asset_type_env_factor[[type_env_factor]]
@@ -168,7 +195,7 @@ environmental_cof_relay <- function(type_env_factor,
   size_environmental_factor <- 1
 
   # Location environmetal factor table 231 ----------------------------------
-  location_environ_al_factor <- gb_ref$location_environ_al_factor
+  location_environ_al_factor <- gb_ref_taken$location_environ_al_factor
 
   location_environ_al_factor_tf <- dplyr::filter(location_environ_al_factor,
                                                  `Asset Register Category` ==
@@ -225,23 +252,32 @@ environmental_cof_relay <- function(type_env_factor,
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
 #' results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @export
 #' @examples
 #' network_cof_relay(
 #' no_customers = 100, kva_per_customer = 40)
 network_cof_relay <- function(no_customers,
-                              kva_per_customer = "Default") {
+                              kva_per_customer = "Default",
+                              gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "6.6/11kV CB (GM) Secondary"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -249,7 +285,7 @@ network_cof_relay <- function(no_customers,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Customer factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
+  ref_nw_perf_cost_fail_lv_hv <- gb_ref_taken$ref_nw_perf_cost_fail_lv_hv
   ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
                                                   `Asset Category` ==
                                                     asset_category)
@@ -257,7 +293,7 @@ network_cof_relay <- function(no_customers,
   ref_no_cust <-
     ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
 
-  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+  customer_no_adjust_lv_hv_asset <- gb_ref_taken$customer_no_adjust_lv_hv_asset
 
 
   for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){

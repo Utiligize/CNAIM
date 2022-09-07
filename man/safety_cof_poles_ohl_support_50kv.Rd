@@ -7,7 +7,8 @@
 safety_cof_poles_ohl_support_50kv(
   pole_asset_category,
   location_risk,
-  type_risk
+  type_risk,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ setting.
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Safety consequences of failure for poles

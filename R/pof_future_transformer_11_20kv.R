@@ -10,6 +10,7 @@
 #' @inheritParams pof_transformer_11_20kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame. Future probability of failure
 #' along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -49,40 +50,48 @@ pof_future_transformer_11_20kv <-
            moisture = "Default",
            oil_acidity = "Default",
            bd_strength = "Default",
-           simulation_end_year = 100) {
+           simulation_end_year = 100,
+           gb_ref_given = NULL) {
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
 
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
     asset_type <- hv_transformer_type
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` == asset_type) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life for 6.6/11 kV transformer ------------------------------
-    normal_expected_life <- gb_ref$normal_expected_life %>%
+    normal_expected_life <- gb_ref_taken$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` == asset_type) %>%
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    k <- gb_ref$pof_curve_parameters %>%
+    k <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       asset_category) %>% dplyr::select(`K-Value (%)`) %>%
       dplyr::pull()/100
 
-    c <- gb_ref$pof_curve_parameters %>%
+    c <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       asset_category) %>% dplyr::select(`C-Value`) %>%
       dplyr::pull()
@@ -119,7 +128,7 @@ pof_future_transformer_11_20kv <-
 
     # Measured condition inputs ---------------------------------------------
     mcm_mmi_cal_df <-
-      gb_ref$measured_cond_modifier_mmi_cal
+      gb_ref_taken$measured_cond_modifier_mmi_cal
 
     mcm_mmi_cal_df <-
       mcm_mmi_cal_df[which(mcm_mmi_cal_df$`Asset Category` == asset_category), ]
@@ -139,7 +148,7 @@ pof_future_transformer_11_20kv <-
 
     # Partial discharge -------------------------------------------------------
     mci_hv_tf_partial_discharge <-
-      gb_ref$mci_hv_tf_partial_discharge
+      gb_ref_taken$mci_hv_tf_partial_discharge
 
     ci_factor_partial_discharge <-
       mci_hv_tf_partial_discharge$`Condition Input Factor`[which(
@@ -167,7 +176,7 @@ pof_future_transformer_11_20kv <-
 
     # Temperature readings ----------------------------------------------------
     mci_hv_tf_temp_readings <-
-      gb_ref$mci_hv_tf_temp_readings
+      gb_ref_taken$mci_hv_tf_temp_readings
 
     ci_factor_temp_reading <-
       mci_hv_tf_temp_readings$`Condition Input Factor`[which(
@@ -216,7 +225,7 @@ pof_future_transformer_11_20kv <-
 
     # Observed condition inputs ---------------------------------------------
     oci_mmi_cal_df <-
-      gb_ref$observed_cond_modifier_mmi_cal
+      gb_ref_taken$observed_cond_modifier_mmi_cal
 
     oci_mmi_cal_df <-
       oci_mmi_cal_df[which(oci_mmi_cal_df$`Asset Category` == asset_category), ]
@@ -235,7 +244,7 @@ pof_future_transformer_11_20kv <-
       )
 
     oci_hv_tf_tf_ext_cond_df <-
-      gb_ref$oci_hv_tf_tf_ext_cond
+      gb_ref_taken$oci_hv_tf_tf_ext_cond
 
     ci_factor_ext_cond <-
       oci_hv_tf_tf_ext_cond_df$`Condition Input Factor`[which(

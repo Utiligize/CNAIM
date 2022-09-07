@@ -15,7 +15,8 @@ pof_meter(
   reliability_factor = "Default",
   k_value = 0.128,
   c_value = 1.087,
-  normal_expected_life = 25
+  normal_expected_life = 25,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -55,6 +56,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 
 \item{normal_expected_life}{Numeric. \code{normal_expected_life = 50} by default.
 The default value is accordingly to the CNAIM standard on page 107.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

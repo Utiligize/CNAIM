@@ -7,7 +7,8 @@
 network_cof_poles_ohl_support_50kv(
   pole_asset_category,
   actual_load_mva,
-  secure = T
+  secure = T,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ network_cof_poles_ohl_support_50kv(
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

@@ -12,7 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 financial_cof_poles(
   pole_asset_category,
   type_financial_factor_criteria,
-  access_factor_criteria
+  access_factor_criteria,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ Options: \code{type_financial_factor_criteria = c("Pole (supporting conductor on
 \item{access_factor_criteria}{String. Asses Financial factor criteria for Pole
 setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{access_factor_criteria = c("Type A", "Type B")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for Poles

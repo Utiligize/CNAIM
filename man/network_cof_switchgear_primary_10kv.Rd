@@ -4,7 +4,11 @@
 \alias{network_cof_switchgear_primary_10kv}
 \title{Network cost of Failure for 10kV Switchgear Primary}
 \usage{
-network_cof_switchgear_primary_10kv(no_customers, kva_per_customer = "Default")
+network_cof_switchgear_primary_10kv(
+  no_customers,
+  kva_per_customer = "Default",
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{no_customers}{Numeric. The numner of customers
@@ -13,6 +17,8 @@ fed by an individual asset.}
 \item{kva_per_customer}{Numeric. If the asset have an exceptionally high
 demand per customer type in kVA per customer. A setting of \code{"Default"}
 results in a multiplication factor of 1 .}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

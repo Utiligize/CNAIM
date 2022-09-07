@@ -6,7 +6,8 @@
 \usage{
 financial_cof_tower_ohl_support_50kv(
   type_financial_factor_criteria,
-  access_factor_criteria
+  access_factor_criteria,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ Options: \code{type_financial_factor_criteria = c("Suspension",
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for Tower
 Options: \code{access_factor_criteria = c("Type A", "Type B")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for tower ohl support 50 kV

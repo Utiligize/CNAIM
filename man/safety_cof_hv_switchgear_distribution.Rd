@@ -12,7 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 safety_cof_hv_switchgear_distribution(
   hv_asset_category,
   location_risk,
-  type_risk
+  type_risk,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for LV switchgear

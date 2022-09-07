@@ -13,7 +13,8 @@ e_cof_tf(
   asset_type_tf,
   rated_capacity = "Default",
   prox_water = "Default",
-  bunded = "Default"
+  bunded = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ assume the proximity to a water course is between 80m and 120m
 
 \item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
 A setting of \code{"Default"} will result in a bunding factor of 1.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial cost of failure for a 10kV transformer.

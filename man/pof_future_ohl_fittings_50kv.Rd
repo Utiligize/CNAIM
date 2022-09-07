@@ -16,7 +16,8 @@ pof_future_ohl_fittings_50kv(
   k_value = 0.0096,
   c_value = 1.087,
   normal_expected_life = 40,
-  simulation_end_year = 100
+  simulation_end_year = 100,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -62,6 +63,8 @@ The default value is accordingly to the CNAIM standard on page 107.}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.code}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame. Future probability of failure

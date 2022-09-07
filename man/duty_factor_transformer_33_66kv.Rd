@@ -11,7 +11,8 @@ Health & Criticality - Version 2.1, 2021:
 \usage{
 duty_factor_transformer_33_66kv(
   utilisation_pct = "Default",
-  no_taps = "Default"
+  no_taps = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ duty_factor_transformer_33_66kv(
 under normal operating conditions.}
 
 \item{no_taps}{Numeric. Average number of daily taps (tapchanger).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Data table. Duty factor for the transformer and for the tapcharger

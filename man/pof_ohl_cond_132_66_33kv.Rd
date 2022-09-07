@@ -21,7 +21,8 @@ pof_ohl_cond_132_66_33kv(
   corr_mon_survey = "Default",
   visual_cond = "Default",
   midspan_joints = "Default",
-  reliability_factor = "Default"
+  reliability_factor = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -95,6 +96,8 @@ See page 146, table 141 and 143 in CNAIM (2021).}
 shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
  sets the \code{reliability_factor} to 1.
 See section 6.14 on page 73 in CNAIM (2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

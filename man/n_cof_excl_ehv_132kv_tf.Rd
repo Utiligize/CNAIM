@@ -13,7 +13,8 @@ Health & Criticality - Version 2.1, 2021:
 n_cof_excl_ehv_132kv_tf(
   asset_type_ncf,
   no_customers,
-  kva_per_customer = "Default"
+  kva_per_customer = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -48,6 +49,8 @@ fed by an individual asset.}
 \item{kva_per_customer}{Numeric. If the asset have an exceptionally high
 demand per customer type in kVA per customer. A setting of \code{"Default"}
 results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

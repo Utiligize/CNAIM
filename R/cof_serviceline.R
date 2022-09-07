@@ -1,24 +1,31 @@
 #' @title Financial cost of Failure for Service Lines
 #' @description This function calculates financial consequences of failure
 #' Outputted in DKK
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for service line
 #' @export
 #' @examples
 #' financial_cof_serviceline()
-
-financial_cof_serviceline <- function() {
+financial_cof_serviceline <- function(gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "33kV UG Cable (Non Pressurised)"
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -42,22 +49,30 @@ financial_cof_serviceline <- function() {
 #' @title Safety cost of Failure for Service Lines
 #' @description This function calculates safety consequences of failure
 #' Outputted in DKK
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for service line
 #' @export
 #' @examples
 #' safety_cof_serviceline()
-safety_cof_serviceline <- function() {
+safety_cof_serviceline <- function(gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "33kV UG Cable (Non Pressurised)"
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -82,11 +97,13 @@ safety_cof_serviceline <- function() {
 #' assume the proximity to a water course is between 80m and 120m
 #' @param bunded String. Options: \code{bunded = c("Yes", "No", "Default")}.
 #' A setting of \code{"Default"} will result in a bunding factor of 1.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @export
 #' @examples
 #' environmental_cof_serviceline(prox_water = 95, bunded = "Yes")
 environmental_cof_serviceline <- function(prox_water,
-                                          bunded) {
+                                          bunded,
+                                          gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   hv_asset_category <- "33kV UG Cable (Non Pressurised)"
@@ -94,11 +111,18 @@ environmental_cof_serviceline <- function(prox_water,
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == hv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -112,7 +136,7 @@ environmental_cof_serviceline <- function(prox_water,
   size_environmental_factor <- 1
 
   # Location environmetal factor table 222 ----------------------------------
-  location_environ_al_factor <- gb_ref$location_environ_al_factor
+  location_environ_al_factor <- gb_ref_taken$location_environ_al_factor
 
   location_environ_al_factor_tf <- dplyr::filter(location_environ_al_factor,
                                                  `Asset Register Category` ==
@@ -169,19 +193,28 @@ environmental_cof_serviceline <- function(prox_water,
 #' service line, outputted in DKK
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @export
 #' @examples
 #' network_cof_serviceline(actual_load_mva = 0.5)
 network_cof_serviceline <- function(actual_load_mva,
-                                    secure = T) {
+                                    secure = T,
+                                    gb_ref_given = NULL) {
   GBP_to_DKK <- 8.71
   hv_asset_category <- "33kV UG Cable (Non Pressurised)"
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    hv_asset_category)
 
@@ -189,7 +222,7 @@ network_cof_serviceline <- function(actual_load_mva,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Load factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
+  ref_nw_perf_cost_fail_ehv_df <- gb_ref_taken$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
                                                              hv_asset_category)

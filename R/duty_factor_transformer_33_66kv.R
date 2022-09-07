@@ -9,6 +9,7 @@
 #' @param utilisation_pct Numeric. The max percentage of utilisation
 #' under normal operating conditions.
 #' @param no_taps Numeric. Average number of daily taps (tapchanger).
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Data table. Duty factor for the transformer and for the tapcharger
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -19,9 +20,17 @@
 #' no_taps = 25)
 
 duty_factor_transformer_33_66kv <- function(utilisation_pct = "Default",
-                                            no_taps = "Default") {
+                                            no_taps = "Default",
+                                            gb_ref_given = NULL) {
 
-  duty_factor_table <- gb_ref$duty_factor_lut_grid_prim_tf
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  duty_factor_table <- gb_ref_taken$duty_factor_lut_grid_prim_tf
 
   duty_factor_table_tf <- duty_factor_table[1:5,]
   duty_factor_table_tc <- duty_factor_table[6:10,]

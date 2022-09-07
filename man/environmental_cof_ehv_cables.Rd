@@ -9,7 +9,12 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-environmental_cof_ehv_cables(ehv_asset_category, prox_water, bunded)
+environmental_cof_ehv_cables(
+  ehv_asset_category,
+  prox_water,
+  bunded,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{ehv_asset_category}{String The type of EHV cable distribution asset category
@@ -25,6 +30,8 @@ assume the proximity to a water course is between 80m and 120m
 
 \item{bunded}{String. Options: \code{bunded = c("Yes", "No", "Default")}.
 A setting of \code{"Default"} will result in a bunding factor of 1.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure

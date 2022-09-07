@@ -14,7 +14,8 @@ location_factor_sub(
   situation = "Default",
   wind_wave = "Default",
   intensity = "Default",
-  landlocked = "no"
+  landlocked = "no",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ Options:
 
 \item{landlocked}{String. Options: \code{landlocked = c("yes","no")}. Default
 setting for \code{landlocked = "no"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Location factor

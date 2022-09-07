@@ -4,7 +4,10 @@
 \alias{environmental_cof_ohl_cond_50kv}
 \title{Environmental cost of Failure for 50kV Overhead Line Conductors}
 \usage{
-environmental_cof_ohl_cond_50kv()
+environmental_cof_ohl_cond_50kv(gb_ref_given = NULL)
+}
+\arguments{
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates environmental consequences of failure

@@ -35,6 +35,7 @@
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
 #' results in a multiplication factor of 1 (cf. table 18, page 90, CNAIM, 2021).
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -48,7 +49,8 @@
 
 n_cof_excl_ehv_132kv_tf <- function(asset_type_ncf,
                                     no_customers,
-                                    kva_per_customer = "Default") {
+                                    kva_per_customer = "Default",
+                                    gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
   # due to NSE notes in R CMD check
@@ -56,13 +58,20 @@ n_cof_excl_ehv_132kv_tf <- function(asset_type_ncf,
   # Get category ------------------------------------------------------------
   asset_type_ncf <- "6.6/11kV Transformer (GM)"
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == asset_type_ncf) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
   reference_costs_of_failure <-
-    gb_ref$reference_costs_of_failure
+    gb_ref_taken$reference_costs_of_failure
 
   reference_costs_of_failure_tf <- dplyr::filter(reference_costs_of_failure,
                                                  `Asset Register Category` ==
@@ -74,7 +83,7 @@ n_cof_excl_ehv_132kv_tf <- function(asset_type_ncf,
 
 
   # Customer factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
+  ref_nw_perf_cost_fail_lv_hv <- gb_ref_taken$ref_nw_perf_cost_fail_lv_hv
   ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
                                                   `Asset Category` ==
                                                     asset_category)
@@ -82,7 +91,7 @@ n_cof_excl_ehv_132kv_tf <- function(asset_type_ncf,
   ref_no_cust <-
     ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
 
-  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+  customer_no_adjust_lv_hv_asset <- gb_ref_taken$customer_no_adjust_lv_hv_asset
 
 
   for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){

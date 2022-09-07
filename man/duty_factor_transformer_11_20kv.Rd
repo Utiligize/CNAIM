@@ -9,11 +9,16 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-duty_factor_transformer_11_20kv(utilisation_pct = "Default")
+duty_factor_transformer_11_20kv(
+  utilisation_pct = "Default",
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{utilisation_pct}{Numeric. The max percentage of utilisation
 under normal operating conditions.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Duty factor for 6.6/11kV or 20kV transformer.

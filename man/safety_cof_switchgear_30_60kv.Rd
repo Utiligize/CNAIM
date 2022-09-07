@@ -4,7 +4,12 @@
 \alias{safety_cof_switchgear_30_60kv}
 \title{Safety cost of Failure for 30kV and 60kV Switchgear}
 \usage{
-safety_cof_switchgear_30_60kv(ehv_asset_category, location_risk, type_risk)
+safety_cof_switchgear_30_60kv(
+  ehv_asset_category,
+  location_risk,
+  type_risk,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{ehv_asset_category}{String The type of 30kV and 60kV switchgear
@@ -20,6 +25,8 @@ setting.
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 30kV and 60kV switchgear

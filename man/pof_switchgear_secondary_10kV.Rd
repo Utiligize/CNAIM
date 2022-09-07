@@ -15,7 +15,8 @@ pof_switchgear_secondary_10kV(
   reliability_factor = "Default",
   k_value = 0.0067,
   c_value = 1.087,
-  normal_expected_life = 55
+  normal_expected_life = 55,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -55,6 +56,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 
 \item{normal_expected_life}{Numeric. \code{normal_expected_life = 55} by default.
 The default value is accordingly to the CNAIM standard on page 107.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

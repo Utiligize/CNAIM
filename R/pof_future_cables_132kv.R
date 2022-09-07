@@ -10,6 +10,7 @@
 #' @inheritParams pof_cables_132kv
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame. Future probability of failure
 #' along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -40,7 +41,8 @@ pof_future_cables_132kv <-
            leakage = "Default",
            reliability_factor = "Default",
            age,
-           simulation_end_year = 100) {
+           simulation_end_year = 100,
+           gb_ref_given = NULL) {
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -51,21 +53,27 @@ pof_future_cables_132kv <-
     # due to NSE notes in R CMD check
 
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` == cable_type) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cable <- gb_ref$normal_expected_life %>%
+    normal_expected_life_cable <- gb_ref_taken$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` == cable_type &
                       `Sub-division` == sub_division) %>%
       dplyr::pull()
@@ -73,27 +81,27 @@ pof_future_cables_132kv <-
     # Constants C and K for PoF function --------------------------------------
     if (asset_category == "132kV UG Cable (Non Pressurised)") {
       type_k_c <-
-        gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
+        gb_ref_taken$pof_curve_parameters$`Functional Failure Category`[which(
           grepl("Non Pressurised",
-                gb_ref$pof_curve_parameters$`Functional Failure Category`,
+                gb_ref_taken$pof_curve_parameters$`Functional Failure Category`,
                 fixed = TRUE) == TRUE
         )]
     } else {
 
       type_k_c <-
-        gb_ref$pof_curve_parameters$`Functional Failure Category`[which(
+        gb_ref_taken$pof_curve_parameters$`Functional Failure Category`[which(
           grepl(asset_category,
-                gb_ref$pof_curve_parameters$`Functional Failure Category`,
+                gb_ref_taken$pof_curve_parameters$`Functional Failure Category`,
                 fixed = TRUE) == TRUE
         )]
     }
 
-    k <- gb_ref$pof_curve_parameters %>%
+    k <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       type_k_c) %>% dplyr::select(`K-Value (%)`) %>%
       dplyr::pull()/100
 
-    c <- gb_ref$pof_curve_parameters %>%
+    c <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       type_k_c) %>% dplyr::select(`C-Value`) %>%
       dplyr::pull()
@@ -130,7 +138,7 @@ pof_future_cables_132kv <-
     asset_category_mmi <- gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", asset_category_mmi, perl=TRUE)
 
     mcm_mmi_cal_df <-
-      gb_ref$measured_cond_modifier_mmi_cal
+      gb_ref_taken$measured_cond_modifier_mmi_cal
 
     mmi_type <- mcm_mmi_cal_df$`Asset Category`[which(
       grepl(asset_category_mmi,
@@ -164,7 +172,7 @@ pof_future_cables_132kv <-
     if (asset_category == "132kV UG Cable (Non Pressurised)") {
 
       mci_132kv_cbl_non_pr_shth_test <-
-        gb_ref$mci_132kv_cbl_non_pr_shth_test %>% dplyr::filter(
+        gb_ref_taken$mci_132kv_cbl_non_pr_shth_test %>% dplyr::filter(
           `Condition Criteria: Sheath Test Result` == sheath_test
         )
 
@@ -177,7 +185,7 @@ pof_future_cables_132kv <-
 
 
       mci_132kv_cbl_non_pr_prtl_disc <-
-        gb_ref$mci_132kv_cbl_non_pr_prtl_disc %>%
+        gb_ref_taken$mci_132kv_cbl_non_pr_prtl_disc %>%
         dplyr::filter(
           `Condition Criteria: Partial Discharge Test Result` == partial_discharge
         )
@@ -192,7 +200,7 @@ pof_future_cables_132kv <-
         mci_132kv_cbl_non_pr_prtl_disc$`Condition Input Collar`
 
       mci_132kv_cbl_non_pr_flt_hist <-
-        gb_ref$mci_132kv_cbl_non_pr_flt_hist
+        gb_ref_taken$mci_132kv_cbl_non_pr_flt_hist
 
 
       # Fault -------------------------------------------------------
@@ -250,7 +258,7 @@ pof_future_cables_132kv <-
     } else if (asset_category == "132kV UG Cable (Oil)") {
 
       mci_132kv_cable_oil_leakage <-
-        gb_ref$mci_132kv_cable_oil_leakage %>% dplyr::filter(
+        gb_ref_taken$mci_132kv_cable_oil_leakage %>% dplyr::filter(
           `Condition Criteria: Leakage Rate` == leakage
         )
 
@@ -271,7 +279,7 @@ pof_future_cables_132kv <-
     } else if (asset_category == "132kV UG Cable (Gas)") {
 
       mci_132kv_cbl_gas <-
-        gb_ref$mci_132kv_cable_gas_leakage %>% dplyr::filter(
+        gb_ref_taken$mci_132kv_cable_gas_leakage %>% dplyr::filter(
           `Condition Criteria: Leakage Rate` == leakage
         )
 

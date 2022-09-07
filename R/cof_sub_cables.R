@@ -6,6 +6,7 @@
 #' @param sub_cable_asset_category String The type of Submarine cable asset category
 #' Options: \code{sub_cable_asset_category = c("HV Sub Cable",
 #' "EHV Sub Cable", "132kV Sub Cable")}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for Sub cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -13,15 +14,23 @@
 #' @export
 #' @examples
 #' financial_cof_sub_cables(sub_cable_asset_category = "HV Sub Cable")
-financial_cof_sub_cables <- function(sub_cable_asset_category){
+financial_cof_sub_cables <- function(sub_cable_asset_category,
+                                     gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == sub_cable_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    sub_cable_asset_category)
 
@@ -50,6 +59,7 @@ financial_cof_sub_cables <- function(sub_cable_asset_category){
 #' @param sub_cable_asset_category String The type of Submarine cable asset category
 #' Options: \code{sub_cable_asset_category = c("HV Sub Cable",
 #' "EHV Sub Cable", "132kV Sub Cable")}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Safety consequences of failure for Sub cables
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -57,14 +67,22 @@ financial_cof_sub_cables <- function(sub_cable_asset_category){
 #' @export
 #' @examples
 #' safety_cof_sub_cables(sub_cable_asset_category = "HV Sub Cable")
-safety_cof_sub_cables <- function(sub_cable_asset_category){
+safety_cof_sub_cables <- function(sub_cable_asset_category,
+                                  gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == sub_cable_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    sub_cable_asset_category)
 
@@ -85,6 +103,7 @@ safety_cof_sub_cables <- function(sub_cable_asset_category){
 #' (cf. section 7.3, page 79, CNAIM, 2021). Environmental consequences
 #' of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for sub cables
 #' @param sub_cable_asset_category String The type of Submarine cable asset category
 #' Options: \code{sub_cable_asset_category = c("HV Sub Cable",
@@ -95,15 +114,23 @@ safety_cof_sub_cables <- function(sub_cable_asset_category){
 #' @export
 #' @examples
 #' environmental_cof_sub_cables(sub_cable_asset_category = "HV Sub Cable")
-environmental_cof_sub_cables <- function(sub_cable_asset_category){
+environmental_cof_sub_cables <- function(sub_cable_asset_category,
+                                         gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == sub_cable_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    sub_cable_asset_category)
 
@@ -142,6 +169,7 @@ environmental_cof_sub_cables <- function(sub_cable_asset_category){
 #' @param kva_per_customer Numeric. If the asset have an exceptionally high
 #' demand per customer type in kVA per customer. A setting of \code{"Default"}
 #' results in a multiplication factor of 1 (cf. table 18, page 89, CNAIM, 2021).
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -152,15 +180,23 @@ environmental_cof_sub_cables <- function(sub_cable_asset_category){
 #' no_customers = 750, kva_per_customer = 51)
 network_cof_hv_sub_cables<- function(sub_cable_asset_category,
                                    no_customers,
-                                   kva_per_customer = "Default") {
+                                   kva_per_customer = "Default",
+                                   gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == sub_cable_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    sub_cable_asset_category)
 
@@ -168,7 +204,7 @@ network_cof_hv_sub_cables<- function(sub_cable_asset_category,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Customer factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
+  ref_nw_perf_cost_fail_lv_hv <- gb_ref_taken$ref_nw_perf_cost_fail_lv_hv
   ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
                                                   `Asset Category` ==
                                                     sub_cable_asset_category)
@@ -176,7 +212,7 @@ network_cof_hv_sub_cables<- function(sub_cable_asset_category,
   ref_no_cust <-
     ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
 
-  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+  customer_no_adjust_lv_hv_asset <- gb_ref_taken$customer_no_adjust_lv_hv_asset
 
 
   for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){
@@ -227,6 +263,7 @@ network_cof_hv_sub_cables<- function(sub_cable_asset_category,
 #' Options: \code{sub_cable_asset_category = c( "EHV Sub Cable", "132kV Sub Cable")}.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -237,12 +274,20 @@ network_cof_hv_sub_cables<- function(sub_cable_asset_category,
 #' actual_load_mva = 15, secure = TRUE)
 network_cof_ehv_sub_cable<- function(sub_cable_asset_category,
                                 actual_load_mva,
-                                secure = T) {
+                                secure = T,
+                                gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    sub_cable_asset_category)
 
@@ -250,7 +295,7 @@ network_cof_ehv_sub_cable<- function(sub_cable_asset_category,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Load factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
+  ref_nw_perf_cost_fail_ehv_df <- gb_ref_taken$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
                                                              sub_cable_asset_category)

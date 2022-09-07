@@ -14,6 +14,7 @@
 #' @param access_factor_criteria String. Asses Financial factor criteria for LV switchgear
 #' setting (cf. table 221, page 180, CNAIM, 2021).
 #' Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -25,16 +26,24 @@
 #' access_factor_criteria = "Type A")
 financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
                                                   type_financial_factor_criteria,
-                                                  access_factor_criteria){
+                                                  access_factor_criteria,
+                                                  gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type Financial Factor Criteria` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == lv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -45,7 +54,7 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
   if(lv_asset_category == "LV Board (WM)" || lv_asset_category == "LV Board (X-type Network) (WM)"){
     type_financial_factor <- 1
   }else{
-    type_financial_factors <- gb_ref$type_financial_factors
+    type_financial_factors <- gb_ref_taken$type_financial_factors
     type_financial_factors_tf <- dplyr::filter(type_financial_factors,
                                                `Asset Register Category` == lv_asset_category,
                                                `Type Financial Factor Criteria` == type_financial_factor_criteria)
@@ -54,7 +63,7 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
   }
 
   # Access financial factor -------------------------------------------------
-  access_financial_factors <- gb_ref$access_factor_swg_tf_asset
+  access_financial_factors <- gb_ref_taken$access_factor_swg_tf_asset
   access_financial_factors_tf <- dplyr::filter(access_financial_factors,
                                                `Asset Category` ==
                                                  "LV Switchgear")
@@ -103,6 +112,7 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
 #' Options: \code{type_risk = c("Low", "Medium", "High")}.
 #' The default setting is
 #' \code{type_risk = "Medium"}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for LV switchgear
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -114,14 +124,22 @@ financial_cof_lv_switchgear_and_other <- function(lv_asset_category,
 #' type_risk = "Default")
 safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
                                                location_risk,
-                                               type_risk){
+                                               type_risk,
+                                               gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == lv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -132,7 +150,7 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
   if (location_risk == "Medium") location_risk <- "Medium (Default)"
   if (type_risk == "Default") type_risk <- "Medium"
 
-  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
+  safety_conseq_factor_sg_tf_oh <- gb_ref_taken$safety_conseq_factor_sg_tf_oh
 
   row_no <- which(safety_conseq_factor_sg_tf_oh$
                     `Safety Consequence Factor - Switchgear, Transformers & Overhead Lines...2` ==
@@ -158,20 +176,29 @@ safety_cof_lv_switchgear_and_other <- function(lv_asset_category,
 #' Options: \code{lv_asset_category = c("LV Board (WM)",
 #' "LV Board (X-type Network) (WM)", "LV Circuit Breaker",
 #' "LV Pillar (ID)", "LV Pillar (OD at Substation)", "LV Pillar (OD not at a Substation)")}
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 #' @export
 #' @examples
 #' environmental_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)")
-environmental_cof_lv_switchgear_and_other <- function(lv_asset_category){
+environmental_cof_lv_switchgear_and_other <- function(lv_asset_category,
+                                                      gb_ref_given = NULL){
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == lv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -210,19 +237,28 @@ environmental_cof_lv_switchgear_and_other <- function(lv_asset_category){
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
 #' \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @export
 #' @examples
 #' network_cof_lv_switchgear_and_other(lv_asset_category = "LV Board (WM)",
 #' no_customers = 750, kva_per_customer = 51)
 network_cof_lv_switchgear_and_other <- function(lv_asset_category,
                                                 no_customers,
-                                                kva_per_customer = "Default") {
+                                                kva_per_customer = "Default",
+                                                gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
   asset_category <- get_mmi_lv_switchgear_asset_category(lv_asset_category)
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    lv_asset_category)
 
@@ -230,7 +266,7 @@ network_cof_lv_switchgear_and_other <- function(lv_asset_category,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Customer factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_lv_hv <- gb_ref$ref_nw_perf_cost_fail_lv_hv
+  ref_nw_perf_cost_fail_lv_hv <- gb_ref_taken$ref_nw_perf_cost_fail_lv_hv
   ref_nw_perf_cost_fail_lv_hv_tf <- dplyr::filter(ref_nw_perf_cost_fail_lv_hv,
                                                   `Asset Category` ==
                                                     asset_category)
@@ -238,7 +274,7 @@ network_cof_lv_switchgear_and_other <- function(lv_asset_category,
   ref_no_cust <-
     ref_nw_perf_cost_fail_lv_hv_tf$`Reference Number of Connected Customers`
 
-  customer_no_adjust_lv_hv_asset <- gb_ref$customer_no_adjust_lv_hv_asset
+  customer_no_adjust_lv_hv_asset <- gb_ref_taken$customer_no_adjust_lv_hv_asset
 
 
   for (n in 1:nrow(customer_no_adjust_lv_hv_asset)){

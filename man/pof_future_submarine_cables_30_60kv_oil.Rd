@@ -21,7 +21,8 @@ pof_future_submarine_cables_30_60kv_oil(
   k_value = 2.0944,
   c_value = 1.087,
   normal_expected_life = 60,
-  simulation_end_year = 100
+  simulation_end_year = 100,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -74,6 +75,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame. Future probability of failure

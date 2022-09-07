@@ -16,6 +16,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 60} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame. Future probability of failure
 #' along with future health score
 #' @export
@@ -53,7 +54,8 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
                                     k_value = 0.0077,
                                     c_value = 1.087,
                                     normal_expected_life = 55,
-                                    simulation_end_year = 100) {
+                                    simulation_end_year = 100,
+                                    gb_ref_given = NULL) {
 
   `Asset Register Category` = `Health Index Asset Category` =
     `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -64,20 +66,25 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
 
   hv_transformer_type <- "6.6/11kV Transformer (GM)"
   # this is in order to access tables which are identical to the ones 0.4/10kV transformer is using
-
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
 
   # Ref. table Categorisation of Assets and Generic Terms for Assets  --
   asset_type <- hv_transformer_type
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == asset_type) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-  generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+  generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
     dplyr::filter(`Health Index Asset Category` == asset_category) %>%
     dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -116,7 +123,7 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
 
   # Measured condition inputs ---------------------------------------------
   mcm_mmi_cal_df <-
-    gb_ref$measured_cond_modifier_mmi_cal
+    gb_ref_taken$measured_cond_modifier_mmi_cal
 
   mcm_mmi_cal_df <-
     mcm_mmi_cal_df[which(mcm_mmi_cal_df$`Asset Category` == asset_category), ]
@@ -136,7 +143,7 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
 
   # Partial discharge -------------------------------------------------------
   mci_hv_tf_partial_discharge <-
-    gb_ref$mci_hv_tf_partial_discharge
+    gb_ref_taken$mci_hv_tf_partial_discharge
 
   ci_factor_partial_discharge <-
     mci_hv_tf_partial_discharge$`Condition Input Factor`[which(
@@ -164,7 +171,7 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
 
   # Temperature readings ----------------------------------------------------
   mci_hv_tf_temp_readings <-
-    gb_ref$mci_hv_tf_temp_readings
+    gb_ref_taken$mci_hv_tf_temp_readings
 
   ci_factor_temp_reading <-
     mci_hv_tf_temp_readings$`Condition Input Factor`[which(
@@ -213,7 +220,7 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
 
   # Observed condition inputs ---------------------------------------------
   oci_mmi_cal_df <-
-    gb_ref$observed_cond_modifier_mmi_cal
+    gb_ref_taken$observed_cond_modifier_mmi_cal
 
   oci_mmi_cal_df <-
     oci_mmi_cal_df[which(oci_mmi_cal_df$`Asset Category` == asset_category), ]
@@ -232,7 +239,7 @@ pof_future_transformer_04_10kv <- function(utilisation_pct = "Default",
     )
 
   oci_hv_tf_tf_ext_cond_df <-
-    gb_ref$oci_hv_tf_tf_ext_cond
+    gb_ref_taken$oci_hv_tf_tf_ext_cond
 
   ci_factor_ext_cond <-
     oci_hv_tf_tf_ext_cond_df$`Condition Input Factor`[which(

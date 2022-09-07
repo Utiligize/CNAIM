@@ -4,12 +4,17 @@
 \alias{financial_cof_switchgear_secondary_10kv}
 \title{Financial cost of Failure for 10 kV Swicthgear Secondary}
 \usage{
-financial_cof_switchgear_secondary_10kv(access_factor_criteria)
+financial_cof_switchgear_secondary_10kv(
+  access_factor_criteria,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{access_factor_criteria}{String. Asses Financial factor criteria
 for 10 kV Swicthgear Secondary setting.
 Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \description{
 This function calculates financial consequences of failure

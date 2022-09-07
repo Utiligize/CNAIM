@@ -4,7 +4,12 @@
 \alias{network_cof_switchgear_30_60kv}
 \title{Network cost of Failure for 30kV and 60kV Switchgear}
 \usage{
-network_cof_switchgear_30_60kv(ehv_asset_category, actual_load_mva, secure = T)
+network_cof_switchgear_30_60kv(
+  ehv_asset_category,
+  actual_load_mva,
+  secure = T,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{ehv_asset_category}{String The type of 30kV and 60kV switchgear category
@@ -13,6 +18,8 @@ Options: \code{ehv_asset_category = c("30kV", "60kV")}.}
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

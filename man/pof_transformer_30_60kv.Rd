@@ -46,7 +46,8 @@ pof_transformer_30_60kv(
   k_value = 0.454,
   c_value = 1.087,
   normal_expected_life_tf = "Default",
-  normal_expected_life_tc = "Default"
+  normal_expected_life_tc = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -221,6 +222,8 @@ The default value is accordingly to the CNAIM standard on page 107.}
 
 \item{normal_expected_life_tc}{Numeric. \code{normal_expected_life_tc = "Default"} by default.
 The default value is accordingly to the CNAIM standard on page 107.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

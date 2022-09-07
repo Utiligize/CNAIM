@@ -28,6 +28,7 @@
 #' \code{intensity=c("Low", "Moderate", "High", "Default")}.
 #' @param landlocked String. Options: \code{landlocked = c("yes","no")}. Default
 #' setting for \code{landlocked = "no"}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Location factor
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -44,11 +45,19 @@ location_factor_sub <- function(topography = "Default",
                                 situation = "Default",
                                 wind_wave = "Default",
                                 intensity = "Default",
-                                landlocked = "no") {
+                                landlocked = "no",
+                                gb_ref_given = NULL) {
 
   Topography = Situation = Rating = Intensity = NULL
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
   # Typography
-  submarin_cable_topog_factor <- gb_ref$submarin_cable_topog_factor %>%
+  submarin_cable_topog_factor <- gb_ref_taken$submarin_cable_topog_factor %>%
     dplyr::filter(Topography == topography)
 
   sea_score <- submarin_cable_topog_factor$`Score (Sea)`
@@ -56,7 +65,7 @@ location_factor_sub <- function(topography = "Default",
 
 
   # Situation
-  submarin_cable_situation_factor <- gb_ref$submarin_cable_sitution_factor %>%
+  submarin_cable_situation_factor <- gb_ref_taken$submarin_cable_sitution_factor %>%
     dplyr::filter(Situation == situation)
 
   sit_score <- submarin_cable_situation_factor$Score
@@ -65,11 +74,11 @@ location_factor_sub <- function(topography = "Default",
   # Wave/wind
 
   if(wind_wave == "Default") {
-    submarin_cable_wind_wave <- gb_ref$submarin_cable_wind_wave %>%
+    submarin_cable_wind_wave <- gb_ref_taken$submarin_cable_wind_wave %>%
       dplyr::filter(is.na(Rating))
 
   } else {
-    submarin_cable_wind_wave <- gb_ref$submarin_cable_wind_wave %>%
+    submarin_cable_wind_wave <- gb_ref_taken$submarin_cable_wind_wave %>%
       dplyr::filter(Rating == wind_wave)
   }
 
@@ -78,7 +87,7 @@ location_factor_sub <- function(topography = "Default",
 
 
   # Combined energy factor
-  combined_wave_ct_energy_factor <- gb_ref$combined_wave_ct_energy_factor %>%
+  combined_wave_ct_energy_factor <- gb_ref_taken$combined_wave_ct_energy_factor %>%
     dplyr::filter(Intensity == intensity)
 
 
@@ -87,7 +96,7 @@ location_factor_sub <- function(topography = "Default",
 
 
   # INC
-  inc_sub <- gb_ref$increment_constants$`Submarine Cables`
+  inc_sub <- gb_ref_taken$increment_constants$`Submarine Cables`
 
   # Submarine Cable Route Topography Factor, Sitution Factor, Wind/Wave
   # Factor, Combined Wave & Current Energy Factor is greater than 1

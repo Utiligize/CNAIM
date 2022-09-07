@@ -35,6 +35,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = "Default"} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @export
@@ -78,41 +79,48 @@ pof_tower_ohl_support_50kv <-
            reliability_factor = "Default",
            k_value = 0.0545,
            c_value = 1.087,
-           normal_expected_life = "Default") {
+           normal_expected_life = "Default",
+           gb_ref_given = NULL) {
 
     tower_asset_category <- "66kV Tower"
     `Asset Register Category` = `Health Index Asset Category` = `Sub-division` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
                       tower_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
 
     if (normal_expected_life == "Default") {
-      normal_expected_life_steelwork <- gb_ref$normal_expected_life %>%
+      normal_expected_life_steelwork <- gb_ref_taken$normal_expected_life %>%
         dplyr::filter(`Asset Register  Category` ==
                         tower_asset_category, `Sub-division` == "Steelwork") %>%
         dplyr::pull()
 
-      normal_expected_life_foundation <- gb_ref$normal_expected_life %>%
+      normal_expected_life_foundation <- gb_ref_taken$normal_expected_life %>%
         dplyr::filter(`Asset Register  Category` ==
                         tower_asset_category, `Sub-division` == foundation_type) %>%
         dplyr::pull()
 
-      normal_expected_life_paint <- gb_ref$normal_expected_life %>%
+      normal_expected_life_paint <- gb_ref_taken$normal_expected_life %>%
         dplyr::filter(`Asset Register  Category` ==
                         tower_asset_category, `Sub-division` == paint_type) %>%
         dplyr::pull()
@@ -188,19 +196,22 @@ pof_tower_ohl_support_50kv <-
       get_observed_conditions_modifier_hv_switchgear("EHV Towers",
                                                      oci_table_names_steelwork,
                                                      observed_condition_inputs_steelwork,
-                                                     "Tower Steelwork")
+                                                     "Tower Steelwork",
+                                                     gb_ref_taken = gb_ref_taken)
 
     observed_condition_modifier_paint <-
       get_observed_conditions_modifier_hv_switchgear("EHV Towers",
                                                      oci_table_names_paint,
                                                      observed_condition_inputs_paint,
-                                                     "Tower Paintwork")
+                                                     "Tower Paintwork",
+                                                     gb_ref_taken = gb_ref_taken)
 
     observed_condition_modifier_foundation <-
       get_observed_conditions_modifier_hv_switchgear("EHV Towers",
                                                      oci_table_names_foundation,
                                                      observed_condition_inputs_foundation,
-                                                     "Foundations")
+                                                     "Foundations",
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Health score factor ---------------------------------------------------
     health_score_factor_steelwork <-

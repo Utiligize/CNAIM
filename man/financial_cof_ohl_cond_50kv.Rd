@@ -4,12 +4,14 @@
 \alias{financial_cof_ohl_cond_50kv}
 \title{Financial cost of Failure for 50kV Overhead Line Conductors}
 \usage{
-financial_cof_ohl_cond_50kv(access_factor_criteria)
+financial_cof_ohl_cond_50kv(access_factor_criteria, gb_ref_given = NULL)
 }
 \arguments{
 \item{access_factor_criteria}{String. Asses Financial factor criteria for
 Overhead Line Conductors.
 Options: \code{access_factor_criteria = c("Type A", "Type B")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for Overhead Line Conductors

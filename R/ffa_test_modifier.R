@@ -7,6 +7,7 @@
 #' @param furfuraldehyde Numeric. Refers to the furfuraldehyde level in the
 #' transformer oil. furfuraldehyde levels are measured in ppm.
 #' A setting of \code{"Default"} will result in the best possible result.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Data table.
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -16,12 +17,20 @@
 #' # FFA test modifier
 #' ffa_test_modifier(furfuraldehyde = 50)
 
-ffa_test_modifier <- function(furfuraldehyde = "Default") {
+ffa_test_modifier <- function(furfuraldehyde = "Default",
+                              gb_ref_given = NULL) {
 
-if (furfuraldehyde == "Default") furfuraldehyde <- -0.01
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  if (furfuraldehyde == "Default") furfuraldehyde <- -0.01
 
   ffa_test_factor <-
-    gb_ref$ffa_test_factor
+    gb_ref_taken$ffa_test_factor
 
   ffa_test_factor$Lower[1] <- -Inf
 

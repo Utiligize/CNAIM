@@ -25,6 +25,7 @@
 #' "DE-10kV apb kabler CNAIM" on p. 33.
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Current probability of failure
 #' per annum.
 #' @export
@@ -73,7 +74,8 @@ pof_future_switchgear_30_60kv <-
            k_value = "Default",
            c_value = 1.087,
            normal_expected_life = 55,
-           simulation_end_year = 100){
+           simulation_end_year = 100,
+           gb_ref_given = NULL){
 
     ehv_asset_category <- "33kV RMU"
     `Asset Register Category` = `Health Index Asset Category` =
@@ -81,16 +83,23 @@ pof_future_switchgear_30_60kv <-
       `K-Value (%)` = `C-Value` = `Asset Register  Category` = NULL
     # due to NSE notes in R CMD check
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
                       ehv_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -111,7 +120,8 @@ pof_future_switchgear_30_60kv <-
 
     # Duty factor -------------------------------------------------------------
 
-    duty_factor_cond <- get_duty_factor_hv_switchgear_primary(number_of_operations)
+    duty_factor_cond <- get_duty_factor_hv_switchgear_primary(number_of_operations,
+                                                              gb_ref_taken)
 
     # Location factor ----------------------------------------------------
     location_factor_cond <- location_factor(placement,
@@ -141,7 +151,8 @@ pof_future_switchgear_30_60kv <-
     measured_condition_modifier <-
       get_measured_conditions_modifier_hv_switchgear(asset_category,
                                                      mci_table_names,
-                                                     measured_condition_inputs)
+                                                     measured_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Observed conditions -----------------------------------------------------
 
@@ -155,7 +166,8 @@ pof_future_switchgear_30_60kv <-
     observed_condition_modifier <-
       get_observed_conditions_modifier_hv_switchgear(asset_category,
                                                      oci_table_names,
-                                                     observed_condition_inputs)
+                                                     observed_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Health score factor ---------------------------------------------------
     health_score_factor <-

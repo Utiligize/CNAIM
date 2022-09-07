@@ -19,7 +19,8 @@ pof_cables_60_30kv(
   fault_hist = "Default",
   leakage = "Default",
   reliability_factor = "Default",
-  age
+  age,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -73,6 +74,8 @@ shall have a value between 0.6 and 1.5. A setting of \code{"Default"}
 See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{age}{Numeric. The current age in years of the cable.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

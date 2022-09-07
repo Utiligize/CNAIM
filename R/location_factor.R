@@ -66,6 +66,7 @@
 #'"132kV CB (Gas Insulated Busbars)(OD) (GM)", "132kV Transformer (GM)")
 #'}
 #' @param sub_division String. Refers to material the sub division in the asset category
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Location factor
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
 #' Health & Criticality - Version 2.1, 2021:
@@ -83,8 +84,15 @@ location_factor <- function(placement = "Default",
                             distance_from_coast_km = "Default",
                             corrosion_category_index = "Default",
                             asset_type = "6.6/11kV Transformer (GM)",
-                            sub_division = NULL) {
+                            sub_division = NULL,
+                            gb_ref_given = NULL) {
 
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
 
 if (asset_type == "LV UGB" ||
     asset_type == "33kV UG Cable (Non Pressurised)" ||
@@ -101,14 +109,14 @@ if (asset_type == "LV UGB" ||
 
 } else {
   # Find generic term -------------------------------------------------------
-  asset_category <- gb_ref$categorisation_of_assets$
-    `Health Index Asset Category`[which(gb_ref$
+  asset_category <- gb_ref_taken$categorisation_of_assets$
+    `Health Index Asset Category`[which(gb_ref_taken$
                                           categorisation_of_assets$
                                           `Asset Register Category` ==
                                           asset_type)]
 
-  generic_term_1 <- gb_ref$generic_terms_for_assets$
-    `Generic Term...1`[which(gb_ref$
+  generic_term_1 <- gb_ref_taken$generic_terms_for_assets$
+    `Generic Term...1`[which(gb_ref_taken$
                                generic_terms_for_assets$
                                `Health Index Asset Category` ==
                                asset_category)]
@@ -142,7 +150,7 @@ if (asset_type == "LV UGB" ||
   }
 
    # Altitude ----------------------------------------------------------------
-  altitude_factor_asset_df <- dplyr::select(gb_ref$altitude_factor_lut,
+  altitude_factor_asset_df <- dplyr::select(gb_ref_taken$altitude_factor_lut,
                                             c("Lower", "Upper",
                                               generic_term_1))
   if (altitude_m == "Default") {
@@ -162,7 +170,7 @@ if (asset_type == "LV UGB" ||
 
   # Corrosion ----------------------------------------------------------------
   corrosion_category_factor_a <-
-    dplyr::select(gb_ref$corrosion_category_factor_lut,
+    dplyr::select(gb_ref_taken$corrosion_category_factor_lut,
                   c("Corrosion Category Index", generic_term_1))
 
   if (corrosion_category_index == "Default") {
@@ -189,7 +197,7 @@ if (asset_type == "LV UGB" ||
     as.numeric(corrosion_category_factor_a[row_no, generic_term_1])
 
   # Distance from coast -----------------------------------------------------
-  distance_from_coast_factor_lut <- gb_ref$distance_from_coast_factor_lut
+  distance_from_coast_factor_lut <- gb_ref_taken$distance_from_coast_factor_lut
 
   distance_from_coast_factor_a <-
     dplyr::select(distance_from_coast_factor_lut,
@@ -212,14 +220,14 @@ if (asset_type == "LV UGB" ||
     as.numeric(distance_from_coast_factor_a[row_no, generic_term_1])
 
   # Increment constant ------------------------------------------------------
-  increment_constants <- gb_ref$increment_constants
+  increment_constants <- gb_ref_taken$increment_constants
   inc_constant <- increment_constants[, generic_term_1]
 
   # All factors -------------------------------------------------------------
   factors <- c(coast_factor, corrosion_factor, altitude_factor)
 
   # Location factor outdoor -------------------------------------------------
-  environment_indoor_outdoor <- gb_ref$environment_indoor_outdoor
+  environment_indoor_outdoor <- gb_ref_taken$environment_indoor_outdoor
 
   if (placement == "Default") {
     placement <-

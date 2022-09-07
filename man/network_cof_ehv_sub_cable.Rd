@@ -12,7 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 network_cof_ehv_sub_cable(
   sub_cable_asset_category,
   actual_load_mva,
-  secure = T
+  secure = T,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Options: \code{sub_cable_asset_category = c( "EHV Sub Cable", "132kV Sub Cable")
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

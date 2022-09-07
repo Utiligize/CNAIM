@@ -9,7 +9,12 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-safety_cof_transformers(tf_asset_category, location_risk, type_risk)
+safety_cof_transformers(
+  tf_asset_category,
+  location_risk,
+  type_risk,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{tf_asset_category}{String The type of Transformer asset category
@@ -28,6 +33,8 @@ setting (cf. table 221, page 180, CNAIM, 2021).
 Options: \code{type_risk = c("Low", "Medium", "High")}.
 The default setting is
 \code{type_risk = "Medium"}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Safety consequences of failure for Transformers

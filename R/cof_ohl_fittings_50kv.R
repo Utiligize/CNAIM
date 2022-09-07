@@ -7,27 +7,34 @@
 #' Options: \code{type_financial_factor_criteria = c("Suspension", "Tension")}.
 #' @param access_factor_criteria String. Asses Financial factor criteria for EHV fittings
 #' setting. Options: \code{access_factor_criteria = c("Type A", "Type B")}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
 #' financial_cof_ohl_fittings_50kv(
 #' type_financial_factor_criteria = "Tension",
 #' access_factor_criteria = "Type A")
-
-
 financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
-                                            access_factor_criteria) {
+                                            access_factor_criteria,
+                                            gb_ref_given = NULL) {
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` =
     `Type Financial Factor Criteria` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
   # Reference cost of failure table 16 --------------------------------------
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -35,7 +42,7 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
   fcost <- reference_costs_of_failure_tf$`Financial - (GBP)`
 
   # Type financial factor ---------------------------------------------------
-  type_financial_factors <- gb_ref$type_financial_factors
+  type_financial_factors <- gb_ref_taken$type_financial_factors
   type_financial_factors_tf <- dplyr::filter(type_financial_factors,
                                              `Asset Register Category` == ehv_asset_category,
                                              `Type Financial Factor Criteria` == type_financial_factor_criteria)
@@ -43,7 +50,7 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
   type_financial_factor <- type_financial_factors_tf$`Type Financial Factor`[1]
 
   # Access financial factor -------------------------------------------------
-  access_financial_factors <- gb_ref$access_factor_ohl
+  access_financial_factors <- gb_ref_taken$access_factor_ohl
   access_category_financial_factor <- "EHV OHL Fittings (Tower Lines)"
   if(ehv_asset_category == "132kV Fittings"){
     access_category_financial_factor <- "132kV OHL Fittings (Tower Lines)"
@@ -86,6 +93,7 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
 #' Options: \code{type_risk = c("Low", "Medium", "High")}.
 #' The default setting is
 #' \code{type_risk = "Medium"}.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for EHV fittings
 #' @export
 #' @examples
@@ -93,17 +101,25 @@ financial_cof_ohl_fittings_50kv <- function(type_financial_factor_criteria,
 #' location_risk = "Default",
 #' type_risk = "Default")
 safety_cof_ohl_fittings_50kv <- function(location_risk,
-                                         type_risk) {
+                                         type_risk,
+                                         gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -114,7 +130,7 @@ safety_cof_ohl_fittings_50kv <- function(location_risk,
   if (location_risk == "Medium") location_risk <- "Medium (Default)"
   if (type_risk == "Default") type_risk <- "Medium"
 
-  safety_conseq_factor_sg_tf_oh <- gb_ref$safety_conseq_factor_sg_tf_oh
+  safety_conseq_factor_sg_tf_oh <- gb_ref_taken$safety_conseq_factor_sg_tf_oh
 
   row_no <- which(safety_conseq_factor_sg_tf_oh$
                     `Safety Consequence Factor - Switchgear, Transformers & Overhead Lines...2` ==
@@ -135,23 +151,31 @@ safety_cof_ohl_fittings_50kv <- function(location_risk,
 #' @description This function calculates environmental consequences of failure
 #' Environmental consequences of failure is used in
 #' the derivation of consequences of failure see \code{\link{cof}}().
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Financial consequences of failure for 50kv fittings
 #' Outputted in DKK.
 #' @export
 #' @examples
 #' environmental_cof_ohl_fittings_50kv()
-environmental_cof_ohl_fittings_50kv <- function() {
+environmental_cof_ohl_fittings_50kv <- function(gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Type environment factor` = NULL
 
-  asset_category <- gb_ref$categorisation_of_assets %>%
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  asset_category <- gb_ref_taken$categorisation_of_assets %>%
     dplyr::filter(`Asset Register Category` == ehv_asset_category) %>%
     dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -186,20 +210,29 @@ environmental_cof_ohl_fittings_50kv <- function() {
 #' Outputted in DKK.
 #' @param actual_load_mva Numeric. The actual load on the asset
 #' @param secure Boolean If the asset is in a secure network or not
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return Numeric. Network cost of failure.
 #' @export
 #' @examples
 #' network_cof_ohl_fittings_50kv(
 #' actual_load_mva = 15)
 network_cof_ohl_fittings_50kv<- function(actual_load_mva,
-                                         secure = T) {
+                                         secure = T,
+                                         gb_ref_given = NULL) {
 
   GBP_to_DKK <- 8.71
   ehv_asset_category = "66kV Fittings"
   `Asset Register Category` = `Health Index Asset Category` = `Asset Category` =
     `Maximum Demand Used To Derive Reference Cost (MVA)` = NULL
 
-  reference_costs_of_failure_tf <- dplyr::filter(gb_ref$reference_costs_of_failure,
+  if(is.null(gb_ref_given)){
+    gb_ref_taken <- gb_ref
+  }else{
+    check_gb_ref_given(gb_ref_given)
+    gb_ref_taken <- gb_ref_given
+  }
+
+  reference_costs_of_failure_tf <- dplyr::filter(gb_ref_taken$reference_costs_of_failure,
                                                  `Asset Register Category` ==
                                                    ehv_asset_category)
 
@@ -207,7 +240,7 @@ network_cof_ohl_fittings_50kv<- function(actual_load_mva,
   ncost <- reference_costs_of_failure_tf$`Network Performance - (GBP)`
 
   # Load factor ---------------------------------------------------------
-  ref_nw_perf_cost_fail_ehv_df <- gb_ref$ref_nw_perf_cost_of_fail_ehv
+  ref_nw_perf_cost_fail_ehv_df <- gb_ref_taken$ref_nw_perf_cost_of_fail_ehv
   ref_nw_perf_cost_fail_ehv_single_row_df <- dplyr::filter(ref_nw_perf_cost_fail_ehv_df,
                                                            `Asset Category` ==
                                                              ehv_asset_category)

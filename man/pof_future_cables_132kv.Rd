@@ -20,7 +20,8 @@ pof_future_cables_132kv(
   leakage = "Default",
   reliability_factor = "Default",
   age,
-  simulation_end_year = 100
+  simulation_end_year = 100,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -76,6 +77,8 @@ See section 6.14 on page 73 in CNAIM (2021).}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame. Future probability of failure

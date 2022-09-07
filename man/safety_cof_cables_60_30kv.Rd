@@ -9,10 +9,12 @@ Health & Criticality - Version 2.1, 2021:
 \url{https://www.ofgem.gov.uk/sites/default/files/docs/2021/04/dno_common_network_asset_indices_methodology_v2.1_final_01-04-2021.pdf}
 }
 \usage{
-safety_cof_cables_60_30kv(ehv_asset_category)
+safety_cof_cables_60_30kv(ehv_asset_category, gb_ref_given = NULL)
 }
 \arguments{
 \item{ehv_asset_category}{Asset category for analysis}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 30-60 kV UG cables

@@ -4,7 +4,11 @@
 \alias{financial_cof_switchgear_30_60kv}
 \title{Financial cost of Failure for 30kV and 60kV Switchgear}
 \usage{
-financial_cof_switchgear_30_60kv(ehv_asset_category, access_factor_criteria)
+financial_cof_switchgear_30_60kv(
+  ehv_asset_category,
+  access_factor_criteria,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{ehv_asset_category}{String The type of 30kV and 60kV switchgear
@@ -12,6 +16,8 @@ Options: \code{ehv_asset_category = c("30kV", "60kV")}.}
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for 30kV and 60kV switchgear
 setting. Options: \code{access_factor_criteria = c("Type A", "Type B", "Type C")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 30kV and 60kV switchgear

@@ -30,6 +30,7 @@
 #' The default value is accordingly to the CNAIM standard see page 110
 #' @param normal_expected_life Numeric. \code{normal_expected_life = 60} by default.
 #' The default value is accordingly to the CNAIM standard on page 107.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame Current probability of failure
 #' per annum per kilometer along with current health score.
 #' @export
@@ -67,7 +68,8 @@ pof_board_04kv <-
            reliability_factor = "Default",
            k_value = 0.0069,
            c_value = 1.087,
-           normal_expected_life = 60) {
+           normal_expected_life = 60,
+           gb_ref_given = NULL) {
 
     lv_asset_category <- "LV Board (WM)"
     `Asset Register Category` = `Health Index Asset Category` =
@@ -75,16 +77,23 @@ pof_board_04kv <-
       `K-Value (%)` = `C-Value` = `Asset Register  Category`  = NULL
     # due to NSE notes in R CMD check
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` ==
                       lv_asset_category) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
@@ -124,7 +133,8 @@ pof_board_04kv <-
     measured_condition_modifier <-
       get_measured_conditions_modifier_lv_switchgear(asset_category_mmi,
                                                      mci_table_names,
-                                                     measured_condition_inputs)
+                                                     measured_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
     # Observed conditions -----------------------------------------------------
 
@@ -140,7 +150,8 @@ pof_board_04kv <-
     observed_condition_modifier <-
       get_observed_conditions_modifier_lv_switchgear(asset_category_mmi,
                                                      oci_table_names,
-                                                     observed_condition_inputs)
+                                                     observed_condition_inputs,
+                                                     gb_ref_taken = gb_ref_taken)
 
 
     # Health score factor ---------------------------------------------------

@@ -4,12 +4,18 @@
 \alias{network_cof_tower_ohl_support_50kv}
 \title{Network cost of Failure for Tower OHL Support 50 kV}
 \usage{
-network_cof_tower_ohl_support_50kv(actual_load_mva, secure = T)
+network_cof_tower_ohl_support_50kv(
+  actual_load_mva,
+  secure = T,
+  gb_ref_given = NULL
+)
 }
 \arguments{
 \item{actual_load_mva}{Numeric. The actual load on the asset}
 
 \item{secure}{Boolean If the asset is in a secure network or not}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Network cost of failure.

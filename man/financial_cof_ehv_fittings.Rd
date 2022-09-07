@@ -12,7 +12,8 @@ Health & Criticality - Version 2.1, 2021:
 financial_cof_ehv_fittings(
   ehv_asset_category,
   type_financial_factor_criteria,
-  access_factor_criteria
+  access_factor_criteria,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ Options: \code{ehv_asset_category = c("33kV Fittings", "66kV Fittings",
 \item{access_factor_criteria}{String. Asses Financial factor criteria for EHV fittings
 setting (cf. table 221, page 180, CNAIM, 2021).
 \code{access_factor_criteria = c("Type A", "Type B")}.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for EHV fittings

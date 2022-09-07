@@ -10,6 +10,7 @@
 #' @inheritParams pof_submarine_cables
 #' @param simulation_end_year Numeric. The last year of simulating probability
 #'  of failure. Default is 100.
+#' @param gb_ref_given optional parameter to use custom reference values
 #' @return DataFrame. Future probability of failure
 #' along with future health score
 #' @source DNO Common Network Asset Indices Methodology (CNAIM),
@@ -49,7 +50,8 @@ pof_future_submarine_cables <-
            condition_armour = "Default",
            age,
            reliability_factor = "Default",
-           simulation_end_year = 100) {
+           simulation_end_year = 100,
+           gb_ref_given = NULL) {
 
     `Asset Register Category` = `Health Index Asset Category` =
       `Generic Term...1` = `Generic Term...2` = `Functional Failure Category` =
@@ -59,32 +61,39 @@ pof_future_submarine_cables <-
       `Asset Category` = `Condition Criteria` = NULL
     # due to NSE notes in R CMD check
 
+    if(is.null(gb_ref_given)){
+      gb_ref_taken <- gb_ref
+    }else{
+      check_gb_ref_given(gb_ref_given)
+      gb_ref_taken <- gb_ref_given
+    }
+
     # Ref. table Categorisation of Assets and Generic Terms for Assets  --
 
-    asset_category <- gb_ref$categorisation_of_assets %>%
+    asset_category <- gb_ref_taken$categorisation_of_assets %>%
       dplyr::filter(`Asset Register Category` == sub_cable_type) %>%
       dplyr::select(`Health Index Asset Category`) %>% dplyr::pull()
 
-    generic_term_1 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_1 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...1`) %>% dplyr::pull()
 
-    generic_term_2 <- gb_ref$generic_terms_for_assets %>%
+    generic_term_2 <- gb_ref_taken$generic_terms_for_assets %>%
       dplyr::filter(`Health Index Asset Category` == asset_category) %>%
       dplyr::select(`Generic Term...2`) %>% dplyr::pull()
 
     # Normal expected life  -------------------------
-    normal_expected_life_cable <- gb_ref$normal_expected_life %>%
+    normal_expected_life_cable <- gb_ref_taken$normal_expected_life %>%
       dplyr::filter(`Asset Register  Category` == sub_cable_type)  %>%
       dplyr::pull()
 
     # Constants C and K for PoF function --------------------------------------
-    k <- gb_ref$pof_curve_parameters %>%
+    k <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       asset_category) %>% dplyr::select(`K-Value (%)`) %>%
       dplyr::pull()/100
 
-    c <- gb_ref$pof_curve_parameters %>%
+    c <- gb_ref_taken$pof_curve_parameters %>%
       dplyr::filter(`Functional Failure Category` ==
                       asset_category) %>% dplyr::select(`C-Value`) %>%
       dplyr::pull()
@@ -134,7 +143,7 @@ pof_future_submarine_cables <-
 
     # Measured condition inputs ---------------------------------------------
     mcm_mmi_cal_df <-
-      gb_ref$measured_cond_modifier_mmi_cal
+      gb_ref_taken$measured_cond_modifier_mmi_cal
 
 
     mcm_mmi_cal_df <-
@@ -160,7 +169,7 @@ pof_future_submarine_cables <-
 
     # Sheath test -------------------------------------------------------------
     mci_submarine_cbl_sheath_test <-
-      gb_ref$mci_submarine_cbl_sheath_test %>% dplyr::filter(
+      gb_ref_taken$mci_submarine_cbl_sheath_test %>% dplyr::filter(
         `Condition Criteria: Sheath Test Result` == sheath_test
       )
 
@@ -173,7 +182,7 @@ pof_future_submarine_cables <-
 
     # Partial discharge-------------------------------------------------------
     mci_submarine_cable_prtl_disc <-
-      gb_ref$mci_submarine_cable_prtl_disc %>%
+      gb_ref_taken$mci_submarine_cable_prtl_disc %>%
       dplyr::filter(
         `Condition Criteria: Partial Discharge Test Result` == partial_discharge
       )
@@ -187,7 +196,7 @@ pof_future_submarine_cables <-
 
     # Fault -------------------------------------------------------
     mci_submarine_cable_fault_hist <-
-      gb_ref$mci_submarine_cable_fault_hist
+      gb_ref_taken$mci_submarine_cable_fault_hist
 
     for (n in 2:4) {
       if (fault_hist == 'Default' || fault_hist ==
@@ -250,7 +259,7 @@ pof_future_submarine_cables <-
     # Observed conditions -----------------------------------------------------
 
     oci_mmi_cal_df <-
-      gb_ref$observed_cond_modifier_mmi_cal %>%
+      gb_ref_taken$observed_cond_modifier_mmi_cal %>%
       dplyr::filter(`Asset Category` == "Submarine Cable")
 
     factor_divider_1_oi <-
@@ -267,7 +276,7 @@ pof_future_submarine_cables <-
     # External conditions of armour
 
     oci_submrn_cable_ext_cond_armr <-
-      gb_ref$oci_submrn_cable_ext_cond_armr %>%
+      gb_ref_taken$oci_submrn_cable_ext_cond_armr %>%
       dplyr::filter(
         `Condition Criteria` == condition_armour
       )

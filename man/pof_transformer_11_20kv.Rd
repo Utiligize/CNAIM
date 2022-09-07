@@ -23,7 +23,8 @@ pof_transformer_11_20kv(
   reliability_factor = "Default",
   moisture = "Default",
   oil_acidity = "Default",
-  bd_strength = "Default"
+  bd_strength = "Default",
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -86,6 +87,8 @@ level of partial discharge. Options for \code{partial_discharge}:
  "High (Confirmed)", "Default")}. See page 153, table 171 in CNAIM (2021).}
 
 \item{bd_strength}{Numeric. the amount of breakdown strength given in (kV) See page 162, table 205 in CNAIM (2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame Current probability of failure

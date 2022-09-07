@@ -13,7 +13,8 @@ financial_cof_transformers(
   tf_asset_category,
   type_financial_factor_size = NULL,
   type_financial_factor_kva_mva = NULL,
-  access_factor_criteria
+  access_factor_criteria,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ Options: \code{tf_asset_category = c("6.6/11kV Transformer (GM)",
 
 \item{access_factor_criteria}{String. Asses Financial factor criteria for Transformer
 setting (cf. table 221, page 180, CNAIM, 2021).}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for Transformer

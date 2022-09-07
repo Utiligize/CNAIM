@@ -4,7 +4,10 @@
 \alias{environmental_cof_ohl_fittings_50kv}
 \title{Environmental cost of Failure for 50kV Fittings}
 \usage{
-environmental_cof_ohl_fittings_50kv()
+environmental_cof_ohl_fittings_50kv(gb_ref_given = NULL)
+}
+\arguments{
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 Numeric. Financial consequences of failure for 50kv fittings

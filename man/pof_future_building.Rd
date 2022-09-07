@@ -21,7 +21,8 @@ pof_future_building(
   k_value = "Default",
   c_value = 1.087,
   normal_expected_life_building = "Default",
-  simulation_end_year = 100
+  simulation_end_year = 100,
+  gb_ref_given = NULL
 )
 }
 \arguments{
@@ -94,6 +95,8 @@ The default value is accordingly to the CNAIM standard see page 110}
 
 \item{simulation_end_year}{Numeric. The last year of simulating probability
 of failure. Default is 100.}
+
+\item{gb_ref_given}{optional parameter to use custom reference values}
 }
 \value{
 DataFrame. Future probability of failure
