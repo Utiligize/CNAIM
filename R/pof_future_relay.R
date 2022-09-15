@@ -14,41 +14,15 @@
 #' @export
 #' @examples
 #'  # future annual probability of failure for relay
-# pof_future_relay(
-# placement = "Default",
-# altitude_m = "Default",
-# distance_from_coast_km = "Default",
-# corrosion_category_index = "Default",
-# age = 10,
-# observed_condition_inputs =
-# list("external_condition" =
-# list("Condition Criteria: Observed Condition" = "Default"),
-# "oil_gas" = list("Condition Criteria: Observed Condition" = "Default"),
-# "thermo_assment" = list("Condition Criteria: Observed Condition" = "Default"),
-# "internal_condition" = list("Condition Criteria: Observed Condition" = "Default"),
-# "indoor_env" = list("Condition Criteria: Observed Condition" = "Default")),
-# measured_condition_inputs =
-# list("partial_discharge" =
-# list("Condition Criteria: Partial Discharge Test Results" = "Default"),
-# "ductor_test" = list("Condition Criteria: Ductor Test Results" = "Default"),
-# "oil_test" = list("Condition Criteria: Oil Test Results" = "Default"),
-# "temp_reading" = list("Condition Criteria: Temperature Readings" = "Default"),
-# "trip_test" = list("Condition Criteria: Trip Timing Test Result" = "Default")),
-# reliability_factor = "Default",
-# k_value = 0.128,
-# c_value = 1.087,
-# normal_expected_life = 30,
-# simulation_end_year = 100)
+#' pof_future_relay(
+#' age = 10,
+#' k_value = 0.128,
+#' c_value = 1.087,
+#' normal_expected_life = 30,
+#' simulation_end_year = 100)
 
 pof_future_relay <-
-  function(placement = "Default",
-           altitude_m = "Default",
-           distance_from_coast_km = "Default",
-           corrosion_category_index = "Default",
-           age,
-           measured_condition_inputs,
-           observed_condition_inputs,
-           reliability_factor = "Default",
+  function(age,
            k_value = 0.128,
            c_value = 1.087,
            normal_expected_life = 30,
@@ -84,11 +58,8 @@ pof_future_relay <-
     duty_factor_cond <- 1
 
     # Location factor ----------------------------------------------------
-    location_factor_cond <- location_factor(placement,
-                                            altitude_m,
-                                            distance_from_coast_km,
-                                            corrosion_category_index,
-                                            asset_type = hv_asset_category)
+    location_factor_cond <- 1
+
     # Expected life ------------------------------
     expected_life_years <- expected_life(normal_expected_life,
                                          duty_factor_cond,
@@ -100,56 +71,13 @@ pof_future_relay <-
     # Initial health score ----------------------------------------------------
     initial_health_score <- initial_health(b1, age)
 
-    # Measured conditions
-    mci_table_names <- list("partial_discharge" = "mci_hv_swg_distr_prtl_dischrg",
-                            "ductor_test" = "mci_hv_swg_distr_ductor_test",
-                            "oil_test" = "mci_hv_swg_distr_oil_test",
-                            "temp_reading" = "mci_hv_swg_distr_temp_reading",
-                            "trip_test" = "mci_hv_swg_distr_trip_test")
-
-    measured_condition_modifier <-
-      get_measured_conditions_modifier_hv_switchgear(asset_category,
-                                                     mci_table_names,
-                                                     measured_condition_inputs)
-
-    # Observed conditions -----------------------------------------------------
-
-    oci_table_names <- list("external_condition" = "oci_hv_swg_dist_swg_ext_cond",
-                            "oil_gas" = "oci_hv_swg_dist_oil_lek_gas_pr",
-                            "thermo_assment" = "oci_hv_swg_dist_thermo_assment",
-                            "internal_condition" = "oci_hv_swg_dist_swg_int_cond",
-                            "indoor_env" = "oci_hv_swg_dist_indoor_environ")
-
-    observed_condition_modifier <-
-      get_observed_conditions_modifier_hv_switchgear(asset_category,
-                                                     oci_table_names,
-                                                     observed_condition_inputs)
-
-    # Health score factor ---------------------------------------------------
-    health_score_factor <-
-      health_score_excl_ehv_132kv_tf(observed_condition_modifier$condition_factor,
-                                     measured_condition_modifier$condition_factor)
-
-    # Health score cap --------------------------------------------------------
-    health_score_cap <- min(observed_condition_modifier$condition_cap,
-                            measured_condition_modifier$condition_cap)
-
-    # Health score collar -----------------------------------------------------
-    health_score_collar <-  max(observed_condition_modifier$condition_collar,
-                                measured_condition_modifier$condition_collar)
-
-    # Health score modifier ---------------------------------------------------
-    health_score_modifier <- data.frame(health_score_factor,
-                                        health_score_cap,
-                                        health_score_collar)
-
     # Current health score ----------------------------------------------------
     current_health_score <-
       current_health(initial_health_score,
-                     health_score_modifier$health_score_factor,
-                     health_score_modifier$health_score_cap,
-                     health_score_modifier$health_score_collar,
-                     reliability_factor = reliability_factor)
+                     1,     # Condition Input Factor
+                     10,    # Condition Input Cap
+                     0.5,   # Condition Input Collar
+                     1)     # Realiability factor
 
     # Probability of failure ---------------------------------------------------
     probability_of_failure <- k *
