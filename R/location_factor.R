@@ -86,188 +86,187 @@ location_factor <- function(placement = "Default",
                             sub_division = NULL) {
 
 
-if (asset_type == "LV UGB" ||
-    asset_type == "33kV UG Cable (Non Pressurised)" ||
-    asset_type == "33kV UG Cable (Oil)" ||
-    asset_type == "33kV UG Cable (Gas)" ||
-    asset_type == "66kV UG Cable (Non Pressurised)" ||
-    asset_type == "66kV UG Cable (Oil)" ||
-    asset_type == "66kV UG Cable (Gas)" ||
-    asset_type == "132kV UG Cable (Non Pressurised)" ||
-    asset_type == "132kV UG Cable (Oil)" ||
-    asset_type == "132kV UG Cable (Gas)"  ){
+  if (asset_type == "LV UGB" ||
+      asset_type == "33kV UG Cable (Non Pressurised)" ||
+      asset_type == "33kV UG Cable (Oil)" ||
+      asset_type == "33kV UG Cable (Gas)" ||
+      asset_type == "66kV UG Cable (Non Pressurised)" ||
+      asset_type == "66kV UG Cable (Oil)" ||
+      asset_type == "66kV UG Cable (Gas)" ||
+      asset_type == "132kV UG Cable (Non Pressurised)" ||
+      asset_type == "132kV UG Cable (Oil)" ||
+      asset_type == "132kV UG Cable (Gas)"  ){
 
-  location_factor_asset <- 1
+    location_factor_asset <- 1
 
-} else {
-  # Find generic term -------------------------------------------------------
-  asset_category <- gb_ref$categorisation_of_assets$
-    `Health Index Asset Category`[which(gb_ref$
-                                          categorisation_of_assets$
-                                          `Asset Register Category` ==
-                                          asset_type)]
-
-  generic_term_1 <- gb_ref$generic_terms_for_assets$
-    `Generic Term...1`[which(gb_ref$
-                               generic_terms_for_assets$
-                               `Health Index Asset Category` ==
-                               asset_category)]
-
-
-
-  if (asset_category == "EHV OHL Conductor (Tower Lines)" ||
-      asset_category == "132kV OHL Conductor (Tower Lines)") {
-    generic_term_1 <- "Towers (Conductor)"
-  } else if (asset_category == "EHV OHL Fittings" ||
-             asset_category == "132kV OHL Fittings") {
-    generic_term_1 <- "Towers (Fittings)"
-  }else if (asset_category == "HV OHL Support - Poles" ||
-            asset_category == "EHV OHL Support - Poles" ||
-            asset_category == "LV OHL Support" ) {
-    # All the poles
-    if(sub_division %>% is.null())
-      stop("No sub division specified for the pole")
-    if(sub_division == "Steel")
-      generic_term_1 <- "Poles (Steel)"
-    if(sub_division == "Concrete")
-      generic_term_1 <- "Poles (Concrete)"
-    if(sub_division == "Wood")
-      generic_term_1 <- "Poles (Wood)"
-  }else if(asset_category == "EHV OHL Support - Towers" ||
-           asset_category == "132kV OHL Support - Tower"){
-    generic_term_1 <- "Towers (Structure)"
-  }
-  if (asset_category == "Overhead Line") {
-    stop(paste0("Asset type not implemented: ", asset_type))
-  }
-
-   # Altitude ----------------------------------------------------------------
-  altitude_factor_asset_df <- dplyr::select(gb_ref$altitude_factor_lut,
-                                            c("Lower", "Upper",
-                                              generic_term_1))
-  if (altitude_m == "Default") {
-    row_no <- which(altitude_factor_asset_df$Lower == "Default")
-  } else if (altitude_m <= 100) {
-    row_no <- which(altitude_factor_asset_df$Lower == "0")
-  } else if (100 < altitude_m && altitude_m <= 200) {
-    row_no <- which(altitude_factor_asset_df$Lower == "100")
-  } else if (200 < altitude_m && altitude_m <= 300) {
-    row_no <- which(altitude_factor_asset_df$Lower == "200")
   } else {
-    row_no <- which(altitude_factor_asset_df$Lower == "300")
-  }
+    # Find generic term -------------------------------------------------------
+    asset_category <- gb_ref$categorisation_of_assets$
+      `Health Index Asset Category`[which(gb_ref$
+                                            categorisation_of_assets$
+                                            `Asset Register Category` ==
+                                            asset_type)]
 
-  altitude_factor <-
-    as.numeric(altitude_factor_asset_df[row_no, generic_term_1])
+    generic_term_1 <- gb_ref$generic_terms_for_assets$
+      `Generic Term...1`[which(gb_ref$
+                                 generic_terms_for_assets$
+                                 `Health Index Asset Category` ==
+                                 asset_category)]
 
-  # Corrosion ----------------------------------------------------------------
-  corrosion_category_factor_a <-
-    dplyr::select(gb_ref$corrosion_category_factor_lut,
-                  c("Corrosion Category Index", generic_term_1))
 
-  if (corrosion_category_index == "Default") {
-    row_no <-
-      which(corrosion_category_factor_a$`Corrosion Category Index` ==
-              "Default")
-  } else if (corrosion_category_index == 1) {
-    row_no <- which(corrosion_category_factor_a$
-                      `Corrosion Category Index` == "1")
-  } else if (corrosion_category_index == 2) {
-    row_no <- which(corrosion_category_factor_a$
-                      `Corrosion Category Index` == "2")
-  } else if (corrosion_category_index == 3) {
-    row_no <- which(corrosion_category_factor_a$
-                      `Corrosion Category Index` == "3")
-  } else if (corrosion_category_index == 4) {
-    row_no <- which(corrosion_category_factor_a$
-                      `Corrosion Category Index` == "4")
-  }else if (corrosion_category_index == 5) {
-    row_no <- which(corrosion_category_factor_a$
-                      `Corrosion Category Index` == "5")
-  }
-  corrosion_factor <-
-    as.numeric(corrosion_category_factor_a[row_no, generic_term_1])
 
-  # Distance from coast -----------------------------------------------------
-  distance_from_coast_factor_lut <- gb_ref$distance_from_coast_factor_lut
-
-  distance_from_coast_factor_a <-
-    dplyr::select(distance_from_coast_factor_lut,
-                  c("Lower", "Upper", generic_term_1))
-
-  if (distance_from_coast_km == "Default") {
-    row_no <- which(distance_from_coast_factor_a$Lower == "Default")
-  } else if (distance_from_coast_km <= 1) {
-    row_no <- which(distance_from_coast_factor_a$Lower == "0")
-  } else if (1 < distance_from_coast_km && distance_from_coast_km <= 5) {
-    row_no <- which(distance_from_coast_factor_a$Lower == "1")
-  } else if (5 < distance_from_coast_km && distance_from_coast_km <= 10) {
-    row_no <- which(distance_from_coast_factor_a$Lower == "5")
-  } else if (10 < distance_from_coast_km && distance_from_coast_km <= 20) {
-    row_no <- which(distance_from_coast_factor_a$Lower == "10")
-  }else {
-    row_no <- which(distance_from_coast_factor_a$Lower == "20")
-  }
-  coast_factor <-
-    as.numeric(distance_from_coast_factor_a[row_no, generic_term_1])
-
-  # Increment constant ------------------------------------------------------
-  increment_constants <- gb_ref$increment_constants
-  inc_constant <- increment_constants[, generic_term_1]
-
-  # All factors -------------------------------------------------------------
-  factors <- c(coast_factor, corrosion_factor, altitude_factor)
-
-  # Location factor outdoor -------------------------------------------------
-  environment_indoor_outdoor <- gb_ref$environment_indoor_outdoor
-
-  if (placement == "Default") {
-    placement <-
-      environment_indoor_outdoor$
-      `Default 'environment' to be assumed when deriving Location Factor`[
-        which(
-          environment_indoor_outdoor$`Asset Register Category` == asset_type)]
-  }
-
-  if (placement == "Outdoor") {
-    if (max(factors) > 1) {
-      count_factor <- length(which(factors > 1))
-      location_factor_asset <- max(factors) +
-        ((count_factor - 1) * inc_constant)
-    } else {
-      location_factor_asset <- min(factors)
+    if (asset_category == "EHV OHL Conductor (Tower Lines)" ||
+        asset_category == "132kV OHL Conductor (Tower Lines)") {
+      generic_term_1 <- "Towers (Conductor)"
+    } else if (asset_category == "EHV OHL Fittings" ||
+               asset_category == "132kV OHL Fittings") {
+      generic_term_1 <- "Towers (Fittings)"
+    }else if (asset_category == "HV OHL Support - Poles" ||
+              asset_category == "EHV OHL Support - Poles" ||
+              asset_category == "LV OHL Support" ) {
+      # All the poles
+      if(sub_division %>% is.null())
+        stop("No sub division specified for the pole")
+      if(sub_division == "Steel")
+        generic_term_1 <- "Poles (Steel)"
+      if(sub_division == "Concrete")
+        generic_term_1 <- "Poles (Concrete)"
+      if(sub_division == "Wood")
+        generic_term_1 <- "Poles (Wood)"
+    }else if(asset_category == "EHV OHL Support - Towers" ||
+             asset_category == "132kV OHL Support - Tower"){
+      generic_term_1 <- "Towers (Structure)"
     }
-  } else if (placement == "Indoor") {
-    if (max(factors) > 1) {
-      count_factor <- length(which(factors > 1))
-      initial_location_factor <- max(factors) +
-        ((count_factor - 1) * inc_constant)
-    } else {
-      initial_location_factor <- min(factors)
+    if (asset_category == "Overhead Line") {
+      stop(paste0("Asset type not implemented: ", asset_type))
     }
 
-    min_coast_factor <-
-      min(as.numeric(distance_from_coast_factor_a[, generic_term_1]))
-    min_corrosion_factor <-
-      min(as.numeric(corrosion_category_factor_a[, generic_term_1]))
-    min_altitude_factor <-
-      min(as.numeric(altitude_factor_asset_df[, generic_term_1]))
-    min_initial_location_factors <-
-      c(min_coast_factor, min_corrosion_factor, min_altitude_factor)
-
-    if (max(min_initial_location_factors) > 1) {
-      count_min_factor <- length(which(min_initial_location_factors > 1))
-      min_initial_location_factor <- max(min_initial_location_factors) +
-        ((count_min_factor - 1) * inc_constant)
+    # Altitude ----------------------------------------------------------------
+    altitude_factor_asset_df <- dplyr::select(gb_ref$altitude_factor_lut,
+                                              c("Lower", "Upper",
+                                                generic_term_1))
+    if (altitude_m == "Default") {
+      row_no <- which(altitude_factor_asset_df$Lower == "Default")
+    } else if (altitude_m <= 100) {
+      row_no <- which(altitude_factor_asset_df$Lower == "-Inf")
+    } else if (100 < altitude_m && altitude_m <= 200) {
+      row_no <- which(altitude_factor_asset_df$Lower == "100")
+    } else if (200 < altitude_m && altitude_m <= 300) {
+      row_no <- which(altitude_factor_asset_df$Lower == "200")
     } else {
-      min_initial_location_factor <- min(min_initial_location_factors)
+      row_no <- which(altitude_factor_asset_df$Lower == "300")
     }
-    location_factor_asset <- 0.25 *
-      (initial_location_factor - min_initial_location_factor) +
-      min_initial_location_factor
-  }
 
-}
+    altitude_factor <-
+      as.numeric(altitude_factor_asset_df[row_no, ..generic_term_1])
+
+    # Corrosion ----------------------------------------------------------------
+    corrosion_category_factor_a <-
+      dplyr::select(gb_ref$corrosion_category_factor_lut,
+                    c("Corrosion Category Index", generic_term_1))
+
+    if (corrosion_category_index == "Default") {
+      row_no <-
+        which(corrosion_category_factor_a$`Corrosion Category Index` ==
+                "Default")
+    } else if (corrosion_category_index == 1) {
+      row_no <- which(corrosion_category_factor_a$
+                        `Corrosion Category Index` == "1")
+    } else if (corrosion_category_index == 2) {
+      row_no <- which(corrosion_category_factor_a$
+                        `Corrosion Category Index` == "2")
+    } else if (corrosion_category_index == 3) {
+      row_no <- which(corrosion_category_factor_a$
+                        `Corrosion Category Index` == "3")
+    } else if (corrosion_category_index == 4) {
+      row_no <- which(corrosion_category_factor_a$
+                        `Corrosion Category Index` == "4")
+    }else if (corrosion_category_index == 5) {
+      row_no <- which(corrosion_category_factor_a$
+                        `Corrosion Category Index` == "5")
+    }
+    corrosion_factor <-
+      as.numeric(corrosion_category_factor_a[row_no, ..generic_term_1])
+
+    # Distance from coast -----------------------------------------------------
+
+    distance_from_coast_factor_a <-
+      dplyr::select(gb_ref$distance_from_coast_factor_lut,
+                    c("Lower", "Upper", generic_term_1))
+
+    if (distance_from_coast_km == "Default") {
+      row_no <- which(distance_from_coast_factor_a$Lower == "Default")
+    } else if (distance_from_coast_km <= 1) {
+      row_no <- which(distance_from_coast_factor_a$Lower == "-Inf")
+    } else if (1 < distance_from_coast_km && distance_from_coast_km <= 5) {
+      row_no <- which(distance_from_coast_factor_a$Lower == "1")
+    } else if (5 < distance_from_coast_km && distance_from_coast_km <= 10) {
+      row_no <- which(distance_from_coast_factor_a$Lower == "5")
+    } else if (10 < distance_from_coast_km && distance_from_coast_km <= 20) {
+      row_no <- which(distance_from_coast_factor_a$Lower == "10")
+    }else {
+      row_no <- which(distance_from_coast_factor_a$Lower == "20")
+    }
+    coast_factor <-
+      as.numeric(distance_from_coast_factor_a[row_no, ..generic_term_1])
+
+    # Increment constant ------------------------------------------------------
+    increment_constants <- gb_ref$increment_constants
+    inc_constant <- increment_constants[, ..generic_term_1]
+
+    # All factors -------------------------------------------------------------
+    factors <- c(coast_factor, corrosion_factor, altitude_factor)
+
+    # Location factor outdoor -------------------------------------------------
+    environment_indoor_outdoor <- gb_ref$environment_indoor_outdoor
+
+    if (placement == "Default") {
+      placement <-
+        environment_indoor_outdoor$
+        `Default 'environment' to be assumed when deriving Location Factor`[
+          which(
+            environment_indoor_outdoor$`Asset Register Category` == asset_type)]
+    }
+
+    if (placement == "Outdoor") {
+      if (max(factors) > 1) {
+        count_factor <- length(which(factors > 1))
+        location_factor_asset <- max(factors) +
+          ((count_factor - 1) * inc_constant)
+      } else {
+        location_factor_asset <- min(factors)
+      }
+    } else if (placement == "Indoor") {
+      if (max(factors) > 1) {
+        count_factor <- length(which(factors > 1))
+        initial_location_factor <- max(factors) +
+          ((count_factor - 1) * inc_constant)
+      } else {
+        initial_location_factor <- min(factors)
+      }
+
+      min_coast_factor <-
+        min(distance_from_coast_factor_a[, ..generic_term_1])
+      min_corrosion_factor <-
+        min(corrosion_category_factor_a[, ..generic_term_1])
+      min_altitude_factor <-
+        min(altitude_factor_asset_df[, ..generic_term_1])
+      min_initial_location_factors <-
+        c(min_coast_factor, min_corrosion_factor, min_altitude_factor)
+
+      if (max(min_initial_location_factors) > 1) {
+        count_min_factor <- length(which(min_initial_location_factors > 1))
+        min_initial_location_factor <- max(min_initial_location_factors) +
+          ((count_min_factor - 1) * inc_constant)
+      } else {
+        min_initial_location_factor <- min(min_initial_location_factors)
+      }
+      location_factor_asset <- 0.25 *
+        (initial_location_factor - min_initial_location_factor) +
+        min_initial_location_factor
+    }
+
+  }
 
 
 
